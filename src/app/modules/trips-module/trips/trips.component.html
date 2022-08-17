@@ -1,0 +1,33 @@
+<ion-content class="trip-module-content">
+  <ion-header>
+    <ion-toolbar color="custom-color-red">
+    
+      <ion-buttons slot="start" style="position: absolute;">
+            <img class="backArrow" src="assets/icon/backarrowtop2.svg" (click)= "backTo()"/>
+          </ion-buttons>
+          <ion-title text-center class="trips-fnt">My Trips</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="tabs">
+    <p (click)= "upComingTrip()" [ngClass]="{'fontColorClass' : upComing != true}" [class.tabactive]="upComing" class="bordercls">Up Coming Trip</p>
+    <p (click)= "recentTrip()" [ngClass]="{'fontColorClass' : recent != true}" [class.tabactive]="recent" class="bordercls">Recent Trip</p>
+    <p (click)= "cancellTrip()" [ngClass]="{'fontColorClass' : cancel != true}" [class.tabactive]="cancel">Cancelled Trip</p>
+  </div>
+  <!-- <mat-button-toggle-group class="tabs">
+    <mat-button-toggle (click)= "upComingTrip()"  [ngClass]="{'fontColorClass' : upComing != true}"  [class.tabactive]="upComing">Up Coming Trips</mat-button-toggle>
+    <mat-button-toggle (click)= "recentTrip()"  [ngClass]="{'fontColorClass' : recent != true}" class="{{recent != true ? 'fontColorClass' : 'tabunactive'}}"  [class.tabactive]="recent">Recent Trips</mat-button-toggle>
+    <mat-button-toggle (click)= "cancellTrip()"  [ngClass]="{'fontColorClass' : cancel != true}" class="{{cancel != true ? 'fontColorClass' : 'tabunactive'}}" [class.tabactive]="cancel">Cancelled Trips</mat-button-toggle>
+  </mat-button-toggle-group> -->
+  <div *ngIf= "upComing" class="common-layer">
+    <app-up-coming-trip></app-up-coming-trip>
+  </div>
+  <div *ngIf= "recent" class="common-layer">
+    <app-recent-trip></app-recent-trip>
+  </div>
+  <div *ngIf= "cancel" class="common-layer">
+    <app-cancelled-trip></app-cancelled-trip>
+  </div>
+</ion-content>
+
+<app-fixed-footer></app-fixed-footer>

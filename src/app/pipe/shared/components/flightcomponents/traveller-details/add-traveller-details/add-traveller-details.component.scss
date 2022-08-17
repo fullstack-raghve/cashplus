@@ -1,0 +1,113 @@
+.traveller-details{
+    max-height: calc(100vh - 50px);
+    overflow-y: auto;
+}
+
+.backArrow{
+ margin: auto;
+}
+
+.custom-grid{   
+    text-align: center; 
+  //  margin-left: 10px;
+  //  margin-right: 10px;
+    background: #ffff;
+   border-radius: 5px;
+    margin-top: 5px;
+
+}
+.panel-card{
+   margin: 5px 5px 5px 5px;
+}
+.traveller{
+    margin: auto;
+     background:#949494 ;
+ }
+.adult{
+    margin-top: 5px;
+    text-align: start;
+    margin-left: 5px;
+    span{
+      font-size: 10px;
+    }
+}
+.fam-icon{
+    border-radius: 25px;
+    height: 50px;
+    width: 50px;
+}
+
+
+.icon-img{
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    border: 1px solid #949494;
+    background: rgba(222, 221, 221, 1) ;
+    margin-bottom: 12px;
+    margin-top: 5px;
+
+    .adult-icon{
+        padding-top: 10px;
+        background: rgba(222, 221, 221, 1) ;
+    }
+}
+/deep/ .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+    line-height: 30px !important;
+    padding: 0 12px;
+}
+/deep/ .mat-button-toggle-checked {
+  background: #F4B50B !important;
+}
+
+/deep/ .panel-card mat-expansion-panel ng-tns-c1-0{
+
+
+/deep/ .custom-grid mat-expansion-panel-header ng-tns-c2-1 ng-trigger ng-trigger-expansionHeight ng-star-inserted{
+  margin-left: 5px !important;
+  margin-right: 5px !important;
+}
+}
+ // footer //
+ .footer-content{
+    background: #000000;
+    max-height: 50px;
+    p{
+        color: #ffff;
+        margin-top: 0px
+    }
+    .crncy{
+        font-size: 12px
+    }
+    .price{
+        font-size: 18px;
+    }
+    .total{
+     color: #fff;
+     font-size: 10px
+    }
+    .arrow{
+        margin-top:0.4rem;
+    }
+  }
+    
+  ion-button{
+    --background: #ebb134;
+    color: #000000;
+    padding-left: 30px;
+    padding-bottom: 10px;
+    --background-activated:#ebb134;
+    --color-activated:#0000;
+}
+ /deep/ .mat-form-field-flex > .mat-form-field-infix { padding: 0.4em 0px !important;}
+ /deep/ .mat-form-field-label-wrapper { top: -1.5em; }
+
+/deep/.mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+    transform: translateY(-1.1em) scale(.75);
+    width: 133.33333%;
+}
+
+
+.mat-form-field-appearance-outline .mat-form-field-flex {
+margin: 0px !important;
+}

@@ -1,0 +1,124 @@
+<ion-row class="selection-row" no-padding>
+  <ion-header>
+    
+    <ion-toolbar text-center>
+      <ion-title class="title headwidth">
+
+        Select Dates</ion-title>
+      <ion-buttons slot="primary" class="btnholder" [hidden]="!returnDate">
+        <ion-button color="primary" (click)="submit()" class="pointer">
+          <span [hidden]="!returnDate">Done</span>
+          <!-- <span>Done</span> -->
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-col size="6" class="selection-col selection-cole5" no-padding
+    [ngClass]="{'bottom-border': departDate ? 'bottom-border-none': returnDate}">
+    <div class="selection " type="range">
+      <img src="assets/icons/flights/departureSmall_icon.svg" alt="Departing">
+      <p class="departing-section" *ngIf="departDate==null"> Departing</p>
+      <div class="dd-div" *ngIf="departDate!=null">
+        <!-- added 23-10  -->
+        <span class="date-d">{{departDate | date : 'd'}}</span>
+        <span class="date-m">{{departDate | date : ' MMM,yy'}}</span>
+        <!-- end -->
+        <p class="date-day">{{departDate | date:'EEEE'}}</p>
+      </div>
+    </div>
+
+  </ion-col>
+  <ion-col size="6" class="selection-col sel-col2 selection-cole5" no-padding [ngClass]="{'bottom-border': returnDate}">
+    <div class="selection">
+      <img src="assets/icons/flights/returningSmall_Icon.svg" alt="Add Retuning">
+      <p class="departing-section" *ngIf="returnDate==null">Add Returning</p>
+      <div class="dd-div" *ngIf="returnDate!=null">
+        <!-- <p>{{ (returnDate !== null) ? (returnDate | date: 'mediumDate') : "" }}
+          </p> -->
+        <!-- <p>{{ (returnDate == null) ?  "" : (returnDate | date: 'mediumDate') }}
+            </p> -->
+        <!-- added 23-10  -->
+        <span class="date-d">{{returnDate | date : 'd'}}</span>
+        <span class="date-m">{{returnDate | date : ' MMM,yy'}}</span>
+        <!-- end -->
+        <p class="date-day">{{returnDate | date:'EEEE'}}</p>
+      </div>
+    </div>
+
+  </ion-col>
+</ion-row>
+<div class="flex-container" no-padding>
+  <div>S</div>
+  <div>M</div>
+  <div>T</div>
+  <div>W</div>
+  <div>T</div>
+  <div>F</div>
+  <div>S</div>
+
+</div>
+<div class="flex-container bdr-non" no-padding>
+  <div class="months"></div>
+  <div class="holidays">HOLIDAYS</div>
+  <!-- {{dateValue}} -->
+
+</div>
+
+<ion-row class="selection-row" style="position: relative;" no-padding>
+
+  <ion-col class="" no-border no-padding>
+    <p-calendar #calendar  styleClass="rangeCalender"
+     [(ngModel)]="dateValue" 
+     [minDate]="minimumDate"
+      (onSelect)="dateRangeSelect(dateValue, date)"
+       #date name="dateValue" [maxDate]="mxDate" [numberOfMonths]= "13"
+      selectionMode="range"  [inline]= "true" >
+      <ng-template pTemplate="date" let-date  >
+
+        <p (click)= "holidayInfo(date)"   
+
+         tooltip="{{currentHolidayInfo?.holidayName}}" 
+         tooltip-class="toolMy" 
+         placement="top"
+          delay="500"
+          #activeClass style="display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0px;
+        border: 1pt solid transparent;
+        width: inherit;
+        height: inherit;
+        color: rgb(51, 51, 51);
+        width: -webkit-fill-available;
+      "
+          [ngClass]="{'activeBg': ((departDate | date : 'd') == date.day  && monthDepart ==  date.month ) || ((returnDate | date : 'd') == date.day && monthReturn == date.month),
+          'holiday': getSelected(date),'secondmonthColor': getSelectedDays(date)}">
+          {{date.day}}</p>
+
+           <!-- 'holiday': getSelected(date) -->
+          <!-- {{getSelected(date) ? date.month : ''}} -->
+
+      </ng-template>
+    </p-calendar>
+  </ion-col>
+
+
+</ion-row>
+
+<style>
+  .ui-datepicker table td>a {
+    padding: 10 !important;
+  }
+
+  .ui-datepicker table td>a,
+  body .ui-datepicker table td>span {
+    padding: 10px !important;
+  }
+
+  .ui-datepicker td>span,
+  .ui-datepicker td>a {
+    padding: 10px !important;
+  }
+
+</style>

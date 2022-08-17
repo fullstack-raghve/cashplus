@@ -1,0 +1,65 @@
+.mat-bottom-sheet-container {
+  padding: 0px 0px !important;
+  max-width: 90vw;
+  box-sizing: border-box;
+  display: block;
+  outline: 0;
+  max-height: 95vh !important;
+  overflow: auto;
+  //padding: 0px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  overflow-y: hidden !important;
+}
+
+mat-bottom-sheet-container {
+  padding: 0px 0px !important;
+  min-width: 100vw !important;
+  box-sizing: border-box;
+  display: block;
+  outline: 0;
+  max-height: 95vh !important;
+  overflow: auto;
+  //padding: 0px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  overflow-y: hidden !important;
+  // margin-bottom: 50px;
+}
+.setting-module {
+  max-height: calc(100vh - 50px);
+}
+.less-pad {
+  padding: 6px 0 0 6px;
+  position: relative;
+  right: 17px;
+}
+.arrow-right-pad {
+  padding: 10px 0 0 40px;
+  img {
+    width: 9px;
+  }
+}
+.pad {
+  padding: 12px 0px 7px 0px;
+}
+.pad0 {
+  padding: 0px !important;
+}
+.border-btm {
+  border-bottom: 1px solid #e3e3e3;
+}
+.item.sc-ion-label-ios-h,
+.item .sc-ion-label-ios-h {
+  font-family: latomedium;
+}
+//  /deep/.mat-bottom-sheet-container{max-width: 96vw !important;margin-bottom: 50px;}
+
+//  /deep/.cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
+//   opacity: 0.8;
+//   bottom: 60px;
+
+// }
+// /deep/.cdk-overlay-dark-backdrop {
+//   background: rgb(0, 0, 0);
+// }

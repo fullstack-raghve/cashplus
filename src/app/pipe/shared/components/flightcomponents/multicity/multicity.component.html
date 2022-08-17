@@ -1,0 +1,275 @@
+<ion-grid>
+  <!---new code using temp // multicty-->
+<form  (ngSubmit) = "multiFlight()" class="fromTo-card" style="margin-top: 0px; margin-left: -5px; margin-right: -5px; margin-bottom: -5px;">
+     <div class="card-inner pd-top-0"  *ngFor="let address of flightwidget; let i = index;" [ngClass]="{'borderwidth' : i == 0}">
+
+         <div class="form-block-row" style="min-height: 8pc;">
+          <ion-row no-padding>
+            <ion-col size="5" matRipple class="max_height">
+              <ion-label class="icon-block">
+                <img src="assets/icons/flights/origin_icon.svg" alt="Origin">
+                <p style="padding: 0px 8px 0px 8px;font-family: 'latobold'">Origin</p>
+              </ion-label>             
+              <ion-card-content (click)="openOriginList(i)" class="left-mrgin">
+             <div *ngIf = "i == 0">
+                <div *ngIf="flightwidget[i].origin">
+                 <p class="{{flightwidget[i].origin != 'From' ? 'text-align-cust':'text-align-custBg'}}">{{flightwidget[i].origin}}</p> 
+                <!-- <p class=" text-align-cust">{{flightwidget[i].origin}}</p> -->
+                <p class="air-name">
+                    {{flightwidget[i].OriginairportName | textlimit:25}}
+                </p>
+               </div>
+              </div>
+              <div *ngIf = "i == 1">
+                <div *ngIf="flightwidget[i].origin">
+                <p class="{{flightwidget[i].origin != 'From' ? 'text-align-cust':'text-align-custBg'}}">{{flightwidget[i].origin}}</p> 
+                <!-- <p class="text-align-cust">{{flightwidget[i].origin}}</p>  -->
+                <p class="air-name">
+                    {{flightwidget[i].OriginairportName | textlimit:25}}
+                </p>
+              </div>
+              </div>
+
+              <div *ngIf = "i>1">
+                <div *ngIf="flightwidget[i].origin">
+                 <p class="{{flightwidget[i].origin != 'From' ? 'text-align-cust':'text-align-custBg'}}">{{flightwidget[i].origin}}</p> 
+                <!-- <p class="text-align-cust">{{flightwidget[i].origin}}</p> -->
+                <p class="air-name">
+                    {{flightwidget[i].OriginairportName | textlimit:25}}
+                </p>
+               </div>
+              <div *ngIf="!flightwidget[i].origin">
+                <p class="text-align-cust">From</p>
+                <p class="air-name">
+Select Origin              </p>
+              </div>
+              </div>
+
+              </ion-card-content>
+            </ion-col>
+            <ion-col size="2" class="swap-col">
+              <div class="swap-icon">
+           <!-- <img src="assets/icons/flights/Onewayswap_icon.svg" alt="Origin" (click)="swap(i)"> -->
+                <img src="assets/icons/flights/swap_icon.svg" alt="Origin" (click)="swap(i)">              
+              </div>
+            </ion-col>
+            <ion-col size="5" matRipple class="max_height">
+            
+              <ion-label class="icon-block destination">
+                  <p class="right-txt dest" style="font-family: 'latobold'">Destination</p>
+                  <img src="assets/icons/flights/destination_icon.svg" alt="Destination">
+                </ion-label> 
+              <ion-card-content (click)="openDestinationList(i)">
+                  <div *ngIf = "i == 0" >
+                      <div *ngIf="flightwidget[i].destination">
+                          <p class="{{flightwidget[i].destination != 'To' ? 'code':'codeBg'}}"> {{flightwidget[i].destination}}</p> 
+                          <!-- <p class="code"> {{flightwidget[i].destination}}</p> -->
+                          <p class="right-txt air-name">
+                            {{flightwidget[i].DestinationairportName | textlimit:25}}
+                          </p>
+                  </div>
+                     </div>
+                    <div *ngIf = "i == 1">
+                      <div *ngIf="flightwidget[i].destination">
+                           <p class="{{flightwidget[i].destination != 'To' ? 'code':'codeBg'}}"> {{flightwidget[i].destination}}</p> 
+                           <!-- <p class= "code"> {{flightwidget[i].destination}}</p> -->
+                          <p class="right-txt air-name">
+                            {{flightwidget[i].DestinationairportName | textlimit:25}}
+                          </p>
+                  </div>
+                    </div>
+                    <div *ngIf = "i>1">
+                      <div *ngIf="flightwidget[i].destination">
+                          <p class="{{flightwidget[i].destination != 'To' ? 'code':'codeBg'}}"> {{flightwidget[i].destination}}</p> 
+                          <!-- <p class="code"> {{flightwidget[i].destination}}</p> -->
+                          <p class="right-txt air-name">
+                            {{flightwidget[i].DestinationairportName | textlimit:25}}
+                          </p>
+                  </div>
+                  <div *ngIf="!flightwidget[i].destination">
+                    <p class="code">To</p>
+                    <p class="right-txt air-name">
+Select Destination                    </p>
+            </div>
+                    </div>
+              </ion-card-content>
+            </ion-col>
+          </ion-row>
+        </div>    
+        <ion-row class="selection-row">
+          <ion-col size="6" matRipple [ngClass]="{'selected-date-formate': flightwidget[i].JourneyDate, 'selection-col': !flightwidget[i].JourneyDate}" (click)= "openCalender(i)">
+            <div>
+
+            <div class="selection sel-depart">                    <!-- [ngClass]="{'marginSet': flightwidget[i].JourneyDate && flightwidget[i].JourneyDate}" -->
+              <br>
+              <img src="assets/icons/flights/departing_icon.svg" alt="Departing"   class="depart-cal-icon" *ngIf="!flightwidget[i].JourneyDate">
+              <img src="assets/icons/flights/departing_icon.svg" alt="Departing" *ngIf="flightwidget[i].JourneyDate && flightwidget[i].JourneyDate">
+              <p *ngIf="!flightwidget[i].JourneyDate">Departing</p>
+              <p *ngIf="flightwidget[i].JourneyDate && flightwidget[i].JourneyDate" class="add-departing">Departing</p>
+            </div>
+            <div class="dd-div">
+              <!-- added 23-10  -->
+              <span class="date-d">{{flightwidget[i].JourneyDate | date : 'd'}}</span><span class="departing-mmyy">{{flightwidget[i].JourneyDate | date : ' MMM,yy'}}</span>
+              <!-- end -->
+              <p class="departing-day">{{flightwidget[i].JourneyDate | date : 'EEEE'}}</p>
+            </div>
+          </div>
+          </ion-col>
+          <ion-col size="6" matRipple class="selection-col economy-pad backdrop" no-padding>
+            <div class="cabin-selection no-crt">
+            <img src="assets/icons/flights/economy_icon.svg" alt="Economy">
+            <ion-select class="economy-select fontclass"  interface="action-sheet" name="economy" placeholder="Economy"  #C (ionChange)="onChange(C.value,i)" mode = "md" appNoArrow>
+            <ion-select-option *ngFor="let economy of economies ;let j= index " [value]=economy.economyId [selected]="j===flightwidget[i]['SelectedeconomyType']"> 
+              <span>{{economy.economyType}}</span>
+            </ion-select-option>
+            </ion-select>    
+            </div>
+        </ion-col> 
+          <!-- <ion-col size="6" matRipple class="selection-col backdrop" no-padding  *ngIf ="i==0">
+            <div class="selection no-crt" style="margin-top: 21px;">
+            <img src="assets/icons/flights/economy_icon.svg" alt="Economy"  class="EconomyIcon">
+            <ion-select class="economy-select fontclass"  interface="action-sheet" name="economy" placeholder="Economy"  #C (ionChange)="onChange(C.value,i)" mode = "md" style="margin-left: -5px;" appNoArrow>
+            <ion-select-option *ngFor="let economy of economies ;let j= index " [value]=economy.economyId [selected]="j===ccData"> 
+            <span>{{economy.economyType}}</span>
+            </ion-select-option>
+            </ion-select>
+            </div>
+        </ion-col> 
+         <ion-col size="6" matRipple class="selection-col backdrop" no-padding  *ngIf ="i!=0">
+          <div class="selection no-crt" style="margin-top: 21px;">
+          <img src="assets/icons/flights/economy_icon.svg" alt="Economy"  class="EconomyIcon">
+          <ion-select class="economy-select fontclass"  interface="action-sheet" name="economy" placeholder="Economy"  #C (ionChange)="onChange(C.value,i)" mode = "md" style="margin-left: -5px;" appNoArrow>
+          <ion-select-option *ngFor="let economy of economies ;let j= index " [value]=economy.economyId [selected]="j===1"> 
+          <span>{{economy.economyType}}</span>
+          </ion-select-option>
+          </ion-select>
+          </div>
+      </ion-col> -->
+       </ion-row>
+    </div> 
+    <!-- <ion-grid no-padding> -->
+      <ion-row  no-padding>
+          <ion-col no-padding size="6" class="remove"  *ngIf = "flightwidget.length > 2"> 
+              <div no-padding class="setMargin">
+                   <!-- <ion-button no-padding [ngClass]="{'no-pointer-class' : flightwidget.length == 2}" style="background-color: #e0e0e0;margin-right: -1px;" type="button" expand="full" class="grey-bg" (click)="removeAddress()"> -->
+                    <ion-button matRipple no-padding type="button" expand="full" class="remveClass grey-bg" [ngClass]="{'remveClass1' : flightwidget.length == 6}" (click)="removeAddress()">
+                    <ion-icon name="close"  style="width: 20px;color: #000000;"></ion-icon><P class="fontClass">Remove</P>
+                 </ion-button>
+                </div>
+          </ion-col>
+        <ion-col no-padding size="6" *ngIf = "flightwidget.length<6">
+          <div no-padding  class="setMargin">
+                <ion-button matRipple type="button" expand="full"  (click)= "addAddress()" class="addClass" [ngClass]="{'addClass1' : flightwidget.length < 3}">
+                   <ion-icon name="add" style="width: 20px;"></ion-icon><P class="fontClass">Add City</P>
+                </ion-button>
+          </div>                        
+        </ion-col>
+       
+      </ion-row>
+      <!-- <ion-row> -->
+          <ion-row class="selection-row">
+              <ion-col class="selection-col-full" matRipple (click)= "openTraveler()">
+                <div class="selection">
+                       <div class="traveller" >
+                          <div *ngIf="total_traveller==1" class="travel-icon">     
+                           <span>
+                             <img class="traveller-img" src="assets/icons/flights/traveller_icon.svg" alt="" style="width: 17px;">
+                           </span>
+                             <span class="num-travel" ><b>1</b> </span>
+                        </div>  
+                        <div  *ngIf="total_traveller >1" class="travel-icon">
+                          <span > 
+                            <img class="traveller-img" src="assets/icons/flights/group_user.svg" alt="">
+                          </span>
+                          <span class="num-travel">  <b> {{total_traveller}}</b></span> 
+                        </div>
+                          <span class="traveller-text">Traveller</span> 
+                          </div>
+                </div>
+              </ion-col>
+            </ion-row>
+            <!-- <ion-row>
+            <ion-col size="12">
+                <div class="bttn-block"> 
+                  <button type="submit" class="block-btnn">
+                  <img src="assets/icons/flights/letsfly_ico.svg" alt="Letsfly_icon"> LET’S FLY</button>
+                </div>
+                </ion-col>
+      </ion-row> -->
+
+      <div class="bttn-block">
+        <button matRipple matRipple type="submit" class="block-btnn">
+          <img src="assets/icons/flights/letsfly_ico.svg" alt="Letsfly_icon">
+          LET’S FLY
+        </button>
+
+      </div>
+
+  </form>
+    <!-- <div class="recent-search-block">
+      <div class="recent-search-header">
+        <h1>Recent Search</h1>
+        <span>Clear all</span>
+      </div>
+      <ion-row class="recent-search-row">
+        <ion-col size="2" class="recent-selection-col">
+          <div class="selection">
+            <img src="assets/icons/flights/recent-flight.svg" alt="Recent Flight">
+          </div>
+        </ion-col>
+        <ion-col size="10" class="recent-selection-col-full">
+          <ion-row class="recent-search-sub">
+            <ion-col size="5" class="recent-search-subcol">
+              <p class="location-code">DXB</p>
+              <span class="travel-date">28 Jun 2019</span>
+            </ion-col>
+            <ion-col size="2" class="recent-swap">
+              <img src="assets/icons/flights/Gray_swap_icon.svg" alt="">
+            </ion-col>
+            <ion-col size="5" class="recent-search-subcol">
+              <p class="location-code">DXB</p>
+              <span class="travel-date">28 Jun 2019</span>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+      <ion-row class="recent-search-row">
+        <ion-col size="2" class="recent-selection-col">
+          <div class="selection">
+            <img src="assets/icons/flights/recent-flight.svg" alt="Recent Flight">
+          </div>
+        </ion-col>
+        <ion-col size="10" class="recent-selection-col-full">
+          <ion-row class="recent-search-sub">
+            <ion-col size="5" class="recent-search-subcol">
+              <p class="location-code">DXB</p>
+              <span class="travel-date">28 Jun 2019</span>
+            </ion-col>
+            <ion-col size="2" class="recent-swap">
+              <img src="assets/icons/flights/Gray_swap_icon.svg" alt="">
+            </ion-col>
+            <ion-col size="5" class="recent-search-subcol">
+              <p class="location-code">DXB</p>
+              <span class="travel-date">28 Jun 2019</span>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </div> -->
+    <ion-row margin-top *ngIf="!widgetBannerMulti">
+      <ion-col size="12" no-padding>
+        <img class="roundcorner ion-margin-bottom" src="assets/icon/c700x420.jpg"> 
+    
+      </ion-col>
+    </ion-row>
+
+    <section margin-top class="iframe-container-multi" *ngIf="widgetBannerMulti">
+      <iframe [src]="widgetBannerMulti" width="100%" frameborder="0" class="responsive-iframe-multi"></iframe>
+    </section>
+    
+    <ion-footer class="footer_common_layer">
+      <ion-toolbar text-center>
+        <ion-title class="footer-backclr">&copy; Copyright {{footerYear}} Travelwings. All Rights Reserved</ion-title>
+      </ion-toolbar>
+    </ion-footer>
+  </ion-grid>

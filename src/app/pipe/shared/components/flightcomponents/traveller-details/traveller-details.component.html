@@ -1,0 +1,800 @@
+
+ <div *ngIf="!getReponse">
+  <p
+    style="
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    "
+  >
+    <ion-spinner name="lines"></ion-spinner>Loading ...
+  </p>
+</div>
+<ion-header *ngIf="getReponse">
+<ion-toolbar color="custom-color-red">
+  <ion-grid>
+    <ion-row style="display: flex; align-items: center;">
+      <ion-col size="2" size-sm>
+        <img
+          class="backArrow"
+          src="assets/icon/backarrowtop2.svg"
+          alt="Back"
+          style="width: 17px;"
+          (click)="backTo()"
+        />
+      </ion-col>
+      <ion-col size="8" size-sm>
+        <app-top-header></app-top-header>
+      </ion-col>
+      <ion-col class="right-img" size="2" size-sm>
+        <span>
+          <img
+            src="assets/icon/white_edit_icon.svg"
+            alt="Back"
+            class="edit-img"
+            (click)="editflight()"
+          />
+        </span>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-toolbar>
+</ion-header>
+<!-- *ngIf="!profileLoad" -->
+<ion-content *ngIf="getReponse" class="traveller-details ">
+<ion-grid no-padding class="bg-white">
+  <ion-row no-padding>
+    <!-- class="progress-pad" -->
+    <ion-col size="12" no-padding>
+      <div class="wrapper-progressBar">
+        <ul class="progressBar">
+          <li class="active"></li>
+          <li class="active"></li>
+          <li></li>
+        </ul>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+<ion-grid no-padding>
+  <ion-row no-padding>
+    <ion-col size="12" no-padding class="heading-font">
+      <p class="traveller-mar" text-center>Travellers Details</p>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+<div
+  *ngIf="(islogin == 'true' || islogin == true) && allGroupdata?.length != 0"
+>
+  <ion-card class="custom-card">
+    <ion-grid no-padding class="bg-white">
+      <ion-row class="bb">
+        <ion-col size="12" class="heading-font">
+          <p text-left class="group">Pick a Group</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-row>
+      <ion-col class="slider-pad">
+        <!--slide for group-->
+        <!-- *ngIf="group | checkTravellerCount:getAllTravellerCount" -->
+        <p *ngIf="loading">Group Loading...</p>
+        <p *ngIf="allGroupdata?.length == 0 && !loading">no group found</p>
+        <ion-slides *ngIf="allGroupdata?.length != 0" [options]="sliderOpts">
+          <ng-container *ngFor="let group of allGroupdata">
+            <ion-slide>
+              <div
+                class="traveler"
+                [ngClass]="{
+                  selectedGroup: currentSelectedGroupID == group['groupId']
+                }"
+                (click)="groupDetails(group, userdetail?.travlerGroup)"
+              >
+                <span
+                  matRipple
+                  [matRippleCentered]="true"
+                  [matRippleRadius]="50"
+                  [matRippleUnbounded]="true"
+                  class="group_image_body"
+                  *ngIf="group.groupeImagePath == ''"
+                >
+                  <img
+                    class="img-boxxx"
+                    src="assets/icons/flights/group1.png"
+                    alt="no-img"
+                  />
+                </span>
+                <span
+                  matRipple
+                  [matRippleCentered]="true"
+                  [matRippleRadius]="50"
+                  [matRippleUnbounded]="true"
+                  class="group_image_body"
+                  *ngIf="group.groupeImagePath != ''"
+                >
+                  <img
+                    class="img-boxxx"
+                    src="{{ group.groupeImagePath }}"
+                    alt="no-img"
+                  />
+                </span>
+                <p>{{ group.groupName }}</p>
+              </div>
+            </ion-slide>
+          </ng-container>
+        </ion-slides>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+</div>
+
+<div class="padding_bottom_footer">
+  <!-- *ngIf="!profileLoad" -->
+  <!-- [expanded]="step === i && travellerType == child" (opened)="open(i)" -->
+  <div [formGroup]="adultFormGroup" class="traveller_form">
+    <!-- Adult Data -->
+    <div class="content-container" *ngIf="adultArray.length != 0">
+      <ion-grid class="pad-top0">
+        <ion-row>
+          <ion-col
+            *ngFor="let car of adultArray; let i = index"
+            formArrayName="adultData"
+            style="padding-bottom: 0px;"
+            [id]="'adult_' + i"
+          >
+            <mat-accordion>
+              <mat-expansion-panel
+                [expanded]="
+                  currentIndexTraveller === i && travellerType == 'adult'
+                "
+                (opened)="travellerOpen(i, 'adult', 'adult_' + i)"
+                #matExpansionPanel
+                class="panel-card"
+                [ngClass]="{
+                  'border-active':
+                    adultFormGroup.get('adultData')['controls'][i].valid &&
+                    adultFormGroup.get('adultData')['controls'][i].dirty,
+                  'border-unactive':
+                    adultFormGroup.get('adultData')['controls'][i].dirty &&
+                    adultFormGroup.get('adultData')['controls'][i].invalid &&
+                    isSubmtted,
+                  warnig_form:
+                    adultFormGroup.get('adultData')['controls'][i].dirty &&
+                    adultFormGroup.get('adultData')['controls'][i].invalid &&
+                    (adultFormGroup.get('adultData')['controls'][i]?.value)[
+                      'isValue'
+                    ] &&
+                    isSubmtted
+                }"
+              >
+                <mat-expansion-panel-header matRipple class="custom-grid">
+                  <ion-grid class="custom-grid">
+                    <ion-row>
+                      <ion-col size="2">
+                        <div class="circle-grey">
+                          <img 
+                            class="adult-icon"
+                            *ngIf="
+                              adultFormGroup.get('adultData')['controls'][i]
+                                .dirty &&
+                              ((adultFormGroup.get('adultData')['controls'][i]
+                                ?.value)['tittle'] != '' ||
+                                adultFormGroup.get('adultData')['controls'][i]
+                                  .value['userImage'] != '')
+                            "
+                            [src]=" (adultFormGroup.get('adultData')['controls'][i]
+                            ?.value)['travellerDataNew'] != null && (adultFormGroup.get('adultData')['controls'][i]
+                            ?.value)['travellerDataNew']['isPrimaryTraveller'] == 1 && (adultFormGroup.get('adultData')['controls'][i]
+                            ?.value)['travellerDataNew']['travellerType'] == null && ((adultFormGroup.get('adultData')['controls'][i]
+                            ?.value)['travellerDataNew']['title'] == null || (adultFormGroup.get('adultData')['controls'][i]
+                            ?.value)['travellerDataNew']['title'] == '') && ((adultFormGroup.get('adultData')['controls'][i]
+                            ?.value)['tittle'] == '' || (adultFormGroup.get('adultData')['controls'][i]
+                            ?.value)['tittle'] == null) && ((adultFormGroup.get('adultData')['controls'][i]
+                            ?.value)['userImage'] == null || (adultFormGroup.get('adultData')['controls'][i]
+                            ?.value)['userImage'] == '')  ? 'assets/icons/flights/flaticon.svg' : 
+                              (adultFormGroup.get('adultData')['controls'][i]
+                                ?.value)['userImage'] != ''
+                                ? adultFormGroup.get('adultData')['controls'][
+                                    i
+                                  ].value['userImage']
+                                : (adultFormGroup.get('adultData')[
+                                    'controls'
+                                  ][i]?.value)['tittle'] == 0 ||
+                                  (adultFormGroup.get('adultData')[
+                                    'controls'
+                                  ][i]?.value)['tittle'] == 4
+                                ? adult_male_icon_dummy
+                                : adult_female_icon_dummy
+                            "
+                            class="adult-icon"
+                            alt="adult"
+                          />
+
+                          <img
+                            *ngIf="
+                              (adultFormGroup.get('adultData')['controls'][i]
+                                ?.value)['tittle'] == '' &&
+                              adultFormGroup.get('adultData')['controls'][i]
+                                .value['userImage'] == ''
+                            "
+                            src="assets/icons/flights/adult_icon.svg"
+                            class="adult-icon"
+                            alt="dummy_icon_adult"
+                          />
+                        </div>
+                      </ion-col>
+                      <ion-col size="5" class="adult">
+                        <ion-label class="passnger_name">
+                          {{
+                            (adultFormGroup.get("adultData")["controls"][i]
+                              ?.value)["firstName"] != ""
+                              ? ((adultFormGroup.get("adultData")["controls"][
+                                  i
+                                ]?.value)["firstName"] +
+                                  "&nbsp;" +
+                                  (adultFormGroup.get("adultData")[
+                                    "controls"
+                                  ][i]?.value)["lastName"] | stringLimit: 30)
+                              : "Adult" + "&nbsp;" + (i + 1)
+                          }}
+                        </ion-label>
+                      </ion-col>
+                      <ion-col size="4" class="arrow-icon active_icon_adult">
+                        <span
+                          *ngIf="
+                            adultFormGroup.get('adultData')['controls'][i]
+                              .valid &&
+                            adultFormGroup.get('adultData')['controls'][i]
+                              .dirty &&
+                              (infantArray.length != 0 && adultFormGroup.get('infantData')['controls'][i]?
+                              ((adultFormGroup.get('infantData')['controls'][i]?.value)['firstName'].length +
+                             (adultFormGroup.get('infantData')['controls'][i]?.value)['lastName'].length +
+                             ((adultFormGroup.get('infantData')['controls'][i]?.value)['tittle']  == 3 ? 4 : 6)+
+                              (adultFormGroup.get('adultData')['controls'][i]?.value)['firstName'].length +
+                              (adultFormGroup.get('adultData')['controls'][i]?.value)['lastName'].length +
+                              ((adultFormGroup.get('adultData')['controls'][i]?.value)['tittle']  == 2 ? 4 : 3)+10) <= 50 : 
+                              (adultFormGroup.get('adultData')['controls'][i]?.value)['firstName'].length +
+                              (adultFormGroup.get('adultData')['controls'][i]?.value)['lastName'].length +
+                              ((adultFormGroup.get('adultData')['controls'][i]?.value)['tittle']  == 2 ? 4 : 3) <= dataobj)">
+                               <ion-icon
+                            name="checkmark-circle"
+                            style="margin-top: 9px;"></ion-icon>
+                        </span>
+                        <span
+                          class="warning_message"
+                          *ngIf="
+                            adultFormGroup.get('adultData')['controls'][i]
+                              .dirty &&
+                            adultFormGroup.get('adultData')['controls'][i]
+                              .invalid &&
+                            isSubmtted
+                            ||
+                            (infantArray.length != 0 && adultFormGroup.get('infantData')['controls'][i] ?
+                            ((adultFormGroup.get('infantData')['controls'][i]?.value)['firstName'].length +
+                           (adultFormGroup.get('infantData')['controls'][i]?.value)['lastName'].length +
+                           ((adultFormGroup.get('infantData')['controls'][i]?.value)['tittle']  == 3 ? 4 : 6)+
+                            (adultFormGroup.get('adultData')['controls'][i]?.value)['firstName'].length +
+                            (adultFormGroup.get('adultData')['controls'][i]?.value)['lastName'].length +
+                            ((adultFormGroup.get('adultData')['controls'][i]?.value)['tittle']  == 2 ? 4 : 3)+10) > 50 : 
+                            (adultFormGroup.get('adultData')['controls'][i]?.value)['firstName'].length +
+                            (adultFormGroup.get('adultData')['controls'][i]?.value)['lastName'].length +
+                            ((adultFormGroup.get('adultData')['controls'][i]?.value)['tittle']  == 2 ? 4 : 3) > dataobj)">
+                          <span class="info_message">More info Required
+                          </span> 
+                          <ion-icon class="icon" name="alert"></ion-icon>
+                        </span>
+                       <!-- <span
+                          class="warning_message"
+                          *ngIf="
+                          (adultFormGroup.get('adultData')['controls'][i]?.value)['firstName'].length > 4"
+                          
+                        >
+                          <span class="info_message"
+                            >More info Required
+                          </span>
+                          <ion-icon class="icon" name="alert"></ion-icon>
+                        </span> -->
+                       
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                </mat-expansion-panel-header>
+                <button
+                  matRipple
+                  *ngIf="islogin == 'true' || islogin == true"
+                  (click)="
+                    opensheet(
+                      i,
+                      'Adult',
+                      matExpansionPanel,
+                      adultFormGroup.get('adultData')['controls']
+                    )
+                  "
+                  class="add_traller_inside_panel"
+                >
+                  {{
+                    adultFormGroup.get("adultData")["controls"][i].value
+                      ?.getIsTravellerSelected
+                      ? "Change Traveller"
+                      : "Pick Traveller"
+                  }}
+                </button>
+                <!-- #panelH (click)="panelH._toggle()" -->
+                <!-- panelH._toggle(); -->
+                <app-add-adult
+                  [indexadult]="i"
+                  [addAdultData]="obj"
+                  [formControlName]="i"
+                ></app-add-adult>
+
+                <!-- <pre> -->
+
+                <!-- form=> {{adultFormGroup.get('adultData')['controls'][i].valid }} -->
+                <!-- form dirty=>  {{adultFormGroup.get('adultData')['controls'][i].value | json }} -->
+                <!-- form invalid=> {{adultFormGroup.get('adultData')['controls'][i].invalid }}
+   form pristine=> {{adultFormGroup.get('adultData')['controls'][i].pristine}}
+   form untouched=> {{adultFormGroup.get('adultData')['controls'][i].untouched}}
+    form touched{{adultFormGroup.get('adultData')['controls'][i].touched}}
+    required=>{{adultFormGroup.get('adultData')['controls'][i].require }} -->
+                <!-- IS Invalid - {{ getValidity(i) }} -->
+                <!-- </pre> -->
+              </mat-expansion-panel>
+            </mat-accordion>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+
+    <!-- Child Data -->
+    <div class="content-container" *ngIf="ChildArray.length != 0">
+      <ion-grid class="pad-top0">
+        <ion-row>
+          <ion-col
+            *ngFor="let car of ChildArray; let i = index"
+            formArrayName="childData"
+            [id]="'child' + i"
+            style="padding-bottom: 0px;"
+          >
+            <mat-accordion>
+              <mat-expansion-panel
+                [expanded]="
+                  currentIndexTraveller === i && travellerType == 'child'
+                "
+                (opened)="travellerOpen(i, 'child', 'child' + i)"
+                #matExpansionPanel
+                class="panel-card"
+                [ngClass]="{
+                  'border-active':
+                    adultFormGroup.get('childData')['controls'][i].valid &&
+                    adultFormGroup.get('childData')['controls'][i].dirty,
+                  'border-unactive':
+                    adultFormGroup.get('childData')['controls'][i].dirty &&
+                    adultFormGroup.get('childData')['controls'][i].invalid &&
+                    isSubmtted,
+                  warnig_form:
+                    adultFormGroup.get('childData')['controls'][i].dirty &&
+                    adultFormGroup.get('childData')['controls'][i].invalid &&
+                    (adultFormGroup.get('childData')['controls'][i]?.value)[
+                      'isValue'
+                    ] &&
+                    isSubmtted
+                }"
+              >
+                <mat-expansion-panel-header matRipple class="custom-grid">
+                  <ion-grid class="custom-grid">
+                    <ion-row>
+                      <ion-col size="2">
+                        <div class="circle-grey">
+                          <img
+                            class="adult-icon"
+                            *ngIf="
+                              adultFormGroup.get('childData')['controls'][i]
+                                .dirty &&
+                              ((adultFormGroup.get('childData')['controls'][i]
+                                ?.value)['tittle'] != '' ||
+                                adultFormGroup.get('childData')['controls'][i]
+                                  .value['userImage'] != '')
+                            "
+                            [src]="
+                              adultFormGroup.get('childData')['controls'][i]
+                                .value['userImage'] != ''
+                                ? adultFormGroup.get('childData')['controls'][
+                                    i
+                                  ].value['userImage']
+                                : (adultFormGroup.get('childData')[
+                                    'controls'
+                                  ][i]?.value)['tittle'] == 0 ||
+                                  (adultFormGroup.get('childData')[
+                                    'controls'
+                                  ][i]?.value)['tittle'] == 4
+                                ? child_male_icon_dummy
+                                : child_female_icon_dummy
+                            "
+                            class="adult-icon"
+                            alt="main_adult"
+                          />
+                          <img
+                            *ngIf="
+                              (adultFormGroup.get('childData')['controls'][i]
+                                ?.value)['tittle'] == '' &&
+                              adultFormGroup.get('childData')['controls'][i]
+                                .value['userImage'] == ''
+                            "
+                            src="assets/icons/flights/adult_icon.svg"
+                            class="adult-icon"
+                            alt="dummy_child"
+                          />
+                        </div>
+                      </ion-col>
+                      <ion-col size="5" class="adult">
+                        <ion-label class="passnger_name">
+                          {{
+                            (adultFormGroup.get("childData")["controls"][i]
+                              ?.value)["firstName"] != ""
+                              ? ((adultFormGroup.get("childData")["controls"][
+                                  i
+                                ]?.value)["firstName"] +
+                                  "&nbsp;" +
+                                  (adultFormGroup.get("childData")[
+                                    "controls"
+                                  ][i]?.value)["lastName"] | stringLimit: 30)
+                              : "Child" + "&nbsp;" + (i + 1)
+                          }}
+                        </ion-label>
+                      </ion-col>
+                      <ion-col size="4" class="arrow-icon active_icon_adult">
+                        <span
+                          *ngIf="
+                            adultFormGroup.get('childData')['controls'][i]
+                              .valid &&
+                            adultFormGroup.get('childData')['controls'][i]
+                              .dirty &&
+                              ((adultFormGroup.get('childData')['controls'][i]?.value)['firstName'].length +
+                              (adultFormGroup.get('childData')['controls'][i]?.value)['lastName'].length +
+                              ((adultFormGroup.get('childData')['controls'][i]?.value)['tittle']  == 3 ? 4 : 6) <= dataobj)">
+                          <ion-icon
+                            name="checkmark-circle"
+                            style="margin-top: 9px;"
+                          >
+                          </ion-icon>
+                        </span>
+                        <span
+                          class="warning_message"
+                          *ngIf="
+                            adultFormGroup.get('childData')['controls'][i]
+                              .dirty &&
+                            adultFormGroup.get('childData')['controls'][i]
+                              .invalid &&
+                            isSubmtted ||
+                            ((adultFormGroup.get('childData')['controls'][i]?.value)['firstName'].length +
+                             (adultFormGroup.get('childData')['controls'][i]?.value)['lastName'].length +
+                             ((adultFormGroup.get('childData')['controls'][i]?.value)['tittle']  == 3 ? 4 : 6)> dataobj)">
+                          <span class="info_message">More info Required</span>
+                          <ion-icon class="icon" name="alert"></ion-icon>
+                        </span>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                </mat-expansion-panel-header>
+                <button
+                  matRipple
+                  *ngIf="islogin == 'true' || islogin == true"
+                  (click)="
+                    opensheet(
+                      i,
+                      'child',
+                      matExpansionPanel,
+                      adultFormGroup.get('childData')['controls']
+                    )
+                  "
+                  class="add_traller_inside_panel"
+                >
+                  {{
+                    adultFormGroup.get("childData")["controls"][i].value
+                      ?.getIsTravellerSelected
+                      ? "Change Traveller"
+                      : "Pick Traveller"
+                  }}
+                </button>
+                <app-add-child
+                  [indexchild]="i"
+                  [addchildData]="obj"
+                  [formControlName]="i"
+                ></app-add-child>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+
+    <!-- Infant Data -->
+    <div class="content-container" *ngIf="infantArray.length != 0">
+      <ion-grid class="pad-top0">
+        <ion-row>
+          <ion-col
+            *ngFor="let car of infantArray; let i = index"
+            formArrayName="infantData"
+            [id]="'infant' + i"
+            style="padding-bottom: 0px;"
+          >
+            <mat-accordion>
+              <mat-expansion-panel
+                [expanded]="
+                  currentIndexTraveller === i && travellerType == 'infant'
+                "
+                (opened)="travellerOpen(i, 'infant', 'infant' + i)"
+                #matExpansionPanel
+                lclass="panel-card"
+                [ngClass]="{
+                  'border-active':
+                    adultFormGroup.get('infantData', matExpansionPanel)[
+                      'controls'
+                    ][i].valid &&
+                    adultFormGroup.get('infantData')['controls'][i].dirty,
+                  'border-unactive':
+                    adultFormGroup.get('infantData')['controls'][i].dirty &&
+                    adultFormGroup.get('infantData')['controls'][i].invalid &&
+                    isSubmtted,
+                  warnig_form:
+                    adultFormGroup.get('infantData')['controls'][i].dirty &&
+                    adultFormGroup.get('infantData')['controls'][i].invalid &&
+                    (adultFormGroup.get('infantData')['controls'][i]?.value)[
+                      'isValue'
+                    ] &&
+                    isSubmtted
+                }"
+              >
+                <mat-expansion-panel-header matRipple class="custom-grid">
+                  <ion-grid class="custom-grid">
+                    <ion-row>
+                      <ion-col size="2">
+                        <div class="circle-grey">
+                          <img
+                            class="adult-icon"
+                            *ngIf="
+                              adultFormGroup.get('infantData')['controls'][i]
+                                .dirty &&
+                              ((adultFormGroup.get('infantData')['controls'][
+                                i
+                              ]?.value)['tittle'] != '' ||
+                                adultFormGroup.get('infantData')['controls'][
+                                  i
+                                ].value['userImage'] != '')
+                            "
+                            [src]="
+                              adultFormGroup.get('infantData')['controls'][i]
+                                .value['userImage']
+                                ? adultFormGroup.get('infantData')[
+                                    'controls'
+                                  ][i].value['userImage']
+                                : (adultFormGroup.get('infantData')[
+                                    'controls'
+                                  ][i]?.value)['tittle'] == 0 ||
+                                  (adultFormGroup.get('infantData')[
+                                    'controls'
+                                  ][i]?.value)['tittle'] == 4
+                                ? infant_male_icon_dummy
+                                : infant_female_icon_dummy
+                            "
+                            class="adult-icon"
+                            alt="adult"
+                          />
+                          <img
+                            *ngIf="
+                              (adultFormGroup.get('infantData')['controls'][i]
+                                ?.value)['tittle'] == '' &&
+                              adultFormGroup.get('infantData')['controls'][i]
+                                .value['userImage'] == ''
+                            "
+                            src="assets/icons/flights/adult_icon.svg"
+                            class="adult-icon"
+                            alt="dummy_ifant"
+                          />
+                        </div>
+                      </ion-col>
+                      <ion-col size="5" class="adult">
+                        <ion-label class="passnger_name">
+                          {{
+                            (adultFormGroup.get("infantData")["controls"][i]
+                              ?.value)["firstName"] != ""
+                              ? ((adultFormGroup.get("infantData")[
+                                  "controls"
+                                ][i]?.value)["firstName"] +
+                                  "&nbsp;" +
+                                  (adultFormGroup.get("infantData")[
+                                    "controls"
+                                  ][i]?.value)["lastName"] | stringLimit: 30)
+                              : "Infant" + "&nbsp;" + (i + 1)
+                          }}
+                        </ion-label>
+                      </ion-col>
+                      <ion-col size="4" class="arrow-icon active_icon_adult">
+                        <span
+                          *ngIf="
+                            adultFormGroup.get('infantData',matExpansionPanel)['controls'][i].valid &&
+                            adultFormGroup.get('infantData')['controls'][i].dirty  &&
+                              ((adultFormGroup.get('infantData')['controls'][i]?.value)['firstName'].length +
+                              (adultFormGroup.get('infantData')['controls'][i]?.value)['lastName'].length +
+                              ((adultFormGroup.get('infantData')['controls'][i]?.value)['tittle']  == 3 ? 4 : 6)+
+                               (adultFormGroup.get('adultData')['controls'][i]?.value)['firstName'].length +
+                               (adultFormGroup.get('adultData')['controls'][i]?.value)['lastName'].length +
+                               ((adultFormGroup.get('adultData')['controls'][i]?.value)['tittle']  == 2 ? 4 : 3)+10) <= 50">
+                          <ion-icon
+                            name="checkmark-circle"
+                            style="margin-top: 9px;">
+                          </ion-icon>
+                        </span>
+                        <span
+                          class="warning_message"
+                          *ngIf="
+                            adultFormGroup.get('infantData')['controls'][i]
+                              .dirty &&
+                            adultFormGroup.get('infantData')['controls'][i]
+                              .invalid &&
+                            isSubmtted ||
+                            ((adultFormGroup.get('infantData')['controls'][i]?.value)['firstName'].length +
+                              (adultFormGroup.get('infantData')['controls'][i]?.value)['lastName'].length +
+                              ((adultFormGroup.get('infantData')['controls'][i]?.value)['tittle']  == 3 ? 4 : 6)+
+                               (adultFormGroup.get('adultData')['controls'][i]?.value)['firstName'].length +
+                               (adultFormGroup.get('adultData')['controls'][i]?.value)['lastName'].length +
+                               ((adultFormGroup.get('adultData')['controls'][i]?.value)['tittle']  == 2 ? 4 : 3)+10) > 50">
+                          <span class="info_message">More info Required</span>
+                          <ion-icon class="icon" name="alert"></ion-icon>
+                        </span>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                </mat-expansion-panel-header>
+                <button
+                  matRipple
+                  *ngIf="islogin == 'true' || islogin == true"
+                  (click)="
+                    opensheet(
+                      i,
+                      'Infant',
+                      matExpansionPanel,
+                      adultFormGroup.get('infantData')['controls']
+                    )
+                  "
+                  class="add_traller_inside_panel"
+                >
+                  {{
+                    adultFormGroup.get("infantData")["controls"][i].value
+                      ?.getIsTravellerSelected
+                      ? "Change Traveller"
+                      : "Pick Traveller"
+                  }}
+                </button>
+                <app-add-infant
+                  [indexinfant]="i"
+                  [adulttravller]="sendTravellerData"
+                  [addinfantData]="obj"
+                  [formControlName]="i"
+                >
+                </app-add-infant>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <!--       
+ <pre>
+      valid => 
+      form=> {{adultFormGroup.valid}}
+     adult=> {{adultFormGroup.get('adultData').valid }}
+     child=> {{adultFormGroup.get('childData').valid}}
+     infant=> {{adultFormGroup.get('infantData').valid}}
+      </pre>
+    <pre>
+    {{ adultFormGroup.getRawValue() | json }}
+</pre> -->
+    <!-- <pre>
+  form=>  {{ adultFormGroup.getRawValue() | json }}
+</pre> -->
+  </div>
+</div>
+<!-- <button type="button" class="proceed-btn" (click)="continue_adult(adultFormGroup)">
+  PROCEED
+</button> -->
+</ion-content>
+<!-- *ngIf="!profileLoad" -->
+<!--new footer start-->
+<footer *ngIf="tripType == 'oneway' && selectedflight && !profileLoad && getReponse">
+<div class="main-container">
+  <div class="left-container" *ngIf="!setButtonClose" (click)="fareDetails()">
+    <div>
+      <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+    </div>
+    <div class="footer-item">
+      <div>
+        <span class="aed-text">{{ selectedflight2.flightFare.currency }} </span>
+        <span class="amount">{{ displayfareoneway  | roundUpPrice }}</span>
+      </div>
+      <div class="g-total">Grand Total</div>
+    </div>
+  </div>
+  <div class="left-container" *ngIf="setButtonClose" (click)="closePopup()">
+    <div>
+      <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+    </div>
+    <div class="footer-item">
+      <div>
+        <span class="aed-text">{{ selectedflight2.flightFare.currency }} </span>
+        <span class="amount">{{ displayfareoneway  | roundUpPrice }}</span>
+      </div>
+      <div class="g-total">Grand Total</div>
+    </div>
+  </div>
+  <div class="right-container">
+    <button class="rqst-button rqst-button-padding"  matRipple  (click)="continue_adult(adultFormGroup)">PROCEED</button>
+  </div>
+</div>
+</footer>
+
+<footer *ngIf="tripType == 'returnway' && selectedflightreturnway && !profileLoad" >
+<div class="main-container">
+  <div class="left-container" *ngIf="!setButtonClose" (click)="fareDetails()">
+    <div (click)="fareDetails()">
+      <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+    </div>
+    <div class="footer-item">
+      <div>
+        <span class="aed-text">{{ returnwaycurreny}}  </span>
+        <span class="amount"> {{ cprice  | roundUpPrice }}</span>
+      </div>
+      <div class="g-total">Grand Total</div>
+    </div>
+  </div>
+  <div class="left-container" *ngIf="setButtonClose" (click)="closePopup()">
+    <div >
+      <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+    </div>
+    <div class="footer-item">
+      <div>
+        <span class="aed-text">{{ returnwaycurreny}}  </span>
+        <span class="amount"> {{ cprice  | roundUpPrice }}</span>
+      </div>
+      <div class="g-total">Grand Total</div>
+    </div>
+  </div>
+  <div class="right-container">
+    <button class="rqst-button rqst-button-padding"  matRipple   (click)="continue_adult(adultFormGroup)">PROCEED</button>
+  </div>
+</div>
+</footer>
+
+<footer *ngIf="tripType == 'multicity' && multiflight && !profileLoad && getReponse">
+<div class="main-container">
+  <div class="left-container" *ngIf="!setButtonClose" (click)="fareDetails()">
+    <div (click)="fareDetails()">
+      <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+    </div>
+    <div class="footer-item">
+      <div>
+        <span class="aed-text"> {{ multiCityCurrency}} </span>
+        <span class="amount"> {{ multiflightFare  | roundUpPrice }}</span>
+      </div>
+      <div class="g-total">Grand Total</div>
+    </div>
+  </div>
+  <div class="left-container" *ngIf="setButtonClose" (click)="closePopup()">
+    <div >
+      <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+    </div>
+    <div class="footer-item">
+      <div>
+        <span class="aed-text"> {{ multiCityCurrency}} </span>
+        <span class="amount"> {{ multiflightFare  | roundUpPrice }}</span>
+      </div>
+      <div class="g-total">Grand Total</div>
+    </div>
+  </div>
+  <div class="right-container">
+    <button class="rqst-button rqst-button-padding"  matRipple (click)="continue_adult(adultFormGroup)">PROCEED</button>
+  </div>
+</div>
+</footer>

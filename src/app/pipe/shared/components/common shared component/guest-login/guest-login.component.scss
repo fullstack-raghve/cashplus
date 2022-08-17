@@ -1,0 +1,351 @@
+modal-wrapper {
+  background: transparent !important;
+}
+
+.main-view {
+  background: transparent;
+  width: 95%;
+  margin: auto;
+}
+.main-view-sign-up{
+  width: 100%;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.91);
+}
+
+.modal_content {
+  display: block;
+  position: fixed;
+  top: calc(50% - (75%/2));
+  width: 100%;
+  padding: 10px;
+  z-index: 1;
+  margin: 0 auto;
+  padding: 10px;
+  left: 0px;
+}
+
+.closemodal {
+  float: right;
+  font-size: 12px;
+  padding-top: 3px;
+  position: relative;
+    right: 6px;
+}
+
+.light-blue {
+  color: #3288d0;
+  font-family: 'Latomedium';
+  font-size: 14px;
+  padding-bottom: 1rem;
+}
+
+.login-with {
+  color: #949393;
+  border: 1px solid #c4c4c4;
+  width: 123px;
+  margin: 0px auto;
+  padding: 4px 3px;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.socio-icons-block {
+  justify-content: space-around;
+  padding-bottom: 5px;
+  display: inline-flex;
+
+  .facebook-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 5px;
+    background-color: #3b5998;
+    margin: 32px 0px 18px auto;
+
+    img {
+      width: 13px !important;
+      margin: 9px auto;
+      /*padding: 2px;
+      width: 15px !important;
+      margin-top: 8px;*/
+    }
+  }
+
+  .google-plus-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 5px;
+    background-color: #dd4b39;
+    margin: 32px 0px 18px auto;
+    margin-left: 10px;
+
+    img {
+      padding: 2px;
+      width: 33px !important;
+      height: 23px;
+      margin-top: 10px;
+      margin-left: 3px;
+    }
+  }
+
+}
+
+.blue-snackbar {
+  background: #2196F3;
+}
+
+.button {
+  --background: #ebb134 !important;
+  --color: #000000;
+  --vertical-align: middle;
+  --padding-start: 10px;
+  --padding-end: 10px;
+  --padding-left: 10px;
+  --padding-right: 10px;
+  height: 40px;
+  --background-activated: #ebb134;
+  --color-activated: #0000;
+}
+
+.btn-margin {
+  margin: 20px 0;
+  font-family: 'latoregular';
+}
+
+//  /deep/ .ios button button-block button-solid ion-activatable ion-focusable{
+//   --background :#ebb134 !important;
+// }
+
+
+// /deep/ .sc-ion-modal-md-h sc-ion-modal-md-s md hydrated show-modal {
+//   /deep/ .modal-wrapper md sc-ion-modal-md {
+//     opacity: 0.95 !important;
+//   }
+// }
+
+
+
+// for Loginwith divider //
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.line {
+  flex: 1;
+}
+
+.account {
+  padding-top: 5px;
+  padding-left: 5px;
+}
+
+ion-grid {
+  background: white;
+}
+
+ion-item {
+  background: white;
+}
+
+.mt-10 {
+  margin-top: 8px;
+}
+
+.top-border-radius {
+  border-radius: 10px 10px 0 0;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background: #F0F0F0;
+  // padding: 12px 10px 10px 10px;
+}
+
+.bottom-border-radius {
+  border-radius: 0 0 10px 10px
+}
+
+.bdd {
+  color: #7E7C7C;
+  font-family: 'latoregular';
+  font-size: 12px;
+  display: inline-block;
+  margin-left: 3px;
+  margin: 5px 0px 12px 4px;
+}
+
+.custom-label {
+  // color: #4E4B4B;
+  // font-family: 'latosemibold' !important;
+  // font-size: 12px;
+  font-size: 12px;
+  font-family: 'latosemibold';
+  color: #4E4B4B;
+}
+
+.font-blck {
+  text-decoration: underline;
+  text-underline-position: under;
+  text-decoration-color: #4F95E8;
+  color: #4F95E8;
+  font-family: 'latosemibold';
+  font-size: 13px;
+}
+
+/deep/ .mat-form-field-infix {
+  font-size: 13px;
+  color: #898888;
+  font-family: latomedium;
+}
+
+//   font-family: 'latoregular';
+//   font-size: 12px;
+//   margin-top: 5px;
+//   display: inline-block;
+//   margin-left: 1px;
+
+// }
+// .custom-label {
+//   color: #4E4B4B;
+//   font-family: 'latoregular';
+// }
+
+.input_field_custom {
+  margin-top: 10px;
+
+  input.inputText:focus~.floating-label,
+  input.inputText:not(:focus):valid~.floating-label {
+    top: 11px;
+    bottom: 10px;
+    left: 12px;
+    font-size: 9.5px;
+    opacity: 1;
+    background: #fff;
+    height: fit-content;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 0px 4px;
+    color: #3f51b5;
+
+  }
+
+  .inputText {
+    width: 100%;
+    height: 45px;
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    padding-left: 9px;
+    padding-top: 5px;
+    outline: none;
+    color: #000000;
+    padding-right: 17px;
+    text-overflow: ellipsis;
+    background: unset;
+  }
+
+  .floating-label {
+    position: absolute;
+    pointer-events: none;
+    left: 20px;
+    top: 29px;
+    font-size: 12px;
+    -webkit-transition: 0.2s ease all;
+    transition: 0.2s ease all;
+    letter-spacing: .3px;
+    color: #898888;
+  }
+
+  .invalidError {
+    span {
+      font-size: 11px;
+      margin-left: 7px;
+      margin-top: 4px;
+      display: block;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+/deep/ .cdk-overlay-container {
+  .guestloginbackdrop{
+    background: rgba(0,0,0,.91)!important;
+  }
+  .guestloginbackdrop + .cdk-global-overlay-wrapper {
+    align-items: center !important;
+  }
+  .guestloginpanel{
+    min-width: 95vw;
+  }
+}
+// app-guest-login{
+//   display: flex;
+//   justify-content: center;
+//   align-items: stretch;
+//   overflow: scroll !important;
+// }
+// .new_guest_login{
+//   --background: rgba(0,0,0,.91)!important;
+// }
+/deep/ ion-modal.new_guest_login{
+  --background: rgba(0, 0, 0, 0.91) !important;
+  --opacity:1;
+}
+
+.guestlogin_email /deep/ .mat-form-field-wrapper{
+  padding-bottom: 12px
+}
+
+
+.invalidError {
+  margin-left: 0px;
+  font-weight: 400;
+  font-size: 10px;
+  color: red;
+}
+
+// Sagar's Code
+// for checkbox
+.mat-checkbox-layout .mat-checkbox-label {
+  line-height: 24px;
+  font-size: 12px;
+  font-family: 'latosemibold';
+  color: #4E4B4B;
+}
+
+.header-as-guest {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  // margin-bottom: 0px;
+}
+
+.header-cross-icon {
+  width: 13px; height: 13px;
+}
+
+.header-center-span {
+  font-size: 16px;
+  font-family: 'latomedium';
+  color: #000000;
+}
+
+.no-account {
+  color:#5C5B5B;
+  font-size:12px;
+  font-family: 'latomedium';
+}
+
+// End of Sagar's Code

@@ -1,0 +1,406 @@
+
+
+<ion-content class="support-module-content">
+
+  <!-- <ion-header>
+    <ion-toolbar color="custom-color-red">
+       
+          <ion-title text-center class="title">{{ title }}</ion-title>
+    
+    </ion-toolbar>
+  </ion-header> -->
+
+  <ion-header>
+    <ion-toolbar color="custom-color-red">
+      <ion-buttons slot="start">
+        <img class="bckicon22" src="assets/icon/backarrowtop2.svg" (click)= "backTo()" />
+      </ion-buttons>
+      <ion-title class="title">{{ title }}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <!-- <div *ngIf= "loading">
+    <p style="height: 100vh;display: flex;align-items: center;justify-content: center;">
+      <ion-spinner name="lines"></ion-spinner>Loading ...
+    </p>
+  </div> -->
+
+    <ion-card class="custom-card"  >
+        <a href="tel:{{branchMob}}" >
+        <ion-item class="phone mb-5" no-padding>
+          <ion-col  size=2>
+            <div >
+                <img class="phone1" src="assets/icon/phoneicon.svg" />
+            </div>
+          
+          </ion-col>
+          <ion-col>
+            <ion-label class="call">
+              <span class="call-us">Call Us</span>
+              <p class="call1">We are available 24X7</p>
+              <!-- <p>{{contactNo}}</p> -->
+              <!-- <a href={{'tel:'+e.contactNo}}>{{e.contactNo | PhoneNumber}}</a> -->
+              <!-- <a [href]="tel:${e.contactNo}">Call {{e.contactNo}}</a> -->
+           <span style="visibility: hidden;display: none;">{{contactNo}}</span>  
+
+            </ion-label>
+          </ion-col>
+          <img class="sideArrow" src="assets/icons/flights/side_arrow.svg">
+        </ion-item>
+      </a>
+
+      <a href="mailto:{{branchEmailId}}" >
+        <ion-item class="phone mb-5" no-padding>
+          <ion-col  size=2>
+            <div >
+                <img class="phone1" src="assets/icon/mail.svg" />
+            </div>
+          
+          </ion-col>
+          <ion-col>
+            <ion-label class="call">
+              <span class="call-us">Email Us</span>
+              <p class="call1">{{branchEmailId}}</p>
+             
+           <!-- <span>raghvendra.singh@techtreeit.com</span>   -->
+
+            </ion-label>
+          </ion-col>
+          <img class="sideArrow" src="assets/icons/flights/side_arrow.svg">
+        </ion-item>
+      </a>
+     
+        <ion-item class="phone mb-5x" no-padding>
+          <ion-col  size=2>
+            <div >
+                <img class="phone1" src="assets/icon/address.svg" />
+            </div>
+          
+          </ion-col>
+          <ion-col>
+            <ion-label class="call">
+              <span class="call-us">Address</span>
+              <p class="call1">{{branchAddress}}</p>
+             
+           <!-- <span>raghvendra.singh@techtreeit.com</span>   -->
+
+            </ion-label>
+          </ion-col>
+          <img class="sideArrow" src="assets/icons/flights/side_arrow.svg">
+        </ion-item>
+   
+        <!-- <ion-item>
+          <ion-col size=2>
+              <ion-icon src="assets/icon/chaticon.svg"></ion-icon>
+          </ion-col>
+          <ion-col>
+            <ion-label>
+              Chat with Us
+              <p>get instant support!</p>
+            </ion-label>
+          </ion-col>
+           <ion-icon name="arrow-dropright"></ion-icon> 
+          <img class="sideArrow" src="assets/icons/flights/side_arrow.svg">
+        </ion-item> -->
+    </ion-card>
+    <ion-grid>
+      <ion-row>
+        <ion-col size ="12">
+          <div *ngIf= "countryCode == 'za' ||  countryCode == 'ma' ||   countryCode == 'ke' ||  countryCode == 'sa' || countryCode == 'ng'
+           || countryCode == 'gh' || countryCode == 'et'  || countryCode == 'tz' || countryCode == 'ug' || countryCode == 'rw' || countryCode == 'zm' || countryCode == 'zw' || countryCode == 'mw' || countryCode == 'na'
+          || countryCode == 'mu' || countryCode == 'cd' || countryCode == 'sn' || countryCode == 'ci' || countryCode == 'us' || countryCode == 'ca' || countryCode == 'ga' || countryCode == 'td' || countryCode == 'gm' || countryCode == 'ml' || countryCode == 'gn' || countryCode == 'gw' || countryCode == 'my' || countryCode == 'sg' || countryCode == 'bi'
+          ; else default">
+
+        <!-- GHANA -->
+         <div *ngIf= "countryCode == 'gh'">
+           <iframe frameborder="0" scrolling="no" height="1000px" width="100%" src='https://forms.zohopublic.com/travelwings/form/ghana/formperma/o5gWedj63JSFPXsvLQ5ctNZ6Hbz0GrL2bVnluiPf7vc'></iframe>
+          <!-- <iframe title="Feedback Form" class="freshwidget-embedded-form" id="freshwidget-embedded-form" src="https://travelwings.freshdesk.com/widgets/feedback_widget/new?&widgetType=embedded&formTitle=Contact+Us&screenshot=No&searchArea=no&helpdesk_ticket[product]=12000000547&disable[product_id]=true" scrolling="no" height="660px" width="100%" frameborder="0" ></iframe> -->
+         </div>
+
+         <!-- NIGERIA -->
+         <div *ngIf= "countryCode == 'ng'">
+          <iframe frameborder="0" scrolling="no" height="1000px" width="100%" src='https://forms.zohopublic.com/travelwings/form/nigeria/formperma/32h8Z93k6IcirdQraG50ARpyMDkev5FUb32dLJjMBoo'></iframe>
+          <!-- <iframe title="Feedback Form" class="freshwidget-embedded-form" id="freshwidget-embedded-form" src="https://travelwings.freshdesk.com/widgets/feedback_widget/new?&widgetType=embedded&formTitle=Contact+Us&screenshot=No&searchArea=no&helpdesk_ticket[product]=12000000806&disable[product_id]=true" scrolling="no" height="660px" width="100%" frameborder="0" ></iframe> -->
+        </div>
+
+        <!-- SAUDI ARABIA -->
+        <div *ngIf= "countryCode == 'sa'">
+          <iframe frameborder="0" scrolling="no" height="1000px" width="100%" src='https://forms.zohopublic.com/travelwings/form/saudi/formperma/b2CJMKOQidfMCN4mjbw2gesk6BkrOP6Bn7Cw5tFdF14'></iframe>
+          <!-- <iframe title="Feedback Form" class="freshwidget-embedded-form" id="freshwidget-embedded-form" src="https://travelwings.freshdesk.com/widgets/feedback_widget/new?&widgetType=embedded&formTitle=Contact+Us&screenshot=no&searchArea=no&helpdesk_ticket[product]=12000000938&disable[product_id]=true" scrolling="no" height="660px" width="100%" frameborder="0" ></iframe> -->
+        </div>
+
+        <!-- KENYA -->
+        <div *ngIf= "countryCode == 'ke'">
+          <iframe frameborder="0" scrolling="no" height="1000px" width="100%" src='https://forms.zohopublic.com/travelwings/form/kenya/formperma/P02Vp2NDmM2swZQJ_znMiuu_RWhdRphjyBrxy9Y5kD0'></iframe>
+          <!-- <iframe title="Feedback Form" class="freshwidget-embedded-form" id="freshwidget-embedded-form" src="https://travelwings.freshdesk.com/widgets/feedback_widget/new?&widgetType=embedded&screenshot=no&helpdesk_ticket[product]=12000000986&disable[product_id]=true" scrolling="no" height="660px" width="100%" frameborder="0" ></iframe> -->
+        </div>
+
+        <!-- MOROCCO -->
+        <div *ngIf= "countryCode == 'ma'">
+          <iframe frameborder="0" scrolling="no" height="1000px" width="100%" src='https://forms.zohopublic.com/travelwings/form/morocco/formperma/uQGu6LRpfJdqViXoRCFksRPWTO_L1kI-9VSPC8AhyN4'></iframe>
+          <!-- <iframe title="Feedback Form" class="freshwidget-embedded-form" id="freshwidget-embedded-form" src="https://travelwings.freshdesk.com/widgets/feedback_widget/new?&widgetType=embedded&screenshot=no&helpdesk_ticket[product]=12000001023&disable[product_id]=true" scrolling="no" height="660px" width="100%" frameborder="0" ></iframe> -->
+        </div>
+
+        <!-- SOUTH AFRICA -->
+        <div *ngIf= "countryCode == 'za'">
+          <iframe frameborder="0" scrolling="no" height="1000px" width="100%" src='https://forms.zohopublic.com/travelwings/form/southafrica/formperma/1yRfpnHzrl4vE8d9-TUAHpJw7nfcqNo3qDNLETD_JO4'></iframe>
+          <!-- <iframe title="Feedback Form" class="freshwidget-embedded-form" id="freshwidget-embedded-form" src="https://travelwings.freshdesk.com/widgets/feedback_widget/new?&widgetType=embedded&screenshot=no&helpdesk_ticket[product]=12000001028&disable[product_id]=true" scrolling="no" height="660px" width="100%" frameborder="0" ></iframe> -->
+        </div>
+
+        <!--new country script start-->
+        <!-- ETHIOPIA -->
+        <div *ngIf= "countryCode == 'et'">
+          <iframe frameborder="0" scrolling="no" height="1000px" width="100%" src='https://forms.zohopublic.com/travelwings/form/ethiopia/formperma/zJXur4ynnKcF5rPQNZMYD_vb73jkONwbIDCQ6mDNI_o'></iframe>
+          <!-- <iframe title="Feedback Form" class="freshwidget-embedded-form" id="freshwidget-embedded-form" src="https://travelwings.freshdesk.com/widgets/feedback_widget/new?&widgetType=embedded&screenshot=no&helpdesk_ticket[product]=12000001055&disable[product_id]=true" scrolling="no" height="660px" width="100%" frameborder="0" ></iframe> -->
+        </div>
+
+        <!-- TANZANIA -->
+        <div *ngIf= "countryCode == 'tz'">
+          <iframe frameborder="0" scrolling="no" height="1000px" width="100%" src='https://forms.zohopublic.com/travelwings/form/tanzania/formperma/rpX8GYRC30UQ5ZTykbUKbG8CfcAqCcjHqJrnZnWExTs'></iframe>
+        	<!-- <iframe title="Feedback Form" class="freshwidget-embedded-form" id="freshwidget-embedded-form" src="https://travelwings.freshdesk.com/widgets/feedback_widget/new?&widgetType=embedded&screenshot=no&helpdesk_ticket[product]=12000001056&disable[product_id]=true" scrolling="no" height="660px" width="100%" frameborder="0" ></iframe> -->
+        </div>
+
+        <!-- UGANDA -->
+        <div *ngIf= "countryCode == 'ug'">
+          <iframe frameborder="0" scrolling="no" height="1000px" width="100%" src='https://forms.zohopublic.com/travelwings/form/uganda/formperma/nb90aieT64eK-GPCeXWXlyIbN6JE68wLeHIqKl1ldY4'></iframe>
+        	<!-- <iframe title="Feedback Form" class="freshwidget-embedded-form" id="freshwidget-embedded-form" src="https://travelwings.freshdesk.com/widgets/feedback_widget/new?&widgetType=embedded&screenshot=no&helpdesk_ticket[product]=12000001057&disable[product_id]=true" scrolling="no" height="660px" width="100%" frameborder="0" ></iframe> -->
+        </div>
+
+        <!-- RWANDA -->
+        <div *ngIf= "countryCode == 'rw'">
+          <iframe frameborder="0" scrolling="no" height="1000px" width="100%" src='https://forms.zohopublic.com/travelwings/form/rwanda/formperma/lPOwf82kXxcfwKKqpkgZuS1N4nXTgo3p8HJXJO6P9f8'></iframe>
+          <!-- <iframe title="Feedback Form" class="freshwidget-embedded-form" id="freshwidget-embedded-form" src="https://travelwings.freshdesk.com/widgets/feedback_widget/new?&widgetType=embedded&screenshot=no&helpdesk_ticket[product]=12000001058&disable[product_id]=true" scrolling="no" height="660px" width="100%" frameborder="0" ></iframe> -->
+        </div>
+
+        <!-- ZAMBIA -->
+        <div *ngIf= "countryCode == 'zm'">
+          <iframe frameborder="0" scrolling="no" height="1000px" width="100%" src='https://forms.zohopublic.com/travelwings/form/zambia/formperma/dSMS2GfDUzx1pp6eClCPiZ1l0oJLJJHqEbjaiJi7lwg'></iframe>
+          <!-- <iframe title="Feedback Form" class="freshwidget-embedded-form" id="freshwidget-embedded-form" src="https://travelwings.freshdesk.com/widgets/feedback_widget/new?&widgetType=embedded&screenshot=no&helpdesk_ticket[product]=12000001059&disable[product_id]=true" scrolling="no" height="660px" width="100%" frameborder="0" ></iframe> -->
+        </div>
+
+        <!-- ZIMBABWE -->
+        <div *ngIf= "countryCode == 'zw'">
+          <iframe frameborder="0" scrolling="no" height="1000px" width="100%" src='https://forms.zohopublic.com/travelwings/form/zimababwe/formperma/-DDQlrYwqsSutZv4W8o-x82hoVYmZBSvz2IuoTt2LCw'></iframe>
+        	<!-- <iframe title="Feedback Form" class="freshwidget-embedded-form" id="freshwidget-embedded-form" src="https://travelwings.freshdesk.com/widgets/feedback_widget/new?&widgetType=embedded&screenshot=no&helpdesk_ticket[product]=12000001060&disable[product_id]=true" scrolling="no" height="660px" width="100%" frameborder="0" ></iframe> -->
+        </div>
+
+        <!-- MALAWI -->
+        <div *ngIf= "countryCode == 'mw'">
+          <iframe frameborder="0" scrolling="no" height="1000px" width="100%" src='https://forms.zohopublic.com/travelwings/form/malawi/formperma/SuXfysLSAX3vsfEc9JOglHMCZ48n-a2Quw7_xbU41GQ'></iframe>
+        	<!-- <iframe title="Feedback Form" class="freshwidget-embedded-form" id="freshwidget-embedded-form" src="https://travelwings.freshdesk.com/widgets/feedback_widget/new?&widgetType=embedded&screenshot=no&helpdesk_ticket[product]=12000001061&disable[product_id]=true" scrolling="no" height="660px" width="100%" frameborder="0" ></iframe> -->
+        </div>
+
+        <!-- NAMIBIA -->
+        <div *ngIf= "countryCode == 'na'">
+          <iframe frameborder="0" scrolling="no" height="1000px" width="100%" src='https://forms.zohopublic.com/travelwings/form/namibia/formperma/Au1gSLXHXFrqLV-h2xsSoMSvbAnMSH5g_i5Lulo7-I4'></iframe>
+          <!-- <iframe title="Feedback Form" class="freshwidget-embedded-form" id="freshwidget-embedded-form" src="https://travelwings.freshdesk.com/widgets/feedback_widget/new?&widgetType=embedded&screenshot=no&helpdesk_ticket[product]=12000001062&disable[product_id]=true" scrolling="no" height="660px" width="100%" frameborder="0" ></iframe> -->
+        </div>
+
+        <!-- MAURITIUS  -->
+        <div *ngIf= "countryCode == 'mu'">
+          <iframe frameborder="0" scrolling="no" height="1000px" width="100%" src='https://forms.zohopublic.com/travelwings/form/mauritius/formperma/I3yA2pcy5RJAPZ1vswWjadTp-nElBCgzqdyg4cMlzWA'></iframe>
+          <!-- <iframe title="Feedback Form" class="freshwidget-embedded-form" id="freshwidget-embedded-form" src="https://travelwings.freshdesk.com/widgets/feedback_widget/new?&widgetType=embedded&screenshot=no&helpdesk_ticket[product]=12000001063&disable[product_id]=true" scrolling="no" height="660px" width="100%" frameborder="0" ></iframe> -->
+        </div>
+
+        <!-- DEMOCRATIC REPUBLIC OF THE CONGO - DRC -->
+        <div *ngIf= "countryCode == 'cd'">
+          <iframe frameborder="0" scrolling="no" height="1000px" width="100%" src='https://forms.zohopublic.com/travelwings/form/drc/formperma/T2fTw81jXQaP3nncGAs8jBh9yrBr9t-XIXMOLI32p4A'></iframe>
+        	<!-- <iframe title="Feedback Form" class="freshwidget-embedded-form" id="freshwidget-embedded-form" src="https://travelwings.freshdesk.com/widgets/feedback_widget/new?&widgetType=embedded&screenshot=no&helpdesk_ticket[product]=12000001064&disable[product_id]=true" scrolling="no" height="660px" width="100%" frameborder="0" ></iframe> -->
+        </div>
+
+        <!-- SENEGAL  -->
+        <div *ngIf= "countryCode == 'sn'">
+          <iframe frameborder="0" scrolling="no" height="1000px" width="100%" src='https://forms.zohopublic.com/travelwings/form/senegal/formperma/11gmUj__CU6kuZKRYzlWv3wFOCWPSLuS5dQOchFV3x4'></iframe>
+          <!-- <iframe title="Feedback Form" class="freshwidget-embedded-form" id="freshwidget-embedded-form" src="https://travelwings.freshdesk.com/widgets/feedback_widget/new?&widgetType=embedded&screenshot=no&helpdesk_ticket[product]=12000001065&disable[product_id]=true" scrolling="no" height="660px" width="100%" frameborder="0" ></iframe> -->
+        </div>
+
+        <!-- IVORY COAST -->
+        <div *ngIf= "countryCode == 'ci'">
+          <iframe frameborder="0" scrolling="no" height="1000px" width="100%" src='https://forms.zohopublic.com/travelwings/form/ivory/formperma/chzwBwozO1yF9lY_BhzY2-4jf0ERt0JgK-j1YHrtrLo'></iframe>
+          <!-- <iframe title="Feedback Form" class="freshwidget-embedded-form" id="freshwidget-embedded-form" src="https://travelwings.freshdesk.com/widgets/feedback_widget/new?&widgetType=embedded&screenshot=no&helpdesk_ticket[product]=12000001066&disable[product_id]=true" scrolling="no" height="660px" width="100%" frameborder="0" ></iframe> -->
+        </div>
+
+        <!-- USA  -->
+        <div *ngIf= "countryCode == 'us'">
+          <iframe frameborder="0" scrolling="no" height="1000px" width="100%" src='https://forms.zohopublic.com/travelwings/form/usa/formperma/LPqqBF4EhGD145UpZlDhl_DSsBFRQ2xDBZKa3W8Vez0'></iframe>
+        </div>
+
+        <!-- CANADA  -->
+        <div *ngIf= "countryCode == 'ca'">
+          <iframe frameborder="0" scrolling="no" height="1000px" width="100%" src='https://forms.zohopublic.com/travelwings/form/canada/formperma/7LOYmcjzvp1AN6RAsGcc5J204rzHTBZuDgp-LMvFcjE'></iframe>
+        </div>
+
+         <!--New countries - 04-Dec -->
+
+        <!-- Gabon - GA  -->
+        <div *ngIf= "countryCode == 'ga'">
+          <iframe frameborder="0" scrolling="no" height="1000px" width="100%" src='https://forms.zohopublic.com/travelwings/form/gabon/formperma/DqRjYT4_-P_MEl71PXVeiIkP4Z_zuAxV8HhsAT_4bKY'></iframe>
+        </div>
+
+        <!-- Chad - TD  -->
+        <div *ngIf= "countryCode == 'td'">
+          <iframe frameborder="0" scrolling="no" height="1000px" width="100%" src='https://forms.zohopublic.com/travelwings/form/chad/formperma/wdK4wAT5iGvAGh0bWoYvFOleSjNbwsIIWMMvSzM0Yhk'></iframe>
+        </div>
+
+        <!-- Gambia - GM  -->
+        <div *ngIf= "countryCode == 'gm'">
+          <iframe frameborder="0" scrolling="no" height="1000px" width="100%" src='https://forms.zohopublic.com/travelwings/form/gambia/formperma/XDGIQpy0WJXjPp4_L0D9qht3W5_s7XxDeYT6HqkhQ_I'></iframe>
+        </div>
+
+        <!-- Mali - ML  -->
+        <div *ngIf= "countryCode == 'ml'">
+          <iframe frameborder="0" scrolling="no" height="1000px" width="100%" src='https://forms.zohopublic.com/travelwings/form/mali/formperma/TmmFCtDZekPK1ru-_Wsv15I2QO39rhk-MD0QZkldRRM'></iframe>
+        </div>
+
+        <!-- Guinea - GN  -->
+        <div *ngIf= "countryCode == 'gn'">
+          <iframe frameborder="0" scrolling="no" height="1000px" width="100%" src='https://forms.zohopublic.com/travelwings/form/guinea/formperma/N96lidR69bDVs4QJVMZ14supXl-U7HDYR4eZYCUQQs4'></iframe>
+        </div>
+
+        <!-- Guinea Bissau - GW  -->
+        <div *ngIf= "countryCode == 'gw'">
+          <iframe frameborder="0" scrolling="no" height="1000px" width="100%" src='https://forms.zohopublic.com/travelwings/form/guineabissau/formperma/IZGFuY5mrZJ4ioXKI65B2eEV9zNvgZ3oGO2CE4s8ztg'></iframe>
+        </div>
+
+        <!-- Malaysia - MY  -->
+        <div *ngIf= "countryCode == 'my'">
+          <iframe frameborder="0" scrolling="no" height="1000px" width="100%" src='https://forms.zohopublic.com/travelwings/form/malaysia/formperma/1YQd1DY9y3ay6QxEjrx53j-rbg6M8g1DJ-nig2RIOMQ'></iframe>
+        </div>
+
+        <!-- Singapore - SG  -->
+        <div *ngIf= "countryCode == 'sg'">
+          <iframe frameborder="0" scrolling="no" height="1000px" width="100%" src='https://forms.zohopublic.com/travelwings/form/singapore/formperma/6Y_QIxtIiC6TQuIcebEZP_xTpklDt-hJMkvI6AeSu4k'></iframe>
+        </div>
+
+        <!-- Burundi - BI  -->
+        <div *ngIf= "countryCode == 'bi'">
+          <iframe frameborder="0" scrolling="no" height="1000px" width="100%" src='https://forms.zohopublic.com/travelwings/form/burundi/formperma/jkq3VnKHUP5LgcbscX2sdf8IgaVvmwV15joD76hdBGQ'></iframe>
+        </div>
+        <!--End of New countries - 04-Dec -->
+
+        
+      </div>
+      <ng-template #default>
+        <!-- UNITED ARAB EMIRATES -->
+        <div>
+          <iframe frameborder="0" scrolling="no" height="1000px" width="100%" src='https://forms.zohopublic.com/travelwings/form/uae/formperma/NsdU5DcTXgQCe3oJqHgEYh95mCCmS1Jbuz_VbYvY0LA'></iframe>
+          <!-- <iframe title="Feedback Form" class="freshwidget-embedded-form" id="freshwidget-embedded-form" src="https://travelwings.freshdesk.com/widgets/feedback_widget/new?&widgetType=embedded&formTitle=Contact+Us&screenshot=No&searchArea=no&disable[product_id]=true" scrolling="no" height="660px" width="100%" frameborder="0" ></iframe> -->
+        </div> 
+      </ng-template>
+      </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <!--form come from script <form   [formGroup]= "supportform">
+
+    <ion-card  class="custom-card" >
+      <ion-card-header class="header">
+        <ion-card-subtitle>Contact Details</ion-card-subtitle>
+      </ion-card-header>
+     
+      <ion-grid class="profile register_user">
+        <ion-row >
+          <ion-col size-sm="6" offset-sm="2">
+            <div class="form-group contact-mar">
+              <mat-form-field appearance="outline">
+                <mat-label>Contact Name</mat-label>
+                <input type="text" matInput formControlName="name" placeholder="Contact Name">
+                <mat-error
+                *ngIf= "supportform.controls.name.errors && ( supportform.controls.name.dirty || supportform.controls.name.touched)">
+                Contact Name Required!
+              </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput formControlName="email" placeholder="Email">
+                <mat-error
+                *ngIf= "supportform.controls.email.errors && ( supportform.controls.email.dirty || supportform.controls.email.touched)">
+                Email Required!
+              </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="form-group mobile-section-mar">
+              <ion-row class="mb32">
+                <ion-col size="4">
+                  <div class="form-group no-crt pad0" style="margin-top: -3%;
+                  margin-left: -4%;">
+                    <app-country-dropdown name="dialcode" [ngModelOptions] = "{standalone: true}" formControlName="dialcode">
+                    </app-country-dropdown>
+                    <mat-error class="codeeroor" *ngIf= "supportform.controls.dialcode?.errors && (supportform.controls.dialcode?.dirty || supportform.controls.dialcode.touched) ">
+                      Code Required!
+                    </mat-error>
+                  </div>
+                </ion-col>
+               
+                <ion-col class="mNumber" size="8">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Mobile Number</mat-label>
+                    <input matInput formControlName="mobile" placeholder="Mobile Number">
+                    <mat-error
+                    *ngIf= "supportform.controls.mobile.errors && ( supportform.controls.mobile.dirty || supportform.controls.mobile.touched)">
+                    Mobile Number Required!
+                  </mat-error>
+                  </mat-form-field>
+                </ion-col>
+              </ion-row>
+            </div>
+            <div class="form-group no-crt">
+            <mat-form-field appearance="outline">
+                <mat-label>Select Enquiry Type</mat-label>
+                <mat-select  formControlName="enquiry">
+                    <mat-option value="flight">Flight</mat-option>
+                    <mat-option value="hotel">Hotel</mat-option>
+                    <mat-option value="other">Other</mat-option>                   
+                </mat-select>
+                <mat-error
+                *ngIf= "supportform.controls.enquiry.errors && ( supportform.controls.enquiry.dirty || supportform.controls.enquiry.touched)">
+                Enquiry Type Required!
+              </mat-error>
+            </mat-form-field>
+        </div>
+          </ion-col>
+        </ion-row>    
+      </ion-grid>
+    </ion-card>
+    <ion-card class="custom-card">
+      <ion-card-header class="header">
+        <ion-card-subtitle>What can we help you with ?</ion-card-subtitle>
+      </ion-card-header>
+      <ion-grid class="register_user profile">
+        <ion-row>
+          <ion-col   size-sm="6" offset-sm="3">
+            <div class="form-group sub-position">
+              <mat-form-field appearance="outline">
+                <mat-label>Subject</mat-label>
+                <input type="text" matInput formControlName="subject" placeholder="Subject">
+                <mat-error
+                *ngIf= "supportform.controls.subject.errors && ( supportform.controls.subject.dirty || supportform.controls.subject.touched)" style="margin-top: 14px;">
+                Subject Is Required!
+              </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>Type your message...</mat-label>
+                <textarea rows="7" class="textareafld" type="text" matInput formControlName="mssgarea" placeholder="Type your Message..."></textarea>
+                <mat-error class="mg7x"
+                *ngIf= "supportform.controls.mssgarea.errors && ( supportform.controls.mssgarea.dirty || supportform.controls.mssgarea.touched)">
+                Message Required!
+              </mat-error>
+              </mat-form-field>
+            </div>
+          </ion-col>
+        </ion-row> 
+      </ion-grid>
+    </ion-card>   
+
+  </form>
+
+    <div class="mb-60" text-center>
+      <button  type="submit" (click) = "submitform()" class="yello-btn-all">
+          SUBMIT
+      </button>
+    </div>       -->
+  </ion-content>
+  <app-fixed-footer></app-fixed-footer>

@@ -1,0 +1,385 @@
+<ion-header *ngIf= "getReponse">
+  <ion-toolbar color="custom-color-red">
+    <ion-buttons slot="start" class="aro-bck">
+      <img
+        class="backArrow"
+        src="assets/icon/backarrowtop2.svg"
+        (click)="backTo()"
+      />
+    </ion-buttons>
+    <ion-title text-center class="title">Fare Rules</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="getReponse">
+  <div *ngIf="loading">
+    <p
+      style="
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <ion-spinner name="lines"></ion-spinner>Loading ...
+    </p>
+  </div>
+<div  *ngIf = "!isFarerule  else rules">
+  <div
+    class="fullcard"
+   
+  >
+    <ion-card class="cc-card">
+      <p class="ml">No fare rules found</p>
+    </ion-card>
+  </div>
+</div>
+  <ng-template #rules>
+    <div *ngIf="tripType == 'oneway'">
+      <ion-card class="no-shadow">
+        <ion-card-header class="head">
+          <ion-label class="head-text"
+            >{{ selectedflightobj.origin }} &nbsp;&nbsp;</ion-label
+          >
+          <ion-icon src="assets/icons/flights/gray_circle_icon.svg"></ion-icon>
+          <ion-label class="head-text">
+            &nbsp;&nbsp;{{ selectedflightobj.destination }}</ion-label
+          >
+        </ion-card-header>
+<div *ngIf="fareRuleResponseBean != null">
+  <ion-card-content 
+        [ngStyle]="{'padding-bottom': flight.heading == 'Cancellation Fee' ? '0px': ''}"
+          class="fare-back"
+          *ngFor =" let flight of fareRuleResponseBean?.headingWiseList"
+        >
+  
+        <h4>{{ flight.heading }}</h4>
+
+          <h5 *ngIf= "flight.heading == 'Cancellation Fee' || flight.heading == 'Cancellation'">
+            <!-- <h4>{{ flight.heading }}</h4> -->
+            <p *ngFor= "let ff of flight?.penalityList">
+              <span>
+                {{ ff | keypipe }}
+              </span>
+            </p>
+            <p>{{ flight.ruleDescription }}</p>
+
+          </h5>
+<!--new code oneway 3 march-->
+<h5 *ngIf= "flight.heading == 'Change Fee' || flight.heading == 'Change'">
+                
+             
+  <p *ngFor= "let fff of flight.penalityList">
+    <span>
+      {{ fff | keypipe }}
+    </span>
+  </p>
+<p>{{ flight.ruleDescription }}</p>
+
+</h5>
+
+
+  
+        </ion-card-content>
+      </div>
+        <ion-card-content   class="fare-back">
+          <!---sabre new-->
+<h5>
+  <h4>Airline Fee</h4>
+  <p>
+    <span *ngIf = "isRefundableTicket == 'REFUNDABLE' || isRefundableTicket == 'S-REFUNDABLE' || isRefundableTicket == 'Refundable' || isRefundableTicket == 'Gal-REFUNDABLE'">
+      This is a Refundable ticket.
+    </span>
+    <span *ngIf = "isRefundableTicket == 'NONREFUNDABLE' || isRefundableTicket == 'S-NON-REFUNDABLE' || isRefundableTicket == 'Non-Refundable' || isRefundableTicket == 'Non-Gal-REFUNDABLE'">
+      This is a Non-Refundable ticket.
+    </span>
+  </p>
+</h5>
+  <p class="lcc_des" *ngIf= "lccRuleDescription">
+  <span [innerHTML]="lccRuleDescription"></span>
+  </p>
+  
+      <!---sabre new end-->
+        </ion-card-content>
+
+
+
+      <!-- <ion-card-content class="fare-back" *ngIf="fareRuleResponseBean == null">
+       <h5>
+          <h4>Airline Fee</h4>
+          <p>
+            <span>
+              This is a {{isRefundableTicket == 'REFUNDABLE' ? 'Refundable': isRefundableTicket}} ticket.
+            </span>
+          </p>
+        </h5>
+          <p class="lcc_des" *ngIf= "lccRuleDescription">
+            {{lccRuleDescription}}
+          </p>
+        
+      </ion-card-content> -->
+
+     
+       
+      </ion-card>
+    </div>
+
+    <div *ngIf= "tripType == 'returnway'">
+      <div class="fullcard">
+        <ion-card class="no-shadow">
+          <ion-card-header>
+            <ion-label class="head-text">
+              {{
+                selectedflightobjreturn.onwardFlightOption.origin
+              }}
+              &nbsp;&nbsp;</ion-label
+            >
+            <ion-icon
+              src="assets/icons/flights/gray_circle_icon.svg"
+            ></ion-icon>
+            <ion-label class="head-text">
+              &nbsp;&nbsp;{{
+                selectedflightobjreturn.onwardFlightOption.destination
+              }}
+            </ion-label>
+          </ion-card-header>
+
+          <div  *ngIf="fareRuleResponseBean != null">
+
+          <ion-card-content
+            class="fare-back"
+            *ngFor="let flight of fareRuleResponseBean?.headingWiseList"
+          >
+            <h4>{{ flight.heading }}</h4>
+            <h5 *ngIf="flight.heading == 'Cancellation Fee'  || flight.heading == 'Cancellation'">
+
+              
+              <p *ngFor = "let fff of flight.penalityList">
+                <span>
+                  {{ fff | keypipe }}
+                </span>
+              </p>
+          <p>{{ flight.ruleDescription }}</p>
+
+            </h5>
+            <h5 *ngIf="flight.heading == 'Change Fee' || flight.heading == 'Change'">
+                
+             
+              <p *ngFor="let fff of flight.penalityList">
+                <span>
+                  {{ fff | keypipe }}
+                </span>
+              </p>
+          <p>{{ flight.ruleDescription }}</p>
+
+            </h5>
+          </ion-card-content>
+        </div>
+          <ion-card-content class="fare-back" >
+            <h5>
+               <h4>Airline Fee</h4>
+               <p>
+                <span *ngIf = "isRefundableTicket == 'REFUNDABLE' || isRefundableTicket == 'S-REFUNDABLE' || isRefundableTicket == 'Refundable' || isRefundableTicket == 'Gal-REFUNDABLE'">
+                  This is a Refundable ticket.
+                </span>
+                <span *ngIf = "isRefundableTicket == 'NONREFUNDABLE' || isRefundableTicket == 'S-NON-REFUNDABLE' || isRefundableTicket == 'Non-Refundable' || isRefundableTicket == 'Non-Gal-REFUNDABLE'">
+                  This is a Non-Refundable ticket.
+                </span>
+              </p>
+             </h5>
+               <!-- <p class="lcc_des" *ngIf="lccRuleDescription">
+                 {{lccRuleDescription}}
+               </p> -->
+               <p class="lcc_des" *ngIf= "lccRuleDescription">
+                <span [innerHTML]="lccRuleDescription"></span>
+                </p>
+             
+           </ion-card-content>
+
+<!-- <ion-card-content class="fare-back" *ngIf="fareRuleResponseBean == null">
+  <h5>
+     <h4>Airline Fee</h4>
+     <p>
+       <span>
+         This is a {{isRefundableTicket == 'REFUNDABLE' ? 'Refundable': isRefundableTicket}} ticket.
+       </span>
+     </p>
+   </h5>
+     <p class="lcc_des" *ngIf="lccRuleDescription">
+       {{lccRuleDescription}}
+     </p>
+   
+ </ion-card-content> -->
+
+
+        </ion-card>
+        <!--card for retunoption-->
+        <ion-card class="cc-card">
+          <!-- *ngIf="selectedflightobjreturn" -->
+          <ion-card-header>
+            <ion-label class="head-text">
+              {{
+                selectedflightobjreturn.onwardFlightOption.destination
+
+              }}
+              &nbsp;&nbsp;</ion-label
+            >
+            <ion-icon
+              src="assets/icons/flights/gray_circle_icon.svg"
+            ></ion-icon>
+            <ion-label class="head-text">
+              &nbsp;&nbsp;{{
+                selectedflightobjreturn.onwardFlightOption.origin
+              }}
+            </ion-label>
+          </ion-card-header>
+
+          <div *ngIf="fareRuleResponseBean != null">
+
+          <ion-card-content
+            class="fare-back"
+            *ngFor= "let flight of fareRuleResponseBean?.headingWiseList"
+          >
+            <h4>{{ flight.heading }}</h4>
+            <h5 *ngIf="flight.heading == 'Cancellation Fee' || flight.heading == 'Cancellation'">
+
+              <p *ngFor="let fff of flight.penalityList">
+                <span>
+                  {{ fff | keypipe }}
+                </span>
+              </p>
+              <p>{{ flight.ruleDescription }}</p>
+
+            </h5>
+            <h5 *ngIf="flight.heading == 'Change Fee' || flight.heading == 'Change'">
+              <p *ngFor="let fff of flight.penalityList">
+                <span>
+                  {{ fff | keypipe }}
+                </span>
+              </p>
+             <p>{{ flight.ruleDescription }}</p>
+
+            </h5>
+          </ion-card-content>
+        </div>
+          <ion-card-content class="fare-back">
+            <h5>
+               <h4>Airline Fee</h4>
+               <p>
+                <span *ngIf = "isRefundableTicket == 'REFUNDABLE' || isRefundableTicket == 'S-REFUNDABLE' || isRefundableTicket == 'Refundable' || isRefundableTicket == 'Gal-REFUNDABLE'">
+                  This is a Refundable ticket.
+                </span>
+                <span *ngIf = "isRefundableTicket == 'NONREFUNDABLE' || isRefundableTicket == 'S-NON-REFUNDABLE' || isRefundableTicket == 'Non-Refundable' || isRefundableTicket == 'Non-Gal-REFUNDABLE'">
+                  This is a Non-Refundable ticket.
+                </span>
+              </p>
+             </h5>
+               <!-- <p class="lcc_des" *ngIf="lccRuleDescription">
+                 {{lccRuleDescription}}
+               </p> -->
+               <p class="lcc_des" *ngIf= "lccRuleDescription">
+                <span [innerHTML]="lccRuleDescription"></span>
+                </p>
+             
+           </ion-card-content>
+     
+          
+          
+        </ion-card>
+      </div>
+    </div>
+
+    <div *ngIf= "tripType == 'multicity'">
+      <div class="fullcard" *ngFor = "let multi of multiflight.optionSegmentBean">
+        <ion-card class="no-shadow">
+          <ion-card-header>
+            <ion-label class="head-text">
+              {{ multi.origin }} &nbsp;&nbsp;</ion-label
+            >
+            <ion-icon
+              src="assets/icons/flights/gray_circle_icon.svg"
+            ></ion-icon>
+            <ion-label class="head-text">
+              &nbsp;&nbsp;{{ multi.destination }}</ion-label
+            >
+          </ion-card-header>
+         <div *ngIf="fareRuleResponseBean != null">
+
+        
+          <ion-card-content
+            class="fare-back"
+            *ngFor =" let flight of fareRuleResponseBean?.headingWiseList"
+          >
+            <h4>{{ flight.heading }}</h4>
+            <h5 *ngIf= "flight.heading == 'Cancellation Fee' || flight.heading == 'Cancellation'">
+              <p *ngFor= "let ff of flight?.penalityList">
+                <span>
+                  {{ ff | keypipe }}
+                </span>
+              </p>
+              <p>{{ flight.ruleDescription }}</p>
+
+            </h5>
+              <h5 *ngIf= "flight.heading == 'Change Fee' || flight.heading == 'Change'">
+              <p *ngFor= "let fff of flight.penalityList">
+                <span>
+                  {{ fff | keypipe }}
+                </span>
+              </p>
+              <p>{{ flight.ruleDescription }}</p>
+
+            </h5>
+          </ion-card-content>
+        </div>
+          <ion-card-content class="fare-back">
+            <h5>
+        <h4>Airline Fee</h4>
+               <p>
+                <span *ngIf = "isRefundableTicket == 'REFUNDABLE' || isRefundableTicket == 'S-REFUNDABLE' || isRefundableTicket == 'Refundable' || isRefundableTicket == 'Gal-REFUNDABLE'">
+                  This is a Refundable ticket.
+                </span>
+                <span *ngIf = "isRefundableTicket == 'NONREFUNDABLE' || isRefundableTicket == 'S-NON-REFUNDABLE' || isRefundableTicket == 'Non-Refundable' || isRefundableTicket == 'Non-Gal-REFUNDABLE'">
+                  This is a Non-Refundable ticket.
+                </span>
+              </p>
+             </h5>
+               <p class="lcc_des" *ngIf="lccRuleDescription">
+                 {{lccRuleDescription}}
+               </p>
+             
+           </ion-card-content>
+     
+        </ion-card>
+      </div>
+    </div>
+  
+    
+  </ng-template>
+
+  <ion-grid 
+  *ngIf= "serviceVendor == 'TravelFusion'
+   || 
+   serviceVendor == 'Amadeus' 
+   || serviceVendor == 'Galileo' 
+   || serviceVendor == 'Sabre'">
+  <ion-col size="12">
+      <ion-card class="farerule" matRipple (click) = "farerule()">
+        Full Fare Rules
+      </ion-card>
+    </ion-col>
+  </ion-grid>
+</ion-content>
+
+
+<div *ngIf="!getReponse">
+  <p
+    style="
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    "
+  >
+    <ion-spinner name="lines"></ion-spinner>Loading ...
+  </p>
+</div>

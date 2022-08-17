@@ -1,0 +1,206 @@
+modal-wrapper {
+    background: transparent !important;
+  }
+  .main-view{
+      background: transparent;
+      top: 0;
+    }
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      opacity: 1;
+      background: rgba(0, 0, 0, 0.91);
+    }
+    .modal_content {
+        display: block;
+        position: fixed;
+        top: calc(50% - (81%/2));
+        width: 90%;
+        padding: 10px;
+        z-index: 1;
+        margin: 0 auto;
+        padding: 10px;
+  
+    }
+  
+  .closemodal{
+      float: right;
+      position: relative;
+      bottom: 15px;
+      margin-right: 8px;
+      right:2px;
+  }
+  
+  .light-blue{
+      color: #3288d0;
+     font-family: 'Latomedium';
+     font-size: 14px;
+     padding-bottom: 0px !important;
+  }
+  .login-with{
+      color: #949393;
+      border: 1px solid #c4c4c4;
+      width: 123px;
+      margin: 0px auto;
+      padding: 4px 3px;
+      border-radius: 8px;
+      background: #ffffff;
+  }
+  
+  .socio-icons-block{
+      justify-content: space-around;
+      padding-bottom: 5px;
+      display: inline-flex;
+      .facebook-icon{
+         width: 42px;
+         height: 42px;
+         border-radius: 5px;
+          background-color: #3b5998;
+          margin: 32px 0px 18px auto;
+          
+          // img{
+          //     padding: 2px;
+          // }
+          img {
+            width: 13px !important;
+            margin: 9px auto;
+          }
+      }
+     
+      .google-plus-icon{
+          width: 42px;
+          height: 42px;
+          border-radius: 5px;
+          background-color: #dd4b39;
+          margin: 32px 0px 18px auto;
+          margin-left: 10px;
+  
+          img{
+            padding: 2px;
+            width: 33px !important;
+            height: 23px;
+            margin-top: 10px;
+            margin-left: 4px;
+          }
+      }
+     
+  }
+  
+  .blue-snackbar {
+      background: #2196F3;
+    }
+  
+    .button {
+      --background :#ebb134 !important;
+     --color: #000000;
+     --vertical-align: middle;
+     --padding-start: 10px;
+     --padding-end: 10px;
+     --padding-left:10px;
+     --padding-right:10px;
+       height: 40px;
+       --background-activated:#ebb134;
+       --color-activated:#0000;
+   }
+  
+
+  
+  // /deep/ .sc-ion-modal-md-h sc-ion-modal-md-s md hydrated show-modal{
+  //   /deep/ .modal-wrapper md sc-ion-modal-md{
+  //     opacity: 0.95 !important;
+  //   }
+  // }
+  
+  
+  
+   // for Loginwith divider //
+  .container {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .line {
+      flex: 1;
+    }
+    
+    .account{
+      padding-top: 20px;
+    }
+  
+  ion-grid{
+      background:white;
+     }
+     ion-item{
+      background:white;
+     }
+
+     .top-border-radius {
+      border-radius: 10px 10px 0 0;
+      padding-top: 12px;
+      padding-bottom: 12px;
+      // padding: 11px 8px 11px 0;
+      .user-login-font{
+        color: #000000;
+        font-family: 'latosemibold';
+        font-size: 16px;
+        text-transform: none;
+      }
+  }
+  .bottom-border-radius {
+    border-radius: 0 0 10px 10px;
+}
+.font-blue{
+  text-decoration: underline;
+  text-underline-position: under;
+  text-decoration-color: #4F95E8;
+  color: #4F95E8;
+  font-family: 'latosemibold';
+  font-size: 13px;
+}
+.input-color{
+  // color: #000000 !important;
+  font-size: 13px !important;
+  position: relative;
+  // bottom: 4px;
+}
+
+.invalidError {
+  margin-left: 0px;
+  font-weight: 400;
+  font-size: 10px;
+  color: red;
+}
+
+// Sagar's Code
+.header-as-guest {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  // margin: 1px 0px;
+  // margin-bottom: 0px;
+}
+
+.header-cross-icon {
+  width: 13px;
+  height: 13px;
+}
+
+.header-center-span {
+  font-size: 16px;
+  font-family: 'latomedium';
+  color: #000000;
+}
+
+.account-no-user {
+  color:#5C5B5B;
+  font-size:12px;
+  font-family: 'latomedium';
+}
+// End of Sagar's Code

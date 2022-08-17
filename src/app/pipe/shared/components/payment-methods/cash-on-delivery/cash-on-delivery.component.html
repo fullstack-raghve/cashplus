@@ -1,0 +1,299 @@
+<ngx-spinner
+  bdOpacity="0.2"
+  bdColor="rgba(9,9,9,0.81)"
+  size="medium"
+  color="#fff"
+  type="ball-spin-clockwise-fade"
+  [fullScreen]="true"
+>
+  <p style="color: white;">Confirming Booking Please Wait...</p>
+</ngx-spinner>
+
+<ion-list class="card-payment">
+  <ion-grid>
+    <ion-row class="row-background">
+      
+      <ion-col size="6" class="cod-bw-h">
+     
+        <button matRipple [ngClass]= "payOfficeClass" (click)="payOnOffice()">
+          Pay at Travelwings office
+        </button>
+      </ion-col>
+      <ion-col size="6" *ngIf= "collectCashFromLocationAllowed=='true'">
+   
+
+      
+        <button matRipple [ngClass]= "payLocationClass" (click)= "payOnLocation()">
+          Collect cash from my location
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-list *ngIf= "payOffice">
+    <div text-center class="main-text">Your payment details are secured</div>
+    <div class="booking">
+      <p class="light-text text-center">
+        Kindly note, the booking stands unconfirmed until payment. in order to
+        make the payment, you may visit our office and we will be glad to assist
+        you further. We are based in the following address.
+      </p>
+    </div>
+    <ion-card>
+      <ion-grid style="padding-left: 10px;">
+        <ion-row>
+          <ion-col size="8" class="mt-7">
+            <ion-label class="address">Address</ion-label>
+            <br>
+            <div class="small-font2">
+              {{ orgdetails?.ADDRESS }}, {{ orgdetails?.CITY }}, {{
+                orgdetails?.COUNTRY
+              }}
+            </div>
+            
+            <!-- <p>P.O Box :3202202</p> -->
+          </ion-col>
+          <ion-col size='4' class="location">
+            <img
+              class="location-img"
+              src="assets/cod/location.svg"
+            />
+            <p class="location-p">Location</p>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="mt-7">
+            <ion-label class="address"> Email</ion-label><br />
+            <div style="color: #007ad9;" class="f-12"><u>{{ orgdetails?.EMAIL }}</u></div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="mt-7">
+            <ion-label class="address">Mobile Number</ion-label><br />
+            <div class="f-12">{{ orgdetails?.PHONE }}</div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col style="margin-bottom: 8px;" class="mt-7">
+            <ion-label class="address">Working Hours</ion-label><br />
+            <div class="f-12">Saturday-Thursday</div>
+            <div class="f-12">09:00am-07:00pm</div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+    <ion-item class="trustticon">
+      <span class="trust-text">Trusted By</span>
+      <!-- <img
+        class="trust-img"
+        src="assets/icons/flights/payment/trust_icon.png"
+      /> -->
+      <img
+      class="trust-img"
+      src="assets/cod/Image 85@3x.png"
+      style="    width: 80px;
+     "
+    />
+    </ion-item>
+    <ion-item class="box-border pb-50">
+      <form [formGroup]=' termsOfficeForm'>
+      <mat-checkbox class="mat-checkbox-bottom terms_condition" formControlName="termsoffice">
+        <span class="text-check ion-text-wrap" style="font-family: 'latomedium';"
+        >I understand and agree with rules and restrictions of this fare
+        and the
+        <!-- <u style="text-underline-position: under; text-decoration-color: #0089C6;"> -->
+          <a class="cash-terms-underline" (click) = 'openTC()'>Terms of Use</a>
+        <!-- </u> -->
+        </span>
+        
+      </mat-checkbox>
+      <mat-error class="invalidError" *ngIf= "termsofficeCheck">
+        Please accept terms and conditions.
+      </mat-error>
+      
+    </form>
+
+    </ion-item>
+    <div style="height: 40px;"></div>
+  </ion-list>
+  <!-- Collect cah from my loction -->
+  <ion-list *ngIf="payLocation">
+    <div text-center class="main-text">Your payment details are secured</div>
+    <div class="booking">
+      <p class="light-text2">
+        Please note that booking will not be guaranteed until payment received.
+      </p>
+      <p class="pay-by-check-content">
+        Pay by cash on delivery. COD of {{branchCurrencyCode}} {{courierCharges}} may apply.
+      </p>
+    </div>
+    <div  *ngIf = "islogin == 'true' && savedaddress?.length != 0"
+    >
+<div *ngFor ="let address of savedaddress;let index = index" (click) = "selectedAddress(address,index)">
+
+    <ion-card matRipple  [ngClass]="{redborder: index == clickedindex}">
+      <ion-grid >
+        <ion-row>
+          <ion-col size="10" style="padding-left: 10px;">
+            <ion-label class="address">{{address.name | titlecase}} </ion-label><br />
+            <p class="small-font">
+              {{address.address | titlecase}}, {{address.area | titlecase}}, {{address.buildingName | titlecase}}, {{address.landmark | titlecase}},<br>
+              {{address.city | titlecase}}, {{address.pinCode | titlecase}}
+              <br>
+              <span>Phone:  {{address.mobileNumber}} </span>
+            </p>
+            <!-- <p>Phone: 00971562982565</p> -->
+          </ion-col>
+          <ion-col size="2">
+            <div class="icon-img">
+              <img src="assets/cod/edit-svg.svg"  (click) = "editAddress(address)"/>
+              <img
+                class="delete-icon" (click) = "deleteCard(address)"
+                src="assets/cod/delete-svg.svg"
+              />
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+  </div>
+
+  </div>
+
+    <!-- <ion-button > <ion-iocn name="add"></ion-iocn>Add New Address</ion-button> -->
+    <ion-grid class="addNew greyy-grid">
+      <ion-row>
+        <ion-col size="12">
+          <!-- <button ion-button full><ion-iocn name="add"></ion-iocn>Add New Address</button> -->
+          <!-- <ion-button expand="full" class="address-btn">
+            <ion-icon name="add"></ion-icon>Add New Address
+          </ion-button> -->
+          <button class="btn2 success2" (click)="addNewAdd()">
+           + Add New Address
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-item class="trustticon2">
+      <span class="trust-text">Trusted By</span>
+      <!-- <img
+        class="trust-img"
+        src="assets/icons/flights/payment/trust_icon.png"
+      /> -->
+      <img
+        class="trust-img"
+        src="assets/cod/Image 85@3x.png"
+        style="width: 80px;
+        "
+      />
+    </ion-item>
+
+ 
+    <ion-item class="box-border pb-50">
+      <form [formGroup]='termsLocationForm'>
+      <mat-checkbox class="mat-checkbox-bottom terms_condition" formControlName='termslocation'>
+        <span class="text-check ion-text-wrap"  style="font-family: 'latomedium';"
+        >I understand and agree with rules and restrictions of this fare
+        <!-- and the
+        <u><a class="terms-underline" style="color:#0089C6;">Terms of Use</a></u> -->
+          and the
+        <a class="cash-terms-underline" (click) = 'openTC()'>Terms of Use</a>
+        </span>
+      </mat-checkbox>
+
+      <mat-error class="invalidError" *ngIf= "isLocationCheck">
+        Please accept terms and conditions.
+      </mat-error>
+    </form>
+    </ion-item>
+    <div style="height: 40px;"></div>
+  </ion-list>
+</ion-list>
+
+
+
+
+<footer *ngIf="tripType == 'oneway'">
+  <div class="main-container">
+    <div class="left-container" *ngIf="!setButtonClose"  (click)="fareDetails()">
+      <div >
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          <span class="aed-text">{{ selectedflight2.flightFare.currency  }} </span>
+          <span class="amount">{{  displayfareoneway  | roundUpPrice }}</span>
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="left-container" *ngIf="setButtonClose" (click)="closePopup()" >
+      <div >
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          <span class="aed-text">{{ selectedflight2.flightFare.currency  }} </span>
+          <span class="amount">{{  displayfareoneway  | roundUpPrice }}</span>
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="right-container">
+      <button class="rqst-button"  [ngClass]="{'rqst-button2' : isdisabled}" [disabled]= 'isdisabled' (click)="codType()">DELIVER TO THIS ADDRESS</button>
+    </div>
+  </div>
+</footer>
+
+
+<footer *ngIf="tripType == 'returnway'">
+  <div class="main-container">
+    <div class="left-container" *ngIf="!setButtonClose" (click)="fareDetails()">
+      <div >
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          <span class="aed-text">{{ returnwaycurreny }} </span>
+          <span class="amount">{{ cprice  | roundUpPrice }}</span>
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="left-container" *ngIf="setButtonClose" (click)="closePopup()">
+      <div (click)="fareDetails()">
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          <span class="aed-text">{{ returnwaycurreny }} </span>
+          <span class="amount">{{ cprice  | roundUpPrice }}</span>
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="right-container">
+      <button class="rqst-button"  [ngClass]="{'rqst-button2' : isdisabled}" [disabled]= 'isdisabled' (click)="codType()">DELIVER TO THIS ADDRESS</button>
+    </div>
+  </div>
+</footer>
+
+<footer *ngIf="tripType == 'multicity'">
+  <div class="main-container">
+    <div class="left-container">
+      <div (click)="fareDetails()">
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          <span class="aed-text">{{ multiCityCurrency }} </span>
+          <span class="amount">{{ multiflightFare  | roundUpPrice }}</span>
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="right-container">
+      <button class="rqst-button"  [ngClass]="{'rqst-button2' : isdisabled}" [disabled]= 'isdisabled'  (click)="codType()">DELIVER TO THIS ADDRESS</button>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,198 @@
+.mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination {
+  display: none !important;
+  overflow: scroll !important;
+  position: sticky !important;
+}
+.heading-font {
+  p {
+    font-size: 16px;
+  }
+}
+.bg-white {
+  background: white;
+}
+.flight-detail {
+  .header-font {
+    span {
+      text-align: center;
+      color: #ffffff;
+      font-size: 12px;
+      font-family: "latosemibold";
+      margin-top: 0px;
+      margin-bottom: 0px;
+    }
+  }
+  span {
+    text-align: center;
+    color: #ffffff;
+    font-size: 16px;
+    font-family: "latosemibold";
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+  p {
+    color: #ffffff;
+    font-size: 12px;
+    font-family: "latosemibold";
+    margin-top: 3px;
+    margin-bottom: 0px;
+  }
+}
+
+// margin: 10px;
+// border: 1px solid rgba(227, 227, 227, 1);
+// background: #ffff;
+.details {
+  padding: 10px;
+  color: black;
+  .date {
+    font-size: 8px;
+  }
+}
+.Origin-text {
+  font-size: 14px;
+}
+.city-text {
+  font-size: 12px;
+}
+.way-col {
+  text-align: center;
+  .stop {
+    font-size: 8px;
+  }
+}
+.tab {
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  overflow: visible !important;
+}
+
+ion-item {
+  --background: #f2f3f2;
+  p {
+    margin: auto;
+  }
+}
+ion-label {
+  font-size: 14px;
+}
+ion-slides {
+  background: #ffff;
+  height: 40px;
+}
+
+.active,
+.payment:hover {
+  // border-bottom:1px solid red ;
+}
+
+.mat-tab-label-container {
+  width: auto;
+  overflow: auto !important;
+}
+
+.wrapper-progressBar {
+  width: 100%;
+}
+
+.progressBar li {
+  list-style-type: none;
+  float: left;
+  width: 29%;
+  position: relative;
+  text-align: center;
+}
+
+.progressBar li:before {
+  content: " ";
+  line-height: 30px;
+  border-radius: 50%;
+  width: 12px;
+  height: 12px;
+  border: 1px solid #ddd;
+  display: block;
+  text-align: center;
+  margin: 0 auto 10px;
+  background-color: white;
+}
+
+.progressBar li:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background-color: #ddd;
+  top: 6px;
+  left: -55%;
+}
+
+.progressBar li:first-child:after {
+  content: none;
+}
+
+.progressBar li.active {
+  color: #2a2c2e;
+}
+
+.progressBar li.active:before {
+  border-color: #595959;
+  background-color: #595959;
+}
+
+.progressBar li.active + li:after {
+  background-color: #595959;
+}
+.traveller {
+  background-color: #ffffff !important;
+}
+
+.backArrow {
+  img {
+    vertical-align: -webkit-baseline-middle;
+  }
+}
+.right-img {
+  text-align: right;
+}
+.mat-tab-label .mat-tab-label-content {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+  font-family: "latoregular" !important;
+}
+.cardtext {
+  color: #7c7c7c;
+}
+
+/*change by anusha active tab */
+::ng-deep .mat-tab-list .mat-tab-labels .mat-tab-label-active {
+  font-weight: 700;
+  color: #000000;
+}
+/deep/mat-tab-label .mat-tab-label-content {
+}
+.mat-tab-label{
+  opacity: 1 !important;
+}
+/deep/.mat-tab-label, .mat-tab-link {
+  color: #898888;
+}
+
+.ui-tabview .ui-tabview-nav {
+  white-space: nowrap;
+  overflow-x: auto;
+}
+
+.ui-tabview .ui-tabview-nav li {
+  display: inline-block;
+  float: none;
+}
+.no-flight-mssg{
+  text-align: justify;
+}
+.maindiv{
+  background: white;
+    padding: 10px;
+}

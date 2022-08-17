@@ -1,0 +1,33 @@
+<div class="recent-search-block" *ngIf="get_three_element && get_three_element['length'] != 0" >
+  <div class="recent-search-header">
+    <h1>Recent Search</h1>
+    <span (click)="clearAllSearch()" >Clear all</span>
+  </div>
+  <ion-row *ngFor="let item of get_three_element" matRipple (click)="sendSearchData(item)" class="recent-search-row">
+    <ion-col size="2" class="recent-selection-col">
+      <div class="selection">
+        <img src="assets/icons/flights/recent-flight.svg" alt="Recent Flight">
+      </div>
+    </ion-col>
+    <ion-col size="10" class="recent-selection-col-full">
+      <ion-row class="recent-search-sub">
+        <ion-col size="3" class="recent-search-subcol">
+          <p class="location-code-left">{{item['flightSearch']['origin'] }}</p>
+          <p class="travel-date-left">{{item['flightSearch']['onwardJourneyDate'] | recentDate }}</p>
+        </ion-col>
+        <ion-col size="3" class="recent-swap">
+          <img src="assets/icons/flights/Gray_swap_icon.svg" alt="">
+        </ion-col>
+        <ion-col size="5" class="recent-search-subcol">
+          <p class="location-code-right">{{item['flightSearch']['destination'] }}</p>
+          <p class="travel-date-right">{{item?.flightSearch?.returnJourneyDate  | recentDate}}</p>
+        </ion-col>
+      </ion-row>
+    </ion-col>
+  </ion-row>
+
+</div>
+
+<!-- <pre>
+  {{get_three_element | json }}
+</pre> -->

@@ -1,0 +1,205 @@
+ion-item{
+    --background:white;
+}
+
+.button {
+    --background : rgba(244, 181, 11, 1);
+    --color: #000000;
+    --vertical-align: middle;
+    --padding-left:10px;
+    --padding-right:10px;
+      margin:7px;
+      --background-activated:#ebb134;
+ }
+
+ .footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+ }
+.support-module-content{
+    max-height: calc(100vh - 50px);
+}
+ion-row{
+    background:white;
+    /deep/ .ccode{
+        padding: 2px 0px 1px 0px;
+        }
+    /deep/ .mNumber{
+        padding: 2px 0px 1px 5px;
+    }
+   }
+   .backArrow{
+    margin-left: 10px;
+ }
+ ion-grid{
+     background: #ffff;
+ }
+//  img{
+//     display: block;
+//     width: 80%;
+//     /* margin-top: 0px; */
+//     /* padding-top: 0px; */
+//     padding-bottom: 30px;
+//  }
+.phone{
+    box-shadow: none!important;
+    // border: 1px solid #dcdcdc;
+    border-radius: 5px;
+
+    .phone1{
+        margin-bottom: 15px;
+        height: 19px;
+        width: 19px;
+        margin-left: 25px;        
+    }    
+    .sideArrow{
+        width: 2.1%;
+        margin-right: 10px;
+        // margin-top: 15px;
+        display: flex;
+      }
+}
+    @media only screen and (max-width: 400px){
+        .title{
+          padding: 0px 10px;
+          font-size: 18px;
+          text-align: center;
+        //   font-weight: 700;
+        }
+      }
+      ion-title{
+     //  font-family: 'latoregular'!important;
+
+        font-size: 18px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 1);
+      }
+  
+    //   ::ng-deep .mat-form-field-appearance-outline .mat-form-field-wrapper {
+    //     margin: 0px;
+       
+    //  }
+    //  ::ng-deep .mat-form-field-wrapper {
+    //    padding-bottom: 0px;
+    //    border:1px solid red;
+    //  }
+    ion-button{
+        height: 49px;
+       font-family: 'latoregular'!important;
+
+        font-size: 14px;
+        font-weight: 500;
+        color: rgba(0, 0, 0, 1);
+    }
+    ion-text{
+        border-radius: 5px;
+        background-color: rgba(244, 181, 11, 1);
+        font-weight: 500;
+    }
+    .profile{
+        // box-shadow: none!important;
+        // border: 1px solid #dcdcdc;
+        border-radius: 0px 0px 5px 5px;
+        padding: 0;
+        border-top: 0.5px solid white;
+        // ion-row{
+        //     padding: 10px;
+        // }
+    }
+    .profile1{
+        padding: 10px;
+    }
+ 
+  
+    .custom-card {
+        box-shadow: none!important;
+         border: 1px solid #dcdcdc;
+         margin: 7px;
+     }
+     .call{
+        font-size: 16px;
+        font-family: latomedium;
+        color: rgba(0, 0, 0, 1);
+        .call1{
+            font-size: 12px;
+            font-weight: 500;
+            color: #5c5b5b;
+            font-family: latomedium;
+        }
+       
+     }
+     mat-label{
+        font-size: 14px;
+        font-weight: 500;
+        color: rgba(137, 136, 136, 1);
+        font-family: 'latoregular'!important;
+       
+     }
+     .header{
+        border: 1px solid 1px solid #dcdcdc;
+        border-radius: 5px 5px 0px 0px;
+        padding: 10px;
+        // border: 0.1px solid  rgba(227, 227, 227, 1);
+        border-bottom: 0.5px solid #dcdcdc;
+       
+      }
+     ion-card-subtitle{
+       font-family: 'latoregular'!important;
+
+        font-size: 16px;
+        font-weight: 500;
+        color: rgba(0, 0, 0, 1);
+     }
+     .textareafld{height:120px;}
+     .mb-60{margin-bottom:60px;}
+.phone ion-col{padding: 10px 0px 10px 0;}
+.sc-ion-card-ios-h{    -webkit-margin-start: 10px;
+    margin-inline-start:  10px;
+    -webkit-margin-end:  10px;
+    margin-inline-end:  10px;} 
+    /deep/ .mat-select-value-text {
+            font-family: latosemibold;
+        }
+.pad0{padding:0px !important;}
+.mobile-section-mar{
+    margin-bottom: 0px !important;
+    padding-top: 0px;
+    padding-bottom: 0;
+} 
+.sub-position{
+    position: relative;
+    top: 7px;
+}
+.contact-mar{
+    margin-top: 7px;
+}
+.codeeroor{
+    position: relative;
+    top: -17px;
+    left: 10px;
+}
+.mg7{
+    margin-top: -7px;
+
+}
+.mb32{
+    margin-bottom: 0px;
+}
+.embedded-wrapper{
+    .modal-header h3 {
+        display: none!important;
+     }
+}
+.mb-5{
+    margin-bottom: 5px;
+}
+.bckicon22 {
+    padding: 11px;
+}
+.bckicon22:active {
+    background: #c10011;
+    border-radius: 50%;
+}
+

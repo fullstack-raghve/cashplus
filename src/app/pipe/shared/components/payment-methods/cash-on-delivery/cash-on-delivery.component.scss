@@ -1,0 +1,504 @@
+.card-payment {
+  max-height: calc(67vh - 4px);
+  overflow-y: auto;
+  // margin-top: -3px
+  padding-top: 0px;
+}
+.row-background {
+  background: #ffff;
+}
+.active,
+.cash-card:hover {
+  border: 1px solid red;
+}
+.active,
+.pay-card:hover {
+  border: 1px solid red;
+}
+.location {
+  .location-img {
+    width: 20px;
+    margin-left: 60%;
+    margin-top: 5px;
+  }
+  .location-p {
+    margin-left: 46%;
+    margin-top: 0px;
+    margin-bottom: 1px;
+  }
+}
+.address {
+  color: #000000;
+  font-size: 13px;
+  font-family: latoregular;
+  font-weight: 600;
+}
+.custom-grid {
+  background: #b4b4b4;
+}
+
+ion-grid {
+  background: #fff;
+}
+.trustticon {
+  float: right;
+  --border-color: #f2f3f2;
+  margin-top: 0px;         // it is uncommon because in html ion-card is applied without div, as compare with same scenerio
+  padding-right: 5px;
+  margin-bottom: 5px;
+}
+
+.trustticon2 {
+  float: right;
+  --border-color: #f2f3f2;
+  margin-top: 4px;
+  padding-right: 5px;
+  margin-bottom: 5px;
+}
+
+.note {
+  margin: 10px;
+  text-align: justify;
+}
+/deep/ .mat-tab-body-content {
+  overflow: hidden !important;
+}
+
+.icon-img {
+  // display: flex;
+  // justify-content: center;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  width: 115%;
+  height: 18px;
+  margin-top: 3px;
+  img {
+    width: 15px;
+    height: 15px;
+    margin-right: 7px;
+  }
+  .delete-icon {
+    // margin-right: 10px;
+    width: 15px;
+    margin: 0px 5px;
+  }
+}
+.addNew {
+  .address-btn {
+    --background: #ffff;
+    color: #000000;
+    float: none;
+  }
+}
+.text-pay {
+  font-size: 9px;
+}
+.cash-card {
+  width: 140px;
+}
+.pay-card {
+  width: 170px;
+}
+
+.booking {
+  padding: 15px;
+  font-size: 12px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+// .text-check {
+//   font-size: 10px;
+//   color: #2f2f2f;
+// }
+
+// footer //
+.footer-content {
+  background: #000000;
+  border: 1px solid #2d2e30;
+  position: fixed;
+  top: 92%;
+  p {
+    color: #ffff;
+    margin-top: -8px;
+  }
+  .crncy {
+    font-size: 12px;
+  }
+  .price {
+    font-size: 18px;
+  }
+  .total {
+    color: #fff;
+    font-size: 10px;
+  }
+  .arrow {
+    margin-top: 0.4rem;
+  }
+}
+
+//   ion-button{
+//     --background: #ebb134;
+//     color: #000000;
+//     padding-left: 30px;
+//     padding-bottom: 10px;
+//     --background-activated:#ebb134;
+//     --color-activated:#0000;
+//     float: right;
+// }
+/deep/.footer-content {
+  ion-grid {
+    background: #2d2e30 !important;
+  }
+}
+.fareDetailss {
+  display: flex;
+}
+.footer-content {
+  .total {
+    color: #898888;
+    font-size: 11px;
+    font-family: "latoregular";
+    margin-top: -3px;
+  }
+}
+.footer-content {
+  .price {
+    font-size: 25px;
+    color: white;
+    font-family: latomedium;
+  }
+}
+.footer-content {
+  .crncy {
+    font-size: 14px;
+    color: #ffffff;
+    font-family: latosemibold;
+  }
+}
+.footer-content {
+  .payment-bttn {
+    background: #f4b50b;
+    color: #000000;
+    // padding: 13px 20px 13px 20px;
+    border-radius: 6px;
+    font-size: 13px;
+    // margin: 2px 0px 0px 0px;
+    padding: 13px 11px;
+  }
+}
+.booking {
+  span {
+    font-family: "latoregular";
+    color: #5f5e5e;
+  }
+}
+.btn {
+  width: 100%;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  background-color: white;
+  margin: 5px 0px;
+  //color: black;
+  padding: 7px 2px;
+  font-size: 12px;
+  cursor: pointer;
+  display: block;
+  font-family: "latoregular";
+  color: #898888;
+
+}
+
+.borderActive {
+  border: 1px solid #d81d24;
+  color: #2A2B2D;
+  font-weight: 600;
+}
+
+/* Green */
+.success {
+  border-color: #d81d24;
+  color: #898888;
+}
+.btn2 {
+  width: 100%;
+  border: 1px solid #dedddd;
+  border-radius: 5px;
+  background-color: #ffffff;
+  padding: 14px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  display: block;
+  font-family: "latoregular";
+}
+
+/* Green */
+.success2 {
+  color: #000000;
+}
+
+.success:hover {
+  border-color: #d81d24;
+  color: #898888;
+}
+.light-text {
+  color: #5f5e5e;
+  text-align: center;
+  padding: 0px 10px;
+}
+.light-text2 {
+  color: #5f5e5e;
+  text-align: left;
+  padding: 0px 10px;
+}
+.pay-by-check-content{
+  color: black;
+  text-align: left;
+  padding: 0px 10px;
+  font-weight: 600;
+}
+.small-font {
+  line-height: 1.6;
+    font-family: "latomedium";
+    font-size: 12px;
+    color: #5F5E5E;
+    font-weight: 500;
+}
+.small-font2{
+  line-height: 1.5;
+  font-family: "latoregular";
+  font-size: 13px;
+  color: #5f5e5e;
+  font-weight: 500;
+  margin-top: 5px;
+}
+
+.greyy-grid {
+  background: #f2f2f2;
+}
+.trust-text {
+  font-family: "latoregular";
+  color: #5a5959;
+  font-size: 13px;
+  padding-right: 12px;
+}
+
+.text-check {
+  font-family: "latoregular";
+  color: #7e7c7c;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+// changes by anusha
+.footer-content {
+  background: #000000;
+  position: fixed;
+  top: 90%;
+}
+
+.footer-content {
+  background: #2d2e30 !important;
+  max-height: 75px !important;
+  border: 1px solid #2d2e30;
+}
+
+.invalidError {
+  // position: absolute;
+  position: relative;
+  // top: 36px;
+}
+
+.pb-50 {
+  margin-bottom: 12% !important;
+}
+.mat-checkbox-bottom {
+  margin-bottom: 16px !important;
+}
+
+// .cod-bw-h {
+//   height: 36px;
+// }
+
+.main-text {
+  color: #000000;
+  // font-weight: 500;
+  font-size: 11px;
+  padding-top: 9px;
+  font-family: latosemibold;
+}
+
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  .location-img {
+    width: 25px;
+    margin-left: 77%;
+  }
+  .location-p {
+    margin-left: 71%;
+    margin-top: 0px;
+  }
+}
+.footer-content .arrow-pad .uparrow-icon {
+  width: 23px;
+}
+
+.f-12{
+  font-size: 13px;
+  font-family: latoregular;
+  // line-height: 1.5;
+  margin-top: 5px;
+}
+
+.mt-7{
+  margin-top: 10px;
+}
+
+@media (min-width: 320px) and (max-height: 568px) { 
+  .rqst-button {
+    font-size: 10px;
+  }
+}
+
+
+// @media (min-width: 360px) and (max-width: 400px) { 
+//   .footer-content .payment-bttn {
+//     font-size: 11px;
+//   }
+// }
+
+
+
+
+// for footer style
+.main-container{
+  background: #2d2e30;
+    border: 1px solid #2d2e30;
+    padding: 0px 13px;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    align-items: center;
+    height: 62px;
+}
+
+.left-container{
+  display: flex;
+}
+
+.left-container img {
+  width: 24px;
+  padding-top: 9px;
+}
+
+.footer-item{
+  margin-left: 10px;
+}
+
+.aed-text{
+  font-size: 14px;
+  color: #ffffff;
+  font-family: latosemibold;
+}
+
+.amount{
+  font-size: 25px;
+  color: white;
+  font-family: latomedium;
+  padding-left: 3px;
+}
+
+.g-total{
+  color: #898888;
+  font-size: 11px;
+  font-family: "latomedium";
+  margin-top: -3px;
+}
+
+.rqst-button{
+  padding: 13px 14px;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: 500;
+    background: #f4b50b;
+    color: #000000;
+    font-family: latomedium;
+    @media (max-width: 320px) {
+      padding: 13px 10px;
+      border-radius: 5px;
+      font-size: 10px;
+      font-weight: 500;
+      background: #f4b50b;
+      color: #000;
+      font-family: 'latomedium';
+    }
+}
+.rqst-button2{
+  padding: 13px 14px;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: 500;
+    background: #c7c7c7;
+    color: #000000;
+    font-family: "latomedium";
+    pointer-events: none;
+    @media (max-width: 320px) {
+      padding: 13px 10px;
+      border-radius: 5px;
+      font-size: 10px;
+      font-weight: 500;
+      background: #c7c7c7;
+    color: #000000;
+    font-family: "latomedium";
+    pointer-events: none;
+    }
+}
+.redborder {
+  border: 1.5px solid #d81d24;
+}
+
+.mat-tab-label{
+  opacity: 1 !important;
+}
+
+// Sagar's Code
+.cash-terms-underline {
+  text-decoration: underline;
+  text-underline-position: under; 
+  text-decoration-color: #0089C6;
+  color: #0089C6;
+}
+/deep/ .mat-checkbox-checkmark-path {
+  stroke: #0089c6 !important;
+}
+/deep/ .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: #fff;
+  border: 1px solid #0089c6;
+}
+/deep/ .mat-checkbox-inner-container {
+  border-radius: 3px;
+  border: 1px #0089c6 !important;
+}
+/deep/ .mat-checkbox-frame {
+  background-color: #fff;
+  transition: border-color 90ms cubic-bezier(0, 0, 0.2, 0.1);
+  border-width: 1px;
+  border-style: solid;
+  border-color: #ccc;
+}
+/deep/.mat-checkbox:not(.mat-checkbox-disabled).mat-accent
+  .mat-checkbox-ripple
+  .mat-ripple-element {
+  background-color: transparent;
+}
+/deep/
+  .mat-checkbox:not(.mat-checkbox-disabled).mat-accent
+  .mat-checkbox-ripple
+  .mat-ripple-element {
+  background-color: transparent;
+}

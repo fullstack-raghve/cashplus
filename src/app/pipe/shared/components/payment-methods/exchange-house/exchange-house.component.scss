@@ -1,0 +1,434 @@
+ion-slides {
+  background: #ffff;
+  overflow: scroll;
+  padding: 6px 0px;
+}
+.paymentcard {
+  width: 40%;
+  height: 60px;
+  border: 1px solid #b4b4b4;
+  margin: 10px 10px 10px 10px;
+  border-radius: 5px;
+  .img-card {
+    margin-top: 0px;
+    img {
+      width: fit-content;
+      // height: 50px;
+      margin: auto;
+    }
+    p {
+      font-size: 10px;
+      color: black;
+      text-align: center;
+    }
+  }
+}
+.bank-card {
+  width: 30% !important;
+  height: 60px;
+  border: 2px solid #e0e0e0;
+  margin: 10px 5px 10px 10px;
+  border-radius: 5px;
+  .img-card {
+    margin-top: 0px;
+    img {
+      width: 70px;
+      max-height: 51px;
+      margin-top: 5px;
+    }
+    p {
+      font-size: 10px;
+      color: black;
+      text-align: center;
+    }
+  }
+}
+
+.video {
+  background: #ffff;
+  .video-img {
+    width: 50px;
+    margin: auto;
+  }
+}
+.custom-grid {
+  background: #b4b4b4;
+}
+
+.active,
+.paymentcard:hover {
+  border: 1px solid red;
+}
+ion-grid {
+  background: #fff;
+}
+.trustticon {
+  float: right;
+  --border-color: #f2f3f2;
+  padding-right: 5px;
+}
+// /deep/ .mat-form-field-appearance-outline:not(.mat-form-field-disabled) .mat-form-field-flex:hover .mat-form-field-outline{
+//     background-color:#fff!important;
+//    // border: 0.5px solid #7a7676;
+//   }
+//   /deep/ .mat-form-field-outline-start,
+//   /deep/ .mat-form-field-outline-gap,
+//   /deep/ .mat-form-field-outline-end{
+//     background-color:#fff!important;
+
+//   }
+
+.card-payment {
+  max-height: calc(70vh - 0px);
+  overflow-y: auto;
+  background: #f2f3f2;
+}
+
+.booking {
+  padding: 15px;
+  font-size: 12px;
+}
+
+.box-border {
+  --border-color: #f2f3f2;
+  font-size: 10px;
+}
+
+// footer //
+.footer-content {
+  background: #000000;
+  position: fixed;
+  top: 92%;
+  p {
+    color: #ffff;
+    margin-top: -8px;
+  }
+  .crncy {
+    font-size: 12px;
+  }
+  .price {
+    font-size: 25px;
+    color: white;
+    font-family: latomedium;
+  }
+  .total {
+    color: #fff;
+    font-size: 10px;
+  }
+  .arrow {
+    margin-top: 0.4rem;
+  }
+}
+
+ion-button {
+  --background: #ebb134;
+  color: #000000;
+  padding-left: 30px;
+  padding-bottom: 10px;
+  --background-activated: #ebb134;
+  --color-activated: #0000;
+  float: right;
+}
+
+.fam-icon {
+  border-radius: 25px;
+  height: 50px;
+  width: 50px;
+}
+/deep/ion-card {
+  box-shadow: none;
+  border: 1px solid #dedddd;
+  box-shadow: none !important;
+  
+}
+/deep/ion-card-header {
+  background: #f7f7f7;
+  border-bottom: 1px solid #dedddd;
+  padding-top: 15px;
+  padding-bottom: 13px;
+  padding-left: 22px;
+}
+/deep/ion-card-content {
+  background: white;
+  font-family: "latomedium";
+}
+.icc{
+  padding: 10px 22px !important;
+
+}
+/deep/ion-card-subtitle {
+  color: #000000;
+  font-family: "latosemibold";
+  font-size: 14px;
+  text-transform: none;
+}
+.not-white {
+  background: #f2f2f2;
+  .main-text {
+    color: #000000;
+    // font-weight: 600;
+    font-size: 11px;
+    font-family: latosemibold;
+  }
+  p {
+    // font-family: "latoregular" !important;
+    // color: #5f5e5e;
+    // text-align: justify;
+    font-family: "latomedium" !important;
+    color: #5f5e5e;
+    text-align: left;
+    padding: 0px 12px;
+  }
+}
+.cardcontent {
+  p {
+    padding-bottom: 5px !important;
+  }
+  h6 {
+    margin-bottom: 18px;
+    color: black;
+    font-family: "latosemibold";
+  }
+  .blue {
+    color: #4f95e8;
+  }
+}
+
+// /deep/.footer-content .button-footer .proceed-btn {
+//   background: #f4b50b !important;
+//   color: #000000;
+//   padding: 13px 20px;
+//   border-radius: 6px;
+//   font-size: 14px;
+//   font-family: "latoregular";
+// }
+// /deep/.footer-content {
+//   background: #2d2e30 !important;
+//   max-height: 60px !important;
+// }
+// /deep/.footer-content .button-footer .proceed-btn {
+//   background: #f4b50b !important;
+//   color: #000000;
+//   padding: 13px 20px;
+//   border-radius: 6px;
+//   font-size: 14px;
+//   font-family: "latoregular";
+// }
+// /deep/.footer-content {
+//   background: #2d2e30 !important;
+//   max-height: 60px !important;
+// }
+// /deep/.footer-content {
+//   ion-grid {
+//     background: #2d2e30 !important;
+//   }
+// }
+// /deep/.footer-content {
+//   ion-grid {
+//     background: #2d2e30 !important;
+//   }
+// }
+.fareDetailss {
+  display: flex;
+}
+.footer-content {
+  .total {
+    color: #898888;
+    font-size: 11px;
+    font-family: "latoregular";
+    margin-top: -3px;
+  }
+}
+.footer-content {
+  .price {
+    font-size: 25px;
+    color: white;
+    font-family: latomedium;
+  }
+}
+.footer-content {
+  .crncy {
+    font-size: 14px;
+    color: #ffffff;
+    font-family: latosemibold;
+  }
+}
+.footer-content {
+  .payment-bttn {
+    background: #f4b50b;
+    color: #000000;
+    padding: 13px 20px 13px 20px;
+    border-radius: 6px;
+    font-size: 14px;
+    margin: 2px 0px 0px 0px;
+  }
+}
+.redborder {
+  border: 1.5px solid #d81d24;
+}
+.trust-text {
+  font-family: "latoregular";
+  color: #5a5959;
+  font-size: 13px;
+  padding-right: 12px;
+}
+
+.pb-50 {
+  // padding-bottom: 56px;
+  margin-bottom: 12% !important;
+}
+.text-check {
+  font-family: "latoregular";
+  color: #7e7c7c;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+// changes by anusha
+
+.footer-content {
+  background: #000000;
+  position: fixed;
+  top: 90%;
+}
+
+.footer-content {
+  background: #2d2e30 !important;
+  max-height: 75px !important;
+  border: 1px solid #2d2e30;
+}
+
+.terms-underline {
+  text-decoration: none !important;
+}
+
+.cardcontent p {
+  padding-top: 10px !important;
+  // padding-bottom: 0px !important;
+}
+
+.card-content-md p {
+  margin-top: -1px;
+  margin-bottom: 2px;
+}
+.invalidError {
+  // position: absolute;
+  // top: 36px;
+  // position: fixed;
+}
+
+.pb-50 {
+  padding-bottom: 78px !important;
+}
+.mat-checkbox-bottom {
+  margin-bottom: 16px !important;
+}
+
+
+.card-padding{
+  margin-top: 2px;
+    margin-bottom: 13px;
+}
+
+
+// Sagar's Code
+.exchange-house-terms-underline {
+  text-decoration: underline;
+  text-underline-position: under; 
+  text-decoration-color: #0089C6;
+  color: #0089C6;
+}
+// End of Sagar's Code
+
+
+// for footer style
+// .main-container{
+//   background: #2d2e30;
+//     border: 1px solid #2d2e30;
+//     padding: 0px 13px;
+//     position: fixed;
+//     bottom: 0px;
+//     width: 100%;
+//     display: -webkit-box;
+//     display: flex;
+//     -webkit-box-pack: justify;
+//     justify-content: space-between;
+//     align-items: center;
+//     height: 62px;
+// }
+
+// .left-container{
+//   display: flex;
+// }
+
+// .left-container img {
+//   width: 24px;
+//   padding-top: 9px;
+// }
+
+// .footer-item{
+//   margin-left: 10px;
+// }
+
+// .aed-text{
+//   font-size: 14px;
+//   color: #ffffff;
+//   font-family: latosemibold;
+// }
+
+// .amount{
+//   font-size: 25px;
+//   color: white;
+//   font-family: latomedium;
+//   padding-left: 3px;
+// }
+
+// .g-total{
+//   color: #898888;
+//   font-size: 11px;
+//   font-family: "latomedium";
+//   margin-top: -3px;
+// }
+
+// .rqst-button{
+//   padding: 13px 14px;
+//     border-radius: 5px;
+//     font-size: 13px;
+//     font-weight: 500;
+//     background: #f4b50b;
+//     color: #000000;
+//     font-family: latomedium;
+// }
+
+// // end of footer style
+
+/deep/ .mat-checkbox-checkmark-path {
+  stroke: #0089c6 !important;
+}
+/deep/ .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: #fff;
+  border: 1px solid #0089c6;
+}
+/deep/ .mat-checkbox-inner-container {
+  border-radius: 3px;
+  border: 1px #0089c6 !important;
+}
+/deep/ .mat-checkbox-frame {
+  background-color: #fff;
+  transition: border-color 90ms cubic-bezier(0, 0, 0.2, 0.1);
+  border-width: 1px;
+  border-style: solid;
+  border-color: #ccc;
+}
+/deep/.mat-checkbox:not(.mat-checkbox-disabled).mat-accent
+  .mat-checkbox-ripple
+  .mat-ripple-element {
+  background-color: transparent;
+}
+/deep/
+  .mat-checkbox:not(.mat-checkbox-disabled).mat-accent
+  .mat-checkbox-ripple
+  .mat-ripple-element {
+  background-color: transparent;
+}

@@ -1,0 +1,1365 @@
+<ngx-spinner bdOpacity=0.2 bdColor="rgba(9, 9, 9, 0.92)" size="medium" color="#fff" type="ball-spin-clockwise-fade"
+[fullScreen]="true">
+<p style="color: white">Please Wait... </p>
+</ngx-spinner>
+
+<!-- <ion-header >
+    <ion-toolbar color="custom-color-red">
+      <ion-buttons  class="download aro-bck" slot="start" (click) = "editflight()">
+        <span>
+       <img src="assets/icon/tohome.svg" alt="Back" class="edit-img"  style="width: 20px;">
+
+       </span>
+      </ion-buttons>
+
+      <ion-title  class="title" style="margin-left: -13%;">Booking Status</ion-title>
+      <ion-buttons class="download1" slot="end">
+          <img  src= "assets/icon/download-ion.svg" />
+        </ion-buttons>
+        <ion-buttons  class="download" slot="end">
+            <img src= "assets/icons/flights/Share_Icon.svg">
+          </ion-buttons>
+    </ion-toolbar>
+</ion-header>  -->
+
+<ion-header  >
+  <ion-toolbar color="custom-color-red">
+    <ion-buttons  slot="start" class="aro-bck" (click) = "editflight()">
+      <img
+        class="backArrow"
+        src="assets/icon/tohome.svg"
+        
+      />
+    </ion-buttons>
+    <ion-title text-center class="title">Booking Status</ion-title>
+    <!-- <div>
+      <form [formGroup]= "myForm">
+        <textarea
+        autofocus="autofocus"
+        formControlName="name"
+        matInput
+        class="form-control4"
+        placeholder="name"
+        #tasknote
+        ></textarea>
+      <span>{{ tasknote.focus() }}
+      </span>
+      </form>
+      <div 
+  *ngIf="myForm.get('name').touched">
+
+   name is required
+
+</div>
+    </div> -->
+
+    <div *ngIf = "bookingStatus == 'Booked' && onlineRuleAutoTicketing == '0'">
+      <!-- <a  download href="{{pdfurl}}" >
+
+        <ion-buttons    class="download1" slot="end" >
+      <img  src= "assets/icon/download-ion.svg" class="download" />
+    </ion-buttons>
+    </a> -->
+    <a [href]= "pdfurl" [download]= "pdfurl">
+      <ion-buttons    class="download1" slot="end" >
+        <img  src= "assets/icon/download-ion.svg" class="download" />
+      </ion-buttons>
+    </a>
+    </div>
+  
+  </ion-toolbar>
+</ion-header>
+
+<ion-content #content class="content">
+  <ion-grid class="grid" >
+    
+    <ion-row class="content1" *ngIf = "bookingStatus == 'failed' || bookingStatus == 'Not Booked'"> 
+      <br>
+      <ion-header style="margin-top: 20px;">
+        <ion-toolbar color="custom-color-red">
+          
+          <ion-title  class="title">Booking Failed</ion-title>
+
+          <!-- <ion-title  class="title">Booking Status - {{bookingStatus | titlecase}}</ion-title> -->
+         
+        </ion-toolbar>
+      </ion-header> 
+      <p>
+        Sorry your booking has been failed. If you need any assistance, please contact us by email on <span><a href="mailto:{{branchEmailId}}">{{branchEmailId}}</a></span> or phone <b><a href="tel:{{branchMob}}">{{branchMob}}</a></b>.
+      </p>
+    </ion-row>
+
+    <ion-row class="content1" *ngIf = "bookingStatus == 'Booked'  && onlineRuleAutoTicketing == '1'"> 
+      <br>
+      <ion-header style="margin-top: 20px;">
+        <ion-toolbar color="custom-color-green" style="background: #77B621;">
+          <ion-title  class="title">Booking Confirmed</ion-title>
+    
+         
+        </ion-toolbar>
+      </ion-header> 
+    
+      <p>
+        Your booking has been confirmed. We will share the ticket number very soon. Contact to our customer care <span><a href="mailto:{{branchEmailId}}">{{branchEmailId}}</a></span>
+         or Phone <b><a href="tel:{{branchMob}}">{{branchMob}}</a></b> for more details.
+      </p>
+    </ion-row>
+
+    <ion-row class="content1" *ngIf = "bookingStatus == 'Booked'  && onlineRuleAutoTicketing == '0'"> 
+      <br>
+      <ion-header style="margin-top: 20px;">
+        <ion-toolbar color="custom-color-green" style="background: #77B621;">
+          <ion-title  class="title">Booking Confirmed</ion-title>
+    
+         
+        </ion-toolbar>
+      </ion-header> 
+      <p>
+        Thank you for choosing travelwings. We are delighted /pleased to confirm your reservation with us. For any
+      other assistance, Please feel free to connect with us on  <b><a href="tel:{{branchMob}}">{{branchMob}}</a></b> or you can also write to us on 
+        <span><a href="mailto:{{branchEmailId}}">{{branchEmailId}}</a></span>.
+      </p>
+     
+    </ion-row>
+
+    <ion-row class="content1" *ngIf = "bookingStatus == 'Hold'"> 
+      <br>
+      <ion-header style="margin-top: 20px;">
+        <ion-toolbar color="custom-color-green" style="background: #FD9426;">
+          
+    
+          <ion-title  class="title">Booking on hold</ion-title>
+         
+        </ion-toolbar>
+      </ion-header> 
+      <p>
+        Thank you for choosing Travelwings. Please note,your booking is on hold and not issued yet.
+        Request you to kindly contact us on  <b><a href="tel:{{branchMob}}">{{branchMob}}</a></b> or write to us at  <span><a href="mailto:{{branchEmailId}}">{{branchEmailId}}</a></span> and we will happy to assist you with your booking. </p>
+    </ion-row>
+   
+    <div class="flight-detail" *ngIf = "tripType == 'oneway'">
+          <div class="details">
+              <ion-row *ngFor = "let flight of flightDetails">
+                      <ion-col >
+                        <div class="location-path">
+                          <span>{{flight.origin}}</span>
+                          <img src= "assets/icons/flights/gray_circle_icon.svg"/>
+                          <span>{{flight.destination}}</span>
+                        </div>
+                      </ion-col>
+                      <ion-col class="RefNo"  >
+                          <label>Travelwings Ref No  </label>
+                      <p>{{flight.bookingRefNo}}</p>
+                      </ion-col>
+              </ion-row>
+            </div> 
+      <ion-row *ngFor = "let flight of flightDetails">
+        <ion-col class="ARefNo" size="12">
+          <div>
+            <span>
+                Airline Ref No:
+            </span>
+          <p>{{flight.airlinePnr}}</p>
+          </div>
+        </ion-col >
+        <ion-col class="type" size="12" style=" padding-left: 9px;">
+
+        <div *ngFor = "let flights of flight.legList;let index = index">
+<div *ngIf = "index<1">
+
+
+        <span>{{flights.airlineName}}</span> 
+        <span>|</span>
+        <span>{{flights.opertingCarrier}}-{{flights.flightNo}}</span>
+        <span>|</span>
+        <span>{{flight.cabinName}}</span>
+        <span>|</span>
+        <span>{{flights.equipMentNo}}</span>
+      </div>
+      </div>
+        </ion-col>
+      </ion-row>
+     
+          <ion-grid *ngFor = "let flight of flightDetails">
+         
+           <div class="panelHeight">
+              <ion-row>
+            <ion-col class="time"> 
+              <div *ngFor = "let legList of flight.legList;let first =  first;let last = last">
+
+            <div *ngIf = "first">
+
+            <ion-label class="Origin-text">{{legList.origin}} {{legList.depTime  | slice:0:5}}</ion-label><br />
+            <span class="date">{{legList.depDate | date : 'd'}}<span></span>{{legList.depDate | date : ' MMM, yyyy'}}</span><br />
+
+            <ion-label class="city-text">{{legList.originAirportName}}</ion-label>
+          </div>
+        </div>
+
+            </ion-col>
+            <ion-col class="way-col">
+              <span></span><br>
+              <span class="clock"><img src="assets/icons/flights/time_icon.png" ></span><br />
+              <span class="stop">{{flight.legList | addTime}} </span>
+            </ion-col>
+          
+              <ion-col class="time">
+                <div *ngFor = "let legList of flight.legList;let first =  first;let last = last">
+
+                  <div *ngIf = "last">
+                <ion-label class="Origin-text">{{legList.arrivalTime  | slice:0:5}} {{legList.destination}} </ion-label><br />
+                <span class="date">{{legList.arrivalDate | date : 'd'}}<span></span>{{legList.arrivalDate | date : ' MMM, yyyy'}}</span><br />
+
+                <ion-label class="city-text">{{legList.destinationAirportName}}</ion-label>
+              </div>
+            </div>
+              </ion-col>
+          </ion-row>
+          </div>
+         <!-- <div class="container">
+    <div class="line">
+    <mat-divider></mat-divider>
+    </div>
+    <div class="text mat-typography">
+    <p class="time-with">Layover : 2h 40 </p>
+    </div>
+    <div class="line">
+    <mat-divider></mat-divider>
+    </div>
+    </div> -->
+    <div class="stops">
+      <ion-row>
+      <ion-col>
+       <p *ngIf="flight.legList.length-1 != 0">
+       
+          {{flight.legList.length-1}} Stop  
+    <span *ngFor = "let legList of flight.legList;let index = index;let first = first;let last = last">
+ <span *ngIf = "!last">
+   ({{legList.destinationName}})
+ </span>
+    </span>
+      </p>
+      <p *ngIf="flight.legList.length-1 == 0">
+       
+       Non-Stop
+  
+    </p>
+      </ion-col>
+      </ion-row>
+      </div>
+        </ion-grid>
+
+       
+
+
+       
+
+     
+    
+
+      <div class="detailinfo">
+        <ion-grid>
+
+        <ion-row>
+          <ion-col class="leftSide" size="12">
+            <p>Passenger Details</p>
+
+          </ion-col>
+
+        </ion-row>
+        </ion-grid>
+      </div>
+
+      <div *ngFor = "let psngr of passengerDetails;let index = index">
+        <ion-row class="passengers-detils">
+          <ion-col size="12">
+            <p style="text-align: left !important;">{{index+1}}. {{psngr.passengerName | titlecase}} - 
+              <span *ngIf = "psngr.passengerType == '0'">Adult</span>
+              <span *ngIf = "psngr.passengerType == '1'">Child</span>
+              <span *ngIf = "psngr.passengerType == '2'">Infant</span>
+            </p>
+          </ion-col>
+        </ion-row>
+        <div class="top-section" *ngFor = "let flightloop of flightDetails;let index = index">
+          <div >
+
+         
+            <ion-row >
+              <ion-col size="5">
+                <label>Flight No</label>
+                <div *ngFor = "let innerleg of flightloop.legList;let index = index;let first = first;let last = last">
+              <p *ngIf = "first">{{innerleg.airlineCode}}-{{innerleg.flightNo}}</p>
+
+                </div>
+            </ion-col>
+            <ion-col sixe='3'>
+              <label>Sector</label>
+              <p>{{flightloop.origin}}-{{flightloop.destination}}</p>
+            </ion-col>
+            <ion-col size='4'>
+              <div class="date-section">
+              <label>Date</label>
+              <div *ngFor = "let innerleg of flightloop.legList;let index = index;let first = first;let last = last">
+                <p *ngIf = "first">{{innerleg.depDate | date:'d'}}{{innerleg.depDate| date:' MMM, yyyy'}}</p>
+  
+                  </div>
+              <!-- <p>{{legList.depDate | date:'d'}}{{legList.depDate| date:' MMM, yyyy'}}</p> -->
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row class="passenger1">
+            <ion-col size="5">
+              <label>Class</label>
+            <p>{{flightloop.cabinName}}</p>
+            </ion-col>
+            <ion-col *ngIf = "psngr.ticketNo">
+              <label>Ticket No </label>
+              <p>{{psngr.ticketNo}}</p>
+            </ion-col>
+          </ion-row>
+        </div>
+      </div>
+
+ 
+      </div>
+     
+      <div class="detailinfo">
+        <ion-grid>
+     <ion-row>
+          <ion-col class="leftSide" size="12">
+            <p>Fare Details</p>
+
+          </ion-col>
+
+        </ion-row>
+        </ion-grid>
+   
+      </div>
+
+     <!--returnway adult details -->
+     <div *ngFor = "let fareadult of adultDetail;let index = index">
+      <div class="aed" *ngIf = "index<1">
+        <ion-grid>
+          <ion-row >
+            <ion-col class="leftSide" size="6">
+            <span>{{adultDetail.length}} Adult x {{fareadult.flightFare | number : '1.2-2'}}</span>
+            </ion-col>
+            <ion-col size="6" text-right>
+              <p>{{fareDetails?.curruency}} 
+                <span>{{adultDetail.length*fareadult.flightFare | number : '1.2-2'}} </span> </p>
+  
+            </ion-col>
+        
+            <ion-col class="leftSide" size="6">
+              <span>Tax</span>
+            </ion-col>
+            <ion-col size="6" text-right>
+              <p>{{fareDetails?.curruency}}  
+              <span>{{adultDetail.length*fareadult.feeNTaxes | number : '1.2-2'}} </span> </p>
+            </ion-col>
+            <ion-col class="leftSide" size="6">
+              <span>Fee</span>
+            </ion-col>
+            <ion-col size="6" text-right>
+              <p>{{fareDetails?.curruency}}  
+              <span>{{adultDetail.length*fareadult.fees | number : '1.2-2'}} </span> </p>
+            </ion-col>
+            <!-- <ion-col class="leftSide" size="6">
+              <span>Discount</span>
+            </ion-col>
+            <ion-col size="6" text-right>
+              <p>{{fareDetails?.curruency}} 
+              <span>{{adultDetail.length*fareDetails.discount | number : '1.2-2'}} </span> </p>
+            </ion-col> -->
+            
+        </ion-row>
+        </ion-grid>
+    
+
+      </div>
+   
+
+      </div>
+  <!--returnway child details -->
+  <div *ngFor = "let farechild of childDetail;let index = index">
+    <div class="aed" *ngIf = "index<1">
+      <ion-grid>
+        <ion-row  >
+          <ion-col class="leftSide" size="6">
+          <span>{{childDetail.length}} Child x {{farechild.flightFare | number : '1.2-2'}}</span>
+          </ion-col>
+          <ion-col size="6" text-right>
+            <p>{{fareDetails?.curruency}} 
+              <span>{{childDetail.length*farechild.flightFare | number : '1.2-2'}} </span> </p>
+  
+          </ion-col>
+      
+          <ion-col class="leftSide" size="6">
+            <span>Tax</span>
+          </ion-col>
+          <ion-col size="6" text-right>
+            <p>{{fareDetails?.curruency}}  
+            <span>{{childDetail.length*farechild.feeNTaxes | number : '1.2-2'}} </span> </p>
+          </ion-col>
+          <ion-col class="leftSide" size="6">
+            <span>Fee</span>
+          </ion-col>
+          <ion-col size="6" text-right>
+            <p>{{fareDetails?.curruency}}  
+            <span>{{childDetail.length*farechild.fees | number : '1.2-2'}} </span> </p>
+          </ion-col>
+          <!-- <ion-col class="leftSide" size="6">
+            <span>Discount</span>
+          </ion-col>
+          <ion-col size="6" text-right>
+            <p>{{fareDetails?.curruency}} 
+            <span>{{childDetail.length*fareDetails.discount | number : '1.2-2'}} </span> </p>
+          </ion-col> -->
+      </ion-row>
+      </ion-grid>
+    
+
+    </div>
+ 
+
+    </div>
+
+  <!--returnway infant details details -->
+  <div *ngFor = "let fareinfant of infantDetail;let index = index">
+    <div class="aed" *ngIf = "index<1">
+      <ion-grid>
+        <ion-row  >
+          <ion-col class="leftSide" size="6">
+          <span>{{infantDetail.length}} Infant x {{fareinfant.flightFare | number : '1.2-2'}}</span>
+          </ion-col>
+          <ion-col size="6" text-right>
+            <p>{{fareDetails?.curruency}} 
+              <span>{{infantDetail.length*fareinfant.flightFare | number : '1.2-2'}} </span> </p>
+  
+          </ion-col>
+      
+          <ion-col class="leftSide" size="6">
+            <span>Tax</span>
+          </ion-col>
+          <ion-col size="6" text-right>
+            <p>{{fareDetails?.curruency}}  
+            <span>{{infantDetail.length*fareinfant.feeNTaxes | number : '1.2-2'}} </span> </p>
+          </ion-col>
+          <ion-col class="leftSide" size="6">
+            <span>Fee</span>
+          </ion-col>
+          <ion-col size="6" text-right>
+            <p>{{fareDetails?.curruency}}  
+            <span>{{infantDetail.length*fareinfant.fees | number : '1.2-2'}} </span> </p>
+          </ion-col>
+          <!-- <ion-col class="leftSide" size="6">
+            <span>Discount</span>
+          </ion-col>
+          <ion-col size="6" text-right>
+            <p>{{fareDetails.curruency}} 
+            <span>{{infantDetail.length*fareDetails.discount | number : '1.2-2'}} </span> </p>
+          </ion-col> -->
+      </ion-row>
+      </ion-grid>
+    
+
+    </div>
+ 
+
+    </div>
+<!--online fessss startt-->
+<div class="spacecls">
+  <div class="aed">
+    <ion-grid>
+      <ion-row>
+        <ion-col class="leftSide" size="6">
+          <span  >Online Convinence Fees</span>
+        </ion-col>
+        <ion-col size="6" text-right>
+          <p>{{fareDetails?.curruency}} 
+          <span>{{onlineConvinenceFees | number : '1.2-2'}} </span> </p>
+        </ion-col>
+    </ion-row>
+    </ion-grid>
+  
+
+  </div>
+
+
+  </div>
+
+
+
+  
+<!--online fees end-->
+
+<!--total discount start-->
+<div class="spacecls">
+  <div class="aed">
+    <ion-grid>
+      <ion-row>
+        <ion-col class="leftSide" size="6">
+          <span>Total Discount</span>
+        </ion-col>
+        <ion-col size="6" text-right>
+          <p>{{fareDetails?.curruency}} 
+          <span>{{fareDetails?.discount | number : '1.2-2'}} </span> </p>
+        </ion-col>
+    </ion-row>
+    </ion-grid>
+  
+
+  </div>
+
+  </div>
+  <!--discount end-->
+  <!--grand total of returnway adult ,child & infant-->  
+      <div class="aed1">
+        <ion-grid>
+          <ion-row>
+            <ion-col class="rightSide" size="6">
+            <span>Grand Total</span>
+            </ion-col>
+            <ion-col size="6" text-right>
+               <p  >{{curruency}}    
+                <!-- <span> {{grandtotal | number : '1.2-2'}} </span>  -->
+                <span> {{grandtotal}} </span> 
+             
+              </p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+      
+      </div>
+
+
+    </div>
+<!--returnway trip code start-->
+    <div class="flight-detail" *ngIf = "tripType == 'returnway'">
+    <div class="details2" [ngClass] = "{'details3': index == 0}" *ngFor = "let flight of flightDetails;let index = index;let first = first;let last = last">
+
+        <ion-row *ngIf = "index<1" class="ref-container">
+                <ion-col >
+                  <div class="location-path">
+                    <span>{{flight.origin}}</span>
+                    <img src= "assets/icons/flights/Gray_swap_icon.svg"/>
+                    <span>{{flight.destination}}</span>
+                  </div>
+                </ion-col>
+                <ion-col class="RefNo"  >
+                    <label>Travelwings Ref No  </label>
+                <p>{{flight.bookingRefNo}}</p>
+                </ion-col>
+        </ion-row>
+        <!-- <ion-row>
+          <ion-col >
+            <div class="location-path">
+              <span *ngIf = "first">{{flight.origin}}</span>
+              <img src= "assets/icons/flights/Gray_swap_icon.svg"/>
+              <span *ngIf = "last">{{flight.destination}}</span>
+            </div>
+          </ion-col>
+          <ion-col class="RefNo"  >
+              <label>Travelwings Ref No  </label>
+          <p *ngIf = "first">{{flight.bookingRefNo}}</p>
+          </ion-col>
+  </ion-row> -->
+      </div> 
+
+
+    <ion-grid *ngFor = "let flight of flightDetails">
+   
+      <ion-row>
+        <ion-col class="ARefNo" size="12">
+          <div>
+            <span>
+                Airline Ref No:
+            </span>
+          <p>{{flight.airlinePnr}}</p>
+          </div>
+        </ion-col >
+        <ion-col class="type" size="12">
+        <div *ngFor = "let flights of flight.legList;let index = index">
+        <div *ngIf = "index<1">
+
+
+          <span>{{flights.airlineName}}</span> 
+          <span>|</span>
+          <span>{{flights.opertingCarrier}}-{{flights.flightNo}}</span>
+          <span>|</span>
+          <span>{{flight.cabinName}}</span>
+          <span>|</span>
+          <span>{{flights.equipMentNo}}</span>
+        </div>
+      </div>
+        </ion-col>
+      </ion-row>
+
+     <div class="panelHeight">
+        <ion-row>
+      <ion-col class="time"> 
+        <div *ngFor = "let legList of flight.legList;let first =  first;let last = last">
+
+      <div *ngIf = "first">
+
+      <ion-label class="Origin-text">{{legList.origin}} {{legList.depTime  | slice:0:5}}</ion-label><br />
+      <span class="date">{{legList.depDate | date : 'd'}}<span></span>{{legList.depDate | date : ' MMM, yyyy'}}</span><br />
+
+      <ion-label class="city-text">{{legList.originAirportName}}</ion-label>
+    </div>
+  </div>
+
+      </ion-col>
+      <ion-col class="way-col">
+        <span></span><br>
+        <span class="clock"><img src="assets/icons/flights/time_icon.png" ></span><br />
+        <span class="stop">{{flight.legList | addTime}} </span>
+      </ion-col>
+    
+        <ion-col class="time">
+          <div *ngFor = "let legList of flight.legList;let first =  first;let last = last">
+
+            <div *ngIf = "last">
+          <ion-label class="Origin-text">{{legList.arrivalTime  | slice:0:5}} {{legList.destination}} </ion-label><br />
+          <span class="date">{{legList.arrivalDate | date : 'd'}}<span></span>{{legList.arrivalDate | date : ' MMM, yyyy'}}</span><br />
+
+          <ion-label class="city-text">{{legList.destinationAirportName}}</ion-label>
+        </div>
+      </div>
+        </ion-col>
+    </ion-row>
+    </div>
+   
+
+  <!-- <div class="container">
+    <div class="line">
+    <mat-divider></mat-divider>
+    </div>
+    <div class="text mat-typography">
+    <p class="time-with">Layover : 2h 40 </p>
+    </div>
+    <div class="line">
+    <mat-divider></mat-divider>
+    </div>
+    </div> -->
+    <div class="stops">
+    <ion-row>
+    <ion-col>
+    <p *ngIf= "flight.legList.length-1 != 0">
+     
+      {{flight.legList.length-1}} Stop  
+      <!-- <span *ngFor = "let legList of flight.legList;let index = index;let first =  first;let last = last">
+       <span *ngIf="flight.legList.length>1">
+        {{legList.destination}}
+       </span>
+      </span> -->
+    </p>
+    </ion-col>
+    </ion-row>
+    </div>
+  </ion-grid>
+   
+   
+<!--passenger detils start returnway-->
+<div class="detailinfo">
+  <ion-grid>
+
+  <ion-row>
+    <ion-col class="leftSide" size="12">
+      <p>Passenger Details</p>
+
+    </ion-col>
+
+  </ion-row>
+</ion-grid>
+
+</div>
+
+<!-- <div *ngFor = "let flight of flightDetails;let index = index">
+  <div *ngFor = "let innerflfight of flight.legList"> -->
+
+  <div *ngFor = "let psngr of passengerDetails;let index = index">
+  <ion-row class="passengers-detils">
+    <ion-col size="12">
+      <p style="text-align: left !important;">{{index+1}}. {{psngr.passengerName | titlecase}} - 
+        <span *ngIf = "psngr.passengerType == '0'">Adult</span>
+        <span *ngIf = "psngr.passengerType == '1'">Child</span>
+        <span *ngIf = "psngr.passengerType == '2'">Infant</span>
+      </p>
+    </ion-col>
+  </ion-row>
+
+  <div class="top-section" [ngClass] = "{'top-section2': odd}" *ngFor = "let flightloop of flightDetails;let index = index;let odd = odd">
+    <div >
+
+   
+      <ion-row >
+        <ion-col size="5">
+          <label>Flight No</label>
+          <div *ngFor = "let innerleg of flightloop.legList;let index = index;let first = first;let last = last">
+        <p *ngIf = "first">{{innerleg.airlineCode}}-{{innerleg.flightNo}}</p>
+
+          </div>
+      </ion-col>
+      <ion-col sixe='3'>
+        <label>Sector</label>
+        <p>{{flightloop.origin}}-{{flightloop.destination}}</p>
+      </ion-col>
+      <ion-col size='4'>
+        <div class="date-section">
+        <label>Date</label>
+        <div *ngFor = "let innerleg of flightloop.legList;let index = index;let first = first;let last = last">
+          <p *ngIf = "first">{{innerleg.depDate | date:'d'}}{{innerleg.depDate| date:' MMM, yyyy'}}</p>
+
+            </div>
+        <!-- <p>{{legList.depDate | date:'d'}}{{legList.depDate| date:' MMM, yyyy'}}</p> -->
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="passenger1">
+      <ion-col size="5">
+        <label>Class</label>
+      <p>{{flightloop.cabinName}}</p>
+      </ion-col>
+      <ion-col *ngIf = "psngr.ticketNo">
+        <label>Ticket No </label>
+        <p>{{psngr.ticketNo}}</p>
+      </ion-col>
+    </ion-row>
+  </div>
+</div>
+
+
+</div>
+
+<div class="detailinfo">
+  <ion-grid>
+
+  <ion-row>
+    <ion-col class="leftSide" size="12">
+      <p>Fare Details</p>
+
+    </ion-col>
+
+  </ion-row>
+</ion-grid>
+
+</div>
+     <!--returnway adult details -->
+     <div *ngFor = "let fareadult of adultDetail;let index = index">
+      <div class="aed" *ngIf = "index<1">
+        <ion-grid>
+          <ion-row>
+            <ion-col class="leftSide" size="6">
+            <span>{{adultDetail.length}} Adult x {{fareadult.flightFare | number : '1.2-2'}}</span>
+            </ion-col>
+            <ion-col size="6" text-right>
+              <p>{{fareDetails?.curruency}} 
+                <span>{{adultDetail.length*fareadult.flightFare | number : '1.2-2'}} </span> </p>
+  
+            </ion-col>
+        
+            <ion-col class="leftSide" size="6">
+              <span>Tax</span>
+            </ion-col>
+            <ion-col size="6" text-right>
+              <p>{{fareDetails?.curruency}}  
+              <span>{{adultDetail.length*fareadult.feeNTaxes | number : '1.2-2'}} </span> </p>
+            </ion-col>
+            <ion-col class="leftSide" size="6">
+              <span>Fee</span>
+            </ion-col>
+            <ion-col size="6" text-right>
+              <p>{{fareDetails?.curruency}}  
+              <span>{{adultDetail.length*fareadult.fees | number : '1.2-2'}} </span> </p>
+            </ion-col>
+            <!-- <ion-col class="leftSide" size="6">
+              <span>Discount</span>
+            </ion-col>
+            <ion-col size="6" text-right>
+              <p>{{fareDetails?.curruency}} 
+              <span>{{adultDetail.length*fareDetails.discount | number : '1.2-2'}} </span> </p>
+            </ion-col> -->
+        
+        </ion-row>
+        </ion-grid>
+    
+
+      </div>
+   
+
+      </div>
+  <!--returnway child details -->
+  <div *ngFor = "let farechild of childDetail;let index = index">
+    <div class="aed" *ngIf = "index<1">
+      <ion-grid>
+        <ion-row>
+          <ion-col class="leftSide" size="6">
+          <span>{{childDetail.length}} Child x {{farechild.flightFare | number : '1.2-2'}}</span>
+          </ion-col>
+          <ion-col size="6" text-right>
+            <p>{{fareDetails?.curruency}} 
+              <span>{{childDetail.length*farechild.flightFare | number : '1.2-2'}} </span> </p>
+  
+          </ion-col>
+      
+          <ion-col class="leftSide" size="6">
+            <span>Tax</span>
+          </ion-col>
+          <ion-col size="6" text-right>
+            <p>{{fareDetails?.curruency}}  
+            <span>{{childDetail.length*farechild.feeNTaxes | number : '1.2-2'}} </span> </p>
+          </ion-col>
+          <ion-col class="leftSide" size="6">
+            <span>Fee</span>
+          </ion-col>
+          <ion-col size="6" text-right>
+            <p>{{fareDetails?.curruency}}  
+            <span>{{childDetail.length*farechild.fees | number : '1.2-2'}} </span> </p>
+          </ion-col>
+          <!-- <ion-col class="leftSide" size="6">
+            <span>Discount</span>
+          </ion-col>
+          <ion-col size="6" text-right>
+            <p>{{fareDetails?.curruency}} 
+            <span>{{childDetail.length*fareDetails.discount | number : '1.2-2'}} </span> </p>
+          </ion-col> -->
+      </ion-row>
+      </ion-grid>
+    
+
+    </div>
+ 
+
+    </div>
+
+  <!--returnway infant details details -->
+  <div *ngFor = "let fareinfant of infantDetail;let index = index">
+    <div class="aed" *ngIf = "index<1">
+      <ion-grid>
+        <ion-row>
+          <ion-col class="leftSide" size="6">
+          <span>{{infantDetail.length}} Infant x {{fareinfant.flightFare | number : '1.2-2'}}</span>
+          </ion-col>
+          <ion-col size="6" text-right>
+            <p>{{fareDetails?.curruency}} 
+              <span>{{infantDetail.length*fareinfant.flightFare | number : '1.2-2'}} </span> </p>
+  
+          </ion-col>
+      
+          <ion-col class="leftSide" size="6">
+            <span>Tax</span>
+          </ion-col>
+          <ion-col size="6" text-right>
+            <p>{{fareDetails?.curruency}}  
+            <span>{{infantDetail.length*fareinfant.feeNTaxes | number : '1.2-2'}} </span> </p>
+          </ion-col>
+          <ion-col class="leftSide" size="6">
+            <span>Fee</span>
+          </ion-col>
+          <ion-col size="6" text-right>
+            <p>{{fareDetails?.curruency}}  
+            <span>{{infantDetail.length*fareinfant.fees | number : '1.2-2'}} </span> </p>
+          </ion-col>
+          <!-- <ion-col class="leftSide" size="6">
+            <span>Discount</span>
+          </ion-col>
+          <ion-col size="6" text-right>
+            <p>{{fareDetails.curruency}} 
+            <span>{{infantDetail.length*fareDetails.discount | number : '1.2-2'}} </span> </p>
+          </ion-col> -->
+      </ion-row>
+      </ion-grid>
+    
+
+    </div>
+ 
+
+    </div>
+
+    <!--online fessss startt-->
+<div > 
+  <div class="aed">
+    <ion-grid>
+      <ion-row>
+        <ion-col class="leftSide" size="6" style="display: flex;
+        align-items: center;
+        ">
+          <span>Online Convinence Fees</span>
+        </ion-col>
+        <ion-col size="6" text-right>
+          <p>{{fareDetails?.curruency}} 
+          <span>{{onlineConvinenceFees | number : '1.2-2'}} </span> </p>
+        </ion-col>
+    </ion-row>
+    </ion-grid>
+  
+
+  </div>
+
+
+  </div>
+<!--online fees end-->
+<!--total discount start-->
+<div class="spacecls">
+  <div class="aed">
+    <ion-grid>
+      <ion-row>
+        <ion-col class="leftSide" size="6">
+          <span>Total Discount</span>
+        </ion-col>
+        <ion-col size="6" text-right>
+          <p>{{fareDetails?.curruency}} 
+          <span>{{fareDetails?.discount | number : '1.2-2'}} </span> </p>
+        </ion-col>
+    </ion-row>
+    </ion-grid>
+  
+
+  </div>
+
+
+  </div>
+  <!--discount end-->
+  <!--grand total of returnway adult ,child & infant-->  
+      <div class="aed1">
+        <ion-grid>
+          <ion-row>
+            <ion-col class="rightSide" size="6">
+            <span>Grand Total</span>
+            </ion-col>
+            <ion-col size="6" text-right>
+               <p>{{curruency}}    
+                <!-- <span> {{grandtotal | number : '1.2-2'}} </span>  -->
+                <span> {{grandtotal}} </span> 
+             
+              </p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+      
+      </div>
+
+    </div>
+<!---returnway code end-->
+    
+<!--multicty trip code start-->
+    <div class="flight-detail" *ngIf = "tripType == 'multicity'">
+  <div class="details2">
+
+      <ion-row  style="border-top: 1px solid #dcdbdb;    border-bottom: 1px solid #dcdbdb; padding-top: 7px;">
+            <ion-col >
+              <div class="flex-containerc">
+                <div class="maindiv">
+                <div  *ngFor = "let flight of flightDetails;let index = index;let first = first;let last = last">
+                  <span *ngIf = "first">{{flight.origin}} </span>
+                  
+          
+                </div>
+              </div>
+                <div>
+                  <div class="maindiv imgicon">
+                    <img src= "assets/icons/flights/Gray_swap_icon.svg"/>
+          
+          </div>
+               
+                </div>
+                <div class="maindiv">
+                <div  *ngFor = "let flight of flightDetails;let index = index;let first = first;let last = last">
+                  <span *ngIf= "last">{{flight.destination}}</span>
+          
+                </div>
+              </div>
+              </div>
+            </ion-col>
+             
+              <ion-col  text-right class="RefNo">
+                  <label>Travelwings Ref No  </label>
+                  <div  *ngFor = "let flight of flightDetails;let index = index;let first = first;let last = last">
+                    <p *ngIf= "first">{{flight.bookingRefNo}}</p>
+
+                    </div>
+              </ion-col>
+
+              
+      </ion-row>
+ 
+    </div> 
+    
+
+  <ion-grid *ngFor = "let flight of flightDetails">
+ 
+    <ion-row>
+      <ion-col class="ARefNo" size="12">
+        <div>
+          <span>
+              Airline Ref No:
+          </span>
+        <p>{{flight.airlinePnr}}</p>
+        </div>
+      </ion-col >
+      <ion-col class="type" size="12">
+      <div *ngFor = "let flights of flight.legList;let index = index">
+      <div *ngIf = "index<1">
+
+
+        <span>{{flights.airlineName}}</span> 
+        <span>|</span>
+        <span>{{flights.opertingCarrier}}-{{flights.flightNo}}</span>
+        <span>|</span>
+        <span>{{flight.cabinName}}</span>
+        <span>|</span>
+        <span>{{flights.equipMentNo}}</span>
+      </div>
+    </div>
+      </ion-col>
+    </ion-row>
+
+   <div class="panelHeight">
+      <ion-row>
+    <ion-col class="time"> 
+      <div *ngFor = "let legList of flight.legList;let first =  first;let last = last">
+
+    <div *ngIf = "first">
+
+    <ion-label class="Origin-text">{{legList.origin}} {{legList.depTime  | slice:0:5}}</ion-label><br />
+    <span class="date">{{legList.depDate | date : 'd'}}<span></span>{{legList.depDate | date : ' MMM, yyyy'}}</span><br />
+
+    <ion-label class="city-text">{{legList.originAirportName}}</ion-label>
+  </div>
+</div>
+
+    </ion-col>
+    <ion-col class="way-col">
+      <span></span><br>
+      <span class="clock"><img src="assets/icons/flights/time_icon.png" ></span><br />
+      <span class="stop">{{flight.legList | addTime}} </span>
+    </ion-col>
+  
+      <ion-col class="time">
+        <div *ngFor = "let legList of flight.legList;let first =  first;let last = last">
+
+          <div *ngIf = "last">
+        <ion-label class="Origin-text">{{legList.arrivalTime  | slice:0:5}} {{legList.destination}} </ion-label><br />
+        <span class="date">{{legList.arrivalDate | date : 'd'}}<span></span>{{legList.arrivalDate | date : ' MMM, yyyy'}}</span><br />
+
+        <ion-label class="city-text">{{legList.destinationAirportName}}</ion-label>
+      </div>
+    </div>
+      </ion-col>
+  </ion-row>
+  </div>
+ 
+
+<!-- <div class="container">
+  <div class="line">
+  <mat-divider></mat-divider>
+  </div>
+  <div class="text mat-typography">
+  <p class="time-with">Layover : 2h 40 </p>
+  </div>
+  <div class="line">
+  <mat-divider></mat-divider>
+  </div>
+  </div> -->
+  <div class="stops">
+  <ion-row>
+  <ion-col>
+  <p *ngIf= "flight.legList.length-1 != 0">
+   
+    {{flight.legList.length-1}} Stop  
+    <!-- <span *ngFor = "let legList of flight.legList;let index = index;let first =  first;let last = last">
+     <span *ngIf="flight.legList.length>1">
+      {{legList.destination}}
+     </span>
+    </span> -->
+  </p>
+  </ion-col>
+  </ion-row>
+  </div>
+</ion-grid>
+ 
+ 
+<!--passenger detils start multicity-->
+<div class="detailinfo">
+  <ion-grid>
+<ion-row>
+  <ion-col class="leftSide" size="12">
+    <p>Passenger Details</p>
+
+  </ion-col>
+
+</ion-row>
+</ion-grid>
+</div>
+
+
+
+<div *ngFor = "let psngr of passengerDetails;let index = index">
+<ion-row class="passengers-detils">
+  <ion-col size="12">
+    <p style="text-align: left !important;">{{index+1}}. {{psngr.passengerName | titlecase}} - 
+      <span *ngIf = "psngr.passengerType == '0'">Adult</span>
+      <span *ngIf = "psngr.passengerType == '1'">Child</span>
+      <span *ngIf = "psngr.passengerType == '2'">Infant</span>
+    </p>
+  </ion-col>
+</ion-row>
+<div class="top-section" [ngClass] = "{'top-section2': odd}" *ngFor = "let flightloop of flightDetails;let index = index;let odd = odd">
+  <div >
+
+ 
+    <ion-row >
+      <ion-col size="5">
+        <label>Flight No</label>
+        <div *ngFor = "let innerleg of flightloop.legList;let index = index;let first = first;let last = last">
+      <p *ngIf = "first">{{innerleg.airlineCode}}-{{innerleg.flightNo}}</p>
+
+        </div>
+    </ion-col>
+    <ion-col sixe='3'>
+      <label>Sector</label>
+      <p>{{flightloop.origin}}-{{flightloop.destination}}</p>
+    </ion-col>
+    <ion-col size='4'>
+      <div class="date-section">
+      <label>Date</label>
+      <div *ngFor = "let innerleg of flightloop.legList;let index = index;let first = first;let last = last">
+        <p *ngIf = "first">{{innerleg.depDate | date:'d'}}{{innerleg.depDate| date:' MMM, yyyy'}}</p>
+
+          </div>
+      <!-- <p>{{legList.depDate | date:'d'}}{{legList.depDate| date:' MMM, yyyy'}}</p> -->
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-row class="passenger1">
+    <ion-col size="5">
+      <label>Class</label>
+    <p>{{flightloop.cabinName}}</p>
+    </ion-col>
+    <ion-col *ngIf = "psngr.ticketNo">
+      <label>Ticket No </label>
+      <p>{{psngr.ticketNo}}</p>
+    </ion-col>
+  </ion-row>
+</div>
+</div>
+
+
+
+</div>
+
+<div class="detailinfo">
+  <ion-grid>
+<ion-row>
+  <ion-col class="leftSide" size="12">
+    <p>Fare Details</p>
+
+  </ion-col>
+
+</ion-row>
+</ion-grid>
+</div>
+   
+            <!--returnway adult details -->
+     <div *ngFor = "let fareadult of adultDetail;let index = index">
+      <div class="aed" *ngIf = "index<1">
+        <ion-grid>
+          <ion-row >
+            <ion-col class="leftSide" size="6">
+            <span>{{adultDetail.length}} Adult x {{fareadult.flightFare | number : '1.2-2'}}</span>
+            </ion-col>
+            <ion-col size="6" text-right>
+              <p>{{fareDetails?.curruency}} 
+                <span>{{adultDetail.length*fareadult.flightFare | number : '1.2-2'}} </span> </p>
+  
+            </ion-col>
+        
+            <ion-col class="leftSide" size="6">
+              <span>Tax</span>
+            </ion-col>
+            <ion-col size="6" text-right>
+              <p>{{fareDetails?.curruency}}  
+              <span>{{adultDetail.length*fareadult.feeNTaxes | number : '1.2-2'}} </span> </p>
+            </ion-col>
+            <ion-col class="leftSide" size="6">
+              <span>Fee</span>
+            </ion-col>
+            <ion-col size="6" text-right>
+              <p>{{fareDetails?.curruency}}  
+              <span>{{adultDetail.length*fareadult.fees | number : '1.2-2'}} </span> </p>
+            </ion-col>
+            <!-- <ion-col class="leftSide" size="6">
+              <span>Discount</span>
+            </ion-col>
+            <ion-col size="6" text-right>
+              <p>{{fareDetails?.curruency}} 
+              <span>{{adultDetail.length*fareDetails.discount | number : '1.2-2'}} </span> </p>
+            </ion-col> -->
+        
+        </ion-row>
+        </ion-grid>
+    
+
+      </div>
+   
+
+      </div>
+  <!--returnway child details -->
+  <div *ngFor = "let farechild of childDetail;let index = index">
+    <div class="aed" *ngIf = "index<1">
+      <ion-grid>
+        <ion-row >
+          <ion-col class="leftSide" size="6">
+          <span>{{childDetail.length}} Child x {{farechild.flightFare | number : '1.2-2'}}</span>
+          </ion-col>
+          <ion-col size="6" text-right>
+            <p>{{fareDetails?.curruency}} 
+              <span>{{childDetail.length*farechild.flightFare | number : '1.2-2'}} </span> </p>
+  
+          </ion-col>
+      
+          <ion-col class="leftSide" size="6">
+            <span>Tax</span>
+          </ion-col>
+          <ion-col size="6" text-right>
+            <p>{{fareDetails?.curruency}}  
+            <span>{{childDetail.length*farechild.feeNTaxes | number : '1.2-2'}} </span> </p>
+          </ion-col>
+          <ion-col class="leftSide" size="6">
+            <span>Fee</span>
+          </ion-col>
+          <ion-col size="6" text-right>
+            <p>{{fareDetails?.curruency}}  
+            <span>{{childDetail.length*farechild.fees | number : '1.2-2'}} </span> </p>
+          </ion-col>
+          <!-- <ion-col class="leftSide" size="6">
+            <span>Discount</span>
+          </ion-col>
+          <ion-col size="6" text-right>
+            <p>{{fareDetails?.curruency}} 
+            <span>{{childDetail.length*fareDetails.discount | number : '1.2-2'}} </span> </p>
+          </ion-col> -->
+      </ion-row>
+      </ion-grid>
+    
+
+    </div>
+ 
+
+    </div>
+
+  <!--returnway infant details details -->
+  <div *ngFor = "let fareinfant of infantDetail;let index = index">
+    <div class="aed" *ngIf = "index<1">
+      <ion-grid>
+        <ion-row >
+          <ion-col class="leftSide" size="6">
+          <span>{{infantDetail.length}} Infant x {{fareinfant.flightFare | number : '1.2-2'}}</span>
+          </ion-col>
+          <ion-col size="6" text-right>
+            <p>{{fareDetails?.curruency}} 
+              <span>{{infantDetail.length*fareinfant.flightFare | number : '1.2-2'}} </span> </p>
+  
+          </ion-col>
+      
+          <ion-col class="leftSide" size="6">
+            <span>Tax</span>
+          </ion-col>
+          <ion-col size="6" text-right>
+            <p>{{fareDetails?.curruency}}  
+            <span>{{infantDetail.length*fareinfant.feeNTaxes | number : '1.2-2'}} </span> </p>
+          </ion-col>
+          <ion-col class="leftSide" size="6">
+            <span>Fee</span>
+          </ion-col>
+          <ion-col size="6" text-right>
+            <p>{{fareDetails?.curruency}}  
+            <span>{{infantDetail.length*fareinfant.fees | number : '1.2-2'}} </span> </p>
+          </ion-col>
+          <!-- <ion-col class="leftSide" size="6">
+            <span>Discount</span>
+          </ion-col>
+          <ion-col size="6" text-right>
+            <p>{{fareDetails?.curruency}} 
+            <span>{{infantDetail.length*fareDetails.discount | number : '1.2-2'}} </span> </p>
+          </ion-col> -->
+      </ion-row>
+      </ion-grid>
+    
+
+    </div>
+ 
+
+    </div>
+
+    <!--online fessss startt-->
+<div syle="margin-top: -21px;">
+  <div class="aed">
+    <ion-grid>
+      <ion-row>
+        <ion-col class="leftSide" size="6">
+          <span >Online Convinence Fees</span>
+        </ion-col>
+        <ion-col size="6" text-right>
+          <p >{{fareDetails?.curruency}} 
+          <span>{{onlineConvinenceFees | number : '1.2-2'}} </span> </p>
+        </ion-col>
+    </ion-row>
+    </ion-grid>
+  
+
+  </div>
+
+
+  </div>
+<!--online fees end-->
+<!--total discount start-->
+<div syle="margin-top: -21px;">
+  <div class="aed">
+    <ion-grid>
+      <ion-row>
+        <ion-col class="leftSide" size="6">
+          <span>Total Discount</span>
+        </ion-col>
+        <ion-col size="6" text-right>
+          <p>{{fareDetails?.curruency}} 
+          <span>{{fareDetails?.discount | number : '1.2-2'}} </span> </p>
+        </ion-col>
+    </ion-row>
+    </ion-grid>
+  
+
+  </div>
+
+
+  </div>
+  <!--discount end-->
+  <!--grand total of returnway adult ,child & infant-->  
+      <div class="aed1">
+        <ion-grid>
+          <ion-row>
+            <ion-col class="rightSide" size="6">
+            <span>Grand Total</span>
+            </ion-col>
+            <ion-col size="6" text-right>
+               <p >{{curruency}}    
+                <!-- <span> {{grandtotal | number : '1.2-2'}} </span>  -->
+                <span> {{grandtotal}} </span> 
+             
+              </p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+      
+      </div>
+
+
+    </div>
+<!--multicty trip code end-->
+
+  </ion-grid>
+</ion-content>

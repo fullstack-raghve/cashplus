@@ -1,0 +1,339 @@
+.light-blue {
+  color: #4f95e8;
+  font-family: "latosemibold";
+  font-size: 14px;
+}
+.login-with {
+  color: #949393;
+  border: 1px solid #c4c4c4;
+  width: 123px;
+  margin: 0px auto;
+  padding: 4px 3px;
+  border-radius: 8px;
+  background: #ffffff;
+  justify-content: center;
+  display: flex;
+  font-family: latosemibold;
+}
+
+.agree {
+  text-align: center;
+  background: white;
+}
+.feature {
+  text-align: center;
+  background: white;
+}
+ion-row {
+  background: white;
+}
+
+.socio-icons-block {
+  justify-content: center;
+  padding-bottom: 5px;
+  display: flex;
+  // css added  text-align: center;
+  // width: 100%;
+  // display: flex //
+  .facebook-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 5px;
+    background-color: #3b5998;
+    margin: 42px 0 25px 0;
+    img {
+      // padding: 3px;
+      // width: 17px !important;
+      // margin-left: 13px;
+      // margin-top: 6px;
+      width: 13px !important; 
+      margin:9px auto
+    }
+  }
+
+  .google-plus-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 5px;
+    background-color: #dd4b39;
+    margin: 42px 0 25px 0;
+    margin-left: 9px;
+
+    img {
+      width: 29px !important;
+      height: 19px;
+      margin-top: 12px;
+      margin-left: 7px;
+    }
+  }
+  // end //
+}
+// for checkbox  //
+.text-check {
+  font-family: "Latosemibold";
+  padding: 0px;
+  font-size: 12px;
+  color: #9a9797;
+  p {
+    margin-top: 0px;
+    padding-left: 25px;
+    font-family: 'Latosemibold';
+  }
+  span {
+    font-family: "Latosemibold";
+  }
+}
+.Login p {
+  font-size: 13px;
+}
+
+// end //
+ion-item {
+  --background: white;
+  --border-color: #ffff;
+}
+.list-spacing {
+  margin: 20px 0;
+}
+.button {
+  --background: #f4b50b !important;
+  --color: #000000;
+  --vertical-align: middle;
+  --padding-start: 10px;
+  --padding-end: 10px;
+  --padding-left: 10px;
+  --padding-right: 10px;
+  --box-shadow: none;
+  font-family: latomedium;
+  font-size: 14px;
+  --border-radius: 5px;
+  width: 94%;
+  text-align: center;
+  margin: 6px 0px 20px 10px;
+  height: 50px;
+}
+
+/deep/ .ios button button-block button-solid ion-activatable ion-focusable {
+  --background: #ebb134 !important;
+}
+ion-card-subtitle {
+  text-align: center;
+}
+.check-box {
+  margin-inline-end: 10px !important;
+}
+.exclusive {
+  padding: 0px;
+  border: 0.1px solid rgba(227, 227, 227, 1);
+  border-radius: 0px 0px 10px 10px;
+  background: #ffffff;
+  .text-font {
+    font-size: 12px;
+    font-family: "Latosemibold";
+  }
+  .icons {
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+}
+
+// for divider //
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.line {
+  flex: 1;
+}
+
+.text {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.backArrow {
+  // margin-left: 10px;
+  padding: 10px;
+}
+.title {
+  font-size: 16px;
+  text-align: center;
+}
+
+@media only screen and (max-width: 400px) {
+  .title {
+    padding: 0px 10px;
+    font-size: 16px;
+    text-align: center;
+  }
+}
+.profile {
+  padding: 0px;
+  border: 0.1px solid rgba(227, 227, 227, 1);
+  border-bottom: 1px solid white;
+  border-top: 1px solid white;
+  background: white;
+  //
+  .form-group {
+    padding: 2px 10px;
+    // padding-bottom: 5px;
+  }
+  mat-error {
+    margin-top: 15px;
+    display: flex;
+    font-size: 10px;
+    position: relative;
+    bottom: 2px;
+  }
+  .pass-error {
+    margin-top: 12px;
+    display: flex;
+    font-size: 10px;
+    position: relative;
+    bottom: 2px;
+  }
+  .check {
+    padding-bottom: 10px;
+  }
+  .checkbox-font {
+    font-family: latomedium;
+  }
+}
+.header {
+  border-radius: 10px 10px 0px 0px;
+  padding: 10px;
+  border: 0.1px solid rgba(227, 227, 227, 1);
+  border-bottom: 0.5px solid rgba(227, 227, 227, 1);
+  color: rgba(0, 0, 0, 1);
+}
+.social {
+  padding: 0px;
+  /*border: 0.1px solid rgba(227, 227, 227, 1);*/
+  border-radius: 0px 0px 20px 20px;
+  .text {
+    padding: 0px;
+  }
+}
+
+.signup {
+  background: white;
+  border-radius: 10px 10px 0px 0px;
+  border: 0.1px solid rgba(227, 227, 227, 1);
+  border-bottom: 1px solid rgba(227, 227, 227, 1);
+}
+// ::ng-deep .mat-form-field-appearance-outline .mat-form-field-wrapper {
+//    margin: 0px;
+// }
+// ::ng-deep .mat-form-field-wrapper {
+//   padding-bottom: 0px;
+// }
+.Login {
+  justify-content: center;
+  padding-bottom: 5px;
+  display: flex;
+}
+
+.custom-card {
+  box-shadow: none !important;
+  border: 1px solid gainsboro;
+  border-radius: 13px;
+  .call-us {
+    font-family: "latomedium";
+  }
+}
+//////////
+.font-blck {
+  text-decoration: underline;
+  text-underline-position: under;
+  text-decoration-color: #4F95E8;
+  color:#4F95E8 !important;
+  font-family: 'latosemibold';
+  font-size: 13px;
+}
+.Login p {
+  color: #b1a7a7;
+  font-family: latomedium;
+}
+
+.register_user {
+  .form-group {
+    margin-bottom: 10px;
+  }
+  /deep/ .mat-form-field {
+    /deep/ .mat-form-field-wrapper {
+      padding-bottom: 1px !important;
+    }
+  }
+}
+
+// change by anusha
+
+/** No CSS for this example */
+.checkbox-input {
+  width: 15px;
+  height: 15px;
+}
+
+.all-check-align {
+  margin: 3px 0px 0px 8px;
+}
+.airline-checkbox {
+  top: 7px;
+  left: 8px !important;
+}
+
+/deep/ .mat-checkbox-checkmark-path {
+  stroke: #0089c6 !important;
+}
+/deep/ .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: #fff;
+  border: 1px solid #0089c6;
+}
+/deep/ .mat-checkbox-inner-container {
+  border-radius: 3px;
+  border: 1px #0089c6 !important;
+}
+/deep/ .mat-checkbox-frame {
+  background-color: #fff;
+  transition: border-color 90ms cubic-bezier(0, 0, 0.2, 0.1);
+  border-width: 1px;
+  border-style: solid;
+  border-color: #ccc;
+}
+/deep/.mat-checkbox:not(.mat-checkbox-disabled).mat-accent
+  .mat-checkbox-ripple
+  .mat-ripple-element {
+  background-color: transparent;
+}
+/deep/
+  .mat-checkbox:not(.mat-checkbox-disabled).mat-accent
+  .mat-checkbox-ripple
+  .mat-ripple-element {
+  background-color: transparent;
+}
+.text-blues {
+  color: #000000 !important;
+}
+.to {
+  display: block;
+  padding: 0px;
+  margin: 0px;
+  line-height: 0.5;
+}
+.aro-bck {
+  position: absolute;
+}
+
+/deep/.mat-simple-snackbar {
+  font-family: 'latomedium'!important;
+}
+
+.have-account {
+  color: #B1A7A7;
+  font-size:13px;
+  font-family: 'latosemibold';
+}

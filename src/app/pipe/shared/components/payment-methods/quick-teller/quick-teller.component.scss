@@ -1,0 +1,77 @@
+.fullname{
+    color: #f44336;
+    position: absolute;
+    top: 116%;
+    width: 100%;
+    left: 0px;
+    font-size: 12px;
+  }
+  .ccc{
+    line-height: 2.5;
+    margin: 0;
+  }
+  .quick-text{
+    display: flex;
+    margin: 0px 9px;
+  }
+
+  
+  .bank-deposite-terms-underline {
+    text-decoration: underline;
+    text-underline-position: under; 
+    text-decoration-color: #0089C6;
+    color: #0089C6;
+  }
+
+//new css when no pg\
+/deep/.mat-form-field-outline {
+  background-color: #ffffff !important;
+  ::placeholder {
+    font-family: "latoregular" !important;
+  }
+}
+/deep/ .mat-checkbox-inner-container {
+  background: #ffffff;
+  width: 22px !important;
+  height: 22px !important;
+  margin-top: 3px !important;
+}
+/deep/.toggle-inner {
+  background: #ffffff !important;
+}
+/deep/ .mat-checkbox-checkmark-path {
+  stroke: #0089c6 !important;
+}
+/deep/ .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: #fff;
+  border: 1px solid #0089c6;
+}
+/deep/ .mat-checkbox-inner-container {
+  border-radius: 3px;
+  border: 1px #0089c6 !important;
+}
+/deep/ .mat-checkbox-frame {
+  background-color: #fff;
+  transition: border-color 90ms cubic-bezier(0, 0, 0.2, 0.1);
+  border-width: 1px;
+  border-style: solid;
+  border-color: #ccc;
+}
+/deep/.mat-checkbox:not(.mat-checkbox-disabled).mat-accent
+  .mat-checkbox-ripple
+  .mat-ripple-element {
+  background-color: transparent;
+}
+/deep/
+  .mat-checkbox:not(.mat-checkbox-disabled).mat-accent
+  .mat-checkbox-ripple
+  .mat-ripple-element {
+  background-color: transparent;
+}
+.fontt{
+  color: #7e7c7c;
+  font-size: 12px;
+  line-height: 1.5;
+  font-family: 'latomedium'
+}

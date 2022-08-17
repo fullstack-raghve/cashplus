@@ -1,0 +1,154 @@
+<!-- 
+  <div *ngIf="!getReponse">
+    <p
+      style="
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <ion-spinner name="lines"></ion-spinner>Loading ...
+    </p>
+  </div> -->
+  <div *ngIf="myyloading">
+       <p
+      style="
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <!-- <ion-spinner name="lines"></ion-spinner>Loading ... -->
+
+      
+    </p>
+  </div>
+<ion-header *ngIf="getReponse && !myyloading">
+  <ion-toolbar color="custom-color-red">
+    <ion-grid>
+      <ion-row style="display: flex;align-items: center;">
+        <ion-col size="2" size-sm class="backArrow">
+          <div (click)= "backTo()">
+            <img src="assets/icon/backarrowtop2.svg" alt="Back" style="width: 20px;">
+          </div>
+        </ion-col>
+        <ion-col size="8" size-sm>
+            <app-top-header></app-top-header>
+        </ion-col>
+        <ion-col class="right-img" size="2" size-sm>
+          <span> <img src="assets/icon/white_edit_icon.svg" alt="Back" class="edit-img" (click) = "editflight()">
+          </span>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="getReponse && !myyloading">
+  <ion-grid no-padding class="bg-white">
+    <ion-row  no-padding>
+      <ion-col size="12"  no-padding>
+        <div class="wrapper-progressBar">
+          <ul class="progressBar">
+            <li class="active"></li>
+            <li class="active"></li>
+            <li class="active"></li>
+          </ul>
+        </div>
+      </ion-col>
+        </ion-row >
+
+  </ion-grid>
+  <ion-grid no-padding>
+    <ion-row  no-padding>
+      <ion-col size="12"  no-padding class="heading-font">
+        <p text-center>Payment Method</p>
+        </ion-col>
+    </ion-row>
+  </ion-grid>
+       
+  <!-- <mat-tab-group class="tab">
+
+      <mat-tab label="Credit/Debit Card" *ngIf = "threeCC?.length>0">
+      <app-card-payment [allPassengers] = "allPassengerData" [threecc] = threeCC [bookandholdstatus] = 'checkHoldRes' [autoticketingDisable] = 'autoticketingDisable'></app-card-payment>
+    </mat-tab>
+  
+    <mat-tab label="Mobile Pay"  *ngIf = "fourMP?.length>0">
+        <app-mobile-pay [allPassengers] = "allPassengerData" [bookandholdstatus] = 'checkHoldRes'></app-mobile-pay>
+      </mat-tab>
+
+    <mat-tab label="Bank Deposit" *ngIf = "banktrannsfer == '7-Bank Transfer' && ( checkHoldRes && checkHoldRes == true) && (serviceVendor == 'Amadeus' || serviceVendor == 'Galileo' || serviceVendor == 'FlyDubai' || serviceVendor == 'AirArbia')" >
+      <app-bank-deposit [allPassengers] = "allPassengerData" [bookandholdstatus] = 'checkHoldRes'></app-bank-deposit>
+    </mat-tab>
+
+    <mat-tab label="Exchange House " *ngIf = "exhangehouse == '8-Exchange House' && ( checkHoldRes && checkHoldRes == true) && (serviceVendor == 'Amadeus' || serviceVendor == 'Galileo' || serviceVendor == 'FlyDubai' || serviceVendor == 'AirArbia')" >
+      <app-exchange-house [allPassengers] = "allPassengerData" [bookandholdstatus] = 'checkHoldRes'></app-exchange-house>
+    </mat-tab>
+
+    <mat-tab class="cod" label="COD" *ngIf = "cod == '6-Cash On Delivery' && ( checkHoldRes && checkHoldRes == true) && (serviceVendor == 'Amadeus' || serviceVendor == 'Galileo' || serviceVendor == 'FlyDubai' || serviceVendor == 'AirArbia')" >
+      <app-cash-on-delivery [allPassengers] = "allPassengerData" [bookandholdstatus] = 'checkHoldRes'></app-cash-on-delivery>
+    </mat-tab>
+
+  </mat-tab-group> -->
+
+
+  <div class="card">
+     
+    <p-tabView>
+        <p-tabPanel [selected]= "true" header="Credit/Debit Card" *ngIf = "threeCC?.length>0">
+          
+          <app-card-payment [allPassengers] = "allPassengerData" [threecc] = threeCC [bookandholdstatus] = 'checkHoldRes' [autoticketingDisable] = 'autoticketingDisable' [tncurl]= "tncurl"></app-card-payment>
+
+                  </p-tabPanel> 
+      
+        <p-tabPanel header="Mobile Pay" *ngIf = "fourMP?.length>0">
+         
+            <app-mobile-pay [allPassengers] = "allPassengerData" [bookandholdstatus] = 'checkHoldRes' [tncurl]= "tncurl"></app-mobile-pay>
+    
+        </p-tabPanel>
+        <p-tabPanel header="Quick Teller" *ngIf = "isQuickteller == '10-Quickteller' && ( checkHoldRes && checkHoldRes == true) && (serviceVendor == 'Amadeus' || serviceVendor == 'Galileo' || serviceVendor == 'FlyDubai' || serviceVendor == 'AirArbia' || serviceVendor == 'Sabre')" >
+
+          <app-quick-teller [allPassengers] = "allPassengerData" [bookandholdstatus] = 'checkHoldRes' [autoticketingDisable] = 'autoticketingDisable' [tncurl]= "tncurl"></app-quick-teller>    
+        </p-tabPanel>
+
+        <p-tabPanel header="Cash Plus" *ngIf = "isCashplus == '11-Cash Plus' && ( checkHoldRes && checkHoldRes == true) && (serviceVendor == 'Amadeus' || serviceVendor == 'Galileo' || serviceVendor == 'FlyDubai' || serviceVendor == 'AirArbia' || serviceVendor == 'Sabre')" >
+          <app-cash-plus [allPassengers] = "allPassengerData" [bookandholdstatus] = 'checkHoldRes' [autoticketingDisable] = 'autoticketingDisable' [tncurl]= "tncurl"></app-cash-plus>    
+        </p-tabPanel>
+        
+        <p-tabPanel header="Bank Deposit" *ngIf = "banktrannsfer == '7-Bank Transfer' && ( checkHoldRes && checkHoldRes == true) && (bankDepositAllowed == true) && (serviceVendor == 'Amadeus' || serviceVendor == 'Galileo' || serviceVendor == 'FlyDubai' || serviceVendor == 'AirArbia' || serviceVendor == 'Sabre')" >
+          <app-bank-deposit [allPassengers] = "allPassengerData" [bookandholdstatus] = 'checkHoldRes' [tncurl]= "tncurl"></app-bank-deposit>
+          </p-tabPanel>
+        <p-tabPanel header="Exchange House" *ngIf = "exhangehouse == '8-Exchange House' && ( checkHoldRes && checkHoldRes == true) && (exchangeHouseAllowed == true) && (serviceVendor == 'Amadeus' || serviceVendor == 'Galileo' || serviceVendor == 'FlyDubai' || serviceVendor == 'AirArbia' || serviceVendor == 'Sabre')" >
+          <app-exchange-house [allPassengers] = "allPassengerData" [bookandholdstatus] = 'checkHoldRes' [tncurl]= "tncurl"></app-exchange-house>
+    
+        </p-tabPanel>
+        <p-tabPanel header="Booking Requested" *ngIf = "cod == '6-Cash On Delivery' && ( checkHoldRes && checkHoldRes == true) && (serviceVendor == 'Amadeus' || serviceVendor == 'Galileo' || serviceVendor == 'FlyDubai' || serviceVendor == 'AirArbia' || serviceVendor == 'Sabre')" >
+          <app-cash-on-delivery [allPassengers] = "allPassengerData" [bookandholdstatus] = 'checkHoldRes' [tncurl]= "tncurl"></app-cash-on-delivery>
+    
+        </p-tabPanel>
+    
+
+              
+    </p-tabView>
+  </div>
+
+<div *ngIf = "checkHoldRes == false && nopg">
+  <ion-grid>
+    <ion-col size="12">
+      <div class="maindiv">
+        <p class="no-flight-mssg">
+                
+          Airline selected by you is not bookable online, please contact our customer support team <a href="mailto:{{branchEmailId}}" >{{branchEmailId}}</a> or call us at <a href="tel:{{branchMob}}" >{{branchMob}}</a> number to book this flight.
+              </p>
+    </div>
+    </ion-col>
+  </ion-grid>
+ 
+</div>
+
+
+
+</ion-content>
+

@@ -1,0 +1,343 @@
+
+{
+  "header": {
+    "reportVersion": 2,
+    "event": "Allocation failed - JavaScript heap out of memory",
+    "trigger": "FatalError",
+    "filename": "report.20200520.180713.5196.0.001.json",
+    "dumpEventTime": "2020-05-20T18:07:13Z",
+    "dumpEventTimeStamp": "1589978233625",
+    "processId": 5196,
+    "threadId": null,
+    "cwd": "C:\\Users\\HP\\travelwings_pwa_ui_repo",
+    "commandLine": [
+      "node",
+      "C:\\Users\\HP\\AppData\\Roaming\\npm\\\\node_modules\\@angular\\cli\\bin\\ng",
+      "build",
+      "--prod"
+    ],
+    "nodejsVersion": "v13.11.0",
+    "wordSize": 32,
+    "arch": "ia32",
+    "platform": "win32",
+    "componentVersions": {
+      "node": "13.11.0",
+      "v8": "7.9.317.25-node.29",
+      "uv": "1.34.2",
+      "zlib": "1.2.11",
+      "brotli": "1.0.7",
+      "ares": "1.15.0",
+      "modules": "79",
+      "nghttp2": "1.40.0",
+      "napi": "6",
+      "llhttp": "2.0.4",
+      "openssl": "1.1.1d",
+      "cldr": "36.0",
+      "icu": "65.1",
+      "tz": "2019c",
+      "unicode": "12.1"
+    },
+    "release": {
+      "name": "node",
+      "headersUrl": "https://nodejs.org/download/release/v13.11.0/node-v13.11.0-headers.tar.gz",
+      "sourceUrl": "https://nodejs.org/download/release/v13.11.0/node-v13.11.0.tar.gz",
+      "libUrl": "https://nodejs.org/download/release/v13.11.0/win-x86/node.lib"
+    },
+    "osName": "Windows_NT",
+    "osRelease": "6.1.7601",
+    "osVersion": "Windows 7 Professional Service Pack 1",
+    "osMachine": "i686",
+    "cpus": [
+      {
+        "model": "Intel(R) Core(TM) i3 CPU       M 350  @ 2.27GHz",
+        "speed": 2266,
+        "user": 3867997,
+        "nice": 0,
+        "sys": 959967,
+        "idle": 26669946,
+        "irq": 35599
+      },
+      {
+        "model": "Intel(R) Core(TM) i3 CPU       M 350  @ 2.27GHz",
+        "speed": 2266,
+        "user": 1022461,
+        "nice": 0,
+        "sys": 467456,
+        "idle": 30007338,
+        "irq": 121259
+      },
+      {
+        "model": "Intel(R) Core(TM) i3 CPU       M 350  @ 2.27GHz",
+        "speed": 2266,
+        "user": 4486619,
+        "nice": 0,
+        "sys": 1201644,
+        "idle": 25808867,
+        "irq": 123802
+      },
+      {
+        "model": "Intel(R) Core(TM) i3 CPU       M 350  @ 2.27GHz",
+        "speed": 2266,
+        "user": 406101,
+        "nice": 0,
+        "sys": 239945,
+        "idle": 30850960,
+        "irq": 113833
+      }
+    ],
+    "networkInterfaces": [
+      {
+        "name": "Wireless Network Connection",
+        "internal": false,
+        "mac": "00:26:82:a9:a7:bf",
+        "address": "2409:4053:483:e47e:4047:3e5a:1917:7972",
+        "netmask": "ffff:ffff:ffff:ffff::",
+        "family": "IPv6",
+        "scopeid": 0
+      },
+      {
+        "name": "Wireless Network Connection",
+        "internal": false,
+        "mac": "00:26:82:a9:a7:bf",
+        "address": "2409:4053:483:e47e:79f7:5494:21dc:e252",
+        "netmask": "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+        "family": "IPv6",
+        "scopeid": 0
+      },
+      {
+        "name": "Wireless Network Connection",
+        "internal": false,
+        "mac": "00:26:82:a9:a7:bf",
+        "address": "fe80::4047:3e5a:1917:7972",
+        "netmask": "ffff:ffff:ffff:ffff::",
+        "family": "IPv6",
+        "scopeid": 12
+      },
+      {
+        "name": "Wireless Network Connection",
+        "internal": false,
+        "mac": "00:26:82:a9:a7:bf",
+        "address": "192.168.43.182",
+        "netmask": "255.255.255.0",
+        "family": "IPv4"
+      },
+      {
+        "name": "Loopback Pseudo-Interface 1",
+        "internal": true,
+        "mac": "00:00:00:00:00:00",
+        "address": "::1",
+        "netmask": "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+        "family": "IPv6",
+        "scopeid": 0
+      },
+      {
+        "name": "Loopback Pseudo-Interface 1",
+        "internal": true,
+        "mac": "00:00:00:00:00:00",
+        "address": "127.0.0.1",
+        "netmask": "255.0.0.0",
+        "family": "IPv4"
+      }
+    ],
+    "host": "HP-PC"
+  },
+  "javascriptStack": {
+    "message": "No stack.",
+    "stack": [
+      "Unavailable."
+    ]
+  },
+  "nativeStack": [
+  ],
+  "javascriptHeap": {
+    "totalMemory": 672374784,
+    "totalCommittedMemory": 672374784,
+    "usedMemory": 641943612,
+    "availableMemory": 27827476,
+    "memoryLimit": 676855808,
+    "heapSpaces": {
+      "read_only_space": {
+        "memorySize": 262144,
+        "committedMemory": 262144,
+        "capacity": 22804,
+        "used": 22804,
+        "available": 0
+      },
+      "new_space": {
+        "memorySize": 16777216,
+        "committedMemory": 16777216,
+        "capacity": 8384000,
+        "used": 4660088,
+        "available": 3723912
+      },
+      "old_space": {
+        "memorySize": 599617536,
+        "committedMemory": 599617536,
+        "capacity": 598703856,
+        "used": 587465316,
+        "available": 11238540
+      },
+      "code_space": {
+        "memorySize": 3313664,
+        "committedMemory": 3313664,
+        "capacity": 2834720,
+        "used": 2834720,
+        "available": 0
+      },
+      "map_space": {
+        "memorySize": 8130560,
+        "committedMemory": 8130560,
+        "capacity": 2857880,
+        "used": 2857880,
+        "available": 0
+      },
+      "large_object_space": {
+        "memorySize": 43692032,
+        "committedMemory": 43692032,
+        "capacity": 43595444,
+        "used": 43595444,
+        "available": 0
+      },
+      "code_large_object_space": {
+        "memorySize": 581632,
+        "committedMemory": 581632,
+        "capacity": 507360,
+        "used": 507360,
+        "available": 0
+      },
+      "new_large_object_space": {
+        "memorySize": 0,
+        "committedMemory": 0,
+        "capacity": 8384000,
+        "used": 0,
+        "available": 8384000
+      }
+    }
+  },
+  "resourceUsage": {
+    "userCpuSeconds": 154.128,
+    "kernelCpuSeconds": 11.778,
+    "cpuConsumptionPercent": 64.807,
+    "maxRss": 681041920,
+    "pageFaults": {
+      "IORequired": 391407,
+      "IONotRequired": 0
+    },
+    "fsActivity": {
+      "reads": 7932,
+      "writes": 1
+    }
+  },
+  "libuv": [
+  ],
+  "workers": [
+  ],
+  "environmentVariables": {
+    "=C:": "C:\\Users\\HP\\travelwings_pwa_ui_repo",
+    "=ExitCode": "00000000",
+    "ALLUSERSPROFILE": "C:\\ProgramData",
+    "APPDATA": "C:\\Users\\HP\\AppData\\Roaming",
+    "BROWSERSLIST_IGNORE_OLD_DATA": "1",
+    "CommonProgramFiles": "C:\\Program Files\\Common Files",
+    "COMPUTERNAME": "HP-PC",
+    "ComSpec": "C:\\Windows\\system32\\cmd.exe",
+    "DBug": "No",
+    "dp0": "C:\\Users\\HP\\AppData\\Roaming\\npm\\",
+    "DrvType": "HDD",
+    "FP_NO_HOST_CHECK": "NO",
+    "HiLiteCol": "Default",
+    "HOMEDRIVE": "C:",
+    "HOMEPATH": "\\Users\\HP",
+    "LOCALAPPDATA": "C:\\Users\\HP\\AppData\\Local",
+    "LOGONSERVER": "\\\\HP-PC",
+    "MOZ_PLUGIN_PATH": "C:\\Program Files\\Foxit Software\\Foxit Reader\\plugins\\",
+    "NoMD": "0",
+    "NUMBER_OF_PROCESSORS": "4",
+    "OEMsOK": "Yes",
+    "OS": "Windows_NT",
+    "OSEd": "Professional",
+    "Path": "C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files\\nodejs\\;C:\\Program Files\\Git\\cmd;;C:\\Users\\HP\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Users\\HP\\AppData\\Roaming\\npm",
+    "PATHEXT": ".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JSE;.WSF;.WSH;.MSC",
+    "PROCESSOR_ARCHITECTURE": "x86",
+    "PROCESSOR_IDENTIFIER": "x86 Family 6 Model 37 Stepping 2, GenuineIntel",
+    "PROCESSOR_LEVEL": "6",
+    "PROCESSOR_REVISION": "2502",
+    "ProgramData": "C:\\ProgramData",
+    "ProgramFiles": "C:\\Program Files",
+    "PROMPT": "$P$G",
+    "PSModulePath": "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\",
+    "PUBLIC": "C:\\Users\\Public",
+    "SESSIONNAME": "Console",
+    "ShowExts": "No",
+    "SystemDrive": "C:",
+    "SystemModel": "HP G62 Notebook PC",
+    "SystemRoot": "C:\\Windows",
+    "TEMP": "C:\\Users\\HP\\AppData\\Local\\Temp",
+    "TMP": "C:\\Users\\HP\\AppData\\Local\\Temp",
+    "USERDOMAIN": "HP-PC",
+    "USERNAME": "HP",
+    "USERPROFILE": "C:\\Users\\HP",
+    "windir": "C:\\Windows",
+    "windows_tracing_flags": "3",
+    "windows_tracing_logfile": "C:\\BVTBin\\Tests\\installpackage\\csilogfile.log",
+    "TERM_PROGRAM": "vscode",
+    "TERM_PROGRAM_VERSION": "1.45.1",
+    "LANG": "en_US.UTF-8",
+    "COLORTERM": "truecolor",
+    "VSCODE_GIT_IPC_HANDLE": "\\\\.\\pipe\\vscode-git-9e1bd282fa-sock",
+    "GIT_ASKPASS": "c:\\Users\\HP\\AppData\\Local\\Programs\\Microsoft VS Code\\resources\\app\\extensions\\git\\dist\\askpass.sh",
+    "VSCODE_GIT_ASKPASS_NODE": "C:\\Users\\HP\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
+    "VSCODE_GIT_ASKPASS_MAIN": "c:\\Users\\HP\\AppData\\Local\\Programs\\Microsoft VS Code\\resources\\app\\extensions\\git\\dist\\askpass-main.js",
+    "_prog": "node"
+  },
+  "sharedObjects": [
+    "C:\\Program Files\\nodejs\\node.exe",
+    "C:\\Windows\\SYSTEM32\\ntdll.dll",
+    "C:\\Windows\\system32\\kernel32.dll",
+    "C:\\Windows\\system32\\KERNELBASE.dll",
+    "C:\\Windows\\system32\\dbghelp.dll",
+    "C:\\Windows\\system32\\msvcrt.dll",
+    "C:\\Windows\\system32\\WS2_32.dll",
+    "C:\\Windows\\system32\\RPCRT4.dll",
+    "C:\\Windows\\system32\\NSI.dll",
+    "C:\\Windows\\system32\\IPHLPAPI.DLL",
+    "C:\\Windows\\system32\\WINNSI.DLL",
+    "C:\\Windows\\system32\\PSAPI.DLL",
+    "C:\\Windows\\system32\\USERENV.dll",
+    "C:\\Windows\\system32\\profapi.dll",
+    "C:\\Windows\\system32\\ADVAPI32.dll",
+    "C:\\Windows\\SYSTEM32\\sechost.dll",
+    "C:\\Windows\\system32\\USER32.dll",
+    "C:\\Windows\\system32\\GDI32.dll",
+    "C:\\Windows\\system32\\LPK.dll",
+    "C:\\Windows\\system32\\USP10.dll",
+    "C:\\Windows\\system32\\CRYPT32.dll",
+    "C:\\Windows\\system32\\MSASN1.dll",
+    "C:\\Windows\\system32\\bcrypt.dll",
+    "C:\\Windows\\system32\\WINMM.dll",
+    "C:\\Windows\\system32\\IMM32.DLL",
+    "C:\\Windows\\system32\\MSCTF.dll",
+    "C:\\Windows\\system32\\api-ms-win-core-synch-l1-2-0.DLL",
+    "C:\\Windows\\system32\\powrprof.dll",
+    "C:\\Windows\\system32\\SETUPAPI.dll",
+    "C:\\Windows\\system32\\CFGMGR32.dll",
+    "C:\\Windows\\system32\\OLEAUT32.dll",
+    "C:\\Windows\\system32\\ole32.dll",
+    "C:\\Windows\\system32\\DEVOBJ.dll",
+    "C:\\Windows\\system32\\uxtheme.dll",
+    "C:\\Windows\\system32\\mswsock.dll",
+    "C:\\Windows\\System32\\wshtcpip.dll",
+    "C:\\Windows\\System32\\wship6.dll",
+    "C:\\Windows\\system32\\bcryptprimitives.dll",
+    "\\\\?\\C:\\Users\\HP\\travelwings_pwa_ui_repo\\node_modules\\node-sass\\vendor\\win32-ia32-79\\binding.node",
+    "C:\\Windows\\system32\\cryptbase.dll",
+    "C:\\Windows\\system32\\dhcpcsvc.DLL",
+    "C:\\Windows\\system32\\dhcpcsvc6.DLL",
+    "C:\\Windows\\system32\\NLAapi.dll",
+    "C:\\Windows\\system32\\napinsp.dll",
+    "C:\\Windows\\system32\\pnrpnsp.dll",
+    "C:\\Windows\\system32\\DNSAPI.dll",
+    "C:\\Windows\\System32\\winrnr.dll",
+    "C:\\Windows\\system32\\wshbth.dll"
+  ]
+}

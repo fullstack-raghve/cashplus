@@ -1,0 +1,26 @@
+<form [formGroup]="countryForm" class="country_dropdown_flag">
+  <mat-form-field appearance="outline">
+    <mat-label>ISD Code</mat-label>
+    <mat-select (ngModelChange)="change(bankCtrl?.value?.countryCode)"  [formControl]="bankCtrl" placeholder="ISD Code"
+      #singleSelect>
+      <!-- <mat-select-trigger  >
+        <span class="drop_down_flag">
+          <img [src]="bankCtrl?.value?.flagUrl" width="20" height="20" alt="">
+         <span class="countryname">
+          {{ bankCtrl?.value?.countryCode}}
+         </span>
+        </span>
+      </mat-select-trigger> -->
+      <mat-option>
+        <ngx-mat-select-search placeholderLabel="Search..." noEntriesFoundLabel="No match found"
+          [formControl]="bankFilterCtrl"></ngx-mat-select-search>
+      </mat-option>
+
+      <mat-option *ngFor="let bank of filteredBanks | async" [value]="bank">
+       <div class="country_code_flag">
+          <img width="20px" height="20px" [src]="bank?.flagUrl" alt=""> <span>{{bank.countryCode}}</span>
+       </div>
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>

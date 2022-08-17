@@ -1,0 +1,86 @@
+
+  <ion-header>
+    <ion-toolbar color="custom-color-red">
+        <ion-buttons slot="start">
+            <img class="backArrow" src="assets/icon/backarrowtop2.svg" (click)= "backTo()">
+        </ion-buttons>
+        <ion-title class="title" text-center>{{ title }}</ion-title>
+    </ion-toolbar>
+</ion-header>
+<div *ngIf= "isloading">
+    <p style="height: 100vh;display: flex;align-items: center;justify-content: center;">
+      <ion-spinner name="lines"></ion-spinner>Loading ...
+    </p>
+  </div>
+<ion-content>
+  
+
+    
+
+    <!--header END-->
+    <ion-card mode = 'md' class="custom-card">
+        <ion-card-header class="header_card_s">
+            <ion-card-subtitle>Settings</ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-grid>
+            <ion-row>
+                <ion-col size-sm="6" offset-sm="3">
+                    <form class="setting_form" [formGroup]="settingForm">
+
+                        <div class="form-group">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Select Language</mat-label>
+                                <input matInput placeholder="Favorite food" formControlName="language" readonly>
+                            </mat-form-field>
+                        </div>
+                        <div class="form-group no-crt">
+                            <mat-form-field appearance="outline">
+                                    <mat-label>Select Country</mat-label>
+                                <mat-select formControlName="country" mode = "md" (selectionChange)="bindCurrency($event)">                                       
+                                    <mat-option *ngFor = "let country of countries;" [value]= "country.countryName"> 
+                                        <span style="font-family: 'latoregular';">{{country.countryName?country.countryName:localSettingsCname}} </span></mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <!-- <div class="form-group" *ngIf='settingForm.get("country").value'>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Select Language</mat-label>
+                                <input matInput placeholder="Favorite food" formControlName="country" readonly>                        </mat-form-field>
+                        </div> -->
+                        
+                        <!-- <div class="form-group no-crt">
+                            <mat-form-field appearance="outline">    
+                                    <mat-label>Select Currency</mat-label>
+                                <mat-select formControlName="currency" placeholder="Select Currency" mode = "md">
+                                    <mat-option [value]="USD">USD</mat-option>
+                                    <mat-option [value]="aed">{{aed}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div> -->
+            
+                        <div class="form-group no-crt">
+                            <mat-form-field appearance="outline">
+                                    <mat-label>Select Currency</mat-label>
+                                <mat-select formControlName="currency" mode = "md" (selectionChange)="bindCurrencyCode($event.value)"  [(value)]="selected">                                       
+                                    <mat-option *ngFor = "let Currency of CurrencyCode; let i = index" [value]="Currency.countryId"> 
+                                        {{Currency.countryId}}</mat-option>             
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                       
+                    </form>
+
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+     
+    </ion-card>
+
+
+ <ion-footer class="footer" text-center >
+                            <button (click)= "login()" expand="block" class="yello-btn-all">
+                                <ion-text color="dark">SAVE</ion-text>
+                            </button>
+                        </ion-footer>
+</ion-content>

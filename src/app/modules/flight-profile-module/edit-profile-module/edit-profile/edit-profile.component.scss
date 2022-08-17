@@ -1,0 +1,354 @@
+.buttonAir {
+  width: 98%;
+  text-align: right;
+}
+.preferred-air {
+  margin-left: 7px;
+  font-size: 14px;
+  font-family: latosemibold;
+}
+
+.centerImg {
+  display: block;
+  margin: auto;
+  width: 90px;
+  border-radius: 50px;
+  margin-top: 10px;
+  text-align: center;
+}
+.required {
+  color: red;
+}
+
+.custom-card {
+  box-shadow: none;
+  //  border: 1px solid #dadada;
+  border-radius: 4px;
+  background: #ffffff;
+}
+// .mat-form-field {
+//     color: white;
+// }
+
+// .outline{
+//  background: white;
+// }
+
+// ::ng-deep .mat-focused .mat-form-field-label {
+//   /*change color of label*/
+//   color: green !important;
+//  }
+//  ::ng-deep.mat-form-field-underline {
+//     /*change color of underline*/
+//     background-color: green !important;
+//   }
+
+//   ::ng-deep.mat-form-field-ripple {
+//    /*change color of underline when focused*/
+//    background-color: green !important;;
+//   }
+// /deep/ .mat-input-underline {
+//     background-color: #FF0000;    /* replace this color with your accent color hex code */
+// }
+/* Border */
+// .mat-form-field-appearance-outline .mat-form-field-outline {
+//     color: white;
+//   }
+//   /* Font color */
+//   input.mat-input-element {
+//     color: white;
+//   }
+
+// ::ng-deep .mat-focused .mat-form-field-label {
+//     /*change color of label*/
+//     color: green !important;
+//    }
+
+//    ::ng-deep.mat-form-field-underline {
+//     /*change color of underline*/
+//     background-color: green !important;
+//   }
+
+//   ::ng-deep.mat-form-field-ripple {
+//    /*change color of underline when focused*/
+//    background-color: green !important;
+//   }
+/deep/
+  .mat-form-field-appearance-outline:not(.mat-form-field-disabled)
+  .mat-form-field-flex:hover
+  .mat-form-field-outline {
+  background-color: #fff !important;
+  border-radius: 7px;
+  // border: 0.5px solid #7a7676;
+}
+/deep/ .mat-form-field-outline-start,
+/deep/ .mat-form-field-outline-gap,
+/deep/ .mat-form-field-outline-end {
+  background-color: #fff !important;
+}
+//  /deep/ .mat-form-field-appearance-outline .mat-form-field-outline {
+//     color:  #7a7676;
+//   }
+//  /deep/ .mat-form-field-appearance-outline .mat-form-field-outline{
+//      border: 0.5px solid black;
+//  }
+
+.button {
+  --background: #ebb134 !important;
+  --color: #000000;
+  --vertical-align: middle;
+  --padding-start: 10px;
+  --padding-end: 10px;
+  --padding-left: 10px;
+  --padding-right: 10px;
+}
+
+// image //
+.avatar-upload {
+  position: relative;
+  max-width: 205px;
+  margin: 10px auto 30px;
+  .avatar-upload .avatar-edit {
+    position: absolute;
+    right: 19px;
+    z-index: 1;
+    top: 13px;
+  }
+  .avatar-preview {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
+
+.select-photo {
+  border: 1px solid #333;
+  width: 124px;
+  opacity: 0;
+  cursor: pointer;
+  height: 23px;
+  position: absolute;
+  margin-top: 0px;
+  right: 144px;
+}
+.delete_visa {
+  width: 73px;
+  height: 30px;
+  border: 1px solid #9f9f9f;
+  border-radius: 5px;
+  display: -webkit-box;
+  display: flex;
+  margin-left: auto;
+  margin-right: 17px;
+  margin-bottom: 13px;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+}
+.accordion_addtraveller {
+  margin-top: 8px;
+  position: relative;
+  margin-bottom: 20px;
+  /deep/ mat-expansion-panel-header {
+    padding-left: 10px;
+    padding-right: 7px;
+  }
+  /deep/ .mat-expansion-indicator {
+    width: 24px;
+    height: 24px;
+    // border: 1.5pt solid rgb(244, 181, 42);
+    text-align: center;
+    border-radius: 50px;
+  }
+  /deep/ .mat-expansion-indicator::after {
+    margin-top: -4px;
+  }
+  /deep/ mat-expansion-panel {
+    background: #e2e2e2;
+  }
+  .mat-expansion-panel:not([class*="mat-elevation-z"]) {
+    box-shadow: unset;
+  }
+}
+.choose_file {
+  width: 75pt;
+  height: 21pt;
+  background: #1488c8;
+  color: #fff;
+  border-radius: 6px;
+  font-size: 10pt;
+}
+
+.only_image_support {
+  color: #f44336;
+  margin: -17px 0px 10px 12px;
+  font-family: lato, sans-serif;
+  font-size: 10px;
+}
+.nationality_addtraveller {
+  // margin: 0 0 0 10px !important;
+  --ion-background-color: white !important;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 14px;
+  box-shadow: none;
+  overflow: hidden;
+  --inner-border-width: 0px;
+  --padding-start: 1px;
+  font-size: 14px;
+  :host {
+    --inner-border-width: 0px;
+  }
+}
+.text_overflow_ellipsis {
+  text-overflow: ellipsis;
+  padding-right: 2rem;
+  font-size: 13px !important;
+  font-family: "Latomedium" !important;
+}
+/deep/
+  .mat-form-field-appearance-outline:not(.mat-form-field-disabled)
+  .mat-form-field-flex:hover
+  .mat-form-field-outline-thick {
+  opacity: 0 !important;
+}
+/deep/
+  .mat-form-field-appearance-outline:not(.mat-form-field-disabled)
+  .mat-form-field-flex:hover
+  .mat-form-field-outline {
+  opacity: 1 !important;
+}
+.visa_passpoprt_heading {
+  color: #000000;
+  margin-left: 7px;
+  font-size: 14px;
+  font-family: latosemibold;
+}
+.traveller_mat_expension_body {
+  padding: 0px 8px;
+}
+/deep/ .mat-form-field-appearance-outline .mat-form-field-suffix {
+  top: -4px !important;
+}
+.addtraveller_form /deep/ .mat-form-field {
+  margin-bottom: -4px;
+}
+// .addtraveller_form /deep/ .mat-form-field-subscript-wrapper {
+//   top: calc(100% - 2.2em);
+// }
+.plus_icon_traveller {
+  padding-right: 6px;
+}
+
+div .preferedAirlines:last-child {
+  margin-bottom: 16px;
+}
+.visa_passport_margin_bottom {
+  margin-bottom: 25px;
+}
+.ImageValidation {
+  font-size: 75%;
+  color: #f44336;
+  margin-top: 2px;
+  font-family: "Lato", sans-serif;
+  width: 101px;
+}
+.default-img {
+  // border: 2px solid #fff;
+  // border-radius: 50%;
+  // width: 80px;
+  /* padding: 3px; */
+  // height: 80px;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #f2efef;
+  border: 2px solid #fff;
+}
+.none {
+  display: none;
+}
+.pad-left {
+  padding: 2px 0 0 0;
+}
+.pad-right {
+  padding: 2px 0 0 10px;
+}
+.grey-border {
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  width: 82px;
+  height: 82px;
+}
+mat-label {
+  font-family: latomedium;
+}
+/deep/.mat-select-value-text {
+  font-size: 14px;
+  color: #000;
+  font-family: latomedium;
+}
+.ng-tooltip {
+  left: 235.25px !important;
+  margin-right: 19px;
+}
+.ng-tooltip-top:after {
+  left: 83% !important;
+}
+.add-icon {
+  width: 22px;
+}
+.visa-remove-icon {
+  padding-right: 4px;
+  width: 14px;
+}
+.show_loader_nationality {
+  position: absolute;
+  right: 10px;
+  top: 4px;
+}
+
+.fontcls {
+  font-size: 13px;
+  font-family: "Latomedium";
+}
+.mat-expansion-panel-header-description,
+.mat-expansion-panel-header-title {
+  font-size: 13px !important;
+  font-family: "Latomedium" !important;
+}
+.backArrow {
+  padding: 5px;
+}
+.backArrow:active {
+  background: #c10011;
+  border-radius: 50%;
+}
+
+.no-crt .mat-form-field::before {
+  right: 3px;
+  top: 35%;
+}
+
+mat-error {
+  // margin-top: 5px;
+  display: flex;
+  font-size: 10px;
+  position: relative;
+  // bottom: 2px;
+}
+.err {
+  color: #f44336;
+  margin-top: -10px;
+  display: -webkit-box;
+  display: flex;
+  margin-left: 5px;
+  margin-bottom: 6px;
+  font-size: 9px;
+  font-family: "Latomedium" !important;
+}

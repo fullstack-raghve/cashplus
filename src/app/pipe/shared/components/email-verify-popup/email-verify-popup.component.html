@@ -1,0 +1,47 @@
+<section>
+  <!-- <div class="already_verified" *ngIf="already_verified">
+    <p style="width: 40px;margin: 0px auto;"><img src="assets/icon/success.png" alt=""></p>
+    <p class="linkk">
+      Your email address has already been verified.
+    </p>
+    <button class="yello-btn-all verified_continue2" (click)="closePopup()">OK</button>
+  </div> -->
+
+  <!-- <div class="already_verified" *ngIf= "expiredlink == 'Link is expired'">
+    <p class="linkk">
+      Sorry this link has been expired. Click continue to resend the verification link.
+    </p>
+    <button class="yello-btn-all verified_continue" (click)="closePopupnew()">Continue</button>
+  </div> -->
+
+
+  <!-- <div class="already_verified" *ngIf= "expiredlink == 'id is expired'">
+    <p class="linkk">
+      Sorry this link has been expired.
+    </p>
+    <button class="yello-btn-all verified_continue2" (click)=" OKK()">OK</button>
+  </div> -->
+
+  <div class="already_verified" *ngIf="istechnicalissue">
+    <p class="linkk">
+      Some technical issue. Please try after some time.
+    </p>
+    <button class="yello-btn-all verified_continue2" (click)="ISSUE()">OK</button>
+  </div>
+
+  <div class="already_verified" *ngIf="isLink_sent">
+    <p><img src="assets/icon/success.png"></p>
+    <p class="linkk">
+        Verification link has been sent to your email id.
+    </p>
+    <button class="yello-btn-all verified_continue2" (click)="OKK()">OK</button>
+  </div>
+
+  <!-- <div *ngIf="user_verified">
+    <img src="assets/images/secutity.png" alt="verify" class="verify_security_icon">
+      <p class="linkk">
+      Your account has been verified and secured.
+    </p>
+    <button class="yello-btn-all  verify_continu_btn"  (click)="closePopup()">Continue</button>
+  </div> -->
+</section>

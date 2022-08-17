@@ -1,0 +1,48 @@
+<div *ngIf= "loading; else loaded">
+  <p
+    style="
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    "
+  >
+    <ion-spinner name="lines"></ion-spinner>Loading ...
+  </p>
+</div>
+
+<ion-header>
+  <ion-toolbar color="custom-color-red">
+    <ion-buttons class="aro-bck" slot="start">
+      <img
+        class="backArrow"
+        src="assets/icon/backarrowtop2.svg"
+        (click)= "back()"
+      />
+    </ion-buttons>
+    <ion-title class="title ml">Full Fare Rules</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ng-template #loaded>
+  <ion-content *ngIf = "isFullFare">
+<p class="ftext">Full fare rule not available from supplier.</p>
+  </ion-content>
+  <!-- <div class="fullcard" *ngIf = "isFullFare">
+  <ion-card class="cc-card">
+    <p class="ml">Full fare rule not available from supplier.</p>
+  </ion-card>
+</div> -->
+  <ion-content *ngIf = "!isFullFare">
+    <ion-grid *ngFor= "let flight of fareRuleResponseBean?.headingWiseList">
+      <ion-row style="padding: 5px 4px;">
+        <ion-col size="12">
+          <div text-uppercase class="f16">
+            {{ flight.heading }}
+          </div>
+          <p text-left style="margin-top: 5px;" [innerHTML]="flight.ruleDescription">
+          </p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
+</ng-template>

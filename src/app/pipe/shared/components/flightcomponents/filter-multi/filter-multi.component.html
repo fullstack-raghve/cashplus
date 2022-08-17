@@ -1,0 +1,149 @@
+<div class="modalHieght">
+   <div class="modal fade">
+     <ion-card-header class="custom-hdr">
+       <ion-grid>
+         <ion-row>
+     
+         </ion-row>
+         <ion-row>
+           <ion-col size="4" text-left>
+            <!-- ||  localData != null -->
+             <ion-label (click)= "clearAll()"
+               [ngClass]= "{'text-blue': stopageArray.length>0 || moneyRefundArray.length>0 || departTimeArray.length>0 || checkedList.length>0  }">
+               Clear all</ion-label>
+           </ion-col>
+           <ion-col size="4" text-center>
+             <ion-label class="filter"> Filters </ion-label>
+           </ion-col>
+           <ion-col size="4" text-right>
+             <ion-label matRipple class="text-blue" (click)= "callFinalMethod()">
+               Done
+             </ion-label>
+           </ion-col>
+         </ion-row>
+       </ion-grid>
+ 
+     </ion-card-header>
+     <div class="seletdItem">
+ 
+ 
+ 
+ 
+       <div class="scroll_filter">
+ 
+         <p class="text-Stop">No. of Stops</p>
+         <ion-item class="stop-padding ">
+           <mat-button-toggle-group>
+ 
+             <mat-button-toggle [ngClass]="{'mat-button-toggle-appearance-standard': item['click'] == false, 
+ 'background_Selected' : item['click'] == true}" *ngFor= "let item of stopageTypes; let index = index"
+               (click)= "getStopageType(item,index)"
+               class="{{index == 0 && nostopflight.length == 0 ? '': ((index == 1 && oneStopflight.length == 0)?'':((index == 2 && twostopflight.length == 0)?'':''))}} directionWidth">
+               <span class="direct-refundable-stopno"> &nbsp;&nbsp; {{item?.stopNo}} </span>
+               <span class="direct-refundable-font">{{item?.name}} &nbsp;&nbsp; </span>
+             </mat-button-toggle>
+ 
+           </mat-button-toggle-group>
+         </ion-item>
+         <p class="text-Stop"><b>Fare Type</b></p>
+         <ion-item class="stop-padding">
+           <mat-button-toggle-group #group="matButtonToggleGroup">
+             <mat-button-toggle [ngClass]="{'mat-button-toggle-appearance-standard': fare['click'] == false, 
+           'background_Selected' : fare['click'] == true}" *ngFor="let fare of moneyRefundFare"
+               (click)= "getMoneyType(fare)"
+               class="refuldable-width">
+               &nbsp;
+               <span class="direct-refundable-font">
+                 <ion-icon [src]="fare?.imageUrl" style="font-size: 16.85px; padding-bottom: 2px;
+                 vertical-align: middle;"></ion-icon> {{fare?.name}}&nbsp;
+               </span>
+             </mat-button-toggle>
+ 
+           </mat-button-toggle-group>
+         </ion-item>
+         <p class="text-Stop"><b>Departure Time</b></p>
+         <ion-grid class="departure-pad">
+           <ion-row class="card-departure">
+ 
+             <ion-col class="filter-card" *ngFor="let item of allAirLinesTimeDepart" (click)="getDepartTime(item)">
+               <ion-card-title class="icon-center">
+                 <ion-icon class="departure-timing" [src]="item?.imageURL"></ion-icon>
+               </ion-card-title>
+               <mat-button-toggle-group class="Dpt-time">
+                 <mat-button-toggle style="padding: 0px;" [ngClass]="{'mat-button-toggle-appearance-standard': item['click'] == false, 
+         'background_Selected' : item['click'] == true}" value="time"
+                   class="selected-btn unselect-btn">
+                   <span>{{item?.startTime}}</span>
+                   <span class="to">to</span>
+ 
+                   <span>{{item?.endTime}}</span>
+                 </mat-button-toggle>
+               </mat-button-toggle-group>
+             </ion-col>
+           </ion-row>
+         </ion-grid>
+ 
+         <ion-grid>
+           <div>
+ 
+             <ion-row>
+               <ion-col (click)= "checkUncheckAll()" text-left size="1" padding-top>
+                 <mat-checkbox style="pointer-events: none;" class="checkbox-input all-check-align" [(ngModel)]="masterSelected" name="list_name"
+                   value="m1" ></mat-checkbox>
+               </ion-col>
+               <ion-col size="4" (click)= "checkUncheckAll()" padding-top>
+                 <span class="all-airline">All Airlines</span>
+               </ion-col>
+               <ion-col size="7" class="button-lowcost" text-right *ngIf= "isLccs.length>0">
+            
+                 <button matRipple class="lccc" color="yellow" (click)= "getLcc()" [ngClass]="{'bglcc': toggleLcc == 0}">
+                   <img class="lowcost-icon" src="assets/icons/flights/lowcost_carrier_icon_on.svg">
+                   <span class="lowcost-text">Low Cost Carrier</span>
+                 </button>
+               </ion-col>
+             </ion-row>
+ 
+           </div>
+           <div class="modal-dialogddd" style="margin-bottom: 15px;">
+ 
+             <ion-item *ngFor= "let item of checklist" mode="md" no-padding (click)= "isAllSelected(item)">
+               <ion-grid no-padding>
+ 
+                 <ion-row no-padding >
+                   <ion-col size="1" style="pointer-events: none;" class="input-pad">
+                     <mat-checkbox class="checkbox-input airline-checkbox" [(ngModel)]= "item.isSelected" name="list_name"
+                       value="{{item.platingCarrier}}"></mat-checkbox>
+                   </ion-col>
+                   <ion-col size="2" padding-left>
+                     <img *ngIf="item['platingCarrier'] != 'Multiple_Airline'" class="flightlogo" src="assets/airline/images/{{item.imgname}}.jpg"
+                       alt="{{item.imgname}}">
+                       <img *ngIf="item['platingCarrier'] == 'Multiple_Airline'" class="flightlogo" src="assets/airline/images/Multiple_Airline.png"
+                       alt="multiple airlines">
+ 
+                   </ion-col>
+                   <ion-col size="5" no-padding>
+                     <span class="carrier-text">
+                        {{ item['platingCarrier'] != 'Multiple_Airline' ? item['platingCarrier'] : 'Multiple Airline'}}
+                     </span>
+                     <span>
+ 
+                     </span>
+                   </ion-col>
+ 
+                   <ion-col size="4" class="button-lowcost">
+                     <ion-label class="currency-font">{{item['currency']}}
+                       {{item['finalPrice'] | roundUpPrice }}</ion-label>
+                   </ion-col>
+                 </ion-row>
+               </ion-grid>
+ 
+             </ion-item>
+ 
+ 
+           </div>
+         </ion-grid>
+       </div>
+ 
+     </div>
+   </div>
+ </div>

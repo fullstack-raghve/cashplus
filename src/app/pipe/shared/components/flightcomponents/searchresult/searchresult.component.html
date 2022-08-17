@@ -1,0 +1,1074 @@
+<!--loading code-->
+<ion-content *ngIf= "loading; else loaded">
+  <!-- <ion-progress-bar class="progress-bar"[value]="loader">
+    </ion-progress-bar>  -->
+  <ion-progress-bar type="indeterminate"></ion-progress-bar>
+
+  <ion-grid>
+    <ion-card class="custom-card card-selected">
+      <ion-grid>
+        <section>
+          <article class="background">
+            <div class="a"></div>
+            <div class="b"></div>
+            <div class="c"></div>
+            <div class="d"></div>
+            <div class="e"></div>
+            <div class="f"></div>
+            <div class="g"></div>
+            <div class="h"></div>
+            <div class="i"></div>
+            <div class="j"></div>
+            <div class="k"></div>
+            <div class="l"></div>
+            <div class="m"></div>
+          </article>
+        </section>
+      </ion-grid>
+    </ion-card>
+    <ion-card class="custom-card card-selected">
+      <ion-grid>
+        <section>
+          <article class="background">
+            <div class="a"></div>
+            <div class="b"></div>
+            <div class="c"></div>
+            <div class="d"></div>
+            <div class="e"></div>
+            <div class="f"></div>
+            <div class="g"></div>
+            <div class="h"></div>
+            <div class="i"></div>
+            <div class="j"></div>
+            <div class="k"></div>
+            <div class="l"></div>
+            <div class="m"></div>
+          </article>
+        </section>
+      </ion-grid>
+    </ion-card>
+    <ion-card class="custom-card card-selected">
+      <ion-grid>
+        <section>
+          <article class="background">
+            <div class="a"></div>
+            <div class="b"></div>
+            <div class="c"></div>
+            <div class="d"></div>
+            <div class="e"></div>
+            <div class="f"></div>
+            <div class="g"></div>
+            <div class="h"></div>
+            <div class="i"></div>
+            <div class="j"></div>
+            <div class="k"></div>
+            <div class="l"></div>
+            <div class="m"></div>
+          </article>
+        </section>
+      </ion-grid>
+    </ion-card>
+  </ion-grid>
+</ion-content>
+<!--end-->
+<ion-header>
+  <ion-toolbar color="custom-color-red">
+    <ion-grid>
+      <ion-row style="display: flex; align-items: center;">
+        <ion-col class="backArrow" size="2" size-sm matRipple (click)= "backTo()">
+          <img src="assets/icon/backarrowtop2.svg" alt="Back" style="width: 20px;" />
+        </ion-col>
+
+        <ion-col size="8" size-sm>
+          <app-top-header></app-top-header>
+        </ion-col>
+
+        <ion-col class="right-img" size="2" size-sm>
+          <span>
+            <img src="assets/icon/white_edit_icon.svg" alt="Back" class="edit-img" (click)= "editflight()" />
+          </span>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+
+<!--header END-->
+
+<!-- <ngx-spinner type="ball-spin-clockwise-fade" bdOpacity="0.2" bdColor="rgba(9,9,9,0.81)" size="medium" color="#fff" [fullScreen]="true">
+<p style="color: white"> Confirming Flight Please Wait... </p>
+</ngx-spinner> -->
+<ng-template #loaded="">
+  <ion-content>
+
+    <!-----------------------------one way trip code----------------------->
+
+    <ion-grid *ngIf= "onewaytriptype == 'oneway'" id="card_grid">
+      <ion-card class="custom-card card-selected"
+        *ngFor= "let flighdata of oneWayResult;let first = first; let last = last;let index = index;"
+        (click)= "similarOption(flighdata)">
+        <h1 class="ribbon shadow-sm" *ngIf= "flighdata.offerDesc != null">
+        <span class="ribbon-content"> {{flighdata.offerDesc}}</span>
+      </h1>
+        <div matRipple [ngStyle]="{'margin-bottom': last && oneWayTripScrollShow == false &&  oneWayResult?.length > 3 ? '57px': ''}">
+          <ion-grid>
+            <ion-row class="mt6" responsive>
+              <ion-col [size]="index == 0 && index<1 && sortedby =='PriceLH' ? 5 : 12 " size-sm class="flighticon">
+                <img class="flightlogo" src="assets/airline/images/{{flighdata.platingCarrier}}.jpg"
+                  alt="{{flighdata.platingCarrier}}">
+                <div class="flight-namenew">{{flighdata.platingCarrierName}}</div>
+
+              </ion-col>
+              <ion-col *ngIf="index<1 && sortedby =='PriceLH'"
+                [size]="index == 0 && index<1 && sortedby =='PriceLH' ? 7: ''" size-sm text-left>
+                <button class="cheap-label">Cheapest Flight</button>
+              </ion-col>
+              <!-- <ion-col size="4" size-sm> -->
+              <!-- <h1 class="ribbon shadow-sm" *ngIf="flighdata.flightFare.discountPrice != 0">
+                  <span class="ribbon-content">{{flighdata.flightFare.discountPrice | discount : flighdata.flightFare.t3Price | number : '1.2-2'}}% OFF</span>
+                </h1> -->
+              <!-- </ion-col> -->
+            </ion-row>
+          </ion-grid>
+
+          <!--bottomom-row 2 stop-->
+          <div *ngIf="flighdata.tagFlight != null">
+            <ion-row class="haj-section">
+              <ion-col class="rotateObj" size="6">
+                <h5>
+                  <span class="spanonewaycls">
+                    {{ flighdata.tagFlight | titlecase }}
+                  </span>
+                </h5>
+              </ion-col>
+            </ion-row>
+          </div>
+          <ion-grid class="flight-grid1">
+            <ion-row no-padding="" class="timing-pad">
+              <ion-col size="3" class="departure-pad" text-center>
+                <div class="flighstarttime" *ngFor="
+                    let moreflight of flighdata.flightlegs;
+                    let first = first;
+                    let last = last
+                  ">
+                  <div *ngIf="first">
+                    <h6>{{ moreflight.depTime | slice: 0:5 }}</h6>
+                    <p>{{ moreflight.origin }}</p>
+                  </div>
+                </div>
+              </ion-col>
+              <ion-col size="6" class="layover-pad" text-center>
+                <div class="timehour">
+                  <p class="hour">{{ flighdata.flightlegs | addTime }}</p>
+                  <!-- <p class="hour">{{ flighdata.totalJourneyDuration | conMinToHour }}</p> -->
+                  <ion-row no-padding="">
+                    <span class="line"></span>
+                    <span><img src="assets/icons/flights/flight_gray.svg" style="width: 20px;" /></span>
+                  </ion-row>
+
+                  <p class="stop">
+                    <span *ngIf="flighdata.flightlegs.length - 1 != 0">{{ flighdata.flightlegs.length - 1 }} Stop
+                      -</span>
+                    <span *ngIf="flighdata.flightlegs.length - 1 == 0">Non Stop -</span>
+                    <span class="cabinclass">{{
+                      flighdata.flightFare.cabinClass | titlecase
+                    }}</span>
+                  </p>
+                </div>
+              </ion-col>
+              <ion-col size="3" text-center>
+                <div class="flightendtime" *ngFor="
+                    let moreflight of flighdata.flightlegs;
+                    let first = first;
+                    let last = last
+                  ">
+                  <div *ngIf="last">
+                    <h6>
+                      {{ moreflight.arrTime | slice: 0:5 }}
+                      <sup *ngIf="flighdata | dates: 'oneway'">{{
+                        flighdata | dates
+                      }}</sup>
+                      <!-- <ng-template #minusDate>
+                    <sup >-1</sup>
+                  </ng-template>  -->
+                    </h6>
+                    <p>{{ moreflight.destination }}</p>
+                  </div>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <!---bottomom-row 2 stop close-->
+
+          <ion-item no-padding>
+            <ion-grid no-padding>
+              <ion-row class="item-details">
+                <ion-col class="baggage" size="4">
+                  <p *ngIf="
+                      flighdata.adultCheckinBaggage == 'No Baggage' ||
+                      flighdata.adultCheckinBaggage == ''
+                    ">
+                    <ion-icon class="no-baggage-icon" src="assets/icons/flights/no_baggage.svg"></ion-icon>
+                    <span>No Baggage</span>
+                  </p>
+                </ion-col>
+                <ion-col class="baggage no-bag" size="5">
+                  <!-- <p>
+                  <ion-icon class="no-baggage-icon" src="assets/icons/flights/no_business_class.svg"></ion-icon> <span>No Business Class</span>
+                </p> -->
+                </ion-col>
+                <ion-col class="moreOption" *ngIf="flighdata | moreOption: flighttofilter:'oneway'" size="3" text-right
+                  no-padding>
+                  <p class="option-position">+More options</p>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+
+          <ion-grid class="text-wrap">
+            <ion-row class="flight-row1">
+              <ion-col class="ion-content-margin" size="4" text-left>
+                <div class="nonrefundable ion-content-oneway-nonrefundable" *ngIf = "flighdata.flightFare.refundableInfo == 'Non-Refundable' || flighdata.flightFare.refundableInfo == 'NON-REFUNDABLE'">
+                  <p>{{ flighdata.flightFare.refundableInfo | titlecase }}</p>
+                </div>
+                <div class="nonrefundable ion-content-oneway-nonrefundable" *ngIf = "flighdata.flightFare.refundableInfo == 'S-NON-REFUNDABLE' || flighdata.flightFare.refundableInfo == 'S-Non-Refundable'">
+                  <p>Non-Refundable</p>
+                </div>
+              </ion-col>
+              <ion-col size="8" text-right>
+                <div class="prices ion-content-oneway-margin">
+                  <p>
+                    <!-- <span  class = 'crncy-cut' [ngClass] = "{'crncy-cutnew': flighdata.totalBaseFare + flighdata.totalTax + flighdata.totalFee + flighdata.markupPrice + flighdata.serviceChargePrice != flighdata.totalBaseFare + flighdata.totalTax + flighdata.totalFee + flighdata.markupPrice + flighdata.serviceChargePrice - flighdata.discountPrice}" class="crncy-cut">AED {{flighdata.totalBaseFare + flighdata.totalTax + flighdata.totalFee + flighdata.markupPrice + flighdata.serviceChargePrice | roundUpPrice}}</span> -->
+                    <!-- <span 
+                    [ngClass] = "{'crncy-cut': (flighdata?.flightFare.totalBaseFare + flighdata.flightFare.totalTax + flighdata.flightFare.totalFees + flighdata.flightFare.markupPrice + flighdata.flightFare.serviceChargePrice) > (flighdata?.flightFare.totalBaseFare + flighdata.flightFare.totalTax + flighdata.flightFare.totalFees + flighdata.flightFare.markupPrice + flighdata.flightFare.serviceChargePrice - flighdata?.flightFare.discountPrice),
+                                  'crncy-cutnew': (flighdata?.flightFare.totalBaseFare + flighdata.flightFare.totalTax + flighdata.flightFare.totalFees + flighdata.flightFare.markupPrice + flighdata.flightFare.serviceChargePrice) == (flighdata?.flightFare.totalBaseFare + flighdata.flightFare.totalTax + flighdata.flightFare.totalFees + flighdata.flightFare.markupPrice + flighdata.flightFare.serviceChargePrice - flighdata?.flightFare.discountPrice)
+                  }">{{flighdata.flightFare.currency}} {{flighdata?.flightFare.totalBaseFare + flighdata.flightFare.totalTax + flighdata.flightFare.totalFees + flighdata.flightFare.markupPrice + flighdata.flightFare.serviceChargePrice | roundUpPrice}}
+                </span>  -->
+                    <span *ngIf="
+                        flighdata?.flightFare.totalBaseFare +
+                          flighdata.flightFare.totalTax +
+                          flighdata.flightFare.totalFees +
+                          flighdata.flightFare.markupPrice +
+                          flighdata.flightFare.serviceChargePrice >
+                        flighdata?.flightFare.totalBaseFare +
+                          flighdata.flightFare.totalTax +
+                          flighdata.flightFare.totalFees +
+                          flighdata.flightFare.markupPrice +
+                          flighdata.flightFare.serviceChargePrice -
+                          flighdata?.flightFare.discountPrice
+                      " [ngClass]="{
+                        'crncy-cut':
+                          flighdata?.flightFare.totalBaseFare +
+                            flighdata.flightFare.totalTax +
+                            flighdata.flightFare.totalFees +
+                            flighdata.flightFare.markupPrice +
+                            flighdata.flightFare.serviceChargePrice >
+                          flighdata?.flightFare.totalBaseFare +
+                            flighdata.flightFare.totalTax +
+                            flighdata.flightFare.totalFees +
+                            flighdata.flightFare.markupPrice +
+                            flighdata.flightFare.serviceChargePrice -
+                            flighdata?.flightFare.discountPrice
+                      }">
+                      {{ flighdata.flightFare.currency }}
+                      {{
+                        flighdata?.flightFare.totalBaseFare +
+                          flighdata.flightFare.totalTax +
+                          flighdata.flightFare.totalFees +
+                          flighdata.flightFare.markupPrice +
+                          flighdata.flightFare.serviceChargePrice
+                          | roundUpPrice
+                      }}
+                    </span>
+
+                    <span class="crncy">{{ flighdata.flightFare.currency }}
+                    </span>
+                    <span class="price">
+                      {{
+                        flighdata?.flightFare.totalBaseFare +
+                          flighdata.flightFare.totalTax +
+                          flighdata.flightFare.totalFees +
+                          flighdata.flightFare.markupPrice +
+                          flighdata.flightFare.serviceChargePrice -
+                          flighdata?.flightFare.discountPrice | roundUpPrice
+                      }}</span>
+                  </p>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+      </ion-card>
+
+      <div class="noflightalign" *ngIf="oneWayResult?.length == 0  && onewaynoflightfilter == true && shownoFilter">
+        <ion-content fullscreen style="height:100vh;">
+          <ion-card class="bg-white">
+            <img src="assets/icon/No_Flight_Found.png" alt="no-flight-found" class="centermargin" style="width: 110px;">
+            <ion-card-header class="bg-white">
+              <ion-card-subtitle text-center class="text-red">Sorry ! No flights found.</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content style="padding-top: 0px;">
+              <p class="not-found mb20">
+                No flights match your selected filters.Either remove some filters or <a><u>clear all filters</u></a>
+              </p>
+              <p text-center>
+                <button matRipple type="button" class="btn-cust" (click)="openfilteroneway()">OK</button>
+
+              </p>
+            </ion-card-content>
+          </ion-card>
+        </ion-content>
+      </div>
+
+      <div class="noflightalign" *ngIf="oneWayResult?.length == 0  && onewaynoflightfilter == false">
+        <ion-content fullscreen style="height:100vh;">
+
+          <ion-card class="bg-white">
+            <img src="assets/icon/no-flight-found.svg" alt="no-flight-found" class="img-flight" />
+            <ion-card-header class="bg-white">
+              <ion-card-subtitle text-center class="text-red">Sorry ! No Flights Found.</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+              <p class="not-found">
+                Sorry There were no flights found for this route and date
+                combination. we suggest you modify your search and try again.
+              </p>
+              <p text-center>
+                <button matRipple type="button" class="btn-cust" (click)="ok()">
+                  OK
+                </button>
+              </p>
+            </ion-card-content>
+          </ion-card>
+        </ion-content>
+      </div>
+
+      <ion-infinite-scroll *ngIf="oneWayTripScrollShow" threshold="500px" position="bottom"
+        (ionInfinite)="oneWayTripScroll($event)">
+        <ion-infinite-scroll-content loadingSpinner="lines"></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+      <!-- <div *ngIf = "isScrollableoneway">
+        <ion-infinite-scroll *ngIf= "scrollFirst"  (ionInfinite)= "oneWayTripScroll($event)">
+          <ion-infinite-scroll-content
+            loadingSpinner="bubbles"
+            loadingText="Loading more data..."
+          >
+          </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+
+      </div> -->
+
+
+    </ion-grid>
+    <!---------------one way trip code  end------------------------->
+
+    <!---------------reurnway trip code start------------------------------------>
+
+    <ion-grid *ngIf="returnwaytriptype == 'roundtrip'" id="card_grid">
+     <!-- flight-length ==> {{total_result_roundtrip?.length}} -->
+      <!-- returnflightarr -->
+      <!-- length==> {{roundTripResult?.length}} -->
+      <ion-card class="custom-card" *ngFor= "let flighdata of roundTripResult;let index = index;let last=last"
+        (click)= "similarOptionreturn(flighdata)">
+    
+        <h1 class="ribbon shadow-sm" *ngIf= "flighdata.offerDesc != null">
+          <span class="ribbon-content"> {{flighdata.offerDesc}}</span>
+        </h1>
+        <div matRipple [ngStyle]="{'margin-bottom': last && roundTripScrollShow == false &&  roundTripResult?.length > 3 ? '60px': ''}">
+          <ion-grid>
+            <ion-row class="mt6" responsive>
+              <ion-col [size]="index == 0 && index<1 && sortedby =='PriceLH' ? 5 : 12 " size-sm class="flighticon">
+                <span
+                  *ngIf="flighdata.onwardFlightOption.flightlegs[0].carrier== flighdata.returnFlightOption.flightlegs[0].carrier">
+                  <img class="flightlogo"
+                    src="assets/airline/images/{{flighdata.onwardFlightOption.platingCarrier}}.jpg"
+                    alt="{{flighdata.onwardFlightOption.platingCarrier}}">
+                </span>
+                <span
+                  *ngIf="flighdata.onwardFlightOption.flightlegs[0].carrier!= flighdata.returnFlightOption.flightlegs[0].carrier">
+                  <img class="flightlogo" src="assets/airline/images/multicarrier_icon.png">
+                </span>
+                <span class="flight-namenew"
+                  *ngIf="flighdata.onwardFlightOption.flightlegs[0].carrier== flighdata.returnFlightOption.flightlegs[0].carrier">
+                  {{flighdata.onwardFlightOption.platingCarrierName}}
+                </span>
+                <span class="flight-namenew"
+                  *ngIf="flighdata.onwardFlightOption.flightlegs[0].carrier!= flighdata.returnFlightOption.flightlegs[0].carrier">
+                  Multiple Airlines
+                </span>
+              </ion-col>
+
+              <ion-col *ngIf="index<1 && sortedby =='PriceLH'"
+                [size]="index == 0 && index<1 && sortedby =='PriceLH' ? 7: ''" size-sm text-left>
+                <button class="cheap-label">Cheapest Flight</button>
+              </ion-col>
+              <!-- <ion-col
+      [size]="3" size-sm>
+        <h1 class="ribbon shadow-sm" >
+          <span class="ribbon-content">20% OFF</span>
+        </h1>
+      </ion-col> -->
+            </ion-row>
+          </ion-grid>
+
+          <!-------------retunrnway new code 24oct------------------------------------------------------------->
+          <div *ngIf="flighdata.tagFlight != null">
+            <ion-row class="haj-section">
+              <ion-col class="rotateObj" size="6">
+                <h5>
+                  <span>
+                    {{ flighdata.tagFlight | titlecase }}
+                  </span>
+                </h5>
+              </ion-col>
+            </ion-row>
+          </div>
+
+          <!--ONWARDS FLIGHT OPTIONS-->
+          <ion-row class="top-row timing-pad">
+            <ion-col size="3" class="departure-pad" text-center>
+              <div *ngFor="
+                  let moreflight of flighdata.onwardFlightOption.flightlegs;
+                  let first = first;
+                  let last = last
+                ">
+                <div class="flighstarttime" *ngIf="first">
+                  <!-- <h6>{{moreflight.arrTime | slice:0:5}}</h6> -->
+                  <h6>{{ moreflight.depTime | slice: 0:5 }}</h6>
+
+                  <p>{{ moreflight.origin }}</p>
+                </div>
+              </div>
+            </ion-col>
+            <ion-col size="6" class="layover-pad" text-center>
+              <div class="timehour">
+                <p class="hour">
+                  {{ flighdata.onwardFlightOption.flightlegs | addTime }}
+                </p>
+                <!-- <p class="hour">{{ flighdata.onwardFlightOption.totalJourneyDuration | conMinToHour }}</p> -->
+                <ion-row>
+                  <span class="line"></span>
+                  <span><img src="assets/icons/flights/flight_gray.svg" style="width: 20px;" /></span>
+                </ion-row>
+                <p class="stop">
+                  <span *ngIf="
+                      flighdata.onwardFlightOption.flightlegs.length - 1 != 0
+                    ">{{
+                      flighdata.onwardFlightOption.flightlegs.length - 1
+                    }}
+                    Stop -</span>
+                  <span *ngIf="
+                      flighdata.onwardFlightOption.flightlegs.length - 1 == 0
+                    ">Non Stop -</span>
+                  <span class="cabinclass">{{
+                    flighdata.onwardFlightOption.flightFare.cabinClass
+                      | titlecase
+                  }}</span>
+                </p>
+
+                <!-- <p>{{moreflight.noOfTotalStops}} Stop-  <span class="cabinclass">{{flighdata.onwardFlightOption.flightFare.cabinClass | titlecase}}</span></p> -->
+              </div>
+            </ion-col>
+            <ion-col size="3" text-center>
+              <div *ngFor="
+                  let moreflight of flighdata.onwardFlightOption.flightlegs;
+                  let first = first;
+                  let last = last
+                ">
+                <div class="flightendtime" *ngIf="last">
+                  <h6>
+                    {{ moreflight.arrTime | slice: 0:5 }}
+                    <sup *ngIf="flighdata | dates: 'returnwayonward'">{{
+                      flighdata | dates
+                    }}</sup>
+                  </h6>
+
+                  <p>{{ moreflight.destination }}</p>
+                </div>
+              </div>
+              <!-- <div *ngFor = "let moreflight of flighdata.onwardFlightOption.flightlegs">
+          <sup *ngIf= "moreflight | dates">{{moreflight | dates}}</sup> 
+
+          </div>  -->
+            </ion-col>
+          </ion-row>
+
+          <!--END OF ONWARD FLIGHT OPTION-->
+
+          <!--return FLIGHT OPTIONS-->
+          <ion-row class="btm-row timing-pad">
+            <ion-col size="3" class="departure-pad" text-center>
+              <div *ngFor="
+                  let moreflight of flighdata.returnFlightOption.flightlegs;
+                  let first = first;
+                  let last = last
+                ">
+                <div class="flighstarttime" *ngIf="first">
+                  <h6>{{ moreflight.depTime | slice: 0:5 }}</h6>
+                  <p>{{ moreflight.origin }}</p>
+                </div>
+              </div>
+            </ion-col>
+            <ion-col size="6" class="layover-pad" text-center>
+              <div class="timehour">
+                <p class="hour">
+                  {{ flighdata.returnFlightOption.flightlegs | addTime }}
+                </p>
+                <!-- <p class="hour">{{  flighdata.returnFlightOption.totalJourneyDuration | conMinToHour }}</p> -->
+                <ion-row>
+                  <span class="line"></span>
+                  <span><img src="assets/icons/flights/flight_gray.svg" style="width: 20px;" /></span>
+                </ion-row>
+                <p class="stop">
+                  <span *ngIf="
+                      flighdata.returnFlightOption.flightlegs.length - 1 != 0
+                    ">{{
+                      flighdata.returnFlightOption.flightlegs.length - 1
+                    }}
+                    Stop -</span>
+                  <span *ngIf="
+                      flighdata.returnFlightOption.flightlegs.length - 1 == 0
+                    ">Non Stop -</span>
+
+                  <span class="cabinclass">{{
+                    flighdata.returnFlightOption.flightFare.cabinClass
+                      | titlecase
+                  }}</span>
+                </p>
+                <!-- <p>{{moreflight.noOfTotalStops}} Stop-  <span class="cabinclass">{{flighdata.onwardFlightOption.flightFare.cabinClass | titlecase}}</span></p> -->
+              </div>
+            </ion-col>
+            <ion-col size="3" text-center>
+              <div *ngFor="
+                  let moreflight of flighdata.returnFlightOption.flightlegs;
+                  let first = first;
+                  let last = last
+                ">
+                <div class="flightendtime" *ngIf="last">
+                  <h6>
+                    {{ moreflight.arrTime | slice: 0:5 }}
+
+                    <sup *ngIf="flighdata | dates: 'returnwayreturn'">{{
+                      flighdata | dates
+                    }}</sup>
+
+                    <!-- <sup *ngIf= "moreflight | dates">{{moreflight | dates}}</sup>  -->
+                  </h6>
+
+                  <p>{{ moreflight.destination }}</p>
+                </div>
+              </div>
+              <!-- <div *ngFor = "let moreflight of flighdata.returnFlightOption.flightlegs">
+            <sup *ngIf= "moreflight | dates">{{moreflight | dates}}</sup> 
+
+          </div> -->
+            </ion-col>
+          </ion-row>
+          <!--END OF return FLIGHT OPTION-->
+          <!--retunrnway new code end 24oct----------------------------------------------------->
+          <ion-item no-padding>
+            <ion-grid no-padding>
+              <ion-row class="item-details">
+                <ion-col class="baggage" size="4">
+                  <!-- <p *ngIf="flighdata.returnFlightOption.baggageAllowed ==true">  <ion-icon src="assets/icons/flights/no_baggage.svg" ></ion-icon> No Baggage </p> -->
+
+                  <p *ngIf="
+                      flighdata.onwardFlightOption.adultCheckinBaggage ==
+                        'No Baggage' ||
+                      flighdata.onwardFlightOption.adultCheckinBaggage == '' ||
+                      flighdata.returnFlightOption.adultCheckinBaggage ==
+                        'No Baggage' ||
+                      flighdata.returnFlightOption.adultCheckinBaggage == ''
+                    ">
+                    <ion-icon class="no-baggage-icon" src="assets/icons/flights/no_baggage.svg"></ion-icon>
+                    <span>No Baggage</span>
+                  </p>
+                </ion-col>
+                <ion-col class="baggage no-bag" size="5">
+                  <!-- <p>
+                  <ion-icon class="no-baggage-icon" src="assets/icons/flights/no_business_class.svg"></ion-icon> <span>No Business Class</span>
+                </p> -->
+                </ion-col>
+                <ion-col *ngIf="
+                    flighdata | moreOption: flighttofilterreturn:'returnway'
+                  " class="moreOption" size="3" text-right no-padding>
+                  <p>+More options</p>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+          <ion-grid class="text-wrap">
+            <ion-row>
+              <ion-col class="ion-content-margin" size="4" text-left>
+                <div class="nonrefundable" *ngIf="
+                    flighdata.returnFlightOption.flightFare.refundableInfo ==
+                    'Non-Refundable'
+                  ">
+                  <p>
+                    {{
+                      flighdata.returnFlightOption.flightFare.refundableInfo
+                        | titlecase
+                    }}
+                  </p>
+                </div>
+                <div class="nonrefundable" *ngIf="
+                flighdata.returnFlightOption.flightFare.refundableInfo ==
+                'S-NON-REFUNDABLE' ">
+             
+              <p> Non-Refundable </p>
+             
+             
+            </div>
+              </ion-col>
+              <ion-col size="8" text-right>
+                <div class="prices ion-content-margin">
+                  <p>
+                    <!-- <span 
+                     [ngClass] = "{'crncy-cut': (flighdata?.flightFare.totalBaseFare + flighdata.flightFare.totalTax + flighdata.flightFare.totalFees + flighdata.flightFare.markupPrice + flighdata.flightFare.serviceChargePrice) != (flighdata?.flightFare.totalBaseFare + flighdata.flightFare.totalTax + flighdata.flightFare.totalFees + flighdata.flightFare.markupPrice + flighdata.flightFare.serviceChargePrice - flighdata?.flightFare.discountPrice),
+                                  'crncy-cutnew': (flighdata?.flightFare.totalBaseFare + flighdata.flightFare.totalTax + flighdata.flightFare.totalFees + flighdata.flightFare.markupPrice + flighdata.flightFare.serviceChargePrice) == (flighdata?.flightFare.totalBaseFare + flighdata.flightFare.totalTax + flighdata.flightFare.totalFees + flighdata.flightFare.markupPrice + flighdata.flightFare.serviceChargePrice - flighdata?.flightFare.discountPrice)}"> -->
+
+                    <span *ngIf="
+                        flighdata.totalBaseFare +
+                          flighdata.totalTax +
+                          flighdata.totalFee +
+                          flighdata.markupPrice +
+                          flighdata.serviceChargePrice >
+                        flighdata.totalBaseFare +
+                          flighdata.totalTax +
+                          flighdata.totalFee +
+                          flighdata.markupPrice +
+                          flighdata.serviceChargePrice -
+                          flighdata.discountPrice
+                      " [ngClass]="{
+                        'crncy-cut':
+                          flighdata.totalBaseFare +
+                            flighdata.totalTax +
+                            flighdata.totalFee +
+                            flighdata.markupPrice +
+                            flighdata.serviceChargePrice >
+                          flighdata.totalBaseFare +
+                            flighdata.totalTax +
+                            flighdata.totalFee +
+                            flighdata.markupPrice +
+                            flighdata.serviceChargePrice -
+                            flighdata.discountPrice
+                      }">{{ flighdata.onwardFlightOption.flightFare.currency }}
+                      {{
+                        flighdata.totalBaseFare +
+                          flighdata.totalTax +
+                          flighdata.totalFee +
+                          flighdata.markupPrice +
+                          flighdata.serviceChargePrice | roundUpPrice
+                      }}</span>
+
+                    <span class="crncy">{{ flighdata.onwardFlightOption.flightFare.currency }} </span>
+                    <span class="price">
+                      {{
+                        flighdata.totalBaseFare +
+                          flighdata.totalTax +
+                          flighdata.totalFee +
+                          flighdata.markupPrice +
+                          flighdata.serviceChargePrice -
+                          flighdata.discountPrice | roundUpPrice
+                      }}
+                    </span>
+                  </p>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+      </ion-card>
+      <div class="noflightalign" *ngIf="roundTripResult?.length == 0 && noFilteredflight == false">
+        <!-- <h3 text-center="">Result Not Found From Supplier-Round TRip</h3> -->
+
+        <ion-card class="bg-white">
+          <img src="assets/icon/no-flight-found.svg" alt="no-flight-found" class="img-flight" />
+          <ion-card-header class="bg-white">
+            <ion-card-subtitle text-center class="text-red">Sorry ! No flights found.</ion-card-subtitle>
+            <!-- <ion-card-title>Madison, WI</ion-card-title> -->
+          </ion-card-header>
+          <ion-card-content>
+            <p class="not-found">
+              Sorry There were no flights found for this route and date
+              combination. we suggest you modify your search and try again.
+            </p>
+            <p text-center>
+              <button matRipple type="button" class="btn-cust" (click)="ok()">
+                OK
+              </button>
+            </p>
+          </ion-card-content>
+        </ion-card>
+
+      </div>
+      <div >
+
+     
+      <div class="noflightalign" *ngIf="roundTripResult?.length == 0 && noFilteredflight == true && shownoFilter">
+
+        <ion-card class="bg-white">
+          <img src="assets/icon/No_Flight_Found.png" alt="no-flight-found" class="centermargin" style="width: 110px;">
+          <ion-card-header class="bg-white">
+            <ion-card-subtitle text-center class="text-red">Sorry ! No flights found.</ion-card-subtitle>
+            <!-- <ion-card-title>Madison, WI</ion-card-title> -->
+          </ion-card-header>
+          <ion-card-content style="padding-top: 0px;">
+            <p class="not-found mb20"> 
+              <!-- (click)="clearFilter_result('roundtrip')" -->
+              No flights match your selected filters.Either remove some filters or <a><u >clear all filters</u></a>
+            </p>
+            <p text-center>
+              <button matRipple type="button" class="btn-cust" (click)="openreturnwayfilter()">OK</button>
+
+            </p>
+          </ion-card-content>
+        </ion-card>
+
+      </div>
+
+    </div>
+      <ion-infinite-scroll *ngIf="roundTripScrollShow" threshold="1000px" position="bottom"
+        (ionInfinite)="roundTripScroll($event)">
+        <ion-infinite-scroll-content loadingSpinner="lines"></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+
+      <!-- <div *ngIf = "isScrollable">
+  <ion-infinite-scroll *ngIf= "scrollFirst"  (ionInfinite)= "doInfinite($event)">
+    <ion-infinite-scroll-content
+    loadingSpinner="bubbles"
+    loadingText="Loading more data...">
+  </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</div> -->
+
+    </ion-grid>
+
+    <!---------------reurnway trip code end-------------------------------------->
+
+    <!-----------------------------multi way trip code start----------------------->
+
+    <ion-grid *ngIf="mltitriptype == 'multicity'" id="card_grid">
+
+      <ion-card class="custom-card card-selected" *ngFor= "let flighdata of multiCityResult;let i=index;let last = last"
+        (click) = "similarOptionMulti(flighdata)">
+       
+        <h1 class="ribbon shadow-sm" *ngIf= "flighdata.offerDesc != null">
+          <span class="ribbon-content"> {{flighdata.offerDesc}}</span>
+        </h1>
+        
+       
+        <div matRipple [ngClass]="{'margin_bottom_card': last && multicityScroll == false &&  multiCityResult?.length > 3}">
+          <span>
+            <button matRipple  class="cheap-label chcls" *ngIf="i<1 && sortedby =='PriceLH'">Cheapest Flight</button>
+          </span>
+          <!-- <ion-grid>
+              <ion-row class="mt6" responsive>
+                <ion-col [size]="i == 0 && i<1 && sortedby =='PriceLH' ? 5 : 12 "  size-sm class="flighticon">
+                  <img *ngIf="flighdata?.companyname != 'Multiple_Airline'" class="flightlogo"  src="assets/airline/images/{{flighdata.platingCarrier}}.jpg"
+                    alt="{{flighdata.platingCarrier}}">
+                    <img *ngIf="flighdata?.companyname == 'Multiple_Airline'"  class="flightlogo" src="assets/airline/images/Multiple_Airline.png"
+                    alt="{{flighdata.platingCarrier}}">
+
+                  <span class="flight-namenew">{{ flighdata?.companyname != 'Multiple_Airline' ? flighdata.platingCarrierName : 'Multiple Airline'}}</span> 
+        
+                </ion-col>
+                <ion-col [size]="i == 0 && i<1 && sortedby =='PriceLH' ? 7 : '' "   size-sm text-center>
+                  <button matRipple  class="cheap-label" *ngIf="i<1 && sortedby =='PriceLH'">Cheapest Flight</button>
+                </ion-col>
+                <ion-col size="4" size-sm>
+                  <h1 class="ribbon shadow-sm" *ngIf="flighdata.flightFare.discountPrice != 0">
+                    <span
+                      class="ribbon-content">{{flighdata.flightFare.discountPrice | discount : flighdata.flightFare.t3Price | number : '1.2-2'}}%
+                      OFF</span>
+                  </h1> 
+              </ion-col> 
+            </ion-row>
+          </ion-grid> -->
+          <div *ngIf= "flighdata.tagFlight != null">
+            <ion-row class="haj-section">
+              <ion-col class="rotateObj" size="6">
+                <h5 style="top: 100%;">
+                  <span>
+                    {{ flighdata.tagFlight | titlecase }}
+                  </span>
+                </h5>
+              </ion-col>
+            </ion-row>
+          </div>
+          <ion-grid class="top-rowmulti">
+            <ion-row class="multirow" *ngFor = "let moreflight of flighdata.optionSegmentBean">
+              <ion-col size="12" class="top-col-carrir">
+                <span *ngFor= "let legsdata of moreflight.flightlegs;let first = first;let last = last">
+                  <span *ngIf= "first" class="vaa"> <img class="flightlogo"
+                      src="assets/airline/images/{{legsdata.carrier}}.jpg" alt="{{legsdata.carrier}}">
+                    <span class="va">{{legsdata.carrierName}}</span>
+                  </span>
+                </span>
+
+              </ion-col>
+              <ion-col class="departure-pad" size="3" text-center>
+                <div *ngFor="
+                    let moreflight1 of moreflight.flightlegs;
+                    let first = first;
+                    let last = last
+                  ">
+                  <div class="flighstarttime" *ngIf="first">
+                    <h6>{{ moreflight1.depTime | slice: 0:5 }}</h6>
+
+                    <p>{{ moreflight1.origin }}</p>
+                  </div>
+                </div>
+              </ion-col>
+
+              <ion-col class="layover-pad" size="6" text-center>
+                <div class="timehour">
+                  <!-- <div class="timehour" *ngFor="let moreflight1 of moreflight.flightlegs;let first = first;let last= last"> -->
+
+                  <!-- <p class="hour">{{moreflight1.journeyDuration}}</p>   -->
+                  <p class="hour">{{ moreflight.flightlegs | addTime }}</p>
+                  <!-- <p class="hour">{{ moreflight.totalJourneyDuration | conMinToHour }}</p> -->
+                  <ion-row>
+                    <span class="line"></span>
+                    <span><img src="assets/icons/flights/flight_gray.svg" style="width: 20px;" /></span>
+                  </ion-row>
+                  <p class="stop">
+                    <span *ngIf="moreflight.flightlegs.length - 1 == 0">Non-Stop</span>
+                    <span *ngIf="moreflight.flightlegs.length - 1 != 0">{{ moreflight.flightlegs.length - 1 }}
+                      Stop</span>
+                    -
+                    <span class="cabinclass">{{
+                      moreflight.cabinClass | titlecase
+                    }}</span>
+                  </p>
+
+                  <!-- <p class="stop"> Stop 
+                                    <span class="cabinclass">{{moreflight.cabinClass | titlecase}}</span>
+                                  </p>
+                                   -->
+                </div>
+              </ion-col>
+              <ion-col size="3" text-center>
+                <div *ngFor="
+                    let moreflight1 of moreflight.flightlegs;
+                    let first = first;
+                    let last = last
+                  ">
+                  <sup class="multisup" *ngIf="flighdata | multicitydates">{{flighdata | multicitydates}}</sup>
+
+                  <div class="flighendtime" *ngIf="last">
+                    <!-- <sup>+2</sup> -->
+
+                    <h6>{{ moreflight1.arrTime | slice: 0:5 }}</h6>
+
+                    <p>{{ moreflight1.destination }}</p>
+
+                  </div>
+
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <!---bottomom-row 2 stop close-->
+
+          <ion-item>
+            <ion-grid no-padding>
+              <ion-row class="item-details">
+                <ion-col class="baggage" size="6">
+                  <!-- <p >{{flighdata.baggageAllowed}} </p> -->
+                  <div class="mulitbgge">
+                    <span *ngIf="flighdata.baggageAllowed != true">
+                      <ion-icon class="no-baggage-icon" src="assets/icons/flights/no_baggage.svg"></ion-icon>
+                      <span class="vaa2">No Baggage</span>
+                    </span>
+                  </div>
+                </ion-col>
+
+
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+
+          <ion-grid class="text-wrap">
+            <ion-row>
+              <ion-col class="ion-content-margin" size="4" text-left>
+                <div class="nonrefundable" *ngIf="
+                    flighdata.flightFare.refundableInfo == 'Non-Refundable'
+                  ">
+                  <p>{{ flighdata.flightFare.refundableInfo | titlecase }}</p>
+                </div>
+                <div class="nonrefundable" *ngIf="
+                    flighdata.flightFare.refundableInfo == 'S-NON-REFUNDABLE'
+                  ">
+                  <p>Non-Refundable</p>
+                </div>
+              </ion-col>
+              <ion-col size="8" text-right>
+                <div class="prices ion-content-margin">
+                  <!-- <p>
+                
+
+                    <span class="crncy">{{ flighdata.flightFare.currency }}
+                    </span>
+                    <span class="price">
+                      {{
+                        flighdata.flightFare.t3Price -
+                          flighdata.flightFare.discountPrice | roundUpPrice
+                      }}</span>
+                  </p> -->
+                  <p>
+                    <!-- <span  class = 'crncy-cut' [ngClass] = "{'crncy-cutnew': flighdata.totalBaseFare + flighdata.totalTax + flighdata.totalFee + flighdata.markupPrice + flighdata.serviceChargePrice != flighdata.totalBaseFare + flighdata.totalTax + flighdata.totalFee + flighdata.markupPrice + flighdata.serviceChargePrice - flighdata.discountPrice}" class="crncy-cut">AED {{flighdata.totalBaseFare + flighdata.totalTax + flighdata.totalFee + flighdata.markupPrice + flighdata.serviceChargePrice | roundUpPrice}}</span> -->
+                    <!-- <span 
+                    [ngClass] = "{'crncy-cut': (flighdata?.flightFare.totalBaseFare + flighdata.flightFare.totalTax + flighdata.flightFare.totalFees + flighdata.flightFare.markupPrice + flighdata.flightFare.serviceChargePrice) > (flighdata?.flightFare.totalBaseFare + flighdata.flightFare.totalTax + flighdata.flightFare.totalFees + flighdata.flightFare.markupPrice + flighdata.flightFare.serviceChargePrice - flighdata?.flightFare.discountPrice),
+                                  'crncy-cutnew': (flighdata?.flightFare.totalBaseFare + flighdata.flightFare.totalTax + flighdata.flightFare.totalFees + flighdata.flightFare.markupPrice + flighdata.flightFare.serviceChargePrice) == (flighdata?.flightFare.totalBaseFare + flighdata.flightFare.totalTax + flighdata.flightFare.totalFees + flighdata.flightFare.markupPrice + flighdata.flightFare.serviceChargePrice - flighdata?.flightFare.discountPrice)
+                  }">{{flighdata.flightFare.currency}} {{flighdata?.flightFare.totalBaseFare + flighdata.flightFare.totalTax + flighdata.flightFare.totalFees + flighdata.flightFare.markupPrice + flighdata.flightFare.serviceChargePrice | roundUpPrice}}
+                </span>  -->
+                    <span *ngIf="
+                        flighdata?.flightFare.totalBaseFare +
+                          flighdata.flightFare.totalTax +
+                          flighdata.flightFare.totalFees +
+                          flighdata.flightFare.markupPrice +
+                          flighdata.flightFare.serviceChargePrice >
+                        flighdata?.flightFare.totalBaseFare +
+                          flighdata.flightFare.totalTax +
+                          flighdata.flightFare.totalFees +
+                          flighdata.flightFare.markupPrice +
+                          flighdata.flightFare.serviceChargePrice -
+                          flighdata?.flightFare.discountPrice
+                      " [ngClass]="{
+                        'crncy-cut':
+                          flighdata?.flightFare.totalBaseFare +
+                            flighdata.flightFare.totalTax +
+                            flighdata.flightFare.totalFees +
+                            flighdata.flightFare.markupPrice +
+                            flighdata.flightFare.serviceChargePrice >
+                          flighdata?.flightFare.totalBaseFare +
+                            flighdata.flightFare.totalTax +
+                            flighdata.flightFare.totalFees +
+                            flighdata.flightFare.markupPrice +
+                            flighdata.flightFare.serviceChargePrice -
+                            flighdata?.flightFare.discountPrice
+                      }">
+                      {{ flighdata.flightFare.currency }}
+                      {{
+                        flighdata?.flightFare.totalBaseFare +
+                          flighdata.flightFare.totalTax +
+                          flighdata.flightFare.totalFees +
+                          flighdata.flightFare.markupPrice +
+                          flighdata.flightFare.serviceChargePrice
+                          | roundUpPrice
+                      }}
+                    </span>
+
+                    <span class= "crncy">{{ flighdata.flightFare.currency }}
+                    </span>
+                    <span class="price">
+                      {{
+                        flighdata?.flightFare.totalBaseFare +
+                          flighdata.flightFare.totalTax +
+                          flighdata.flightFare.totalFees +
+                          flighdata.flightFare.markupPrice +
+                          flighdata.flightFare.serviceChargePrice -
+                          flighdata?.flightFare.discountPrice | roundUpPrice
+                      }}</span>
+                  </p>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+      </ion-card>
+
+      <div class="noflightalign" *ngIf="multiCityResult?.length == 0 && noFilteredflightmulti == false">
+
+
+        <ion-content fullscreen style="height:100vh;">
+
+          <ion-card class="bg-white">
+            <img src="assets/icon/no-flight-found.svg" alt="no-flight-found" class="img-flight">
+            <ion-card-header class="bg-white">
+              <ion-card-subtitle text-center class="text-red">Sorry ! No flights found.</ion-card-subtitle>
+              <!-- <ion-card-title>Madison, WI</ion-card-title> -->
+            </ion-card-header>
+            <ion-card-content>
+              <p class="not-found">
+                Sorry There were no flights found for this route and date combination. we suggest you modify your search
+                and try again.
+              </p>
+              <p text-center>
+                <button matRipple type="button" class="btn-cust" (click)="ok()">OK</button>
+
+              </p>
+            </ion-card-content>
+
+          </ion-card>
+        </ion-content>
+
+        <!-- <h3 text-center="">Result Not Found From Supplier-Multicity</h3> -->
+      </div>
+
+      <div class="noflightalign" *ngIf="multiCityResult?.length == 0 && noFilteredflightmulti == true && shownoFilter">
+        <ion-content fullscreen style="height:100vh;">
+
+          <ion-card class="bg-white">
+            <img src="assets/icon/No_Flight_Found.png" alt="no-flight-found" class="centermargin" style="width: 110px;">
+            <ion-card-header class="bg-white">
+              <ion-card-subtitle text-center class="text-red">Sorry ! No flights found.</ion-card-subtitle>
+              <!-- <ion-card-title>Madison, WI</ion-card-title> -->
+            </ion-card-header>
+            <ion-card-content style="padding-top: 0px;">
+              <p class="not-found mb20">
+                No flights match your selected filters.Either remove some filters or <a><u>clear all filters</u></a>
+              </p>
+              <p text-center>
+                <button matRipple type="button" class="btn-cust" (click)="openFiltermultiIfNoData()">OK</button>
+
+              </p>
+            </ion-card-content>
+          </ion-card>
+        </ion-content>
+      </div>
+      <ion-infinite-scroll *ngIf="multicityScroll" threshold="500px" position="bottom"
+        (ionInfinite)="multiCityScroll($event)">
+        <ion-infinite-scroll-content loadingSpinner="lines">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </ion-grid>
+
+    <!-----------------------------multi way trip code end----------------------->
+  </ion-content>
+
+  <div class="price-content" text-center *ngIf="IsOneWayData > 0 || IsTwoData > 0 || totalMultiflights?.length > 0">
+    <ion-chip class="shortBy" (click)="openPrice()" [ngClass]="{
+        redius1:
+          onewaytriptype == 'oneway' ||
+          returnwaytriptype == 'roundtrip' ||
+          mltitriptype == 'multicity'
+      }">
+      <ion-label>Sort By</ion-label>
+      <img src="assets/icons/flights/price_icon.svg" color="custom-white" class="table-right-border" />
+    </ion-chip>
+
+    <!-- <ion-chip (click)="openPrice()">
+      <ion-label>Price</ion-label>
+      <img src="assets/icons/flights/price_icon.svg" color="custom-white" class="table-right-border">
+      </ion-chip> -->
+
+    <ion-chip (click)="openFilter()" class="redius2" *ngIf="onewaytriptype == 'oneway' && IsOneWayData >0">
+      <ion-label>Filter</ion-label>
+      <img src="assets/icons/flights/filter_icon.svg" color="custom-white" class="table-right-border">
+    </ion-chip>
+
+    <ion-chip (click)="openFilter1()" class="redius2" *ngIf="returnwaytriptype == 'roundtrip' && IsTwoData > 0">
+      <ion-label>Filter</ion-label>
+      <img src="assets/icons/flights/filter_icon.svg" color="custom-white" class="table-right-border">
+    </ion-chip>
+
+    <ion-chip (click)="openFiltermulti()" class="redius2"
+      *ngIf="mltitriptype == 'multicity' && IsMultiwayData.length > 0">
+      <ion-label>Filter</ion-label>
+      <img src="assets/icons/flights/filter_icon.svg" color="custom-white" class="table-right-border">
+    </ion-chip>
+
+  </div>
+</ng-template>

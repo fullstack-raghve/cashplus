@@ -1,0 +1,169 @@
+<div
+  [ngClass]="{
+    'main-view': !isSignUpUser || !isForGotPassword,
+    'main-view-sign-up': isSignUpUser || isForGotPassword
+  }"
+>
+  <!-- Sagar's Code -->
+  <div class="guestloginformDiv" *ngIf="isGuestLogin">
+    <ion-card-header class="top-border-radius">
+      <ion-card-subtitle class="header-as-guest">
+        <span class="header-cross-icon"></span>
+        <span class="header-center-span">Continue as Guest</span>
+        <span class="header-cross-icon" style="display: flex; align-items: center;">
+          <ion-icon style="width: 100%; height: 100%;" src="assets/icons/modalclose_icon.svg" (click)="dismiss()"></ion-icon>
+        </span>
+      </ion-card-subtitle>
+    </ion-card-header>
+  <!-- End of Sagar's Code -->
+  
+    <!-- <ion-card-header class="top-border-radius">
+      <ion-card-subtitle text-center
+        >Continue as Guest
+        <ion-icon
+          class="closemodal"
+          src="assets/icons/modalclose_icon.svg"
+          (click)="dismiss()"
+        ></ion-icon>
+      </ion-card-subtitle>
+    </ion-card-header> -->
+    <ion-grid class="bottom-border-radius">
+      <div>
+        <form [formGroup]="loginForm" (submit)="login()">
+          <ion-row>
+            <ion-col size-sm="6" offset-sm="3">
+              <div class="form-group guestlogin_email">
+                <mat-form-field appearance="outline">
+                  <mat-label>Enter Your Email ID</mat-label>
+
+                  <input trimdirective
+                    matInput
+                    formControlName="userAlias"
+                    type="email"
+                    placeholder="Enter Your Email ID"
+                    required
+                  />
+
+                  <mat-error
+                  *ngIf="
+                  f.userAlias.errors &&
+                  ( f.userAlias?.dirty ||
+                  f.userAlias.touched)
+                "
+                    class="invalidError"
+                  >
+                    <span *ngIf=" f.userAlias.errors?.required"
+                      >Email id is required.</span
+                    >
+                    <span *ngIf="f.userAlias.errors?.pattern && !f.userAlias.errors?.maxlength"
+                      >Email id is invalid.</span
+                    >
+                    <span *ngIf="f.userAlias.errors?.maxlength"
+                    > Email id should have maximum 45 characters.</span
+                  >
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="bdd">
+                <span
+                  >Your booking details will be send to this email address
+                </span>
+              </div>
+              <div class="account">
+                <!-- &nbsp; -->
+                <mat-checkbox (click)="userLogin()" class="custom-label"
+                  >I have a Travelwings Account</mat-checkbox
+                >
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row></ion-row>
+          <ion-row>
+            <ion-col size-sm="6" offset-sm="3">
+              <button
+                matRipple
+                type="submit"
+                class="btn-margin yello-btn-all fullwidth"
+                expand="block"
+              >
+              CONTINUE
+              </button>
+            </ion-col>
+          </ion-row>
+        </form>
+      </div>
+      <ion-row text-center>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-text> </ion-text>
+          <div class="container">
+            <div class="line">
+              <mat-divider></mat-divider>
+            </div>
+            <div class="text mat-typography">
+              <p class="login-with">Or login with</p>
+            </div>
+            <div class="line">
+              <mat-divider></mat-divider>
+            </div>
+          </div>
+          <ion-text class="card text-center">
+            <div class="socio-icons-block">
+              <div class="facebook-icon" *ngIf="loggedIn == 'false'">
+                <img
+                  (click)="signInWithFB()"
+                  src="assets/homePageIcons/fb.png"
+                />
+              </div>
+              <div class="google-plus-icon" *ngIf="loggedIn == 'false'">
+                <img
+                  (click)="signInWithGoogle()"
+                  src="assets/homePageIcons/google.png"
+                />
+              </div>
+            </div>
+          </ion-text>
+
+          <ion-text class="Login" *ngIf="loggedIn == 'false'">
+            <p>
+              <span class="no-account">Don't have an account? </span>
+              <a (click)="register()" class="font-blck"> SIGN UP</a>
+            </p>
+          </ion-text>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <app-user-login
+    [getSessionTimeOutValue]="isSessionTimeOut"
+    (clickOnForgot)="forGotPassword($event)"
+    (clickOnSignup)="signUpUser($event)"
+    [getEmailValue]="getEmailValueGuestLogin"
+    *ngIf="isLoginUser"
+  ></app-user-login>
+
+  <app-new-guest-forgot
+    [getSessionTimeOutValue]="isSessionTimeOut"
+    (requestPassword)="sendPasswordRequest($event)"
+    (clickOnSignup)="signUpUser($event)"
+    *ngIf="isForGotPassword"
+  ></app-new-guest-forgot>
+
+  <app-new-guest-sign-up
+    [getSessionTimeOutValue]="isSessionTimeOut"
+    (clickOnSignUpButton)="getDataFromSigUp($event)"
+    (clickOnLoginButton)="userLogin($event)"
+    (clickOnForgotpassword)="forGotPassword($event)"
+    *ngIf="isSignUpUser"
+  ></app-new-guest-sign-up>
+</div>
+<!-- <ngx-spinner
+  bdOpacity="0.2"
+  bdColor="rgba(9,9,9,0.81)"
+  size="medium"
+  color="#fff"
+  type="ball-pulse-sync"
+  [fullScreen]="true"
+>
+  <p style="color: #fff;">Please Wait...</p>
+</ngx-spinner> -->

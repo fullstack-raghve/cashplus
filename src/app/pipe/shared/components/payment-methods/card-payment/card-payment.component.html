@@ -1,0 +1,1574 @@
+<ngx-spinner
+  bdOpacity="0.2"
+  bdColor="rgba(9,9,9,0.81)"
+  size="medium"
+  color="#fff"
+  type="ball-spin-clockwise-fade"
+  [fullScreen]="true"
+>
+  <p style="color: white;">Please wait...</p>
+</ngx-spinner>
+<!-- <div *ngIf="loadingLoader">
+   <p
+    style="
+      height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    "
+  >
+    <ion-spinner name="lines"></ion-spinner>Loading ...
+  </p> 
+ 
+
+</div> -->
+
+<div *ngIf= "myloading; else myloaded">
+  <!-- <ion-progress-bar class="progress-bar"[value]="loader">
+    </ion-progress-bar>  -->
+  <!-- <ion-progress-bar type="indeterminate"></ion-progress-bar> -->
+
+  <ion-grid style=" padding: 26px 30px;height:75vh;background: #ffffff;">
+    
+  <div class="boxss shine"></div>
+  <div class="boxss shine" style="margin-left: 10px;"></div>
+  <div class="boxss shine" style="margin-left: 10px;"></div>
+
+  <!-- <div class="shimmerdiv">
+    <div class="lines shine"></div>
+<div class="lines shine"></div>
+<div class="lines shine"></div>
+</div> -->
+
+<div class="photo shine"></div>
+<div class="photo shine"></div>
+<div class="photo shine"></div>
+<div class="photo shine"></div>
+<!-- <div class="photo shine"></div> -->
+
+<br>
+
+<!-- <div class="boxss shine"></div> -->
+
+<!-- <div class="shimmerdiv">
+<div class="lines shine"></div>
+<div class="lines shine"></div>
+<div class="lines shine"></div>
+</div>
+<br> -->
+<div class="text-icon" style="margin-top: 5px;">
+  <span class="trust-text trustTextColor spntxt">Trusted By &nbsp;</span>
+  <img
+    class="trust-img"
+    src="assets/cod/Image 85@3x.png"
+   
+  />
+</div>
+
+  </ion-grid>
+</div>
+<ng-template #myloaded>
+<div class="card-payment "  [ngClass]="{'card-payment ': !oldCardClick, 'save_card_heght' : oldCardClick}">
+  <p-toast [style]= "{ marginTop: '68px' }"></p-toast>
+
+  <div
+     *ngIf= " islogin == 'true'  && (typeofform == '2-Cyber Source' || typeofform == '235-Checkout')">
+    <ion-slides [options]="sliderOpts">
+      <ion-slide
+        class="paymentcard"
+        (click)= "addnewCard();"
+        [ngClass]= "{'borderForCard': newCradboolean}"
+      >
+        <div class="img-card imgtop" style="margin-top: 17px;">
+          <!-- <img src="assets/icons/flights/paymentCard_icon.svg" /> -->
+          <img src="assets/cod/flaticon1560926790-svg.svg" />
+          <p class="nc">New Card</p>
+        </div>
+      </ion-slide>
+      <ion-slide
+        class="paymentcard"
+        *ngFor= "let card of cardlist;trackBy:trackByFn"
+        (click)= "oldCardDetails(card)"
+        [ngClass]= "{ 'borderForCard': oldCardId == card.paymentMethodId && !newCradboolean }"
+      >
+       
+        <div class="img-card" (click)="flag = 0;">
+          <ion-row style="padding: 4px;">
+            <ion-col size='5' class="logo-container">
+                <img
+                src="assets/icons/card-icon/{{ card.cardType }}.png"
+                alt="card"
+                />
+            </ion-col>
+            <ion-col size='7' class="num-container">
+             <span > {{ card.maskedNumber | slice: 8 }}</span>
+            </ion-col>
+            <ion-col size='12' style="text-align: left;" >
+              <span class="text-expiry">Expiry : </span>
+              <span class="text-date">{{ card.expireDate | date: "MM/yyyy" }}</span>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-slide>
+    </ion-slides>
+  </div>
+
+  <!--3gpay cyber sorce post-->
+  <!--checkout -get method  235 aaygea-->
+<div *ngIf= "typeofform == '2-Cyber Source'">
+
+
+  <form
+    ngNoForm
+    style="display: none;"
+    #myFormPost
+    name="myFormPost"
+    [action]="pgPostURL"
+    [method]="methodForm"
+  >
+    <!-- MD: <input type="text" name="MD" [value]="xid" /><br />
+    PaReq: <input type="text" name="PaReq" [value]="payReq" /><br />
+    TermUrl: <input type="text" name="TermUrl" [value]="returnURL" /><br /> -->
+    <input type="hidden" name="MD" [value]="xid" /><br />
+    <input type="hidden" name="PaReq" [value]="payReq" /><br />
+    <input type="hidden" name="TermUrl" [value]="returnURL" /><br />
+    <input type="hidden" name="url" id="url" [value]="pgPostURL" /><br />
+    <button (click)= "onsubmit(form)" type="submit">Sumbmit</button>
+  </form>
+</div>
+
+
+
+  <div *ngIf= "typeofform == '236-Interswitch'">
+
+    <form
+    ngNoForm
+    style="display: none;"
+    #myFormPost
+    name="myFormPost"
+    [action]="pgPostURL"
+    [method]="methodForm"
+  >
+  
+   
+  
+    <input type="hidden" name="product_id" id="product_id" [value]="productType" /><br />
+    <input type="hidden" name="pay_item_id" id="pay_item_id" [value]="paymentNetworkTransactionID" /><br />
+    <input type="hidden" name="amount" id="amount" [value]="paymentAmount" /><br /> 
+    <input type="hidden" name="currency" id="currency" [value]="currencyId" /><br />
+    <input type="hidden" name="site_redirect_url" id="site_redirect_url" [value]="returnURL" /><br />    
+    <input type="hidden" name="txn_ref" id="txn_ref" [value]="transactionID" /><br />
+    <input type="hidden" name="cust_id" id="cust_id" [value]="customerName" /><br />
+    <input type="hidden" name="hash" id="hash" [value]="hash" /><br />
+    <!-- <input type="hidden" name="url" id="url" [value]="pgPostURL" /><br /> -->
+    <button (click)= "onsubmit(form)" type="submit">Submit</button>
+  </form>
+  </div>
+
+   <div *ngIf= "typeofform == '1-3G Pay'">
+
+    <form
+    ngNoForm
+    style="display: none;"
+    #myFormPost
+    name="myFormPost"
+    [action]="pgPostURL"
+    [method]="methodForm"
+  >
+  
+  <input type="hidden" name="url" id="url" [value]="pgPostURL" /><br />
+    <button (click)= "onsubmit(form)" type="submit">Sumbmit</button>
+  </form>
+  </div>
+
+
+
+  <div *ngIf= "newCard">
+    <ion-grid class="paymentsform" *ngIf= "typeofform == '2-Cyber Source'">
+      <form [formGroup]= "dummyforms" style="visibility: hidden; margin-top: -21px;">
+        <input
+          type="text"
+          formControlName="dname"
+          matInput
+          class="form-control"
+          placeholder="Card Number"
+        />
+        <input
+          type="text"
+          formControlName="dmname"
+          matInput
+          class="form-control"
+          placeholder="Card Number"
+        />
+      </form>
+      <!-- <pre>{{ paymentform.value | json }}</pre>
+   <pre>{{ paymentform.valid | json }}</pre> -->
+
+   
+
+      <form [formGroup]= "paymentform" style="margin-bottom: 45px;">
+        <!-- <ion-col size-sm="6" offset-sm="2"> -->
+          <div class="form-group" >
+            <ion-row>
+              <ion-col size="10" class="card-number">
+               
+                <mat-form-field
+                appearance="outline"
+                style=" margin-left: 1%;"
+              >  
+              <mat-label>Card Number </mat-label>
+                  <input  type="tel" matInput formControlName="newcardnumber" placeholder="Card Number" (keyup)= "onKey($event)"  (keypress)= "numberOnly($event)" 
+                 required 
+                  pattern="[0-9]*"
+                  minlength="13"
+                  maxlength="16">
+  
+               
+                  <mat-error
+                  *ngIf= "paymentform.controls.newcardnumber.hasError('required') && ( paymentform.controls.newcardnumber.dirty || paymentform.controls.newcardnumber.touched)">
+                  Card number is required!
+                </mat-error>
+            
+              <mat-error
+              *ngIf= "paymentform.controls.newcardnumber.hasError('numeric') && ( paymentform.controls.newcardnumber.dirty || paymentform.controls.newcardnumber.touched)">
+              Only numbers are allowed!
+            </mat-error>
+                <mat-error
+                *ngIf= "paymentform.controls.newcardnumber.hasError('minlength') && !paymentform.controls.newcardnumber.hasError('numeric') && ( paymentform.controls.newcardnumber.dirty || paymentform.controls.newcardnumber.touched)">
+                Please try with diffrent card!
+              </mat-error>
+
+              <span *ngIf= "isCardInValid == true && paymentform.controls.newcardnumber.hasError('incorrect')" class="fullname">
+                Please enter a valid card number!
+              </span> 
+           
+                  <!-- end -->
+                </mat-form-field>
+              </ion-col>
+              <ion-col size="2">
+                <img src="assets/icons/flights/crdd.svg" class="paymenticon" />
+              </ion-col>
+            </ion-row>
+          </div>
+
+          <div class="form-group">
+            <ion-row>
+              <ion-col size='12' style="margin-top: -3px;">
+                <mat-form-field
+                appearance="outline"
+                
+              >
+                 <mat-label>Name on the Card </mat-label>
+                <!-- <input type="text" trimdirective [errorStateMatcher] = "matcher" #cyberfname (blur)= "checkfullnameCyber(cyberfname.value)"    matInput placeholder="Name on the Card" autocomplete="off"
+                  formControlName="cardname" maxlength="40" required> -->
+                  <input type="text" trimdirective  [errorStateMatcher] = "matcher" #cyberfname (blur)= "checkfullnameCyber(cyberfname.value)"    matInput placeholder="Name on the Card" autocomplete="off"
+                  formControlName="cardname"  required>
+                <mat-error 
+                  *ngIf= "paymentform.controls.cardname?.errors && (paymentform.controls.cardname?.dirty || paymentform.controls.cardname.touched) ">
+                  {{paymentform.controls.cardname?.errors.alpha?.message}}
+                  {{paymentform.controls.cardname?.errors.numeric?.message}}
+                  {{paymentform.controls.cardname?.errors?.maxLength ?  'Maximum' + cardname_max_length_40 : ''  }}
+
+                </mat-error>
+                
+                <mat-error
+                *ngIf= "paymentform.controls.cardname.hasError('required') && ( paymentform.controls.cardname.dirty || paymentform.controls.cardname.touched)">
+               Name on the card is required!
+              </mat-error>
+              <!-- <mat-error
+              *ngIf= "paymentform.controls.cardname.hasError('maxlength') && ( paymentform.controls.cardname.dirty || paymentform.controls.cardname.touched)">
+             Maximum 40 charachers are allowed!
+            </mat-error> -->
+            <span *ngIf = "fullnamecyber == true && paymentform.controls.cardname.hasError('incorrect') && !paymentform.controls.cardname.hasError('alpha') && (paymentform.controls.cardname.dirty || paymentform.controls.cardname.touched)" class="fullname">
+              Enter First and Last Name with a space in between!
+            </span> 
+  
+              </mat-form-field>
+              </ion-col>
+            </ion-row>
+          </div>
+
+          <div class="form-group">
+            <ion-row>
+              <ion-col size="12" style="    margin-top: -10px;">
+                <div class="form-group">
+                  <mat-form-field
+                    appearance="outline"
+                  >
+                    <mat-label>Expiry Date (mm/yy)</mat-label>
+                    <input
+                      type="tel"
+                      formControlName="expYear"
+                      matInput
+                      placeholder="Expiry Date (mm/yy)"
+                      [textMask]= "{mask: cardExpiryDateMask, guide: false, pipe: autoCorrectedDatePipe}"
+                      #entereddate
+                      (blur)= "dateValidate(entereddate.value)"
+                      required
+                    />
+                
+                    <mat-error 
+                    *ngIf= "paymentform.controls.expYear.hasError('required') && ( paymentform.controls.expYear.dirty || paymentform.controls.expYear.touched)">
+                    Expiry date is required!
+                  </mat-error>
+
+                  <span *ngIf= "isCardExpired == true && paymentform.controls.expYear.hasError('incorrect') && ( paymentform.controls.expYear.dirty || paymentform.controls.expYear.touched)" class="fullname">
+                    Please enter a valid expiry date!
+                    </span> 
+                    <span *ngIf= "invaliddateformat == true && isCardExpired != true && paymentform.controls.expYear.hasError('incorrect') && ( paymentform.controls.expYear.dirty || paymentform.controls.expYear.touched)" class="fullname">
+                      Please enter a valid expiry date!
+                    </span> 
+                  </mat-form-field>
+                
+                </div>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col size="6">
+                <mat-form-field
+                appearance="outline"
+                style="margin-bottom: -6%;     margin-top: -10px;"
+              >
+                  <mat-label>CVV</mat-label>
+                  <input type="tel" matInput formControlName="cvvNumber" placeholder="CVV"   (keypress)= "numberOnly($event)" 
+                  required 
+                  pattern="[0-9]*"
+                  minlength="3"
+                  maxlength="4">
+  
+               
+                  <mat-error
+                  *ngIf= "paymentform.controls.cvvNumber.hasError('required') && ( paymentform.controls.cvvNumber.dirty || paymentform.controls.cvvNumber.touched)">
+                  CVV number is required!
+                </mat-error>
+            
+              <mat-error
+              *ngIf= "paymentform.controls.cvvNumber.hasError('numeric') && ( paymentform.controls.cvvNumber.dirty || paymentform.controls.cvvNumber.touched)">
+              Only numbers are allowed!
+            </mat-error>
+                <mat-error
+                *ngIf= "paymentform.controls.cvvNumber.hasError('minlength') && !paymentform.controls.cvvNumber.hasError('numeric') && ( paymentform.controls.cvvNumber.dirty || paymentform.controls.cvvNumber.touched)">
+               Please enter a valid CVV number!
+              </mat-error>
+  
+           
+                </mat-form-field>
+                <img
+                src="assets/cod/cvv_ico.svg"
+                class="cvv-img"
+                
+              />
+
+              </ion-col>
+              <ion-col size="6">
+                <div class="text-icon" style="margin-top: 5px;">
+                  <span class="trust-text trustTextColor">Trusted By &nbsp;</span>
+                  <img
+                    class="trust-img"
+                    src="assets/cod/Image 85@3x.png"
+                    style="margin-bottom: -13px; margin-left: 8px;"
+                  />
+                </div>
+              </ion-col>
+            </ion-row>
+            
+          </div>
+
+          <div class="form-group">
+            <ion-row style="margin: -10px 0px;">
+              <ion-col size="6">
+                <ion-item *ngIf="islogin == 'true'" style="margin-left: -10px;">
+                  <!-- <ion-toggle slot="start" color="success" (ionChange)= "savecyberform()"></ion-toggle> -->
+                  <ion-toggle
+                    mode="md"
+                    [value]="checkedToggle"
+                    [checked]="checkedToggle"
+                    [checked]="checkedToggle"
+                    (ionChange)= "savecyberform($event, paymentform)"
+                    style="opacity: 1;"
+                  ></ion-toggle>
+                  <span class="text-check trustTextColor">Save Card</span>
+                </ion-item>
+              </ion-col>
+              <ion-col size="6">
+                <ion-item style="margin-left: -29px;">
+                  <span class="text-check trustTextColor"
+                    >Default Payment Method</span
+                  >
+                  <ion-toggle
+                    mode="md"
+                    slot="start"
+                    color="success"
+                    style="opacity: 1;"
+                  ></ion-toggle>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-grid style="padding-left: 0px;">
+              <ion-row>
+                <ion-col size="12" style="margin-bottom: 10px;">
+                  <ion-item>
+                    <!-- <span class="text-check">I understand and agree with rules and restrictions of this fare and the <u><a>Terms
+                    of Use</a></u></span>
+                    <ion-checkbox slot="start"> </ion-checkbox> -->
+                    <div class="text-check">
+                      <mat-checkbox
+                        formControlName="checkeboxx"
+                        (change)= "checking()"
+                        class="checkbox-input all-check-align airline-checkbox terms_condition"
+                        style="margin-left: 1px;"
+                        required
+                      >
+                        <span class="trustTextColor ion-text-wrap" style="font-family: 'latomedium';"
+                          >I understand and agree with rules and restrictions of
+                          this fare 
+                          and the 
+                          <!-- <u style=""> -->
+                            <a class="card-terms-underline" (click)= "openTC()">Terms of Use</a>
+                          <!-- </u> -->
+                         
+                        </span>
+                      </mat-checkbox>
+
+                      <mat-error *ngIf="termcondition" class="invalidError">
+                        Please accept terms and conditions.
+                      </mat-error>
+                    </div>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
+
+          <div   style="display: none;">
+<!-- 
+            Date d1 = new Date();
+            datevalue = String.valueOf(d1.getTime())+"ABCX";
+            request.setAttribute("datevalue", datevalue);
+            session.setAttribute("datevalue", datevalue);
+            String A1 = "A";// A1=datevalue;
+            %> -->
+            
+            <input type="hidden" name="datevalue" [value]= "datevalue">
+            <input  type="hidden" id="fgh" [value]= "datevalue">
+            
+            <p style='background:url(https://h.online-metrix.net/fp/clear.png?org_id=1snn5n9w&amp;session_id=satguru_b2c1{{datevalue}}&amp;m=1)'></p>
+            <img src='https://h.online-metrix.net/fp/clear.png?org_id=1snn5n9w&amp;session_id=satguru_b2c1{{datevalue}}&amp;m=2' alt=''>
+            
+            
+            <object type='application/x-shockwave-flash" data="https://h.onlinemetrix.net/fp/fp.swf?org_id=1snn5n9w&amp;session_id=satguru_b2c1{{datevalue}}' width='1' height='1' id='thm_fp'>
+            <param name='movie' value='https://h.online-metrix.net/fp/fp.swf?org_id=1snn5n9w&amp;session_id=satguru_b2c1{{datevalue}}' /><div></div></object>
+            
+            
+
+          </div>
+      
+      </form>
+
+      <!--FORM END HERE-->
+    </ion-grid>
+
+    <ion-grid class="paymentsform" *ngIf= "typeofform == '235-Checkout'">
+      <form [formGroup]="dummyforms" style="display: none;">
+        <input
+          type="text"
+          formControlName="dname"
+          matInput
+          class="form-control"
+          placeholder="Card Number"
+        />
+        <input
+          type="text"
+          formControlName="dmname"
+          matInput
+          class="form-control"
+          placeholder="Card Number"
+        />
+      </form>
+
+      <form [formGroup]= "paymentformcheckout" style="margin-bottom: 45px;">
+        <div class="form-group">
+          <ion-row>
+            <ion-col size="10" class="card-number">
+             
+              <mat-form-field style=" margin-left: 1%;"
+              appearance="outline"> 
+            
+             
+            <mat-label>Card Number</mat-label>
+                <input type="tel" matInput formControlName="newcardnumber" placeholder="Card Number"  #check  (keyup)= "onKey($event)"  (keypress)= "numberOnly($event)" 
+               required 
+                pattern="[0-9]*"
+                minlength="13"
+                maxlength="16">
+
+             
+                <mat-error
+                *ngIf= "paymentformcheckout.controls.newcardnumber.hasError('required') && ( paymentformcheckout.controls.newcardnumber.dirty || paymentformcheckout.controls.newcardnumber.touched)">
+                Card number is required!
+              </mat-error>
+          
+            <mat-error
+            *ngIf= "paymentformcheckout.controls.newcardnumber.hasError('numeric') && ( paymentformcheckout.controls.newcardnumber.dirty || paymentformcheckout.controls.newcardnumber.touched)">
+            Only numbers are allowed!
+          </mat-error>
+              <mat-error
+              *ngIf= "paymentformcheckout.controls.newcardnumber.hasError('minlength') && !paymentformcheckout.controls.newcardnumber.hasError('numeric') && ( paymentformcheckout.controls.newcardnumber.dirty || paymentformcheckout.controls.newcardnumber.touched)">
+              Please try with diffrent card!
+            </mat-error>
+
+            <span *ngIf= "isCardInValidchkout == true && paymentformcheckout.controls.newcardnumber.hasError('incorrect')" class="fullname">
+              Please enter a valid card number! 
+              </span> 
+         
+                <!-- end -->
+              </mat-form-field>
+            </ion-col>
+            <ion-col size="2">
+              <img src="assets/icons/flights/crdd.svg" class="paymenticon" />
+            </ion-col>
+          </ion-row>
+        </div>
+
+        <div class="form-group">
+          <ion-row>
+            <ion-col size='12' style="margin-top: -3px;">
+              <mat-form-field appearance="outline" >
+                <mat-label>Name on the Card </mat-label>
+         
+                <input type="text" trimdirective  [errorStateMatcher] = "matcher" #checkoutfname (blur)= "checkfullnameCheckout(checkoutfname.value)"    matInput placeholder="Name on the Card" autocomplete="off"
+                  formControlName="cardname" required>
+                <mat-error 
+                  *ngIf= "paymentformcheckout.controls.cardname?.errors && (paymentformcheckout.controls.cardname?.dirty || paymentformcheckout.controls.cardname.touched) ">
+                  {{paymentformcheckout.controls.cardname?.errors.alpha?.message}}
+                  {{paymentformcheckout.controls.cardname?.errors.numeric?.message}}
+                  <!-- {{paymentformcheckout.controls.cardname?.errors?.maxlength?.message}} -->
+                  {{paymentformcheckout.controls.cardname?.errors?.maxLength ?  'Maximum' + cardname_max_length_40 : ''  }}
+
+                </mat-error>
+                
+                <mat-error
+                *ngIf= "paymentformcheckout.controls.cardname.hasError('required') && ( paymentformcheckout.controls.cardname.dirty || paymentformcheckout.controls.cardname.touched)">
+               Name on the card is required!
+              </mat-error>
+              <!-- <mat-error
+              *ngIf= "paymentformcheckout.controls.cardname.hasError('maxlength') && ( paymentformcheckout.controls.cardname.dirty || paymentformcheckout.controls.cardname.touched)">
+             Maximum 40 charachers are allowed!
+              </mat-error> -->
+              <span *ngIf = "fullnamecheckout == true && paymentformcheckout.controls.cardname.hasError('incorrect') && !paymentformcheckout.controls.cardname.hasError('alpha') && (paymentformcheckout.controls.cardname.dirty || paymentformcheckout.controls.cardname.touched)" class="fullname">
+                Enter First and Last Name with a space in between!
+              </span> 
+      
+              </mat-form-field>
+            </ion-col>
+          </ion-row>          
+        </div>
+
+        <div class="form-group">
+          <ion-row > 
+            <ion-col size="12" style="margin-top: -9px">
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Expiry Date (mm/yy)</mat-label>
+                  <input
+                    type="tel"
+                    formControlName="expYear"
+                    matInput
+                    placeholder="Expiry Date (mm/yy)"
+                    
+                    [textMask]= "{mask: cardExpiryDateMask, guide: false, pipe: autoCorrectedDatePipe}"
+                    #entereddate
+                    (blur)= "dateValidate(entereddate.value)"
+                    required
+                  />
+                  <!-- <mat-error
+                    *ngIf="
+                      paymentformcheckout.controls.expYear.errors &&
+                      (paymentformcheckout.controls.expYear.dirty ||
+                        paymentformcheckout.controls.expYear.touched)
+                    "
+                  >
+                    Expiry Date Required!
+                  </mat-error> -->
+                  <mat-error
+                  *ngIf= "paymentformcheckout.controls.expYear.hasError('required') && (   paymentformcheckout.controls.expYear.dirty ||   paymentformcheckout.controls.expYear.touched)">
+                  Expiry Date required!
+                </mat-error>
+                  <span *ngIf= "isCardExpiredchkout == true && paymentformcheckout.controls.expYear.hasError('incorrect') && ( paymentformcheckout.controls.expYear.dirty || paymentformcheckout.controls.expYear.touched)" class="fullname">
+                    Please enter a valid expiry date!
+                    </span> 
+                    <span *ngIf= "invaliddatechkout == true  && isCardExpiredchkout != true && paymentformcheckout.controls.expYear.hasError('incorrect') && ( paymentformcheckout.controls.expYear.dirty || paymentformcheckout.controls.expYear.touched)" class="fullname">
+                      Please enter a valid expiry date!
+                    </span> 
+                </mat-form-field>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row style="margin-bottom: -30px;">
+          <ion-col size="6" style="margin-top: -9px;">
+             
+              <mat-form-field
+              appearance="outline">
+             
+            
+                <mat-label>CVV</mat-label>
+                <input type="tel" matInput formControlName="cvvNumber" placeholder="CVV"   (keypress)= "numberOnly($event)" 
+                required 
+                pattern="[0-9]*"
+                minlength="3"
+                maxlength="4">
+
+             
+                <mat-error
+                *ngIf= "paymentformcheckout.controls.cvvNumber.hasError('required') && ( paymentformcheckout.controls.cvvNumber.dirty || paymentformcheckout.controls.cvvNumber.touched)">
+                CVV number is required!
+              </mat-error>
+          
+            <mat-error
+            *ngIf= "paymentformcheckout.controls.cvvNumber.hasError('numeric') && ( paymentformcheckout.controls.cvvNumber.dirty || paymentformcheckout.controls.cvvNumber.touched)">
+            Only numbers are allowed!
+          </mat-error>
+              <mat-error
+              *ngIf= "paymentformcheckout.controls.cvvNumber.hasError('minlength') && !paymentformcheckout.controls.cvvNumber.hasError('numeric') && ( paymentformcheckout.controls.cvvNumber.dirty || paymentformcheckout.controls.cvvNumber.touched)">
+             Please enter a valid CVV number!
+            </mat-error>
+
+         
+              </mat-form-field>
+              <img
+                src="assets/cod/cvv_ico.svg"
+                class="cvv-img4"
+              />
+            </ion-col>
+            <ion-col size="6" class="trusted-pad2" text-right>
+              Trusted By &nbsp;
+              <img
+                class="trust-icon"
+                src="assets/cod/Image 85@3x.png"
+              />
+            </ion-col>
+          </ion-row>
+        </div>
+
+        <!-- <ion-item>
+                    <span class="text-check">I understand and agree with rules and restrictions of this fare and the <u><a>Terms
+                          of Use</a></u></span>
+                    <ion-checkbox slot="start"> </ion-checkbox>
+                  </ion-item> -->
+
+        <div class="form-group" style="margin-top: 30px;">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="5">
+                <ion-item *ngIf= "islogin == 'true'"  style="margin-left: -3px;">
+                  <!-- <ion-toggle mode="md" class="save-pad" [disabled]= "!paymentformcheckout.valid" [checked]= "checkedTogglenew"
+                        (ionChange)= "savechekoutform($event, paymentformcheckout)"></ion-toggle>
+                        <span class="mat-text-color">Save Card</span> -->
+                  <ion-toggle
+                    mode="md"
+                    class="save-pad"
+                    [checked]="checkedTogglenew"
+                    (ionChange)= "savechekoutform($event, paymentformcheckout)"
+                  ></ion-toggle>
+                  <span class="mat-text-color">Save Card</span>
+                </ion-item>
+              </ion-col>
+              <ion-col size="7">
+                <ion-item style="float:right">
+                  <span class="mat-text-color">Default Payment Method</span>
+                  <ion-toggle
+                    mode="md"
+                    class="default-payment-pad"
+                    slot="start"
+                    color="success"
+                  ></ion-toggle>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="12">
+                <ion-item  style="margin-left: -3px;">
+                  <div class="text-check">
+                    <mat-checkbox
+                      class="mat-text-color terms_condition"
+                      formControlName="checkeboxx"
+                      required
+                    >
+                    
+                    <span class="trustTextColor ion-text-wrap" style="font-family: 'latomedium';"
+                    >I understand and agree with rules and restrictions of
+                    this fare 
+                    and the 
+                    <!-- <u> -->
+                      <a class="card-terms-underline" (click)= "openTC()">Terms of Use</a>
+                    <!-- </u> -->
+                   
+                  </span>
+                    </mat-checkbox>
+
+                    <mat-error *ngIf="termconditions" class="invalidError">
+                      Please accept terms and conditions.
+                    </mat-error>
+                  </div>
+                </ion-item>
+                <!-- <label><input #small type="checkbox" name="size" (change)="0">
+                        kkkI understand and agree with rules and restrictions of this  fare and the Terms
+                          of Use
+                      </label> -->
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+        <div style='height:10px;'></div>
+
+        <div   style="display: none;">
+          <!-- 
+                      Date d1 = new Date();
+                      datevalue = String.valueOf(d1.getTime())+"ABCX";
+                      request.setAttribute("datevalue", datevalue);
+                      session.setAttribute("datevalue", datevalue);
+                      String A1 = "A";// A1=datevalue;
+                      %> -->
+                      
+                      <input type="hidden" name="datevalue" [value]= "datevalue">
+                      <input  type="hidden" id="fgh" [value]= "datevalue">
+                      
+                      <p style='background:url(https://h.online-metrix.net/fp/clear.png?org_id=1snn5n9w&amp;session_id=satguru_b2c1{{datevalue}}&amp;m=1)'></p>
+                      <img src='https://h.online-metrix.net/fp/clear.png?org_id=1snn5n9w&amp;session_id=satguru_b2c1{{datevalue}}&amp;m=2' alt=''>
+                      
+                      
+                      <object type='application/x-shockwave-flash" data="https://h.onlinemetrix.net/fp/fp.swf?org_id=1snn5n9w&amp;session_id=satguru_b2c1{{datevalue}}' width='1' height='1' id='thm_fp'>
+                      <param name='movie' value='https://h.online-metrix.net/fp/fp.swf?org_id=1snn5n9w&amp;session_id=satguru_b2c1{{datevalue}}' /><div></div></object>
+                      
+                      
+          
+                    </div>
+      </form>
+
+      <!--FORM END HERE-->
+    </ion-grid>
+    <ion-grid class="paymentsform" *ngIf= "typeofform == '1-3G Pay'" style="margin-top: -40px;">
+
+    <!-- <ion-grid class="paymentsform"  style="    margin-top: -40px;"> -->
+      <form [formGroup]= "dummyforms" style="visibility: hidden;">
+        <input
+          type="text"
+          formControlName="dname"
+          matInput
+          class="form-control"
+          placeholder="Card Number"
+        />
+        <input
+          type="text"
+          formControlName="dmname"
+          matInput
+          class="form-control"
+          placeholder="Card Number"
+        />
+      </form>
+       <form [formGroup]= "paymentformthreeg" style = "margin-bottom: 50px;">
+        <ion-col size-sm="6" offset-sm="2">
+          <div class="form-group">
+            <ion-row>
+              <ion-col size="10" class="card-number" style="padding-left: 8px;">
+              
+                <mat-form-field
+                appearance="outline"
+                
+              >
+                <mat-label>Card Holder Name </mat-label>
+                <input type="text" trimdirective [errorStateMatcher] = "matcher" #cyberfname (blur)= "checkfullnamethreeG(cyberfname.value)"    matInput placeholder="Card Holder Name" autocomplete="off"
+                  formControlName="cardname" required>
+                <mat-error 
+                  *ngIf= "paymentformthreeg.controls.cardname?.errors && (paymentformthreeg.controls.cardname?.dirty || paymentformthreeg.controls.cardname.touched) ">
+                  {{paymentformthreeg.controls.cardname?.errors.alpha?.message}}
+                  {{paymentformthreeg.controls.cardname?.errors.numeric?.message}}
+                  {{paymentformthreeg.controls.cardname?.errors?.maxLength ?  'Maximum' + cardname_max_length_40 : ''  }}
+
+                </mat-error>
+                
+                <mat-error
+                *ngIf= "paymentformthreeg.controls.cardname.hasError('required') && ( paymentformthreeg.controls.cardname.dirty || paymentformthreeg.controls.cardname.touched)">
+                Card holder name is required!
+              </mat-error>
+              <!-- <mat-error
+              *ngIf= "paymentformthreeg.controls.cardname.hasError('maxlength') && ( paymentformthreeg.controls.cardname.dirty || paymentformthreeg.controls.cardname.touched)">
+             Maximum 40 charachers are allowed!
+            </mat-error> -->
+               <span *ngIf = "fullnamethreeG == true && paymentformthreeg.controls.cardname.hasError('incorrect') && !paymentformthreeg.controls.cardname.hasError('alpha') && (paymentformthreeg.controls.cardname.dirty || paymentformthreeg.controls.cardname.touched)" class="fullname">
+            Enter first and last name with a space in between
+            </span> 
+  
+              </mat-form-field>
+
+              </ion-col>
+              <ion-col size="2">
+                <img src="assets/icons/flights/crdd.svg" class="paymenticon" />
+              </ion-col>
+            </ion-row>
+          </div>
+
+          <div class="form-group">
+            <ion-row class="pay-ion-row">
+              <ion-col size="6">
+                <div class="form-group">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input
+                      type="email"
+                      formControlName="email"
+                      matInput
+                      placeholder="Email"
+                    />
+                  
+                    <mat-error
+                    *ngIf="
+                      paymentformthreeg.controls.email?.errors &&
+                      (paymentformthreeg.controls.email?.dirty ||
+                      paymentformthreeg.controls.email.touched)
+                    "
+                  >
+                    {{ paymentformthreeg.controls.email?.errors?.required?.message }}
+                    {{ paymentformthreeg.controls.email?.errors.pattern?.message }}
+                    {{paymentformthreeg.controls.email?.errors?.maxLength ? 'Maximum 45 characters are allowed!' : ''}}
+                  </mat-error>
+                  </mat-form-field>
+                </div>
+              </ion-col>
+
+              <ion-col size="6">
+                <div class="form-group">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Phone</mat-label>
+                    <input
+                      type="tel"
+                      formControlName="phone"
+                      matInput
+                      placeholder="Phone"
+                    />
+                    <!-- <mat-error
+                      *ngIf="
+                        paymentformthreeg.controls.phone.errors &&
+                        (paymentformthreeg.controls.phone.dirty ||
+                          paymentformthreeg.controls.phone.touched)
+                      "
+                    >
+                      Phone no. is required!
+                    </mat-error> -->
+                    <mat-error
+                    *ngIf="
+                    paymentformthreeg.controls.phone?.errors &&
+                      (paymentformthreeg.controls.phone?.dirty ||
+                      paymentformthreeg.controls.phone.touched)
+                    "
+                  >
+                    {{
+                      paymentformthreeg.controls.phone?.errors?.required?.message
+                    }}
+                    {{ paymentformthreeg.controls.phone?.errors.numeric?.message }}
+                    {{paymentformthreeg.controls.phone?.errors?.maxLength ? 'Maximum 12 digits are allowed!' : ''}}
+                  
+                  </mat-error>
+                  </mat-form-field>
+                </div>
+              </ion-col>
+            </ion-row>
+          </div>
+          <div class="form-group">
+            <ion-row  class="pay-ion-row">
+              <ion-col size="6">
+                <div class="form-group">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Address</mat-label>
+                    <input
+                    trimdirective
+                      type="text"
+                      formControlName="address"
+                      matInput
+                      placeholder="Address"
+                    />
+                    <mat-error
+                    *ngIf="
+                    paymentformthreeg.controls.address?.errors &&
+                      (paymentformthreeg.controls.address?.dirty ||
+                      paymentformthreeg.controls.address.touched)
+                    "
+                  >
+                
+                    {{paymentformthreeg.controls.address?.errors?.maxLength ? 'Maximum 250 characters are allowed' : ''}}
+                  </mat-error>
+                  <mat-error
+                  *ngIf= "paymentformthreeg.controls.address.hasError('required') && ( paymentformthreeg.controls.address.dirty || paymentformthreeg.controls.address.touched)">
+                  Address is required!
+                </mat-error>
+                  </mat-form-field>
+                </div>
+              </ion-col>
+
+              <ion-col size="6">
+                <div class="form-group">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Street</mat-label>
+                    <input
+                    trimdirective
+                      type="text"
+                      formControlName="street"
+                      matInput
+                      placeholder="Street"
+                    />
+                    <mat-error
+                      *ngIf="
+                        paymentformthreeg.controls.street.errors &&
+                        (paymentformthreeg.controls.street.dirty ||
+                          paymentformthreeg.controls.street.touched)
+                      "
+                    >
+                      Street is required!
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </ion-col>
+            </ion-row>
+          </div>
+
+          <div class="form-group">
+            <ion-row  class="pay-ion-row">
+              <ion-col size="6">
+                <div class="form-group">
+                  <mat-form-field appearance="outline">
+                    <mat-label>City</mat-label>
+                    <input
+                    trimdirective
+                      type="text"
+                      formControlName="city"
+                      matInput
+                      placeholder="City"
+                    />
+                 
+                    <!-- <mat-error 
+                    *ngIf= "paymentformthreeg.controls.city?.errors && (paymentformthreeg.controls.city?.dirty || paymentformthreeg.controls.city.touched) ">
+                    {{paymentformthreeg.controls.cardname?.errors.alpha?.message}}
+    
+                  </mat-error> -->
+                  <mat-error
+                  *ngIf= "paymentformthreeg.controls.city.hasError('alpha') && ( paymentformthreeg.controls.city.dirty || paymentformthreeg.controls.city.touched)">
+                  Only alphabets are allowed!
+                </mat-error>
+                  <mat-error
+                  *ngIf= "paymentformthreeg.controls.city.hasError('required') && ( paymentformthreeg.controls.city.dirty || paymentformthreeg.controls.city.touched)">
+                  City is required!
+                </mat-error>
+                <mat-error
+                *ngIf= "paymentformthreeg.controls.city.hasError('maxLength') && ( paymentformthreeg.controls.city.dirty || paymentformthreeg.controls.city.touched)">
+                Maximum 25 characters are allowed!
+              </mat-error>
+                  </mat-form-field>
+                </div>
+              </ion-col>
+
+              <ion-col size="6">
+                <div class="form-group">
+                  <mat-form-field appearance="outline">
+                    <mat-label>State</mat-label>
+                    <input
+                    trimdirective
+                      type="text"
+                      formControlName="state"
+                      matInput
+                      placeholder="State"
+                    />
+                    <!-- <mat-error
+                      *ngIf="
+                        paymentformthreeg.controls.state.errors &&
+                        (paymentformthreeg.controls.state.dirty ||
+                          paymentformthreeg.controls.state.touched)
+                      "
+                    >
+                      State is required!
+                    </mat-error> -->
+                    <mat-error
+                    *ngIf= "paymentformthreeg.controls.state.hasError('alpha') && ( paymentformthreeg.controls.state.dirty || paymentformthreeg.controls.state.touched)">
+                    Only alphabets are allowed!
+                  </mat-error>
+                  
+                  <mat-error
+                  *ngIf= "paymentformthreeg.controls.state.hasError('required') && ( paymentformthreeg.controls.state.dirty || paymentformthreeg.controls.state.touched)">
+                  State is required!
+                </mat-error>
+                <mat-error
+                *ngIf= "paymentformthreeg.controls.state.hasError('maxLength') && ( paymentformthreeg.controls.state.dirty || paymentformthreeg.controls.state.touched)">
+                Maximum 25 characters are allowed!
+              </mat-error>
+                  </mat-form-field>
+                </div>
+              </ion-col>
+            </ion-row>
+          </div>
+
+          <div class="form-group">
+            <ion-row  class="pay-ion-row">
+              <ion-col size="6">
+                <div class="form-group">
+                  <div class="dwn-arrow nationality_field"
+                  (click)= "onSelectCountrynew('country', paymentformthreeg.controls.country?.value)">
+            
+                        <mat-form-field appearance="outline" class="fontcls">
+                          <mat-label>Country</mat-label>
+                          <mat-select formControlName="country" >
+                            <mat-option 
+                            *ngFor="let country of newCountryList" [value]="country?.countryCode">
+                              {{country?.countryName}}
+                            </mat-option>
+                          </mat-select>
+                          <!-- <mat-error *ngIf="paymentformthreeg.controls.country?.errors && (paymentformthreeg.controls.country?.dirty || paymentformthreeg.controls.country.touched) ">
+                            {{paymentformthreeg.controls.country?.errors?.required?.message}}
+                          </mat-error> -->
+                          <mat-error
+                          *ngIf= "paymentformthreeg.controls.country.hasError('required') && ( paymentformthreeg.controls.country.dirty || paymentformthreeg.controls.country.touched)">
+                          Country is required!
+                        </mat-error>
+                        </mat-form-field>
+                     
+                  </div>
+                  <!-- <mat-form-field appearance="outline">
+                    <mat-label>Country</mat-label>
+                    <mat-select formControlName="country">
+                      <mat-option
+                        (onSelectionChange)="
+                          onSelectCountry(country?.countryCode, $event)
+                        "
+                        *ngFor="let country of allCountryList"
+                        [value]="country?.countryCode"
+                      >
+                        {{ country?.countryName }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error
+                      *ngIf="
+                        paymentformthreeg.controls.country?.errors &&
+                        (paymentformthreeg.controls.country?.dirty ||
+                          paymentformthreeg.controls.country.touched)
+                      "
+                    >
+                      Country Required!
+                    </mat-error>
+                  </mat-form-field> -->
+                </div>
+              </ion-col>
+
+              <ion-col size="6">
+                <div class="form-group">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Zip Code</mat-label>
+                    <input
+                    type="tel"
+                      formControlName="zipcode"
+                      matInput
+                      placeholder="Zip Code"
+                    />
+                    <mat-error
+                    *ngIf="
+                    paymentformthreeg.controls.zipcode?.errors &&
+                      (paymentformthreeg.controls.zipcode?.dirty ||
+                      paymentformthreeg.controls.zipcode.touched)
+                    "
+                  >
+                    <!-- {{ paymentformthreeg.controls.zipcode?.errors?.required?.message }} -->
+                    {{ paymentformthreeg.controls.zipcode?.errors.numeric?.message }}
+                    {{paymentformthreeg.controls.zipcode?.errors?.maxLength ? 'Maximum 8 digits are allowed!' : ''}}
+                  </mat-error>
+                  <mat-error
+                  *ngIf= "paymentformthreeg.controls.zipcode.hasError('required') && ( paymentformthreeg.controls.zipcode.dirty || paymentformthreeg.controls.zipcode.touched)">
+                  Zipcode is required!
+                </mat-error>
+                  </mat-form-field>
+                </div>
+              </ion-col>
+            </ion-row>
+          </div>
+
+       
+          
+
+        </ion-col>
+        <ion-grid>
+          <ion-row class="text-icon" style="height:auto;">
+            <ion-col class="trustticon">
+              <span class="trust-text" style="margin-top: 6px;">Trusted By &nbsp;</span>
+              <img
+                style=" margin-right: 8px;"
+                class="trust-img"
+                src="assets/cod/Image 85@3x.png"
+              />
+            </ion-col>
+          </ion-row>
+        
+        </ion-grid>
+        <div class="form-group">
+
+
+     
+                  <div class="tc-chk">
+                    <mat-checkbox
+                    formControlName="checkeboxxneww"
+                     
+                      class="checkbox-input all-check-align airline-checkbox terms_condition"
+                      style="margin-left: 1px;"
+                      required
+                    >
+                      <span class="trustTextColor ion-text-wrap" style="font-family: 'latomedium';"
+                        >I understand and agree with rules and restrictions of this fare and the 
+                        <!-- <u> -->
+                          <a class="card-terms-underline" (click)= "openTC()">Terms of Use</a>
+                        <!-- </u> -->
+                       
+                      </span>
+                    </mat-checkbox>
+
+                    <mat-error  *ngIf= "termconditions1" class="invalidError">
+                      Please accept terms and conditions.
+                    </mat-error>
+                  </div>
+               
+        </div>
+      </form>
+    </ion-grid>
+
+<!--inter switch start-->
+<ion-grid class="paymentsform" *ngIf= "typeofform == '236-Interswitch'">
+  <form [formGroup]= "dummyforms" style="display: none;">
+    <input
+      type="text"
+      formControlName="dname"
+      matInput
+      class="form-control"
+      placeholder="Card Number"
+    />
+    <input
+      type="text"
+      formControlName="dmname"
+      matInput
+      class="form-control"
+      placeholder="Card Number"
+    />
+  </form>
+
+  <form [formGroup]= "interswitchForm" style="margin-bottom: 45px;">
+  
+    <div class="form-group" style = "margin-top: 20px;">
+      <ion-row>
+        <ion-col size='12'>
+          <mat-form-field appearance="outline" >
+            <mat-label>Name on the Card </mat-label>
+     
+            <input type="text" trimdirective  [errorStateMatcher] = "matcher" #checkoutfname (blur)= "checkfullnameinterswitch(checkoutfname.value)"    matInput placeholder="Name on the Card" autocomplete="off"
+              formControlName="cardname" required>
+            <mat-error 
+              *ngIf= "interswitchForm.controls.cardname?.errors && (interswitchForm.controls.cardname?.dirty || interswitchForm.controls.cardname.touched) ">
+              {{interswitchForm.controls.cardname?.errors.alpha?.message}}
+              {{interswitchForm.controls.cardname?.errors.numeric?.message}}
+              <!-- {{paymentformcheckout.controls.cardname?.errors?.maxlength?.message}} -->
+              {{interswitchForm.controls.cardname?.errors?.maxLength ?  'Maximum' + cardname_max_length_40 : ''  }}
+
+            </mat-error>
+            
+            <mat-error
+            *ngIf= "interswitchForm.controls.cardname.hasError('required') && ( interswitchForm.controls.cardname.dirty || interswitchForm.controls.cardname.touched)">
+           Name on the card is required!
+          </mat-error>
+        
+          <span *ngIf = "fullnameinterswitch == true && interswitchForm.controls.cardname.hasError('incorrect') && !interswitchForm.controls.cardname.hasError('alpha') && (interswitchForm.controls.cardname.dirty || interswitchForm.controls.cardname.touched)" class="fullname">
+            Enter First and Last Name with a space in between!
+          </span> 
+  
+          </mat-form-field>
+        </ion-col>
+      </ion-row>          
+    </div>
+
+
+    <div class="form-group">
+      <ion-row class="pay-ion-row">
+        <ion-col size="6">
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Email</mat-label>
+              <input
+                type="email"
+                formControlName="email"
+                matInput
+                placeholder="Email"
+              />
+            
+              <mat-error
+              *ngIf="
+              interswitchForm.controls.email?.errors &&
+                (interswitchForm.controls.email?.dirty ||
+                interswitchForm.controls.email.touched)
+              "
+            >
+              {{ interswitchForm.controls.email?.errors?.required?.message }}
+              {{ interswitchForm.controls.email?.errors.pattern?.message }}
+              {{interswitchForm.controls.email?.errors?.maxLength ? 'Maximum 45 characters are allowed!' : ''}}
+            </mat-error>
+            </mat-form-field>
+          </div>
+        </ion-col>
+
+        <ion-col size="6">
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Phone</mat-label>
+              <input
+                type="tel"
+                formControlName="phone"
+                matInput
+                placeholder="Phone"
+              />
+           
+              <mat-error
+              *ngIf="
+              interswitchForm.controls.phone?.errors &&
+                (interswitchForm.controls.phone?.dirty ||
+                interswitchForm.controls.phone.touched)
+              "
+            >
+              {{
+                interswitchForm.controls.phone?.errors?.required?.message
+              }}
+              {{ interswitchForm.controls.phone?.errors.numeric?.message }}
+              {{interswitchForm.controls.phone?.errors?.maxLength ? 'Maximum 12 digits are allowed!' : ''}}
+            
+            </mat-error>
+            </mat-form-field>
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+  
+
+    <div class="form-group" style="margin-top: 30px;">
+     <ion-grid>
+       <ion-row>
+         <ion-col>
+           <div>
+             <img src = "assets/icon/interswitch-logo.png" class = "wdt">
+           </div>
+         </ion-col>
+       </ion-row>
+     </ion-grid>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12">
+            <ion-item  style="margin-left: -3px;">
+              <div class="text-check">
+                <mat-checkbox
+                  class="mat-text-color terms_condition"
+                  formControlName="checkeboxx"
+                  required
+                >
+                
+                <span class="trustTextColor ion-text-wrap" style="font-family: 'latomedium';"
+                >I understand and agree with rules and restrictions of
+                this fare 
+                and the 
+                <!-- <u style="text-underline-position: under; text-decoration-color: #0089C6;"> -->
+                  <a class="card-terms-underline" (click)= "openTC()">Terms of Use</a>
+                <!-- </u> -->
+               
+              </span>
+                </mat-checkbox>
+
+                <mat-error *ngIf= "termconditions_interswitch" class="invalidError">
+                  Please accept terms and conditions.
+                </mat-error>
+              </div>
+            </ion-item>
+        
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <div style='height:10px;'></div>
+  </form>
+
+  <!--FORM END HERE-->
+</ion-grid>
+<!-----------------------inter switch end-------------------------------->
+
+
+    <!-- <ion-grid *ngIf= "typeofform != '2-Cyber Source' && typeofform != '236-Interswitch' && typeofform != '235-Checkout'  && typeofform != '1-3G Pay'">  -->
+      <!-- <ion-grid *ngIf= "typeofform != undefined && typeofform != ''">  -->
+
+      <!-- <ion-row *ngIf = "bookandholdstatus"> -->
+        <!-- <ion-row>
+
+        <ion-col>
+          <p class="no-flight-mssg">
+            
+      Airline selected by you is not bookable online, Please contact our customer support team <a href="mailto:{{branchEmailId}}" >{{branchEmailId}}</a> or call us at <a href="tel:{{branchMob}}" >{{branchMob}}</a> number to book this flight.
+          </p>
+        </ion-col>
+      </ion-row> -->
+    <!-- </ion-grid> -->
+  </div>
+
+  
+
+  <div *ngIf= "oldCard">
+    <form [formGroup]= "savecardform">
+      <ion-grid class="paymentsform">
+        <div class="form-group">
+          <ion-grid>
+            <ion-row padding-top>
+              <ion-col size="6" no-padding>
+                <mat-form-field appearance="outline">
+                  <mat-label>CVV </mat-label>
+                  <input type="tel" matInput formControlName="cvvnumber" placeholder="CVV"   (keypress)= "numberOnly($event)" 
+                  required 
+                  pattern="[0-9]*"
+                  minlength="3"
+                  maxlength="4">
+  
+               
+                  <mat-error
+                  *ngIf= "savecardform.controls.cvvnumber.hasError('required') && ( savecardform.controls.cvvnumber.dirty || savecardform.controls.cvvnumber.touched)">
+                  CVV number is required!
+                </mat-error>
+            
+              <mat-error
+              *ngIf= "savecardform.controls.cvvnumber.hasError('numeric') && ( savecardform.controls.cvvnumber.dirty || savecardform.controls.cvvnumber.touched)">
+              Only numbers are allowed!
+            </mat-error>
+                <mat-error
+                *ngIf= "savecardform.controls.cvvnumber.hasError('minlength') && ( savecardform.controls.cvvnumber.dirty || savecardform.controls.cvvnumber.touched)">
+                Invalid CVV number!
+              </mat-error>
+  
+           
+                </mat-form-field>
+                <img
+                  style="top:20px; right:11px;"
+                  src="assets/cod/cvv_ico.svg"
+                  class="cvv-img"
+                />
+              </ion-col>
+  
+              <ion-col size="6" class="trusted-pad" text-right>
+                <span class="trust-text">Trusted By &nbsp;</span>
+                <img
+                  class="trust-icon"
+                  src="assets/cod/Image 85@3x.png"
+                  style="margin-right: -5px;"
+                />
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+          
+
+          <ion-grid>
+            <ion-row padding-top style="margin-top: -14px;">
+              <div class="text-check">
+                <mat-checkbox formControlName="checkeboxxsave" class="terms_condition" required>
+                  <span class="agree-rules ion-text-wrap" style="font-family: 'latomedium';"
+                    >I understand and agree with rules and restrictions of this
+                   
+                    fare and the 
+                    <!-- <u style="text-underline-position: under; text-decoration-color: #0089C6;"> -->
+                      <a class="card-terms-underline" (click)= "openTC()">Terms of Use</a>
+                    <!-- </u> -->
+                  </span>
+                  <!-- and the <u><a>Terms of Use</a></u> -->
+                </mat-checkbox>
+
+                <mat-error *ngIf="termconditionsave" class="invalidError">
+                  Please accept terms and conditions.
+                </mat-error>
+              </div>
+            </ion-row>
+          </ion-grid>
+        </div>
+      </ion-grid>
+    </form>
+  </div>
+  <div></div>
+</div>
+
+
+
+
+<footer *ngIf= "tripType == 'oneway'">
+  <div class="main-container">
+    <div class="left-container"   (click)= "fareDetails()" *ngIf= "!setButtonClose">
+      <div>
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          <span class="aed-text">{{ dynamicCurrency }} </span>
+          <span class="amount">{{ displayfareoneway  | roundUpPrice }}</span>
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="left-container" (click)= "closePopup()" *ngIf= "setButtonClose">
+      <div>
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          <span class="aed-text">{{ dynamicCurrency }} </span>
+          <span class="amount">{{ displayfareoneway  | roundUpPrice }}</span>
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="right-container">
+      <div *ngIf= "typeofform == '2-Cyber Source'">
+        <button type="submit"  [disabled]= 'isDisabled' [ngClass]="{'rqst-button-disable' : isDisabled}" class="rqst-button rqst-button-padding-payment"  matRipple
+         (click)= "cyberSourceFormAndSavecybersource()">MAKE PAYMENT</button>
+
+      </div>
+
+      <div *ngIf= "typeofform == '1-3G Pay'">
+        <button type="submit" [disabled]= 'isthreegBoolean' [ngClass]="{'rqst-button-disable' : isthreegBoolean}"  class="rqst-button rqst-button-padding-payment"  matRipple
+        (click)= "threegpayForm()">MAKE PAYMENT</button>
+
+      </div>
+
+      <div  *ngIf= "typeofform == '235-Checkout'">
+        <button type="submit"  [disabled]= 'checkoutboolean' [ngClass]="{'rqst-button-disable' : checkoutboolean}" class="rqst-button rqst-button-padding-payment"  matRipple
+        (click)= "checkoutFormAndSavcheckout()">MAKE PAYMENT</button>
+
+      </div>
+
+      <div *ngIf= "typeofform == '236-Interswitch'">
+        <button type="submit"  [disabled]= 'interBoolean' [ngClass]="{'rqst-button-disable' : interBoolean}" [ngClass]="{'rqst-button-disable' : interBoolean}" class="rqst-button rqst-button-padding-payment"  matRipple
+        (click)= "interswitch()">MAKE PAYMENT</button>
+
+      </div>
+
+    </div>
+  </div>
+</footer>
+
+
+
+<footer *ngIf= "tripType == 'multicity'">
+  <div class="main-container">
+    <div class="left-container"   (click)= "fareDetails()" *ngIf= "!setButtonClose">
+      <div>
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          <span class="aed-text">{{ multiCityCurrency }} </span>
+          <span class="amount">{{ multiflightFare  | roundUpPrice }}</span>
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="left-container" (click)= "closePopup()" *ngIf= "setButtonClose">
+      <div>
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          <span class="aed-text">{{ multiCityCurrency }} </span>
+          <span class="amount">{{ multiflightFare  | roundUpPrice }}</span>
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="right-container">
+      <div *ngIf= "typeofform == '2-Cyber Source'">
+        <button type="submit"  [disabled]= 'isDisabled' [ngClass]="{'rqst-button-disable' : isDisabled}" class="rqst-button rqst-button-padding-payment"  matRipple
+         (click)= "cyberSourceFormAndSavecybersource()">MAKE PAYMENT</button>
+
+      </div>
+
+      <div *ngIf= "typeofform == '1-3G Pay'">
+        <button type="submit"  [disabled]= 'isthreegBoolean' [ngClass]="{'rqst-button-disable' : isthreegBoolean}" class="rqst-button rqst-button-padding-payment"  matRipple
+        (click)= "threegpayForm()">MAKE PAYMENT</button>
+
+      </div>
+
+      <div  *ngIf= "typeofform == '235-Checkout'">
+        <button type="submit"  [disabled]= 'checkoutboolean' [ngClass]="{'rqst-button-disable' : checkoutboolean}" class="rqst-button rqst-button-padding-payment"  matRipple
+        (click)= "checkoutFormAndSavcheckout()">MAKE PAYMENT</button>
+
+      </div>
+
+      <div *ngIf= "typeofform == '236-Interswitch'">
+        <button type="submit"  [disabled]= 'interBoolean' [ngClass]="{'rqst-button-disable' : interBoolean}" class="rqst-button rqst-button-padding-payment"  matRipple
+        (click)= "interswitch()">MAKE PAYMENT</button>
+
+      </div>
+
+    </div>
+  </div>
+</footer>
+
+
+
+<footer *ngIf= "tripType == 'returnway'">
+  <div class="main-container">
+    <div class="left-container"   (click)= "fareDetails()" *ngIf= "!setButtonClose">
+      <div>
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          <span class="aed-text">{{ returnwaycurreny }} </span>
+          <span class="amount">{{ cprice  | roundUpPrice }}</span>
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="left-container" (click)= "closePopup()" *ngIf= "setButtonClose">
+      <div>
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          <span class="aed-text">{{ returnwaycurreny }} </span>
+          <span class="amount">{{ cprice  | roundUpPrice }}</span>
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="right-container">
+      <div *ngIf= "typeofform == '2-Cyber Source'">
+        <button type="submit" [disabled]= 'isDisabled'  [ngClass]="{'rqst-button-disable' : isDisabled}" class="rqst-button rqst-button-padding-payment"  matRipple
+         (click)= "cyberSourceFormAndSavecybersource()">MAKE PAYMENT</button>
+
+      </div>
+
+      <div *ngIf= "typeofform == '1-3G Pay'">
+        <button type="submit"  [disabled]= 'isthreegBoolean' [ngClass]="{'rqst-button-disable' : isthreegBoolean}" class="rqst-button rqst-button-padding-payment"  matRipple
+        (click)= "threegpayForm()">MAKE PAYMENT</button>
+
+      </div>
+
+      <div  *ngIf= "typeofform == '235-Checkout'">
+        <button type="submit"  [disabled]= 'checkoutboolean' [ngClass]="{'rqst-button-disable' : checkoutboolean}" class="rqst-button rqst-button-padding-payment"  matRipple
+        (click)= "checkoutFormAndSavcheckout()">MAKE PAYMENT</button>
+
+      </div>
+
+      <div *ngIf= "typeofform == '236-Interswitch'">
+        <button type="submit"  [disabled]= 'interBoolean' [ngClass]="{'rqst-button-disable' : interBoolean}" class="rqst-button rqst-button-padding-payment"  matRipple
+        (click)= "interswitch()">MAKE PAYMENT</button>
+
+      </div>
+
+    </div>
+  </div>
+</footer>
+
+<!--new footer code end/// retunway-->
+</ng-template>

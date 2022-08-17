@@ -1,0 +1,70 @@
+.fare-details {
+  max-height: calc(100vh - 50px);
+  width: 100vw;
+}
+mat-bottom-sheet-container {
+  padding: 0px 0px !important;
+  min-width: 95vw !important;
+  box-sizing: border-box;
+  display: block;
+  outline: 0;
+  max-height: 95vh !important;
+  overflow: auto;
+  //padding: 0px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  overflow-y: hidden !important;
+  margin-bottom: 50px;
+  margin-bottom: 62px;
+}
+
+.refuld-nonrefund {
+  color: #d81d24;
+  font-family: "latomedium";
+  font-size: 14px;
+}
+.price {
+  font-size: 20px;
+  font-family: "latomedium";
+}
+.crncy {
+  font-family: "latomedium";
+  font-size: 13px;
+}
+
+.cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
+  opacity: 0.85;
+  max-height: calc(100vh - 45px);
+}
+
+.cdk-overlay-backdrop {
+  position: absolute;
+  top: 0;
+  bottom: 100px !important;
+}
+mat-bottom-sheet-container {
+  margin-bottom: 62px;
+}
+
+.fare-backdrop {
+  opacity: 0.9;
+  background-color: #000000;
+}
+.fare-class {
+  margin-bottom: 61px !important;
+}
+.detail {
+  --padding-start: 0;
+}
+.fare-text {
+  font-size: 16px;
+  font-family: latomedium;
+  color: #000000;
+}
+.fare-font {
+  font-size: 14px;
+  font-family: latomedium;
+}
+ion-grid {
+  padding-left: 20px;
+}

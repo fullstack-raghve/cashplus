@@ -1,0 +1,712 @@
+<ion-header *ngIf="getReponse">
+  <ion-toolbar color="custom-color-red">
+    <ion-grid>
+      <ion-row>
+        <ion-col
+          (click)="backTo()"
+          style="display: flex; align-items: center;"
+          size="2"
+          size-sm
+        >
+          <div>
+            <img
+              class="backArrow"
+              src="assets/icon/backarrowtop2.svg"
+              alt="Back"
+              style="width: 17px;"
+            />
+          </div>
+        </ion-col>
+
+        <ion-col size="8" size-sm>
+          <app-top-header></app-top-header>
+        </ion-col>
+
+        <ion-col size="2" size-sm class="right-col">
+          <p>
+            <img
+              src="assets/icon/white_edit_icon.svg"
+              alt="Back"
+              style="width: 20px !important;"
+              (click)="editflight()"
+            />
+          </p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+
+<div *ngIf="!getReponse">
+  <p
+    style="
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    "
+  >
+    <ion-spinner name="lines"></ion-spinner>Loading ...
+  </p>
+</div>
+<!--header END-->
+<ion-row class="yellow-badge" *ngIf="displayoneway && getReponse">
+  <ion-col>
+    <p>
+      {{ onewayflightarry.length - 1 }} similar {{ (onewayflightarry.length - 1 > 1) ? 'options' : 'option' }} available at the same price
+    </p>
+  </ion-col>
+</ion-row>
+
+<ion-row class="yellow-badge" *ngIf="displayreturnway && getReponse">
+  <ion-col>
+    <p>Following combinations available at the same price</p>
+  </ion-col>
+</ion-row>
+
+<ion-row class="yellow-badge" *ngIf="displaymulti && getReponse">
+  <ion-col>
+    <p>
+      {{ multiflightarry.length - 1 }} Combinations available at the same price
+    </p>
+  </ion-col>
+</ion-row>
+
+<ion-row *ngIf="getReponse">
+  <div>
+    <!-- <ngx-spinner
+        bdOpacity = 0.2
+        bdColor = "    background-color: rgba(81, 81, 81, 0.59);"
+        size = "medium"
+        color = "#fff"
+        type = "ball-spin-clockwise-fade"
+        [fullScreen] = "false"
+        >
+        <p style="color: white" > Loading... </p>
+        </ngx-spinner> -->
+    <!-- <ngx-spinner bdOpacity=0.2 bdColor="rgba(9,9,9,0.81)" size="medium" color="#fff" type="ball-spin-clockwise-fade"
+      [fullScreen]= "true">
+      <p style="color: white"> Confirming Flight Please Wait... </p>
+    </ngx-spinner> -->
+  </div>
+</ion-row>
+
+<ion-row class="flight-row" *ngIf="displayoneway && getReponse">
+  <!-- <ion-col class="text-flight">
+    <ion-label>Departure-Flight</ion-label>
+  </ion-col> -->
+  <ion-col size="12" text-center>
+    <ion-label>Departure Flights</ion-label>
+  </ion-col>
+</ion-row>
+<ion-row class="flight-row" *ngIf="displaymulti && getReponse">
+  <ion-col size="12" text-center>
+    <ion-label>Multicity Flights</ion-label>
+  </ion-col>
+</ion-row>
+
+<ion-row class="flight-row" *ngIf="displayreturnway && getReponse">
+  <ion-col class="depart-text">
+    <ion-label>Departure Flight</ion-label>
+  </ion-col>
+  <ion-col style="text-align: right;" class="text-flight">
+    <ion-label class="label-right"> Return Flight</ion-label>
+  </ion-col>
+</ion-row>
+
+<ion-content *ngIf="getReponse">
+  <!--row for oneway similar option start-->
+  <ion-grid *ngIf="triptype == 'oneway' && displayoneway " class="padding_bottom_footer">
+    <ion-row >
+      <!--left 50% start-->
+      <ion-col
+        matRipple
+        class="return-flight-oneway"
+        *ngFor="
+          let flight of onewayflightarry;
+          let index = index;
+          let isOdd = odd;
+          let isEven = even
+        "
+        [class.departure-flightxxxx]="isOdd"
+        [class.return-flightxxxx]="isEven"
+        size="12"
+        (click)="similarOption(flight, index)"
+        [ngClass]="{
+          activereturn: oneWayIndex == index,
+          alreadySelected: oneWayAlreadySelected && flight == selectedflight
+        }">
+       <div *ngIf="flight.tagFlight != null">
+        <ion-row class="haj-section">
+          <ion-col class="rotateObj" size="6" >
+            <h5>
+              <span>
+               {{ flight.tagFlight | titlecase }} 
+              </span>
+            </h5>
+          </ion-col>
+        </ion-row> 
+      </div>
+        <ion-row style="padding-bottom: 5px;">
+
+          <ion-col size="2" no-padding style="margin-left:20px">
+            <span><br /></span>
+            <span class="font-small">{{ flight.platingCarrierName }}</span
+            ><br />
+
+            <img
+              src="assets/airline/images/{{ flight.platingCarrier }}.jpg"
+              alt="{{ flight.platingCarrier }}"
+              class="onward-icon"
+            />
+            <div class="rotateObj">
+              <h5 class="active" *ngIf="flight.tagFlight == 'null'">
+                <span>{{ flight.tagFlightDesc }}</span>
+              </h5>
+            </div>
+          </ion-col>
+          <ion-col size="3" style="padding-left: 6%;" class="onward-flight-name">
+            <span><br /></span>
+            <span
+              *ngFor="
+                let innerflight of flight.flightlegs;
+                let first = first;
+                let last = last
+              "
+            >
+              <span class="Timefont-small" *ngIf="first">{{
+                innerflight.depTime | slice: 0:5
+              }}</span> </span
+            ><br />
+            <span class="font-small3"> {{ flight.noOfTotalStops }} Stop</span>
+            <p
+              class="nomrgin-padd"
+              *ngIf="
+                flight.adultCheckinBaggage == 'No Baggage' ||
+                flight.adultCheckinBaggage == ''
+              "
+            >
+              <img
+                class="no-baggage-icon"
+                src="assets/icons/flights/no_baggage.svg"
+              />
+            </p>
+          </ion-col>
+          <ion-col size="2" style="padding-left: 6%;">
+            <span></span><br />
+            <span>
+              <img
+                src="assets/icons/flights/small_flight_icon.svg"
+                style="width: 20px;"
+                alt="Flight"
+            /></span>
+            <br />
+            <span class="font-small2" style="margin-left: -8px;">{{ flight.flightlegs | addTime }} </span
+            ><br />
+          </ion-col>
+          <ion-col size="4" class="pad-right0 pdrightnew">
+            <span></span><br />
+            <sup class="oneby" *ngIf="flight | dates: 'onewaysimilr'">{{
+              flight | dates
+            }}</sup>
+            <span
+              *ngFor="
+                let innerflight of flight.flightlegs;
+                let first = first;
+                let last = last
+              "
+            >
+              <span class="Timefont-small" *ngIf="last">{{
+                innerflight.arrTime | slice: 0:5
+              }}</span> </span
+            ><br />
+            <span class="font-small3"
+              >{{ flight.origin }} - {{ flight.destination }}</span
+            >
+            <br />
+            <!-- <span *ngIf="flight.baggageAllowed=='false'"> <img src="assets/icons/flights/no_baggage.svg"
+                alt="Flight"></span>
+            <span *ngIf="flight.baggageAllowed=='true'"> <img src="assets/icons/flights/baggage.svg"
+                alt="Flight"></span>
+            <span> <img src="assets/icons/flights/no_business_class.svg" alt="Flight"> </span> -->
+          </ion-col>
+        </ion-row>
+        <!-- Onward ==> {{flight?.checkLegsOnwardFlight | json}}
+      returnway ==> {{flight?.checkLegsReturnFlight | json}} -->
+      </ion-col>
+      <!--left 50% end-->
+    </ion-row>
+    <!--row for oneway similar option end-->
+
+    <!--row for returnway similar option start-->
+  </ion-grid>
+
+  <!--returnway start new code-->
+  <ion-grid  class="padding_bottom_footer" *ngIf = "triptype == 'returnway'  && displayreturnway">
+    <ion-row>
+      <ion-col size="6" no-padding>
+        <ion-row
+          matRipple
+          class="departure-flight2"
+          *ngFor= "let flight of returnflightarrynew; let index = index"
+          [ngClass]="{
+            success: flight.onwardFlightOption == selectedflight,
+            alreadySelected:
+              alreadySelected &&
+              flight.onwardFlightOption == selectedflight.onwardFlightOption
+          }"
+          (click)= "similarOptionreturn(flight, index)"
+        >
+          <ion-col size="12" class="mb-5 col-pad-left" no-padding>
+           
+             
+            <ion-col size="6" [ngClass]="{ 'tag-col-container-margin': (flight.onwardFlightOption.tagFlight != null), 'rotateObj': true }" *ngIf= "flight.onwardFlightOption.tagFlight != null">
+                  <h5>
+                    <span>
+                     {{ flight.onwardFlightOption.tagFlight | titlecase }} 
+                    </span>
+                  </h5>
+            </ion-col>
+             
+        
+            <ion-col size="2" no-padding >
+              <span
+                *ngFor="
+                  let innerflight of flight.onwardFlightOption.flightlegs;
+                  let first = first;
+                  let last = last
+                "
+              >
+                <span *ngIf="first">
+                  <img
+                    src="assets/airline/images/{{ innerflight.carrier }}.jpg"
+                    alt="{{ innerflight.carrier }}"
+                    class="onward-icon"
+                  />
+                </span>
+              </span>
+            </ion-col>
+            <ion-col size="10" class="vert-middle" no-padding>
+              <span
+                class="font-small"
+                *ngFor="
+                  let innerflight of flight.onwardFlightOption.flightlegs;
+                  let first = first;
+                  let last = last
+                "
+              >
+                <span *ngIf="first">{{ innerflight.carrierName }}</span>
+              </span>
+            </ion-col>
+          </ion-col>
+
+          <ion-col size="2" no-padding> </ion-col>
+ 
+           <ion-col size="4" class="onward-flight-name pdleft-10">
+             <!-- <span class="font-small">{{flight.onwardFlightOption.platingCarrierName}}</span><br /> -->
+            <span
+              *ngFor= "
+                let innerflight of flight.onwardFlightOption.flightlegs;
+                let first = first;
+                let last = last
+              "
+            >
+              <span class="Timefont-small" *ngIf="first">{{
+                innerflight.depTime | slice: 0:5
+              }}</span> </span
+            ><br />
+            <span class="font-small font-small2">{{
+              flight.onwardFlightOption.flightlegs | addTime
+            }}</span
+            ><br />
+            <span class="font-small font-small2">
+              {{ flight.onwardFlightOption.flightlegs.length - 1 }} Stop</span
+            >
+          </ion-col>
+
+          <ion-col class="flighticon-col2" size="2">
+            <span>
+              <img
+                src="assets/icons/flights/small_flight_icon.svg"
+                style="width: 20px;"
+                alt="Flight"
+            /></span>
+          </ion-col>
+
+          <ion-col size="4" class="pad-right0">
+            <sup
+              class="returnby"
+              *ngIf="flight | dates: 'returnwayonwardsim'"
+              >{{ flight | dates }}</sup
+            >
+            <span
+              *ngFor="
+                let innerflight of flight.onwardFlightOption.flightlegs;
+                let first = first;
+                let last = last
+              "
+            >
+              <span class="Timefont-small" *ngIf="last">{{
+                innerflight.arrTime | slice: 0:5
+              }}</span>
+            </span>
+            <!-- <sup *ngIf= "flight | dates:'returnwayonward'">{{flight | dates}}</sup>  -->
+
+            <br>
+            <!-- <span class="font-small font-small3">{{flight.onwardFlightOption.origin}} -
+              {{flight.onwardFlightOption.destination}}</span> -->
+              <span *ngFor= "let innerflight of flight.onwardFlightOption.flightlegs;let first = first; let last = last">
+
+                <span class="font-small font-small3" *ngIf= "first">{{innerflight.origin}} -</span>
+                <span class="font-small font-small3" *ngIf= "last">{{innerflight.destination}}</span>
+
+              </span>
+            <span *ngIf= "flight.onwardFlightOption.adultCheckinBaggage =='No Baggage' || flight.onwardFlightOption.adultCheckinBaggage ==''">
+              <img class="no-baggage-icon ng-icons" src="assets/icons/flights/no_baggage.svg">
+
+          </span>
+             
+          </ion-col>
+
+          <!-- Onward ==> {{flight?.checkLegsOnwardFlight | json}} <br>
+          returnway ==> {{flight?.checkLegsReturnFlight | json}} <br> -->
+          <!-- key ==> {{flight?.flightOptionKey}} -->
+        </ion-row>
+      </ion-col>
+
+      <ion-col size="6" no-padding>
+        <ion-row
+          matRipple
+          [ngClass]="{
+            notDisabled: flight?.canSelected == true,
+            selectedLegs: index == rightIndex,
+            alreadySelected:
+              alreadySelectedReturn &&
+              flight.returnFlightOption == selectedflight.returnFlightOption
+          }"
+          *ngFor= "let flight of returnflightarreyrightunique; let index = index"
+          (click)="similarOptionreturnRight(flight, index)"
+          class="disabled return-flight2"
+        >
+          <ion-col size="12" class="mb-5 col-pad-left" no-padding>
+            <ion-col class="rotateObj" size="6"  *ngIf= "flight.returnFlightOption.tagFlight != null">
+              <h5>
+                <span>
+                 {{ flight.returnFlightOption.tagFlight | titlecase }} 
+                </span>
+              </h5>
+            </ion-col>
+         
+            <ion-col size="2" no-padding >
+              <span
+                class="font-small"
+                *ngFor="
+                  let innerflight of flight.returnFlightOption.flightlegs;
+                  let first = first;
+                  let last = last
+                "
+              >
+                <span *ngIf="first">
+                  <img
+                    src="assets/airline/images/{{ innerflight.carrier }}.jpg"
+                    alt="{{ innerflight.carrier }}"
+                    class="return-icon"
+                  />
+                </span>
+              </span>
+            </ion-col>
+            <ion-col size="10" class="vert-middle" no-padding>
+              <span
+                class="font-small"
+                *ngFor="
+                  let innerflight of flight.returnFlightOption.flightlegs;
+                  let first = first;
+                  let last = last
+                "
+              >
+                <span *ngIf="first">{{ innerflight.carrierName }}</span>
+              </span>
+            </ion-col>
+          </ion-col>
+
+          <ion-col size="2" no-padding> </ion-col>
+          <ion-col size="4" class="pdleft-10">
+            <!-- <span class="font-small">{{flight.returnFlightOption.platingCarrierName}}</span><br /> -->
+            <span>
+              <span
+                *ngFor="
+                  let innerflight of flight.returnFlightOption.flightlegs;
+                  let first = first;
+                  let last = last
+                "
+              >
+                <span class="Timefont-small" *ngIf="first">{{
+                  innerflight.depTime | slice: 0:5
+                }}</span> </span
+              ><br />
+            </span>
+            <span class="font-small font-small2">{{
+              flight.returnFlightOption.flightlegs | addTime
+            }}</span
+            ><br />
+            <span class="font-small font-small2"
+              >{{ flight.returnFlightOption.flightlegs.length - 1 }} Stop</span
+            >
+          </ion-col>
+          <ion-col class="flighticon-col2">
+            <span>
+              <img
+                src="assets/icons/flights/small_flight_icon.svg"
+                style="width: 20px;"
+                alt="Flight"
+            /></span>
+          </ion-col>
+          <ion-col size="4" class="pad-right0">
+            <sup
+              class="returnby"
+              *ngIf="flight | dates: 'returnwayreturnsim'"
+              >{{ flight | dates }}</sup
+            >
+            <span
+              *ngFor="
+                let innerflight of flight.returnFlightOption.flightlegs;
+                let first = first;
+                let last = last
+              "
+            >
+              <span class="Timefont-small" *ngIf="last">{{
+                innerflight.arrTime | slice: 0:5
+              }}</span>
+            </span>
+            <!-- <sup *ngIf= "flight | dates:'returnwayonward'">{{flight | dates}}</sup>  -->
+
+            <br> 
+            <!-- <span class="font-small font-small3">{{flight.returnFlightOption.origin}} -
+              {{flight.returnFlightOption.destination}}</span> -->
+              <span *ngFor= "let innerflight of flight.returnFlightOption.flightlegs;let first = first; let last = last">
+
+                <span class="font-small font-small3" *ngIf= "first">{{innerflight.origin}} -</span>
+                <span class="font-small font-small3" *ngIf= "last"> {{innerflight.destination}}</span>
+
+              </span>
+              <span *ngIf= "flight.returnFlightOption.adultCheckinBaggage =='No Baggage' || flight.returnFlightOption.adultCheckinBaggage ==''">
+                <img class="no-baggage-icon ng-icons" src="assets/icons/flights/no_baggage.svg">
+  
+            </span>
+          </ion-col>
+          <!-- Onward ==> {{flight?.checkLegsOnwardFlight | json}} <br>
+          returnway ==> {{flight?.checkLegsReturnFlight | json}} -->
+          <br />
+          <!-- key ==> {{flight?.flightOptionKey}} -->
+        </ion-row>
+      </ion-col>
+    </ion-row>
+
+    <!--returnway depart end new code-->
+  </ion-grid>
+  <!-- <img src="assets/airline/images/{{flighdata.platingCarrier}}.jpg" alt="{{flighdata.platingCarrier}}" class="flightlogo"> -->
+
+  <ion-grid class="padding_bottom_footer" *ngIf= "triptype == 'multicity'  && displaymulti">
+    <ion-row no-padding>
+      <!--left 50% start-->
+      <ion-col
+        *ngFor="
+          let flight of multiflightarry | slice: 1;
+          let index = index;
+          let isOdd = odd;
+          let isEven = even
+        "
+        [class.departure-flight]="isOdd"
+        [class.return-flight]="isEven"
+        size="6"
+        (click)="similarOption(flight)"
+        class="card-selectedOneway"
+      >
+        <ion-row>
+          <ion-col size="2">
+            <img
+              src="assets/airline/images/{{ flight.platingCarrier }}.jpg"
+              alt="{{ flight.platingCarrier }}"
+              class="flightlogo"
+            />
+          </ion-col>
+
+          <ion-col size="4">
+            <span class="font-small">{{ flight.platingCarrierName }}</span
+            ><br />
+            <!-- <span class="Timefont-small">{{flight.flightlegs}}</span><br />  -->
+            <span
+              *ngFor="
+                let innerflight of flight.optionSegmentBean;
+                let first = first;
+                let last = last
+              "
+            >
+              <span class="Timefont-small" *ngIf="first">
+                <span
+                  *ngFor="
+                    let ff of innerflight.flightlegs;
+                    let first = first;
+                    let last = last
+                  "
+                >
+                  <span *ngIf="first">{{ ff.depTime | slice: 0:5 }}</span>
+                </span>
+              </span> </span
+            ><br />
+            <span class="font-small2">{{ flight.totalJourneyDuration }} </span
+            ><br />
+            <span class="font-small2"> {{ flight.noOfTotalStops }} Stop</span>
+          </ion-col>
+          <ion-col>
+            <span></span><br />
+            <span>
+              <img
+                src="assets/icons/flights/small_flight_icon.svg"
+                style="width: 20px;"
+                alt="Flight"
+            /></span>
+          </ion-col>
+          <ion-col size="4" class="pad-right0">
+            <span></span><br />
+            <span
+              *ngFor="
+                let innerflight of flight.optionSegmentBean;
+                let first = first;
+                let last = last
+              "
+            >
+              <span class="Timefont-small" *ngIf="last">
+                <span
+                  *ngFor="
+                    let ff of innerflight.flightlegs;
+                    let first = first;
+                    let last = last
+                  "
+                >
+                  <span *ngIf="first">{{ ff.arrTime | slice: 0:5 }}</span>
+                </span>
+              </span> </span
+            ><br />
+            <span class="font-small3"
+              >{{ flight.origin }} - {{ flight.destination }}</span
+            >
+            <br />
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      <!--left 50% end-->
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<!-- /// footer -->
+
+<footer *ngIf=" triptype == 'oneway' &&  displayoneway && getReponse">
+  <div class="main-container">
+    <div class="left-container" *ngIf="!setButtonClose" (click)="fareDetails()">
+      <div>
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          <span class="aed-text">{{ displayfareonewayCurrency }} </span>
+          <span class="amount">{{ displayfareoneway  | roundUpPrice }}</span>
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="left-container" *ngIf="setButtonClose" (click)="closePopup()">
+      <div>
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          <span class="aed-text">{{ displayfareonewayCurrency }} </span>
+          <span class="amount">{{ displayfareoneway  | roundUpPrice }}</span>
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="right-container">
+      <button class="rqst-button rqst-button-padding"  matRipple (click)="proceed()">PROCEED</button>
+    </div>
+  </div>
+</footer>
+
+<footer *ngIf=" triptype == 'returnway'  && displayreturnway && getReponse">
+  <div class="main-container">
+    <div class="left-container" *ngIf="!setButtonClose" (click)="fareDetails()">
+      <div (click)="fareDetails()">
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          <span class="aed-text">{{ returnwaycurreny }} </span>
+          <span class="amount"> {{returnwayprice  | roundUpPrice}}</span>
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="left-container" *ngIf="setButtonClose" (click)="closePopup()">
+      <div >
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          <span class="aed-text">{{ returnwaycurreny }} </span>
+          <span class="amount"> {{returnwayprice  | roundUpPrice}}</span>
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="right-container">
+      <button class="rqst-button rqst-button-padding"  matRipple (click)="proceedreturnway()">PROCEED</button>
+    </div>
+  </div>
+</footer>
+
+<footer *ngIf="triptype == 'multicity'  &&displaymulti && getReponse">
+  <div class="main-container">
+    <div class="left-container" *ngIf="!setButtonClose" (click)="fareDetails()">
+      <div (click)="fareDetails()">
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          <span class="aed-text"> {{ selectedflight2.supplierCurrency }} </span>
+          <span class="amount">   {{
+            selectedflight2.flightFare.totalBaseFare +
+              selectedflight2.flightFare.totalTax +
+              selectedflight2.flightFare.totalFee +
+              selectedflight2.flightFare.markupPrice +
+              selectedflight2.flightFare.serviceChargePrice -
+              selectedflight2.flightFare.discountPrice  | roundUpPrice
+          }}</span>
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="left-container" *ngIf="setButtonClose" (click)="closePopup()">
+      <div >
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          {{
+            selectedflight2.flightFare.totalBaseFare +
+              selectedflight2.flightFare.totalTax +
+              selectedflight2.flightFare.totalFee +
+              selectedflight2.flightFare.markupPrice +
+              selectedflight2.flightFare.serviceChargePrice -
+              selectedflight2.flightFare.discountPrice  | roundUpPrice
+          }}
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="right-container">
+      <button class="rqst-button rqst-button-padding"  matRipple *ngIf="triptype == 'multicity'  && displaymulti && getReponse">PROCEED</button>
+    </div>
+  </div>
+</footer>

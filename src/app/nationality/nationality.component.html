@@ -1,0 +1,33 @@
+<div class="country_header">
+  <div class="cancel_btn" (click)="closeCountryList()">
+    <img  class="close_icon" src="assets/icons/modalclose_icon.svg" alt="close">
+  </div>
+  <div class="search_country">
+    <form [formGroup]="searcKeyWord" class="search_keyword_form">
+      <input appAutofocus [type]="ifIsdCodeControl == true ? 'tel' : 'text'" formControlName="searchText" placeholder="Search" >
+      <ion-icon name="search" class="search_icon"></ion-icon>
+      <ion-icon name="close-circle" *ngIf="searcKeyWord.get('searchText').value?.length > 0" (click)="clearText()" class="close_text"></ion-icon>
+    </form>
+  </div>
+</div>
+<!-- <ion-content > -->
+  <div class="list_country_bg"  *ngIf="(allCountry | countryFilter: searcKeyWord.get('searchText').value).length > 0; else noResults">
+  <ul appScrollable style="height: calc(100vh - 160px); overflow-y: scroll;"  class="allListCountry">
+    <li  appOffsetTop *ngFor="let item of allCountry | countryFilter: searcKeyWord.get('searchText').value; let last =last"       
+    (click)="selectCountry(item)" 
+    [ngClass]="{'selctedCounteryItem': selectedCountryCode ? (item?.phoneCode == selectedCountryCode ||  item?.countryName == selectedCountryCode) : false}">
+      <span [ngStyle]="{'display': ifIsdCodeControl == true ? 'block' : 'none'}">
+         {{item?.phoneCode}} 
+      </span>
+      <span [ngStyle]="{'display': ifIsdCodeControl == true ? 'none': 'block'}">
+        {{item?.countryName}}
+     </span>
+    </li>
+  </ul>
+</div>
+  <ng-template #noResults>
+    <p class="noCountryFound">No results found.</p>
+  </ng-template>
+<!-- </ion-content> -->
+
+<!-- [ngStyle]="{'margin-bottom': last ? '':'' }" --> 

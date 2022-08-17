@@ -1,0 +1,105 @@
+  
+.light-blue{
+    color: #3288d0;
+   font-family: 'Lato';
+   font-size: 14px;
+   padding-bottom: 1rem;
+}
+.login-with{
+    color: #949393;
+    border: 1px solid #c4c4c4;
+    width: 123px;
+    margin: 0px auto;
+    padding: 4px 3px;
+    border-radius: 8px;
+    background: #ffffff;
+}
+
+.socio-icons-block{
+    justify-content: space-around;
+    padding-bottom: 5px;
+    display: inline-flex;
+    .facebook-icon{
+       width: 42px;
+       height: 42px;
+       border-radius: 5px;
+        background-color: #3b5998;
+        margin: 20px auto;
+        
+        img{
+            padding: 10px;
+        }
+    }
+   
+    .google-plus-icon{
+        width: 42px;
+        height: 42px;
+        border-radius: 5px;
+        background-color: #dd4b39;
+        margin: 20px auto;
+        margin-left: 15px;
+
+        img{
+            padding: 10px;
+        }
+    }
+   
+}
+
+.blue-snackbar {
+    background: #2196F3;
+  }
+
+  .button {
+    --background :#ebb134 !important;
+   --color: #000000;
+   --vertical-align: middle;
+   --padding-start: 10px;
+   --padding-end: 10px;
+   --padding-left:10px;
+   --padding-right:10px;
+     height: 50px;
+     --background-activated:#ebb134;
+ }
+
+ /deep/ .ios button button-block button-solid ion-activatable ion-focusable{
+    --background :#ebb134 !important;
+ }
+
+
+
+ // for Loginwith divider //
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .line {
+    flex: 1;
+  }
+  
+  // .text {
+  //   padding-left: 10px;
+  //   padding-right: 10px;
+  // }
+  //////////
+
+//  .backArrow{
+//     top: 1.1rem;
+//     left: 16px;
+//     height: 16px;
+//     width: 23px;
+//     margin-left: 5px;
+//   //  position: relative;
+  
+//  }
+.backArrow{
+   margin-left: 10px;
+}
+ion-grid{
+    background:white;
+   }
+ 

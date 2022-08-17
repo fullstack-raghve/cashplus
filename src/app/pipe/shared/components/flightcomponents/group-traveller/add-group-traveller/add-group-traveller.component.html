@@ -1,0 +1,177 @@
+<ion-content>
+  <ion-header>
+    <!-- <ion-toolbar color="custom-color-red">
+      <ion-title text-center class="title">Add Group</ion-title>
+      <img class="backArrow bckicon" src="assets/icon/backarrowtop2.svg" (click)= "goBack()" />
+    </ion-toolbar> -->
+    <ion-toolbar color="custom-color-red">
+      <ion-buttons slot="start">
+        <img class="backArrow bckicon" src="assets/icon/backarrowtop2.svg" (click)= "goBack()" />
+      </ion-buttons>
+      <ion-title class="title">Add Group</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <p text-center *ngIf = "!userdetail" style="height: 100vh;display: flex;align-items: center;justify-content: center;">
+    <ion-spinner name="lines"></ion-spinner>Loading ...
+</p>
+    <form [formGroup]= "groupForm" *ngIf = "userdetail">
+
+       <div class="centerImg cntr-img-new">
+        <img src="assets/icons/flights/group1.png" class="default-img" *ngIf = "!imgURL" alt="image" style="object-fit: cover;">
+        <img [src]= "imgURL" class="default-img imagecls" *ngIf= "imgURL">
+  
+      
+      </div>
+      <p class="add-group-photo-text">
+        <!-- <u><a class="text-underline">Add Group Photo 
+          <input #file type="file" accept="image/png,image/gif,image/jpeg" (change)= "preview(file.files)" class="select-photo" />
+        </a></u> -->
+        <u><a class="text-underline" (click)="Imageclick()">Add Group Photo </a></u>
+      </p>
+     
+        <p class="ImageValidation" *ngIf= "flagForImage == true">File is larger than 2 MB</p>
+  <ion-grid> 
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Group Name</mat-label>
+            <input matInput formControlName = "groupname"   placeholder="Enter Group Name" #box  (blur)= "validategroup(box.value)" class="fontstylecls">
+            <mat-error style="margin-bottom: 5px;"
+            *ngIf= "groupForm.controls.groupname.hasError('incorrect') && ( groupForm.controls.groupname.dirty || groupForm.controls.groupname.touched)">
+            Please fill a valid group name!
+          </mat-error>
+          <mat-error class="ml-9" style="margin-bottom: 5px;"
+          *ngIf= "groupForm.controls.groupname.errors">
+          {{groupForm.controls.groupname?.errors.composeMessageKey?.message}}
+
+        </mat-error>
+          <!-- <mat-error
+          *ngIf= "groupForm.controls.groupname.hasError('maxlength')  && ( groupForm.controls.groupname.dirty || groupForm.controls.groupname.touched)">
+          Maximum 20 characters are allowed!
+        </mat-error> -->
+          </mat-form-field>
+
+        </div>
+      </ion-col>
+    </ion-row>
+     <!-- <ion-row text-center *ngIf= "created">
+        <ion-button class="button text-center" type ="submit" expand="block">
+            <ion-text color="dark">Create</ion-text>
+         </ion-button>
+    </ion-row> -->
+  </ion-grid>
+    </form>
+    <ion-label class="trvlr-txt" *ngIf = "userdetail">Your Travellers</ion-label>
+  <ion-card class="custom-card" *ngIf = "userdetail">
+    <ion-grid no-padding  style="border: 1px solid #D8D1D1;
+    border-radius: 5px;">  
+   <ion-row>
+   
+
+   </ion-row>
+       <ion-row *ngFor = "let traveller of userdetail?.userTraveller; let i = index; let last = last;">
+
+        <ion-col size=3>
+          <div class="travel">
+            
+         
+  
+            <span *ngIf="traveller.title == 0 || traveller.title == 4"> 
+              <img class="addicon"  *ngIf="traveller?.travellerType == 'Adult'"
+                [src]="traveller.profileImagePath == null || traveller.profileImagePath == '' ? adult_male_icon_dummy : traveller.profileImagePath"
+                alt="image" [ngClass]="{'bordercls' : !traveller['travellerAdd']}">
+                <img class="addicon"  *ngIf="traveller?.travellerType == 'child'"
+                [src]="traveller.profileImagePath == null || traveller.profileImagePath == '' ? child_male_icon_dummy : traveller.profileImagePath"
+                alt="image" [ngClass]="{'bordercls' : !traveller['travellerAdd']}">
+                <img class="addicon"  *ngIf="traveller?.travellerType == 'Infant'"
+                [src]="traveller.profileImagePath == null || traveller.profileImagePath == '' ? infant_male_icon_dummy : traveller.profileImagePath"
+                alt="image" [ngClass]="{'bordercls' : !traveller['travellerAdd']}">
+                <img class="addicon"  *ngIf="traveller?.travellerType == null"
+                [src]="defaultIcon"
+                alt="image" [ngClass]="{'bordercls' : !traveller['travellerAdd']}">
+              </span>
+          
+            <span *ngIf="traveller.title == 1 || traveller.title == 2 || traveller.title == 3">
+              <img class="addicon"  *ngIf="  traveller?.travellerType == 'Adult' "
+                [src]="traveller.profileImagePath == null || traveller.profileImagePath == '' ? adult_female_icon_dummy : traveller.profileImagePath"
+                alt="adult_female" [ngClass]="{'bordercls' : !traveller['travellerAdd']}">
+                <img class="addicon"  *ngIf="  traveller?.travellerType == 'child' "
+                [src]="traveller.profileImagePath == null || traveller.profileImagePath == '' ? child_female_icon_dummy : traveller.profileImagePath"
+                alt="adult_female" [ngClass]="{'bordercls' : !traveller['travellerAdd']}">
+                <img class="addicon"  *ngIf="  traveller?.travellerType == 'Infant' "
+                [src]="traveller.profileImagePath == null || traveller.profileImagePath == '' ? infant_female_icon_dummy : traveller.profileImagePath"
+                alt="adult_female" [ngClass]="{'bordercls' : !traveller['travellerAdd']}">
+                <img class="addicon"  *ngIf="traveller?.travellerType == null"
+                [src]="defaultIcon"
+                alt="image" [ngClass]="{'bordercls' : !traveller['travellerAdd']}">
+            </span>
+
+            <span
+            matRipple
+            [matRippleCentered]="true"
+            [matRippleRadius]="50"
+            [matRippleUnbounded]="true"
+            class="user_image_box"
+            *ngIf="traveller.title ==  null && traveller.travellerType == null && traveller?.isPrimaryTraveller == 1">
+            <img
+              class="imagecls group_img"
+              [src]=" traveller.profileImagePath == null ||
+              traveller.profileImagePath == ''
+                ? defaultIcon : traveller.profileImagePath"
+              alt="traveller"
+            />
+          </span>
+          </div>
+        </ion-col>
+        <ion-col size=5 class="traveller-text pad-left0"> 
+          <!-- <ion-label>{{traveller.firstName | titlecase}} {{traveller.lastName | titlecase}} </ion-label> -->
+          <ion-label class="textclass">{{traveller.firstName | titlecase}}</ion-label>
+
+        </ion-col>
+        <ion-col size='4' class="rightt traveller-text" style="display: flex; justify-content: flex-end;">
+            <!-- <ion-button id="btn-{{traveller.travellerId}}" (click)="toggleMe(traveller.travellerId)">
+                {{ buttonText }}</ion-button> -->
+                <!-- <ion-button class="buttonnew {{traveller.isPrimaryTraveller == 1 ?'bgclass':''}}" mode="md" style="width: 58px;height: 26px;"  [ngClass]="{'remove_traveller' : !traveller['travellerAdd']}" 
+                id="btn-{{traveller.travellerId}}" (click)= "toggleMe(traveller.travellerId, traveller)">                   
+                  <ion-icon name="md-add" class="custom-add-icon icc" *ngIf= "traveller['travellerAdd']" ></ion-icon> 
+                  <ion-icon name="md-close" class="custom-close-icon" *ngIf= "!traveller['travellerAdd']" ></ion-icon>  
+                  {{ traveller['travellerAdd'] == true ? 'Add' : 'Remove'}}
+                </ion-button> -->
+                <button id="btn-{{traveller.travellerId}}" class="buttonnew-recreated {{traveller.isPrimaryTraveller == 1 ? 'bgclass-recreated' : '' }}"
+                [ngClass]="{'remove_traveller-recreated' : !traveller['travellerAdd']}" (click)= "toggleMe(traveller.travellerId, traveller)">
+                  <ion-icon name="md-add" class="custom-close-icon" *ngIf= "traveller['travellerAdd']" ></ion-icon> 
+                  <ion-icon name="md-close" class="custom-close-icon" *ngIf= "!traveller['travellerAdd']" ></ion-icon>
+                  <span style="color: #2A2B2D; font-size: 13px; font-family: 'latomedium'; text-transform: capitalize;"> {{ traveller['travellerAdd'] == true ? 'Add' : 'Remove'}} </span>
+                </button>
+        </ion-col>
+        <ion-col size ="3" class="" no-padding>
+
+        </ion-col>
+        <ion-col  size ="9" [ngClass]="{'bdr-bttm': (last) ? false : true}" no-padding>
+
+        </ion-col>
+      </ion-row>
+      
+    
+    </ion-grid>
+  </ion-card>
+
+  
+
+
+<div class="footer" text-center *ngIf = "userdetail">
+     <button matRipple class="yello-btn-all" type = "submit" expand="block" (click)= "creategroup()">
+      SAVE
+   </button>
+   <!-- <button type="submit" class="yello-btn-all" (click)= "creategroup()" expand="block">SAVE</button> -->
+ </div> 
+</ion-content>
+
+<app-loader   [backdropEnabled]="true" [positionGloballyCenter]="true"
+[displayProgressSpinner]="true"></app-loader>
+<ngx-spinner bdOpacity=0.2 bdColor="rgba(9,9,9,0.81)" size="medium" color="#fff" type="ball-pulse-sync"
+[fullScreen]= "true">
+<p style="color: #fff">Please Wait... </p> 
+</ngx-spinner>

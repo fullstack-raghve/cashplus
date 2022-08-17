@@ -1,0 +1,68 @@
+<ion-row class="selection-row" no-padding>
+  <ion-header>
+    <ion-toolbar>
+      <ion-title  class="title multiicty-hadr">Select Dates</ion-title>
+      <ion-buttons slot="primary" class="btnholder">
+        <ion-button color="primary" (click)="submit()" class="pointer" *ngIf="dateData || mainDate">
+          Done
+        </ion-button> 
+      </ion-buttons>
+    </ion-toolbar> 
+  </ion-header>
+
+  <ion-col class="selection-col selection-cole5" no-padding
+    [ngClass]="{'bottom-border': dateData }">
+    <div class="selection ">
+      <img src="assets/icons/flights/departureSmall_icon.svg" alt="Departing">
+      <p class="departing-section" *ngIf="dateData==null"> Departing</p>
+      <div class="dd-div" *ngIf="dateData!=null">
+        <span class="date-d">{{dateData | date : 'd'}}</span>
+        <span class="date-m">{{dateData | date : ' MMM,yy'}}</span>
+        <p class="date-day">{{dateData | date:'EEEE'}}</p>
+      </div>
+    </div>
+   
+  </ion-col>
+</ion-row>
+<div class="flex-container" no-padding>
+  <div>S</div>
+  <div>M</div>
+  <div>T</div>
+  <div>W</div>
+  <div>T</div>
+  <div>F</div>
+  <div>S</div>
+
+</div>
+<div class="flex-container bdr-non" no-padding>
+  <div class="months"></div>
+  <div class="holidays">HOLIDAYS</div>
+  <!-- {{dateValue}} -->
+
+</div>
+<ion-row class="selection-row"  no-padding>
+  <ion-col class="selection-col" no-border no-padding>
+    <p-calendar [(ngModel)]="dateValue"  [minDate]="minimumDate" styleClass="multiCityCalendar"  (onSelect)="dateRangeSelect(dateValue, date)" #date
+      name="dateValue" [maxDate]="mxDate" [numberOfMonths]="13"  [inline]="true">
+      <ng-template pTemplate="date" let-date>
+          <p (click)="holidayInfo(date)" 
+          tooltipClass="myclassToolTip"
+           shadow="false"  
+           tooltip="{{currentHolidayInfo?.holidayName}}" 
+           [options]="tootipOptions"  style="display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 0px;
+          width: inherit;
+          height: inherit;
+          border-radius: 50%;
+          color: rgb(51, 51, 51);
+          width: -webkit-fill-available;" 
+           [ngClass]="{'bgMultiCalederBGActive': ((dateData | date : 'd') == date.day  && monthDepart ==  date.month ),
+           'holiday': getSelected(date),'activeBg': ((mainDate | date : 'd') == date.day  && mainMonth ==  date.month )}"
+           >{{date.day}}</p>
+     </ng-template>
+    </p-calendar>
+  </ion-col>
+</ion-row>
+

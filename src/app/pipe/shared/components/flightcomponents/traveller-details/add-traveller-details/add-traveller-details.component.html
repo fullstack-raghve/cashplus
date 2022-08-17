@@ -1,0 +1,238 @@
+<ion-header>
+  <ion-toolbar color="custom-color-red">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="2" size-sm class="backArrow">
+          <div (click)="backTo()">
+            <img  src="assets/icon/backarrowtop.svg" alt="Back" style="width: 20px;">
+          </div>
+        </ion-col>
+        <ion-col size="8" size-sm>
+          <div class="flight-detail">
+            <div>
+              <span>{{returwaydata?.OriginairportCode}} </span>
+              <span> --- </span>
+              <!-- <span><img src ="assets/icon/h2.png"></span> -->
+              <span>{{returwaydata?.DestinationairportCode}}</span>
+            </div>
+            <div>
+              <p><span>{{returwaydata?.departDate | date : 'mediumDate'}}</span> -
+                <span>{{returwaydata?.returnDate | date : 'mediumDate'}}</span> </p>
+            </div>
+          </div>
+        </ion-col>
+        <ion-col size="2" size-sm class="right-col">
+          <p> <img src="assets/icon/ed.png" alt="Back" style="width: 20px;">
+          </p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+<p text-center>Traveller Details</p>
+<ion-content>
+
+
+  <mat-accordion>
+    <mat-expansion-panel class="panel-card">
+      <mat-expansion-panel-header class="custom-grid">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="2" size-sm>
+                <div class="icon-img">
+                  <img class="fam-icon" src="assets/icons/flights/traveller.png" alt="adult">
+                </div>
+              </ion-col>
+              <ion-col size="8" class="adult">
+                <span>Adult 1</span><br/>
+                <ion-label>RAM</ion-label>
+              </ion-col>
+            </ion-row>
+          </ion-grid>      
+      </mat-expansion-panel-header>
+      <ion-grid class="custom-card" >
+          <ion-row>
+            <ion-col size-sm="6" offset-sm="3">
+              <span>Title</span><br/>
+                <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+                    <mat-button-toggle value="mr">Mr.</mat-button-toggle>
+                    <mat-button-toggle value="ms">Ms.</mat-button-toggle>
+                    <mat-button-toggle value="mrs">Mrs.</mat-button-toggle>
+                  </mat-button-toggle-group><br/>
+                  
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>First Name</mat-label>
+                  <input type="text" matInput  placeholder="Placeholder">
+                </mat-form-field>
+              </div>
+              <div class="form-group">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Last Name</mat-label>
+                    <input type="text" matInput  placeholder="Placeholder">
+                  </mat-form-field>
+                </div>
+                <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Date Of Birth  </mat-label>
+                      <input type="text" matInput  placeholder="Placeholder">
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group">
+                      <ion-row>
+                        <ion-col size="4">
+                          <div class="form-group">
+                            <mat-form-field appearance="outline">
+                              <mat-select [(value)]="selected">
+                                <mat-option value="+91" >+91</mat-option>
+                                <mat-option value="+012">+012</mat-option>
+                                <mat-option value="+11">+11</mat-option>
+                                <mat-option value="+018">+018</mat-option>
+                            </mat-select>
+                            </mat-form-field>
+                          </div> 
+                        </ion-col>
+                        <ion-col size="8">
+                          <mat-form-field appearance="outline">
+                            <mat-label>Mobile Number</mat-label>
+                            <input matInput  placeholder="Placeholder">
+                          </mat-form-field>
+                        </ion-col>
+                      </ion-row>
+                    </div>
+              <div class="form-group">
+                <mat-form-field appearance="outline">
+                  <mat-label>Passport Number</mat-label>
+                  <input type="email" matInput  placeholder="Placeholder">
+                </mat-form-field>
+              </div>
+              <div class="form-group">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Expiry Date  </mat-label>
+                    <input type="text" matInput  placeholder="Placeholder">
+                  </mat-form-field>
+                </div>
+                <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Nationality  </mat-label>
+                      <input type="text" matInput  placeholder="Placeholder">
+                    </mat-form-field>
+                  </div>
+                  <mat-slide-toggle>Remember a Traveller</mat-slide-toggle>
+            </ion-col>
+          </ion-row>    
+        </ion-grid>
+    </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion>
+        <mat-expansion-panel class="panel-card">
+          <mat-expansion-panel-header class="custom-grid">
+              <ion-grid>
+                <ion-row>
+                  <ion-col size="2" size-sm>
+                    <div class="icon-img">
+                      <img class="adult-icon" src="assets/icons/flights/adult_icon.svg" alt="adult">
+                    </div>
+                  </ion-col>
+                  <ion-col size="8" class="adult">
+                    <span>Adult 2</span><br/>
+                    <ion-label></ion-label>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>      
+          </mat-expansion-panel-header>
+          <ion-grid class="custom-card" >
+              <ion-row>
+                <ion-col size-sm="6" offset-sm="3">
+                  <span>Title</span><br/>
+                    <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+                        <mat-button-toggle value="mr">Mr.</mat-button-toggle>
+                        <mat-button-toggle value="ms">Ms.</mat-button-toggle>
+                        <mat-button-toggle value="mrs">Mrs.</mat-button-toggle>
+                      </mat-button-toggle-group>
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>First Name</mat-label>
+                      <input type="text" matInput  placeholder="Placeholder">
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Last Name</mat-label>
+                        <input type="text" matInput  placeholder="Placeholder">
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                        <mat-form-field appearance="outline">
+                          <mat-label>Date Of Birth  </mat-label>
+                          <input type="text" matInput  placeholder="Placeholder">
+                        </mat-form-field>
+                      </div>
+                      <div class="form-group">
+                          <ion-row>
+                            <ion-col size="4">
+                              <div class="form-group">
+                                <mat-form-field appearance="outline">
+                                  <mat-select [(value)]="selected">
+                                    <mat-option value="+91" >+91</mat-option>
+                                    <mat-option value="+012">+012</mat-option>
+                                    <mat-option value="+11">+11</mat-option>
+                                    <mat-option value="+018">+018</mat-option>
+                                </mat-select>
+                                </mat-form-field>
+                              </div> 
+                            </ion-col>
+                            <ion-col size="8">
+                              <mat-form-field appearance="outline">
+                                <mat-label>Mobile Number</mat-label>
+                                <input matInput  placeholder="Placeholder">
+                              </mat-form-field>
+                            </ion-col>
+                          </ion-row>
+                        </div>
+                  <div class="form-group">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Passport Number</mat-label>
+                      <input type="email" matInput  placeholder="Placeholder">
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Expiry Date  </mat-label>
+                        <input type="text" matInput  placeholder="Placeholder">
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                        <mat-form-field appearance="outline">
+                          <mat-label>Nationality  </mat-label>
+                          <input type="text" matInput  placeholder="Placeholder">
+                        </mat-form-field>
+                      </div>
+                      <mat-slide-toggle>Remember a Traveller</mat-slide-toggle>
+                </ion-col>
+              </ion-row>    
+            </ion-grid>
+        </mat-expansion-panel>
+        </mat-accordion>
+</ion-content>
+<ion-footer class="footer-content">
+    <ion-row>
+      <ion-col size=1 class="arrow">
+        <span> <img src="assets/icons/flights/arrowUp_icon.svg" alt="flight"></span>
+      </ion-col>
+      <ion-col size='6'>
+        <div (click)="fareDetails()">
+          <p>
+            <span class="crncy">AED </span>
+            <span class="price"> 3,999</span><br />
+            <span class="total">Grand Total</span> </p>
+        </div>
+  
+      </ion-col>
+      <ion-col size="5" class="button-footer">
+        <ion-button (click)="countinue()">
+          Continue
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-footer>

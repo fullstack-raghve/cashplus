@@ -1,0 +1,236 @@
+
+<ngx-spinner bdOpacity=0.2 bdColor="rgba(9,9,9,0.81)" size="medium" color="#fff" type="ball-pulse-sync"
+[fullScreen]= "true">
+<p style="color: #fff">Please Wait... </p>
+</ngx-spinner>
+
+<ion-content>
+
+ 
+  <ion-header>
+    <ion-toolbar color="custom-color-red">
+      <ion-buttons slot="start">
+        <img class="backArrow" src="assets/icon/backarrowtop2.svg" (click)= "goBack()" />
+      </ion-buttons>
+      <ion-title class="title">Edit Group</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+
+  <p *ngIf = "!datacoming"  style="height: 100vh;display: flex;align-items: center;justify-content: center;">
+    <ion-spinner name="lines"></ion-spinner>Loading ...
+  
+  </p>
+
+     <form [formGroup] = "groupForm" (submit) = "editgroup()"  *ngIf = "datacoming">
+
+  <div class="centerImg cntr-img-new">
+  
+<span  *ngIf = "!imgURL">
+  <img  [src]= "groupimg == null || groupimg == '' ? dummyuserimg : groupimg"
+      alt="user-image" class="imgcl " [ngClass] = "{'default-img' : groupimg == '','circleimg' : groupimg != '' }">
+</span>
+   
+
+    <img [src]= "imgURL" class="selected-img imagecls" *ngIf= "imgURL">
+
+    
+  </div>
+  <p class="add-group-photo-text">
+    <!-- <u><a class="text-underline">Edit Group Photo
+      <input class="upload-pic select-photoo" type="file" #file accept="image/png,image/gif,image/jpeg" (change)="preview(file.files)" >
+    </a></u> -->
+    <u><a class="text-underline" (click)="Imageclick()">Edit Group Photo</a></u>
+  </p>
+
+        <p class="ImageValidation" *ngIf="flagForImage == true">File is larger than 2 MB</p>
+  <ion-grid>
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label style="font-family: 'latomedium';">Group Name</mat-label>
+            <input matInput formControlName = "groupname"  placeholder="Group Name" #box  (blur)= "validategroup(box.value)" class="fontstylecls">
+            <mat-error style="margin-bottom: 5px; font-family: 'latomedium';"
+            *ngIf= "groupForm.controls.groupname.hasError('incorrect') && ( groupForm.controls.groupname.dirty || groupForm.controls.groupname.touched)">
+            Please fill a valid group name!
+          </mat-error>
+           <mat-error class="ml-9" style="margin-bottom: 5px; font-family: 'latomedium';"
+           *ngIf= "groupForm.controls.groupname.errors">
+           {{groupForm.controls.groupname?.errors.composeMessageKey?.message}}
+ 
+         </mat-error>
+           <!-- <mat-error class="ml-9"
+           *ngIf="groupForm.controls.groupname?.errors && (groupForm.controls.groupname?.dirty || groupForm.controls.groupname.touched) ">
+           {{groupForm.controls.groupname?.errors.alpha?.message}}
+           {{groupForm.controls.groupname?.errors.numeric?.message}}
+ 
+         </mat-error> -->
+          </mat-form-field>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-label class="lblcls">Your Travellers</ion-label>
+  <ion-card class="custom-card">
+    <ion-grid no-padding style="
+    border-radius: 6px;padding-bottom: 28px !important;">
+            <!--travller that are in list -added travller-->
+
+      <ion-row *ngFor = "let travller of usertravller;">
+ 
+        <ion-col size='3'>
+         
+            <div class="travel">
+
+            <span *ngIf="travller.title == 0 || travller.title == 4 "> 
+              <img class="addicon  {{travller.travellerId == Removeflag && buttonText == 'Add' ? 'Addbordercls':'Removebordercls'}}"  *ngIf="travller?.travellerType == 'Adult'"
+               
+                [src]="travller.profileImagePath == null || travller.profileImagePath == '' ? adult_male_icon_dummy : travller.profileImagePath"
+                alt="image">
+                <img class="addicon  {{travller.travellerId == Removeflag && buttonText == 'Add' ? 'Addbordercls':'Removebordercls'}}"  *ngIf="travller?.travellerType == 'child'"
+               
+                [src]="travller.profileImagePath == null || travller.profileImagePath == '' ? child_male_icon_dummy : travller.profileImagePath"
+                alt="image">
+                <img class="addicon  {{travller.travellerId == Removeflag && buttonText == 'Add' ? 'Addbordercls':'Removebordercls'}}"  *ngIf="travller?.travellerType == 'Infant'"
+               
+                [src]="travller.profileImagePath == null || travller.profileImagePath == '' ? infant_male_icon_dummy : travller.profileImagePath"
+                alt="image">
+                <img class="addicon  {{travller.travellerId == Removeflag && buttonText == 'Add' ? 'Addbordercls':'Removebordercls'}}"  *ngIf="travller?.travellerType == null"               
+                [src]="defaultIcon"
+                alt="image">
+            </span>
+          
+            <span *ngIf="travller.title == 1 || travller.title == 2 || travller.title == 3">
+              <img class="addicon  {{travller.travellerId == Removeflag && buttonText == 'Add' ? 'Addbordercls':'Removebordercls'}}"  *ngIf="travller?.travellerType == 'Adult' "
+                [src]="travller.profileImagePath == null || travller.profileImagePath == '' ? adult_female_icon_dummy : travller.profileImagePath"
+                alt="adult_female">
+                <img class="addicon  {{travller.travellerId == Removeflag && buttonText == 'Add' ? 'Addbordercls':'Removebordercls'}}"  *ngIf="travller?.travellerType == 'child' "
+                [src]="travller.profileImagePath == null || travller.profileImagePath == '' ? child_female_icon_dummy : travller.profileImagePath"
+                alt="adult_female">
+                <img class="addicon  {{travller.travellerId == Removeflag && buttonText == 'Add' ? 'Addbordercls':'Removebordercls'}}"  *ngIf="travller?.travellerType == 'Infant' "
+                [src]="travller.profileImagePath == null || travller.profileImagePath == '' ? infant_female_icon_dummy : travller.profileImagePath"
+                alt="adult_female">
+                <img class="addicon  {{travller.travellerId == Removeflag && buttonText == 'Add' ? 'Addbordercls':'Removebordercls'}}"  *ngIf="travller?.travellerType == null"
+                [src]="defaultIcon"
+                alt="adult_female">
+            </span>
+
+            <span
+            matRipple
+            [matRippleCentered]="true"
+            [matRippleRadius]="50"
+            [matRippleUnbounded]="true"
+            class="user_image_box"
+            *ngIf="travller.title ==  null && travller.travellerType == null && travller?.isPrimaryTraveller == 1">
+            <img
+              class="imagecls group_img"
+              [src]=" travller.profileImagePath == null ||
+              travller.profileImagePath == ''
+                ? defaultIcon : travller.profileImagePath"
+              alt="traveller" 
+            />
+          </span>
+
+            </div>
+         
+        </ion-col>
+        <ion-col size='5' class="traveller-text pad-left0" style="padding-top: 40px;padding: 23px;
+        padding-left: 3px;">
+          <!-- <ion-label>{{travller.firstName}}{{travller.lastName}}</ion-label> -->
+          <ion-label>{{travller.firstName | titlecase}}</ion-label>
+
+        </ion-col>
+        <ion-col size='4' text-right class="rightt auto-margin">
+            <ion-button id="btn-{{travller?.travellerId}}" class="buttonRemovecls" (click)= "toggleMe(travller?.travellerId)">
+              <ion-icon name="md-close" class="custom-close-icon icc"></ion-icon>
+              {{ 'Remove' }}
+              </ion-button>
+        </ion-col>
+        <ion-col size ="3" no-padding>
+
+        </ion-col>
+        <ion-col size ="9"  no-padding style="border-bottom: 1px solid #D8D1D1;">
+
+          <!-- toggle -->
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngFor= "let travller of alltrveler;let last=last">
+ 
+          <ion-col size='3'>
+              <div class="travel">
+
+                <span *ngIf="travller.title == '0' || travller.title == '4'"> 
+                  <img class="addicon  Addbordercls"  *ngIf="travller?.travellerType == 'Adult'"  [src]="travller.profileImagePath == null || travller.profileImagePath == '' ? adult_male_icon_dummy : travller.profileImagePath"
+                  [ngClass]="{'Removebordercls' : travller.travellerId == ADDflag && buttonText == 'Remove'}" alt="image">
+                    <img class="addicon  Addbordercls"  *ngIf="travller?.travellerType == 'child'"  [src]="travller.profileImagePath == null || travller.profileImagePath == '' ? child_male_icon_dummy : travller.profileImagePath" 
+                    [ngClass]="{'Removebordercls' : travller.travellerId == ADDflag && buttonText == 'Remove'}"
+                    alt="image">
+                    <img class="addicon  Addbordercls"  *ngIf="travller?.travellerType == 'Infant'" [src]="travller.profileImagePath == null || travller.profileImagePath == '' ? infant_male_icon_dummy : travller.profileImagePath"
+                    [ngClass]="{'Removebordercls' : travller.travellerId == ADDflag && buttonText == 'Remove'}"
+                    alt="image">
+                    <img class="addicon  Addbordercls"  *ngIf="travller?.travellerType == null" [src]="defaultIcon"
+                    [ngClass]="{'Removebordercls' : travller.travellerId == ADDflag && buttonText == 'Remove'}"
+                    alt="image">
+                </span>
+              
+                <span *ngIf="travller.title == 1 || travller.title == 2 || travller.title == 3">
+                  <img class="addicon  Addbordercls"  *ngIf=" travller?.travellerType == 'Adult' "  [src]="travller.profileImagePath == null || travller.profileImagePath == '' ? adult_female_icon_dummy : travller.profileImagePath"  [ngClass]="{'Removebordercls' : travller.travellerId == ADDflag && buttonText == 'Remove'}"                  
+                    alt="adult_female">
+                    <img class="addicon  Addbordercls"  *ngIf="travller?.travellerType == 'child' "  [src]="travller.profileImagePath == null || travller.profileImagePath == '' ? child_female_icon_dummy : travller.profileImagePath" [ngClass]="{'Removebordercls' : travller.travellerId == ADDflag && buttonText == 'Remove'}"
+                    alt="adult_female">
+                    <img class="addicon  Addbordercls"  *ngIf="travller?.travellerType == 'Infant' "  [src]="travller.profileImagePath == null || travller.profileImagePath == '' ? infant_female_icon_dummy : travller.profileImagePath" [ngClass]="{'Removebordercls' : travller.travellerId == ADDflag && buttonText == 'Remove'}"
+                    alt="adult_female">
+                    <img class="addicon  Addbordercls"  *ngIf="travller?.travellerType == null"  [src]="defaultIcon" [ngClass]="{'Removebordercls' : travller.travellerId == ADDflag && buttonText == 'Remove'}"
+                    alt="adult_female">
+                </span>
+                <span
+            matRipple
+            [matRippleCentered]="true"
+            [matRippleRadius]="50"
+            [matRippleUnbounded]="true"
+            class="user_image_box"
+            *ngIf="travller.title ==  null && travller.travellerType == null && travller?.isPrimaryTraveller == 1">
+            <img
+              class="imagecls group_img"
+              [src]=" travller.profileImagePath == null ||
+              travller.profileImagePath == ''
+                ? defaultIcon : travller.profileImagePath"
+              alt="traveller" 
+            />
+          </span>
+              </div>
+            </ion-col>
+            <ion-col size='5' class="traveller-text pad-left0" style="padding-top: 40px;padding: 23px;
+            padding-left: 3px;">
+              <!-- <ion-label>{{travller?.firstName}} {{travller?.lastName}} </ion-label> -->
+              <ion-label>{{travller?.firstName | titlecase}}  </ion-label>
+
+            </ion-col>
+            <ion-col size='4' text-right class="rightt auto-margin">
+                <ion-button id="btn-{{travller?.travellerId}}" class="buttoncls" (click) = "toggleMe(travller?.travellerId)">
+                  <ion-icon name="md-add" class="custom-add-icon icc"></ion-icon>                  
+                  {{ 'Add' }}</ion-button>
+            </ion-col>
+            <ion-col size ="3" no-padding>
+
+            </ion-col>
+            <ion-col size ="9" no-padding style="border-bottom: 1px solid #D8D1D1;">
+    
+            </ion-col>
+        </ion-row>
+        <!-- <pre>
+            {{alltrveler | json}}
+          </pre> -->
+    </ion-grid>
+  </ion-card>
+
+  <div class="footer" text-center>
+     <button matRipple class="yello-btn-all" type ="submit" expand="block">
+      UPDATE
+    </button>
+    
+  </div>
+</form>
+</ion-content>

@@ -1,0 +1,131 @@
+<div class="modalHieght">
+  <div id="myModal" class="modal fade">
+    <div class="modal-content">
+      <p>Select Traveller</p>
+      <hr />
+    </div>
+    <div class="select-traveller-details">
+      <div class="traveller-block">
+        <div class="traveller-info">
+          <img
+            src="assets/icons/flights/adult.jpg"
+            alt="adult"
+            width="17px"
+            height="30px"
+          />
+          <p class="traveller-mar">
+            {{ adult > 1 ? "Adults" : "Adult" }} {{ adult }}
+          </p>
+        </div>
+        <div class="traveller-btn">
+          <button
+            matRipple
+            class="subtract-btn"
+            (click)="adultdecrement()"
+            [ngClass]="{ disabledcls: adultdec == 1 }"
+          >
+            -
+          </button>
+          <p>{{ adult }}</p>
+          <button
+            matRipple
+            class="add-btn"
+            (click)="adultincrement()"
+            [ngClass]="{ disabledcls: adultinc == 1 }"
+          >
+            +
+          </button>
+        </div>
+      </div>
+
+      <div class="age-criteria">
+        <p>( 12+ Yrs )</p>
+      </div>
+
+      <div class="traveller-block">
+        <div class="traveller-info">
+          <img
+            src="assets/icons/flights/adult.jpg"
+            alt="children"
+            width="15px"
+            height="20px"
+          />
+          <p class="traveller-mar">
+            {{ children > 1 ? "Children" : "Child" }} {{ children }}
+          </p>
+        </div>
+        <div class="traveller-btn">
+          <button
+            matRipple
+            class="subtract-btn"
+            (click)="childDecrement()"
+            [ngClass]="{ disabledcls: childdec == 1 }"
+          >
+            -
+          </button>
+          <p>{{ children }}</p>
+          <button
+            matRipple
+            class="add-btn"
+            (click)="childIncrement()"
+            [ngClass]="{ disabledcls: childinc == 1 }"
+          >
+            +
+          </button>
+        </div>
+      </div>
+      <div class="age-criteria">
+        <p>( 2-12 Yrs )</p>
+      </div>
+
+      <div class="traveller-block">
+        <div class="traveller-info">
+          <img
+            src="assets/icons/flights/infants_icon.svg"
+            alt="infant"
+            width="20px"
+            height="23px"
+          />
+          <p class="traveller-mar">
+            {{ infants > 1 ? "Infants" : "Infant" }} {{ infants }}
+          </p>
+        </div>
+        <div class="traveller-btn">
+          <button
+            matRipple
+            class="subtract-btn"
+            (click)="infantsDecrement()"
+            [ngClass]="{ disabledcls: infantsdec == 1 }"
+          >
+            -
+          </button>
+          <p>{{ infants }}</p>
+          <button
+            matRipple
+            class="add-btn"
+            (click)="infantsIncrement()"
+            [ngClass]="{ disabledcls: infantsinc == 1 }"
+          >
+            +
+          </button>
+        </div>
+      </div>
+
+      <div class="age-criteria">
+        <p class="infant-btmMrgn">( below 2 Yrs )</p>
+      </div>
+    </div>
+
+    <ion-row class="selected-traveller" matRipple (click)="submit()">
+      <ion-col size="9" class="number-selected">
+        <p>
+          Selected {{ adult + children + infants }}
+          {{ adult + children + infants > 1 ? "Travellers" : "Traveller" }}
+        </p>
+      </ion-col>
+      <ion-col size="3" class="next-arrow">
+        <img src="assets/icon/Arrow_icon.svg" alt="right-arrow" />
+      </ion-col>
+    </ion-row>
+  </div>
+</div>

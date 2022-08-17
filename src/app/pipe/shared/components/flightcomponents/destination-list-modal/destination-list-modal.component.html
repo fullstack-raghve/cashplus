@@ -1,0 +1,64 @@
+<div class="modalHieght">
+  <div class="modal fade">
+    <form  [formGroup]="searcKeyWord">
+    <div class="input-group" style="border-bottom: 1px solid #dad9d9;">
+      <button class="btn btn-secondary2" (click)="backTo()">
+        <img src="assets/icon/back-arrow.png" style="width: 19px;">
+      </button>
+      
+        <input type="text" class="form-control2"  name="airport"
+        placeholder="Search Destination Airports" trimdirective formControlName="searchInput" autocomplete="off" appAutofocus >
+        <button type="button" class="btn btn-secondary2">
+          <img src="assets/icon/search.png">
+        </button>
+    
+    </div>
+  </form>
+  
+    <div class="flex-container pop-city" no-padding style="border-bottom: 1px solid #f4f4f4;">
+      <div *ngIf="searchText">Popular Cities </div>
+      <div *ngIf="!searchText">Suggestions </div>
+      <!-- {{nullAirportList}} -->
+    </div>
+  
+    <div class="airpot-list" >
+
+      <ion-grid>
+        <div>
+          <ion-row matRipple *ngFor= "let origin of pcity | slice:0:30" (click)= "onSelect(origin)" [value]="airportCode">
+            <ion-col size="1" size-sm class="no-top-bottom-padd">
+              <p> <img src="assets/icons/flights/recent-flight.svg" alt="flight icon" class="fligth-icon"
+                  *ngIf="origin?.stationType == '0' || origin?.stationType == '1'">
+                <img src="assets/icons/flights/train_icon.png" alt="train icon" class="fligth-icon"
+                  *ngIf="origin?.stationType == '2'">
+                <img src="assets/icons/flights/bus.png" alt="bus icon" class="fligth-icon"
+                  *ngIf="origin?.stationType == '3'">
+              </p>
+            </ion-col>
+            <ion-col size="9" size-sm class="airport-left no-top-bottom-padd">
+              <p class="location"><span>{{origin.cityName}}</span>,<span>{{origin.countryName}}</span></p>
+              <p class="aname">{{origin?.airportName}}</p>
+            </ion-col>
+            <ion-col size="2" size-sm class="no-top-bottom-padd acc">
+              <p>{{origin?.airportCode}}</p>
+            </ion-col>
+
+          </ion-row>
+        </div>
+        <ion-row *ngIf= "pcity?.length == 0 && searcKeyWord.get('searchInput').value != ''">
+          <ion-col>
+            <p class="notfound">No match found for the search</p>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngIf="nopopcity">
+          <ion-col>
+            <p class="notfound">No popular city found</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </div>
+  
+  </div>
+
+</div>

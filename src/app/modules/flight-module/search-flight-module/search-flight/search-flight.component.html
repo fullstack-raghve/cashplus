@@ -1,0 +1,28 @@
+<ion-content>
+  <div class="search-block">
+    
+      <div class="back-location" *ngIf="alterback" style="color:#fff;">
+        <img class="backArrow"  (click)= "altback()" src="assets/icon/backarrowtop2.svg" alt="Back">
+        <span class="searchbar-title">Search Flight</span>
+      </div>
+    
+    <div class="back-location" *ngIf="appback">
+      <img class="backArrow" (click)= "backTo()" src="assets/icon/backarrowtop2.svg" alt="Back">
+    <span class="searchbar-title">Search Flight</span>
+    </div>
+    <div class="tabs">
+      <p (click)= "returnWayTrip()" [class.tabactive]="returnWay">Return</p>
+      <p (click)= "oneWayTrip()" [class.tabactive]="oneWay">One Way</p>
+      <p (click)= "multicityTrip()" [class.tabactive]="multicity">Multi City</p>
+    </div>
+    <div *ngIf= "returnWay" class="common-layer">
+      <app-returnway [widgetBannerReturn]='widgetBannerSafeUrl'></app-returnway>
+    </div>
+    <div *ngIf= "oneWay" class="common-layer">
+      <app-oneway [widgetBannerOneway]='widgetBannerSafeUrl'></app-oneway>
+    </div>
+    <div *ngIf= "multicity" class="common-layer">
+        <app-multicity [widgetBannerMulti]='widgetBannerSafeUrl'></app-multicity>
+    </div>
+  </div>
+</ion-content>

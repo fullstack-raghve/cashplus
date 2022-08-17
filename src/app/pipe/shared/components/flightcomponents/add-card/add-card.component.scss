@@ -1,0 +1,65 @@
+.custom-hdr{
+    padding: 7px;
+    border-bottom: 1px solid #dadada;
+    // margin-bottom: 12px;
+  }
+  .filter{
+    font-family: "latomedium" !important;
+    color: #000000 !important;
+    font-size: 16px !important;
+  }
+  .text-blue{
+    //  float: right;
+   color: #3288d0!important;
+  }
+  ion-label{
+    font-family: "latomedium" !important;
+    color: #888888 !important;
+    font-size: 16px !important;
+  }
+  .filter{
+    font-family: "latomedium" !important;
+    color: #000000 !important;
+    font-size: 16px !important;
+  }
+  .warning
+  {
+    color: #f44336;
+    display: block;
+    margin-top: -5%;
+    font-size: 75%;
+    padding-left: 3%;
+  }
+  .fullname{
+    color: #f44336;
+    position: absolute;
+    bottom: -14px;
+    width: 100%;
+    left: 0px;
+    font-size: 10px;
+  }
+
+  .card-img{
+    display: flex;
+     justify-content: center;
+     align-items: center;
+  }
+
+  .mb-12{
+    margin-bottom: -12px;
+  }
+  .addcardform {
+  /////default css by raghve for all input  fields
+  input::placeholder {
+    font-family: "latoregular" !important;
+    font-size:12px;
+  }
+  .mat-form-field-infix{
+    font-family: "latoregular" !important;
+    font-size: 12px !important;
+  }
+  .mat-form-field {
+    font-family: "latoregular" !important;
+
+  }
+  }

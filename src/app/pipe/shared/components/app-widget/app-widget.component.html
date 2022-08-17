@@ -1,0 +1,148 @@
+<div class="page-wrapper" id="only-flight" *ngIf = "isflightonly else manyflight" >
+
+    <ion-grid>
+      <div class="container widget-block-panel"> 
+    
+        <ion-slides [options] = "sliderOptsnew">
+      
+          <ion-slide #slides class=""> 
+            <div class="widget"   (click)= "gotmyflight()">
+              <div class="module-block">
+                <span class="modulename custom-size">
+                 <img src = "assets/homePageIcons/Home_Flight_icon.svg" alt="fligt-img">
+                </span> 
+                <span class="modulename">
+               Flight
+                </span>
+              </div>
+            </div>
+          </ion-slide>
+    
+             <!-- <ion-slide #slides class=""> 
+            <div class="widget"   (click)= "gotoactivities()">
+              <div class="module-block">
+                <span class="modulename custom-size">
+                 <img src = "assets/homePageIcons/activities.svg" alt="fligt-img">
+                </span> 
+                <span class="modulename">
+                  Activities
+                </span>
+              </div>
+            </div>
+          </ion-slide> -->
+
+          
+        </ion-slides> 
+        </div>
+            </ion-grid>
+    </div>
+    <ng-template #manyflight>
+      <ion-grid>
+        <div class="container widget-block-panel"> 
+      
+          <ion-slides [options] = "sliderOpts">
+            <!-- <ion-slide #slides class="" *ngFor = "let module of modules" let i = index (click)= "searchWidget(module)"> 
+              <div class="widget" >
+                <div class="module-block">
+                  <span class="modulename custom-size">
+                    <img [src] = "module.iconurl" alt="fligt-img">
+                   </span> 
+                   <span class="modulename">
+                     {{module.modulename}}
+                   </span>
+                </div>
+             
+              </div>
+            </ion-slide> -->
+            <ion-slide #slides class="" > 
+              <div class="widget" matRipple (click)= "gotmyflight()">
+                <div class="module-block">
+                  <span class="modulename custom-size">
+                   <img src = "assets/homePageIcons/Home_Flight_icon.svg" alt="fligt-img">
+                  </span> 
+                  <span class="modulename">
+                    Flights
+                  </span>
+                </div>
+              </div>
+            </ion-slide>
+            
+            <ion-slide #slides class="" *ngIf = "hotelurl != undefined"> 
+              <div class="widget" matRipple (click)= "gotohotel()">
+                <div class="module-block">
+                  <span class="modulename custom-size">
+                   <img src = "assets/homePageIcons/Home_hotel_icon.svg" alt="hotel-img">
+                  </span> 
+                  <span class="modulename">
+                    Hotels
+                  </span>
+                </div>
+              </div>
+            </ion-slide>
+            
+            <ion-slide #slides class="" *ngIf = "holidaysurl != undefined"> 
+              <div class="widget" matRipple (click)= "gotoholiday()">
+                <div class="module-block">
+                  <span class="modulename custom-size">
+                   <img src = "assets/homePageIcons/Home_holidays_icon.svg" alt="fligt-img">
+                  </span> 
+                  <span class="modulename">
+                 Holidays
+                  </span>
+                </div>
+              </div>
+            </ion-slide>
+            
+            <ion-slide #slides class="" *ngIf = "cruisesurl != undefined"> 
+              <div class="widget" matRipple (click)= "gotocruise()">
+                <div class="module-block">
+                  <span class="modulename custom-size">
+                   <img src = "assets/homePageIcons/cruises.svg" alt="fligt-img">
+                  </span> 
+                  <span class="modulename">
+                    Cruises
+                  </span>
+                </div>
+              </div>
+            </ion-slide>        
+            <!-- <ion-slide #slides class="" *ngIf = "activitiesurl != undefined">  -->
+
+               <ion-slide #slides class=""> 
+             
+              <div class="widget" matRipple  (click)= "gotoactivities()">
+                <div>
+                  <img [src] = "urlNew" class="newimg" alt="new">
+                </div>
+                <div class="module-block">
+                  <span class="modulename custom-size">
+                   <img src = "assets/homePageIcons/activities.svg" alt="fligt-img">
+                  </span> 
+                  <span class="modulename">
+                    Activities
+                  </span>
+                </div>
+              </div>
+            </ion-slide>
+      
+            <ion-slide #slides class="" *ngIf = "offersurl != undefined"> 
+              <div class="widget"  matRipple (click)= "gotooffers()">
+                <div class="module-block">
+                  <span class="modulename custom-size">
+                   <img src = "assets/homePageIcons/Home_offer_Icon.svg" alt="fligt-img">
+                  </span> 
+                  <span class="modulename">
+                    Offers
+                  </span>
+                </div>
+              </div>
+            </ion-slide>
+      
+           
+          </ion-slides> 
+          </div>
+              </ion-grid>
+         
+    </ng-template>
+
+       
+

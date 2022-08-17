@@ -1,0 +1,246 @@
+<div class="modalHieght custom-card fare-details">
+  <div
+    id="myModal"
+    class="modal fade"
+    (click)="dismiss()"
+    *ngIf="triptype == 'oneway'"
+  >
+    <ion-item (click)="dismiss()" class="detail">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12">
+            <span class="fare-text">Fare Details</span>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item class="detail">
+      <ion-grid>
+        <ion-row class="detail1">
+          <ion-col size="7">
+            <span class="crncy fare-font">
+              Fare
+            </span>
+          </ion-col>
+          <ion-col size="5" text-right>
+            <span class="crncy">{{ farelist?.flightFare?.currency }} </span>
+            <span class="price">{{
+              totalfare | number : '1.0-2'
+            }}</span>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item (click)="dismiss()" class="detail">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="7">
+            <span class="fare-font">
+              Taxes & Fees
+            </span>
+          </ion-col>
+
+          <ion-col size="5" text-right>
+            <span class="crncy">{{ farelist?.flightFare?.currency }} </span>
+            <span class="price">
+              {{ oneway_tax | number : '1.0-2' }}</span
+            >
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item (click)="dismiss()" class="detail" *ngIf= "surchargeAmount != null && showsruchrge">
+     
+
+     
+      <ion-grid >
+        <ion-row>
+          <ion-col size="7">
+            <span class="fare-font">
+              Online convenience Fees
+            </span>
+          </ion-col>
+
+          <ion-col size="5" text-right>
+            <span class="crncy">{{ farelist?.flightFare?.currency }} </span>
+            <span class="price">
+              {{ surchargeAmount | number : '1.0-2' }}</span
+            >
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    
+    </ion-item>
+    <ion-item class="detail">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12">
+            <span class="refuld-nonrefund">
+              {{ticketInfo | titlecase}}
+            </span>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </div>
+  <div
+    id="myModal"
+    class="modal fade"
+    (click)="dismiss()"
+    *ngIf="triptype == 'returnway'"
+  >
+    <ion-item (click)="dismiss()" class="detail">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12">
+            <span class="fare-text"> Fare Details</span>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item class="detail">
+      <ion-grid>
+        <ion-row class="detail1">
+          <ion-col size="7">
+            <span class="crncy fare-font">
+              Fare
+            </span>
+          </ion-col>
+          <ion-col size="5" text-right>
+            <span class="crncy"
+              >{{ reutnrway.onwardFlightOption.flightFare.currency }}
+            </span>
+            <span class="price">{{ totalfare | number : '1.0-2' }}</span>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item (click)="dismiss()" class="detail">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="7" class="fare-font">
+            <span>
+              Taxes & Fees
+            </span>
+          </ion-col>
+          <ion-col size="5" text-right>
+            <span class="crncy"
+              >{{ reutnrway.onwardFlightOption.flightFare.currency }}
+            </span>
+            <span class="price"> {{ roundtrip_tax | number : '1.0-2' }}</span>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <!-- <div>
+      <p>test divvv -- {{showsruchrge}}</p>
+    </div> -->
+    <ion-item (click)="dismiss()" class="detail" *ngIf= "surchargeAmount != null && showsruchrge">
+    
+      <ion-grid>
+        <ion-row>
+          <ion-col size="7">
+            <span class="fare-font">
+              Online convenience Fees
+            </span>
+          </ion-col>
+
+          <ion-col size="5" text-right>
+            <span class="crncy">{{ reutnrway.onwardFlightOption.flightFare.currency }} </span>
+            <span class="price">
+              {{ surchargeAmount | number : '1.0-2' }}</span
+            >
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item class="detail">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12">
+            <span class="refuld-nonrefund">{{
+              ticketInfo | titlecase
+            }}</span>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </div>
+
+  <div
+    id="myModal"
+    class="modal fade"
+    (click)="dismiss()"
+    *ngIf="triptype == 'multicity'"
+  >
+    <ion-item (click)="dismiss()" class="detail">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12">
+            <span class="fare-text"> Fare Details</span>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item class="detail">
+      <ion-grid>
+        <ion-row class="detail1">
+          <ion-col size="7">
+            <span class="crncy fare-font">
+              Fare
+            </span>
+          </ion-col>
+          <ion-col size="5" text-right>
+            <span class="crncy">{{multicitycurrency}} </span>
+            <span class="price">{{ totalfaremulti | number : '1.0-2' }}</span>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item (click)="dismiss()" class="detail">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="7">
+            <span class="fare-font">
+              Taxes & Fees
+            </span>
+          </ion-col>
+          <ion-col size="5" text-right>
+            <span class="crncy">{{ multicitycurrency }} </span>
+            <span class="price"> {{ multitex | number : '1.0-2' }}</span>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item (click)="dismiss()" class="detail" *ngIf= "surchargeAmount != null && showsruchrge">
+     
+      <ion-grid>
+        <ion-row>
+          <ion-col size="7">
+            <span class="fare-font">
+              Online convenience Fees
+            </span>
+          </ion-col>
+
+          <ion-col size="5" text-right>
+            <span class="crncy">{{ multicitycurrency }} </span>
+            <span class="price">
+              {{ surchargeAmount | number : '1.0-2' }}</span
+            >
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item class="detail">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12">
+            <span class="refuld-nonrefund">
+              {{ ticketInfo | titlecase }}</span
+            >
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </div>
+</div>

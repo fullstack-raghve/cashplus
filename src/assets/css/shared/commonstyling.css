@@ -1,0 +1,25 @@
+body {
+  font-size: 0.8125rem !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: 'latoregular';
+}
+
+a {
+  font-family: 'latoregular';
+}
+
+.select-input,
+.item.sc-ion-label-md-h, .item .sc-ion-label-md-h {
+  font-family: 'latoregular';
+}
+
+ion-title span {
+  font-family: 'latoregular';
+  font-size: 1rem;
+}
+
+ion-searchbar .searchbar-input {
+  font-family: "latoregular" !important;
+}
+/*# sourceMappingURL=commonstyling.css.map */

@@ -1,0 +1,1117 @@
+<ion-content>
+  <ion-header>
+    <ion-toolbar color="custom-color-red">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="3" (click)="goBack()">
+            <img class="backArrow" src="assets/icon/backarrowtop2.svg" />
+          </ion-col>
+          <ion-col size="6" text-center>
+            <span class="clear-all">Edit Traveller</span>
+          </ion-col>
+          <ion-col *ngIf="newCountryList['length'] != 0" size="3" text-right>
+            <span class="clear-all" (click)="clearform()">Clear all</span>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-toolbar>
+  </ion-header>
+  <ion-row>
+    <div></div>
+  </ion-row>
+
+  <p
+    text-center
+    *ngIf="newCountryList['length'] == 0"
+    style="
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    "
+  >
+    <ion-spinner name="lines"></ion-spinner>Loading ...
+  </p>
+
+  <!-- <pre>{{profileForm.value | json}}</pre>
+{{profileForm.valid}} -->
+  <form [formGroup]="profileForm" class="editprofile_form" (ngSubmit)="submitform()">
+    <div class="centerImg">
+      <div
+        type="text"
+        ngDefaultControl
+        formControlName="profileImagePath"
+      ></div>
+      <div
+        style="
+          border: 1.3px solid #dcdcdc;
+          border-radius: 50%;
+          margin: 8px 0 0 0px;
+          width: 89px;
+          height: 89px;
+        "
+      >
+      <span *ngIf="!imgURL">
+      <span 
+        *ngIf="
+        travellerTitle == '0' ||
+        travellerTitle == '4'
+        "
+      >
+        <img class="default-img dd"
+          *ngIf="travellerType == 'Adult'"
+          [src]="
+            travellerProfileImage == null ||
+            travellerProfileImage == ''
+              ? adult_male_icon_dummy
+              : travellerProfileImage
+          "
+          alt="image"
+        />
+        <img class="default-img dd"
+          *ngIf="travellerType == 'child'"
+          [src]="
+            travellerProfileImage == null ||
+            travellerProfileImage == ''
+              ? child_male_icon_dummy
+              : travellerProfileImage
+          "
+          alt="image"
+        />
+        <img class="default-img dd"
+          *ngIf="travellerType == 'Infant'"
+          [src]="
+            travellerProfileImage == null ||
+            travellerProfileImage == ''
+              ? infant_male_icon_dummy
+              : travellerProfileImage
+          "
+          alt="image"
+        />
+        <img class="default-img"
+        *ngIf="travellerType == null"
+        [src]=defaultIcon
+        alt="image"
+        style="padding: 15px;"
+      />
+      </span>
+
+      <span 
+        *ngIf="
+          travellerTitle == '1' ||
+          travellerTitle == '2' ||
+          travellerTitle == '3'
+        "
+      >
+        <img class="default-img dd"
+          *ngIf="travellerType == 'Adult'"
+          [src]="
+            travellerProfileImage == null ||
+            travellerProfileImage == ''
+              ? adult_female_icon_dummy
+              : travellerProfileImage
+          "
+          alt="adult_female"
+        />
+        <img class="default-img dd"
+          *ngIf="travellerType == 'child'"
+          [src]="
+            travellerProfileImage == null ||
+            travellerProfileImage == ''
+              ? child_female_icon_dummy
+              : travellerProfileImage
+          "
+          alt="adult_female"
+        />
+        <img class="default-img dd"
+          *ngIf="travellerType == 'Infant'"
+          [src]="
+            travellerProfileImage == null ||
+            travellerProfileImage == ''
+              ? infant_female_icon_dummy
+              : travellerProfileImage
+          "
+          alt="adult_female"
+        />
+        <img class="default-img"
+        *ngIf="travellerType == null"
+        [src]=defaultIcon
+        alt="image"
+        style="padding: 15px;"
+      />
+      </span>
+
+      <span 
+      *ngIf="(travellerTitle ==  null ||travellerTitle ==  '') && (travellerType == null ||travellerType == '')">
+      <img
+      class="default-img"
+        [src]=" travellerProfileImage == null ||
+        travellerProfileImage == ''
+          ? defaultIcon : travellerProfileImage"
+        alt="traveller"
+        style="    padding: 20px;
+        object-fit: unset;
+        background: #F2EFEF;"
+      />
+    </span>
+  </span>
+    
+        <!-- <span *ngIf="!imgURL">
+          <span
+            *ngIf="
+              profileForm.get('profileImagePath').value != '' &&
+              profileForm.get('profileImagePath').value != null &&
+              profileForm.get('profileImagePath').value != 'null'
+            "
+          >
+            <img
+              class="default-img dd"
+              [ngClass]="{
+                none: profileForm.get('profileImagePath').value == null
+              }"
+              [src]="profileForm.get('profileImagePath').value"
+            />
+          </span>
+
+          <img
+            class="default-img"
+            src="assets/icons/flights/flaticon.svg"
+            alt="image"
+            *ngIf="
+              profileForm.get('profileImagePath').value == '' ||
+              profileForm.get('profileImagePath').value == null ||
+              profileForm.get('profileImagePath').value == 'null'
+            "
+            style="padding: 15px;"
+          />
+        </span> -->
+        <img class="default-img imagecls" [src]="imgURL" *ngIf="imgURL" />
+      </div>
+      <div style="margin-top: 7px;">
+        <!-- <u><a (click)="file.click()">Add Photo</a></u> -->
+        <u><a (click)="Imageclick()">Add Photo</a></u>
+        <!-- <input class="select-photo" type="file" #file accept="image/png,image/gif,image/jpeg"
+               (change)="preview(file.files)">
+            <p class="ImageValidation" *ngIf="flagForImage == true">File is larger than 2 MB</p> -->
+      </div>
+    </div>
+
+    <ion-grid class="addtraveller_form">
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+
+          <div class="form-group no-crt fontcls">
+            <mat-form-field appearance="outline">
+              <mat-label>Title</mat-label>
+              <mat-select formControlName="title">
+                <mat-option value="0">Mr.</mat-option>
+                <mat-option value="1">Ms.</mat-option>
+                <mat-option value="2">Mrs.</mat-option>
+                <mat-option value="3">Miss</mat-option>
+                <mat-option value="4">Master</mat-option>
+              </mat-select>
+              <mat-error
+                *ngIf="
+                  profileForm.controls.title?.errors &&
+                  (profileForm.controls.title?.dirty ||
+                    profileForm.controls.title.touched || profileForm.controls.title?.errors?.sameTitle)
+                "
+              >
+                {{ profileForm.controls.title?.errors?.required?.message }}
+                {{ profileForm.controls.title?.errors.alpha?.message }}
+                {{profileForm.controls.title?.errors?.sameTitle ? titleSame : '' }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>First Name</mat-label>
+              <input trimdirective
+                class="change_placholder fontcls"
+                name="firstName"
+                matInput
+                formControlName="firstName"
+                placeholder="First Name" 
+              />
+              <mat-error
+                *ngIf="
+                  profileForm.controls.firstName?.errors &&
+                  (profileForm.controls.firstName?.dirty ||
+                    profileForm.controls.firstName.touched || profileForm.controls.firstName?.errors?.sameFirstName)
+                "
+              >
+                {{
+                  profileForm.controls.firstName?.errors?.required?.message
+                }}
+                {{ profileForm.controls.firstName?.errors.alpha?.message }}
+               <!-- {{!profileForm.controls.firstName?.errors.alpha?.message ? profileForm.controls.firstName?.errors.minlength ? 'First name' + char_limit_3_20 : '' : '' }} -->
+               <!-- {{!profileForm.controls.firstName?.errors.alpha?.message ? profileForm.controls.firstName?.errors.minlength ? 'First name should have minimum 3 characters.' : '' : '' }} -->
+               {{profileForm.controls.firstName?.errors?.sameFirstName ? firstNameSame : '' }}
+               <!-- {{profileForm.controls.firstName?.errors?.maxLength ? 'First name' + Char_max_length_20 : ''}} -->
+              </mat-error>
+            </mat-form-field>
+            <span class="err" *ngIf="profileForm.controls.firstName?.valid && (profileForm.controls.firstName?.value.length + profileForm.controls.lastName?.value.length +
+            (profileForm.controls.title?.value == 0 || profileForm.controls.title?.value == 1 ? 3 : 
+            (profileForm.controls.title?.value == 2 || profileForm.controls.title?.value == 3 ? 4 :6)) > 40)">
+             Combination of Title, First Name and Last Name should not be more than 40 characters.
+           </span>
+          </div>
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Last Name</mat-label>
+              <input trimdirective
+                class="change_placholder fontcls"
+                name="lastName"
+                matInput
+                formControlName="lastName"
+                placeholder="Last Name"
+              />
+              <mat-error
+                *ngIf="
+                  profileForm.controls.lastName?.errors &&
+                  (profileForm.controls.lastName?.dirty ||
+                    profileForm.controls.lastName.touched || profileForm.controls.lastName?.errors?.sameLastName)
+                "
+              >
+                {{ profileForm.controls.lastName?.errors?.required?.message }}
+                {{ profileForm.controls.lastName?.errors.alpha?.message }}
+                <!-- {{!profileForm.controls.lastName?.errors.alpha?.message ? profileForm.controls.lastName?.errors.minlength ? 'Last name should have minimum 3 characters.' : '' : ''  }} -->
+                <!-- {{!profileForm.controls.lastName?.errors.alpha?.message ? profileForm.controls.lastName?.errors.minlength ? 'Last name' + char_limit_3_20 : '' : ''  }} -->
+                {{profileForm.controls.lastName?.errors?.sameLastName ? lastNameSame : '' }}
+                <!-- {{profileForm.controls.lastName?.errors?.maxLength ? 'Last name' + Char_max_length_20 : ''}} -->
+              </mat-error>
+            </mat-form-field>
+            <!-- <pre>
+              {{profileForm.controls.lastName?.errors | json}}
+            </pre> -->
+          </div>
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Date Of Birth ( dd/mm/yyyy ) </mat-label>
+              <input
+                type="tel"
+                autocomplete="off"
+                class="change_placholder fontcls"
+                matInput
+                formControlName="dob"
+                placeholder="Date Of Birth ( dd/mm/yyyy )"
+                [textMask]="dateMaskOptions"
+              />
+              <mat-error
+                *ngIf="
+                  profileForm.controls.dob?.errors &&
+                  (profileForm.controls.dob?.dirty ||
+                    profileForm.controls.dob.touched)
+                "
+              >
+                {{ profileForm.controls.dob?.errors?.required?.message }}
+                {{ profileForm.controls.dob?.errors?.maxDate?.message }}
+                {{ !profileForm.controls.dob?.errors?.required?.message ? profileForm.controls.dob?.errors?.pattern?.message : '' }}
+                {{ profileForm.controls.dob?.errors?.minDate?.message }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form-group">
+            <ion-row>
+              <ion-col class="pad-left" size="4">
+                <div
+                  class="form-group no-crt nationality_field fontcls"
+                  (click)="
+                    onchangeOfIsdCode(
+                      'isdCode',
+                      profileForm.controls.dialcode?.value
+                    )
+                  "
+                >
+                  <mat-form-field appearance="outline">
+                    <mat-label>ISD Code</mat-label>
+                    <mat-select formControlName="dialcode">
+                      <mat-option
+                        *ngFor="let country of newCountryList"
+                        [value]="country?.phoneCode"
+                      >
+                        {{ country?.phoneCode }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error
+                      *ngIf="
+                        profileForm.controls.dialcode?.errors &&
+                        (profileForm.controls.dialcode?.dirty ||
+                          profileForm.controls.dialcode.touched)
+                      "
+                    >
+                      {{
+                        profileForm.controls.dialcode?.errors?.required
+                          ?.message
+                      }}
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </ion-col>
+              <ion-col class="pad-right" size="8">
+                <div class="form-group">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Mobile Number</mat-label>
+                    <input trimdirective
+                      class="change_placholder fontcls"
+                      name="mobileNumber"
+                      type="tel"
+                      matInput
+                      formControlName="mobileNumber"
+                      placeholder="Mobile Number"
+                      minlength="7" 
+                    />
+                    <mat-error
+                      *ngIf="
+                        profileForm.controls.mobileNumber?.errors &&
+                        (profileForm.controls.mobileNumber?.dirty ||
+                          profileForm.controls.mobileNumber.touched)
+                      "
+                    >
+                      {{
+                        profileForm.controls.mobileNumber?.errors?.required?.message
+                      }}
+                      {{ profileForm.controls.mobileNumber?.errors.numeric?.message }}
+                      {{profileForm.controls.mobileNumber?.errors?.maxLength ? 'Mobile no should have maximum 11 digits.' : ''}}
+                      <span class="add_edit_phn_validate">
+                        {{!profileForm.controls.mobileNumber?.errors.numeric?.message ? profileForm.controls.mobileNumber?.errors.minlength ? 'Mobile number ' + phn_limit_7_11 : '' : ''  }}
+                      </span>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </ion-col>
+            </ion-row>
+          </div>
+
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Email ID</mat-label>
+              <input trimdirective
+                class="change_placholder fontcls"
+                name="email"
+                type="email"
+                matInput
+                formControlName="email"
+                placeholder="Email ID"
+              />
+              <mat-error
+                *ngIf="
+                  profileForm.controls.email?.errors &&
+                  (profileForm.controls.email?.dirty ||
+                    profileForm.controls.email.touched)
+                "
+              >
+                {{ profileForm.controls.email?.errors?.required?.message }}
+                {{ profileForm.controls.email?.errors.pattern?.message }}
+                {{profileForm.controls.email?.errors?.maxLength ? 'Email id should have maximum 45 characters.' : ''}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Address</mat-label>
+              <input trimdirective
+                class="change_placholder fontcls"
+                name="address"
+                type="text"
+                matInput
+                formControlName="address"
+                placeholder="Address" 
+              />
+              <mat-error
+                *ngIf="
+                  profileForm.controls.address?.errors &&
+                  (profileForm.controls.address?.dirty ||
+                    profileForm.controls.address.touched)
+                "
+              >
+                {{ profileForm.controls.address?.errors?.required?.message }}
+                {{ profileForm.controls.address?.errors.pattern?.message }}
+                {{profileForm.controls.address?.errors?.maxLength ? 'Address should have maximum 250 characters.' : ''}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Pincode</mat-label>
+              <input trimdirective
+                name="pincode"
+                type="tel"
+                matInput
+                formControlName="pincode"
+                placeholder="Pincode"
+                class="fontcls" 
+              />
+              <mat-error
+                *ngIf="
+                  profileForm.controls.pincode?.errors &&
+                  (profileForm.controls.pincode?.dirty ||
+                    profileForm.controls.pincode.touched)
+                "
+              >
+                {{ profileForm.controls.pincode?.errors?.required?.message }}
+                {{ profileForm.controls.pincode?.errors.numeric?.message }}
+                {{profileForm.controls.pincode?.errors?.maxLength ? 'Pincode should have maximum 8 digits.' : ''}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>City</mat-label>
+              <input trimdirective
+                class="change_placholder fontcls"
+                name="city"
+                type="text"
+                matInput
+                formControlName="city"
+                placeholder="City" 
+              />
+              <mat-error
+                *ngIf="
+                  profileForm.controls.city?.errors &&
+                  (profileForm.controls.city?.dirty ||
+                    profileForm.controls.city.touched)
+                "
+              >
+                {{ profileForm.controls.city?.errors?.required?.message }}
+                {{ profileForm.controls.city?.errors.alpha?.message }}
+                {{profileForm.controls.city?.errors?.maxLength ? 'City should have maximum 25 characters.' : ''}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div
+            class="form-group no-crt nationality_field"
+            (click)="
+              onSelectCountry('country', profileForm.controls.country?.value)
+            "
+          >
+            <mat-form-field appearance="outline" class="fontcls">
+              <mat-label>Country</mat-label>
+              <mat-select formControlName="country">
+                <mat-option
+                  *ngFor="let country of newCountryList"
+                  [value]="country?.countryId"
+                >
+                  {{ country?.countryName }}
+                </mat-option>
+              </mat-select>
+              <mat-error
+                *ngIf="
+                  profileForm.controls.country?.errors &&
+                  (profileForm.controls.country?.dirty ||
+                    profileForm.controls.country.touched)
+                "
+              >
+                {{ profileForm.controls.country?.errors?.required?.message }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div
+            class="form-group no-crt nationality_field"
+            (click)="
+              onSelectCountry('state', profileForm.controls.state?.value)
+            "
+          >
+            <mat-form-field appearance="outline" class="fontcls">
+              <mat-label>State</mat-label>
+              <mat-select formControlName="state">
+                <mat-option
+                  *ngFor="let state of modifiedStateList"
+                  [value]="state?.countryId"
+                >
+                  {{ state?.countryName }}
+                </mat-option>
+              </mat-select>
+              <mat-error
+                *ngIf="
+                  profileForm.controls.state?.errors &&
+                  (profileForm.controls.state?.dirty ||
+                    profileForm.controls.state.touched)
+                "
+              >
+                {{ profileForm.controls.state?.errors?.required?.message }}
+              </mat-error>
+              <p
+                *ngIf="
+                  showErrorIfStateSelect &&
+                  (profileForm.get('country').value == '' ||
+                    profileForm.get('country').value == null)
+                "
+                class="state_error"
+              >
+                Select country first
+              </p>
+            </mat-form-field>
+          </div>
+
+          <!--Multy AIRLINES -->
+          <div formArrayName="preferedAirlines">
+            <ion-row
+              [ngStyle]="{
+                'padding-bottom':
+                  profileForm.get('preferedAirlines')?.controls.length == 10
+                    ? '7px'
+                    : ''
+              }"
+              class="ion-justify-content-between ion-align-items-center fontcls"
+            >
+              <ion-label class="preferred visa_passpoprt_heading"
+                >Preferred Airlines</ion-label
+              >
+              <div
+                *ngIf="
+                  profileForm.get('preferedAirlines')?.controls.length == 10
+                    ? false
+                    : true
+                "
+                (click)="addPrefered()"
+                class="plus_icon_traveller"
+              >
+                <img src="assets/new_icon/add.png" alt class="add-icon" />
+              </div>
+            </ion-row>
+            <div>
+              <section
+                [formGroupName]="i"
+                *ngFor="
+                  let airlines of profileForm.get('preferedAirlines')
+                    ?.controls;
+                  let i = index
+                "
+                class="preferedAirlines"
+              >
+                <div class="form-group no-crt">
+                  <mat-form-field appearance="outline" class="fontcls">
+                    <mat-label>Airlines</mat-label>
+                    <mat-select formControlName="airline">
+                      <mat-option
+                        *ngFor="let airline of allairline"
+                        [value]="airline.airlineCode"
+                        >{{ airline.airlineName }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="form-group">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Frequent Flyer No</mat-label>
+                    <input trimdirective
+                      class="change_placholder fontcls"
+                      name="frequentFlyerNumber"
+                      type="text"
+                      matInput
+                      formControlName="frequentFlyerNumber"
+                      placeholder="Frequent Flyer No" 
+                    />
+                    <mat-error
+                    *ngIf="
+                      airlines.controls.frequentFlyerNumber?.errors &&
+                      (airlines.controls.frequentFlyerNumber?.dirty ||
+                        airlines.controls.frequentFlyerNumber.touched)
+                    "
+                  >
+                    {{ airlines.controls.frequentFlyerNumber?.errors?.alphaNumeric?.message }}
+                    {{airlines.controls.frequentFlyerNumber?.errors?.maxLength ? 'Frequent Flyer No should have maximum 20 characters.' : ''}}
+                  </mat-error>
+                  </mat-form-field>
+                 
+                </div>
+                <ion-row
+                  *ngIf="i < profileForm.controls.preferedAirlines.length - 1"
+                >
+                  <div
+                    class="buttonAir"
+                    *ngIf="profileForm.controls.preferedAirlines.length > 1"
+                    (click)="remove(i)"
+                  >
+                    <img src="assets/new_icon/remove.png" alt class="add-icon" />
+                  </div>
+                </ion-row>
+              </section>
+            </div>
+          </div>
+          <!-- end -->
+
+          <!-- passport details start -->
+          <div class="visa_passport_margin_bottom">
+            <ion-row>
+              <ion-label class="preferred visa_passpoprt_heading">Travels Document</ion-label>
+            </ion-row>
+            <div
+              class="ion-margin-top ion-margin-bottom accordion_addtraveller passport_accordion_visa_accordion"
+            >
+              <mat-accordion>
+                <mat-expansion-panel #matExpansionPanelPassport>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Passport Details
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+
+                  <div class="traveller_mat_expension_body">
+                    <!-- <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <mat-label>First Name</mat-label>
+                        <input class="change_placholder" type="text" placeholder="Passport FirstName" formControlName="passportFirstName" matInput>
+                        <mat-error *ngIf="profileForm.controls.passportFirstName?.errors && (profileForm.controls.passportFirstName?.dirty || profileForm.controls.passportFirstName.touched) ">
+
+                          {{profileForm.controls.passportFirstName?.errors.alpha?.message}}
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Middle Name</mat-label>
+                        <input class="change_placholder" type="text" placeholder="Passport Middle Name" formControlName="passportMiddleName" matInput>
+                        <mat-error *ngIf="profileForm.controls.passportMiddleName?.errors && (profileForm.controls.passportMiddleName?.dirty || profileForm.controls.passportMiddleName.touched) ">
+
+                          {{profileForm.controls.passportMiddleName?.errors.alpha?.message}}
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Last Name</mat-label>
+                        <input class="change_placholder" type="text" placeholder="Passport lastName" formControlName="passportLastName" matInput>
+                        <mat-error *ngIf="profileForm.controls.passportLastName?.errors && (profileForm.controls.passportLastName?.dirty || profileForm.controls.passportLastName.touched) ">
+
+                          {{profileForm.controls.passportLastName?.errors.alpha?.message}}
+                        </mat-error>
+                      </mat-form-field>
+                    </div> -->
+
+                    <div
+                      class="form-group no-crt nationality_field"
+                      (click)="
+                        onOpenNationalityPassport(
+                          'nationality',
+                          profileForm.controls.passportIssuedCountry?.value
+                        )
+                      "
+                    >
+                      <mat-form-field appearance="outline" class="fontcls">
+                        <mat-label>Nationality</mat-label>
+                        <mat-select formControlName="passportIssuedCountry">
+                          <mat-option
+                            *ngFor="let country of newCountryList"
+                            [value]="country?.countryId"
+                          >
+                            {{ country?.countryName }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Passport Number</mat-label>
+                        <input trimdirective
+                          class="change_placholder fontcls"
+                          autocomplete="off"
+                          type="text"
+                          placeholder="Passport Number"
+                          formControlName="passportNo"
+                          matInput 
+                        />
+
+                        <mat-error
+                        *ngIf="
+                          profileForm.controls.passportNo?.errors &&
+                          (profileForm.controls.passportNo?.dirty ||
+                            profileForm.controls.passportNo.touched)
+                        "
+                      >
+                       
+                        {{
+                          profileForm.controls.passportNo?.errors
+                            ?.alphaNumeric?.message
+                        }}
+                        {{profileForm.controls.passportNo?.errors?.maxLength ? 'Passport no should have maximum 9 characters.' : ''}}
+                      </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Expiry Date ( dd/mm/yyyy )</mat-label>
+
+                        <input
+                          type="tel"
+                          autocomplete="off"
+                          class="change_placholder fontcls"
+                          matInput
+                          formControlName="passportExpireDate"
+                          placeholder="Expiry Date ( dd/mm/yyyy )"
+                          [textMask]="dateMaskOptions"
+                        />
+                        <!-- alphaNumeric -->
+                        <mat-error
+                          *ngIf="
+                            profileForm.controls.passportExpireDate?.errors &&
+                            (profileForm.controls.passportExpireDate?.dirty ||
+                              profileForm.controls.passportExpireDate.touched)
+                          "
+                        >
+                          {{
+                            profileForm.controls.passportExpireDate?.errors
+                              ?.minDate?.message
+                          }}
+                          {{
+                            profileForm.controls.passportExpireDate?.errors
+                              ?.pattern?.message
+                          }}
+                        </mat-error>
+                        <div class="passport_warning" *ngIf="iswarning">
+                          <div
+                            tooltip="Your Passport will expire very soon!!"
+                            tooltip-class="customClassTooltip"
+                            placement="top"
+                            show-delay="100"
+                          >
+                            <img src="assets/info_red.png" alt="info" />
+                          </div>
+                        </div>
+                         <div class="passport_warning" *ngIf="profileForm.controls.passportExpireDate?.errors
+                         ?.minDate?.message && profileForm.controls.passportExpireDate?.value?.length == 10">
+                          <div
+                            tooltip="Your Passport is expired!!"
+                            tooltip-class="customClassTooltip"
+                            placement="top"
+                            show-delay="100"
+                          >
+                            <img src="assets/info_red.png" alt="info" />
+                          </div>
+                        </div>
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Upload Document</mat-label>
+                        <input
+                          type="text"
+                          style="display: none;"
+                          formControlName="passportImage"
+                          matInput
+                          readonly
+                        />
+                        <input
+                          class="change_placholder fontcls"
+                          class="text_overflow_ellipsis"
+                          type="text"
+                          formControlName="imageName"
+                          matInput
+                          readonly
+                        />
+                        <input
+                          class="change_placholder fontcls"
+                          id="fileUpload1"
+                          type="file"
+                          #passport_file
+                          (change)="
+                            onPassportUploadDocuments($event.target.files)
+                          "
+                          style="display: none;"
+                        />
+                        <div class="button_with_info" matSuffix>
+                          <button
+                            matRipple
+                            class="choose_file btn-align"
+                            type="button"
+                            (click)="passport_file.click()"
+                          >
+                            Choose File
+                          </button>
+                          <div
+                            tooltip="Only images are supported."
+                            tooltip-class="customClassTooltip"
+                            placement="top"
+                            delay="500"
+                          >
+                            <img src="assets/icon/info.svg" alt />
+                          </div>
+                          <!-- <p>
+                          <span tooltip="Only images are supported" placement="top" show-delay="100"> 
+                             <img src="assets/icon/info.svg" alt>
+                          </span>
+                    
+                       </p> -->
+                        </div>
+                      </mat-form-field>
+                      <p
+                        class="only_image_support"
+                        *ngIf="passportImageMessage"
+                      >
+                        Only images are supported.
+                      </p>
+                    </div>
+                  </div>
+                </mat-expansion-panel>
+              </mat-accordion>
+
+              
+              <p style="bottom: -26px;left: 3px;"
+              *ngIf="(profileForm.controls.passportExpireDate?.invalid || profileForm.controls.passportNo?.invalid) && matExpansionPanelPassport?.expanded == false "
+              class="state_error"
+            >
+              Invalid passport field
+            </p>
+            </div>
+          </div>
+          <!-- passport details end -->
+
+          <!-- vis info start -->
+          <div formArrayName="visaInfo" class="visa-alng">
+            <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-label class="preferred visa_passpoprt_heading"
+                >Visa Information</ion-label
+              >
+              <div
+                *ngIf="
+                  profileForm.get('visaInfo')?.controls.length == 4
+                    ? false
+                    : true
+                "
+                (click)="addvisaInfo()"
+                class="plus_icon_traveller"
+              >
+                <img src="assets/new_icon/add.png" alt class="add-icon" />
+              </div>
+            </ion-row>
+            <div
+              class="ion-margin-bottom accordion_addtraveller passport_accordion_visa_accordion"
+              [formGroupName]="j"
+              *ngFor="
+                let airlines of profileForm.get('visaInfo')?.controls;
+                let j = index
+              "
+            >
+              <mat-accordion>
+                <mat-expansion-panel  #matExpansionPanelVisa>
+                  <mat-expansion-panel-header >
+                    <mat-panel-title> Visa {{ j + 1 }} </mat-panel-title>
+                  </mat-expansion-panel-header>
+
+                  <div class="traveller_mat_expension_body">
+                    <div
+                      class="form-group no-crt nationality_field"
+                      (click)="
+                        onOpenNationalityVisa(
+                          'nationality',
+                          (profileForm.get('visaInfo')?.controls)[j]?.value,
+                          j
+                        )
+                      "
+                    >
+                      <mat-form-field appearance="outline" class="fontcls">
+                        <mat-label>Issued Country</mat-label>
+                        <mat-select formControlName="visaCountry">
+                          <mat-option
+                            *ngFor="let country of newCountryList"
+                            [value]="country?.countryId"
+                          >
+                            {{ country?.countryName }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Visa Number</mat-label>
+                        <input trimdirective
+                          class="change_placholder fontcls"
+                          type="text"
+                          placeholder="Visa Number"
+                          formControlName="visaNumber"
+                          matInput 
+                        />
+                        <mat-error
+                        *ngIf="
+                          airlines.controls.visaNumber?.errors &&
+                          (airlines.controls.visaNumber?.dirty ||
+                            airlines.controls.visaNumber.touched)
+                        "
+                      >
+                        {{ airlines.controls.visaNumber?.errors?.alphaNumeric?.message }}
+                        {{airlines.controls.visaNumber?.errors?.maxLength ? 'Visa no should have maximum 20 characters.' : ''}}
+                      </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group" style="position: relative;">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Expiry Date ( dd/mm/yyyy )</mat-label>
+                        <input
+                          class="change_placholder fontcls"
+                          type="tel"
+                          name="visaExpiry"
+                          placeholder="Expiry Date ( dd/mm/yyyy )"
+                          [textMask]="dateMaskOptions"
+                          matInput
+                          formControlName="visaExpiry"
+                        />
+                        <mat-error
+                          *ngIf="
+                            (profileForm.controls['visaInfo']?.controls)[j]
+                              ?.controls?.visaExpiry?.errors &&
+                            ((profileForm.controls['visaInfo']?.controls)[j]
+                              ?.controls?.visaExpiry?.dirty ||
+                              (profileForm.controls['visaInfo']?.controls)[j]
+                                ?.controls?.visaExpiry?.touched)
+                          "
+                        >
+                          {{
+                            (profileForm.controls["visaInfo"]?.controls)[j]
+                              ?.controls?.visaExpiry?.errors?.minDate?.message
+                          }}
+                          {{
+                            (profileForm.controls["visaInfo"]?.controls)[j]?.controls?.visaExpiry?.errors?.pattern?.message
+                          }}
+                        </mat-error>
+                      </mat-form-field>
+                      <div class="passport_warning" *ngIf="getVisaWarnigExpiry((profileForm.controls['visaInfo']?.controls)[j]
+                      ?.controls?.visaExpiry?.value) && (profileForm.controls['visaInfo']?.controls)[j]
+                      ?.controls?.visaExpiry?.value?.length == 10">
+                          <div
+                            tooltip="Your visa will expire very soon!!"
+                            tooltip-class="customClassTooltip"
+                            placement="top"
+                            show-delay="100"
+                          >
+                            <img src="assets/info_red.png" style="margin-top: 25px;" alt="info" />
+                          </div>
+                        </div>
+                      <div class="passport_warning" *ngIf="(profileForm.controls['visaInfo']?.controls)[j]
+                      ?.controls?.visaExpiry?.errors?.minDate?.message && (profileForm.controls['visaInfo']?.controls)[j]
+                      ?.controls?.visaExpiry?.value?.length == 10">
+                          <div
+                            tooltip="Your Visa is expired!!"
+                            tooltip-class="customClassTooltip"
+                            placement="top"
+                            show-delay="100"
+                          >
+                            <img src="assets/info_red.png" style="margin-top: 25px;" alt="info" />
+                          </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Visa Type</mat-label>
+                        <input trimdirective
+                          type="text"
+                          formControlName="visaTYpe"
+                          placeholder="Visa Type"
+                          matInput
+                          class="fontcls" 
+                        />
+                        <mat-error
+                        *ngIf="
+                          airlines.controls.visaTYpe?.errors &&
+                          (airlines.controls.visaTYpe?.dirty ||
+                            airlines.controls.visaTYpe.touched)
+                        "
+                      >
+                        {{ airlines.controls.visaTYpe?.errors?.alpha?.message }}
+                        {{airlines.controls.visaTYpe?.errors?.maxLength ? 'Visa type should have maximum 20 characters.' : ''}}
+                        {{ airlines.controls.visaTYpe?.errors?.pattern?.message }}
+                      </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="form-group">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Upload Document</mat-label>
+                        <input
+                          type="text"
+                          style="display: none;"
+                          formControlName="uploadDocumentDetails"
+                          matInput
+                          readonly
+                        />
+                        <input
+                          class="change_placholder fontcls"
+                          class="text_overflow_ellipsis"
+                          type="text"
+                          formControlName="visaDoucmentName"
+                          matInput
+                          readonly
+                        />
+                        <input
+                          class="change_placholder fontcls"
+                          type="file"
+                          #visaTypeDocuments
+                          (change)="
+                            visDocuemnetsType(
+                              $event.target.files,
+                              profileForm.get('visaInfo'),
+                              j
+                            )
+                          "
+                          style="display: none;"
+                        />
+                        <div class="button_with_info" matSuffix>
+                          <button
+                            matRipple
+                            class="choose_file"
+                            type="button"
+                            (click)="visaTypeDocuments.click()"
+                          >
+                            Choose File
+                          </button>
+                          <!-- <div tooltip="Only images are supported." placement="top" delay="500">
+                            <img src="assets/icon/info.svg" alt>
+                        </div> -->
+                          <p>
+                            <span
+                              tooltip="Only images are supported"
+                              tooltip-class="customClassTooltip"
+                              placement="top"
+                              show-delay="100"
+                            >
+                              <img src="assets/icon/info.svg" alt />
+                            </span>
+                          </p>
+                        </div>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <button
+                    matRipple
+                    class="delete_visa"
+                    type="button"
+                    *ngIf="profileForm.controls.visaInfo.length > 1"
+                    (click)="removeVisaInfo(j)"
+                  >
+                    <img src="assets/icon/remove.svg" alt style="margin-right: 6px;"/> Delete
+                  </button>
+                </mat-expansion-panel>
+              </mat-accordion>
+
+              <p style="bottom: -26px;left: 3px;"
+              *ngIf="airlines?.invalid && matExpansionPanelVisa?.expanded == false"
+              class="state_error"
+            >
+              Invalid visa field
+            </p>
+            <!-- !closeAccordian && -->
+            </div>
+          </div>
+          <!-- vis info end -->
+          <div>
+            <button
+              matRipple
+              class="yello-btn-all fullwidth"
+              type="submit"
+              expand="block"
+            >
+            UPDATE
+            </button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+
+</ion-content>
+
+

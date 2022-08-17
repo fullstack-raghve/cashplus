@@ -1,0 +1,115 @@
+
+<div  class="main-view">
+  <div class="modal_content_y">
+    <!-- <ion-card-header class="top-border-radius">
+      <ion-card-subtitle text-center class="user-login-font">Login </ion-card-subtitle>
+      <ion-icon class="closemodal" src="assets/icons/modalclose_icon.svg" (click)= "dismiss()" ></ion-icon>
+    </ion-card-header> -->
+
+    <ion-card-header class="top-border-radius">
+      <ion-card-subtitle class="header-as-guest">
+        <span class="header-cross-icon"></span>
+        <span class="header-center-span">Login</span>
+        <span class="header-cross-icon" style="display: flex; align-items: center;">
+          <ion-icon style="width: 100%; height: 100%;" src="assets/icons/modalclose_icon.svg" (click)="dismiss()"></ion-icon>
+        </span>
+      </ion-card-subtitle>
+    </ion-card-header>
+
+
+    <ion-grid class="bottom-border-radius">
+         <form [formGroup]= "loginForm" (submit)= "login()">
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+                <mat-label>Enter Your Email ID</mat-label>
+               
+                <input trimdirective matInput formControlName="userAlias" type="email" class="input-color"
+                placeholder="Enter Your Email ID"  required>
+              
+                <mat-error style="margin-top: -1px;" *ngIf="f.userAlias.errors && ( f.userAlias?.dirty || f.userAlias.touched)" class="invalidError">
+                    <span  *ngIf="f.userAlias.errors?.required" >Email id is required.</span>
+                    <span  *ngIf="f.userAlias.errors?.pattern && !f.userAlias.errors?.maxlength" >Email id is invalid.</span>
+                    <span  *ngIf="f.userAlias.errors?.maxlength" >Email id should have maximum 45 characters.</span>
+                   </mat-error>
+              </mat-form-field>
+            
+          </div>
+           <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Password</mat-label>
+              <input matInput formControlName="password" class="input-color" type="password" placeholder="Password"   required>
+              <mat-error style="margin-top: -1px;" *ngIf = "submitted && f.password.errors" class="invalidError">
+                 <span *ngIf= "f.password.errors.required">Password is required.</span>
+                 <!-- <span *ngIf="f.password.errors.minlength">Password should be between 5 and 15 character!.</span> -->
+              </mat-error>
+             
+            </mat-form-field>
+          </div>
+          <!-- <div *ngIf="show_err_message">
+            <span style="color:red">{{message}}</span>
+          </div> -->
+        </ion-col>
+      </ion-row>
+      <ion-row></ion-row>
+      <ion-row text-center>
+        <ion-col size-sm="6" offset-sm="3">
+         <button matRipple type="submit" class="buttons yello-btn-all fullwidth" expand="block">LOGIN</button>
+          
+        </ion-col>
+      </ion-row>
+    </form>
+  <!--form end here-->
+  <ion-row text-center padding-bottom>
+    <ion-col size="12">
+       <span class="light-blue" (click)= "forgotpassword()">
+         Forgot Password ?
+       </span>
+    </ion-col>
+  </ion-row>
+    <ion-row text-center>
+      <ion-col size-sm="6" offset-sm="3">
+      
+        <div class="container">
+          <div class="line">
+            <mat-divider></mat-divider>
+          </div>
+          <div class="text mat-typography">
+            <p class="login-with">Or login with</p>
+          </div>
+          <div class="line">
+            <mat-divider></mat-divider>
+          </div>
+        </div>
+        <ion-text>
+
+          
+
+          <div class="socio-icons-block">
+            <div class="facebook-icon" *ngIf = "loggedIn =='false'">
+              <img (click)= "signInWithFB()" src="assets/homePageIcons/fb.png" />
+            </div>
+            <div class="google-plus-icon" *ngIf = "loggedIn=='false'">
+              <img (click)= "signInWithGoogle()" src="assets/homePageIcons/google.png" />
+            </div>
+
+          </div>
+          
+        </ion-text>
+        <ion-text *ngIf = "loggedIn =='false'"> 
+          <p style="color:#5C5B5B;">
+            <span class="account-no-user">Don't have an account? </span>
+            <a  class="font-blue" (click)= "signUp()"> SIGN UP</a>
+          </p>
+        </ion-text>
+      </ion-col>
+    </ion-row> 
+   
+  </ion-grid>
+  </div>
+</div>
+<ngx-spinner bdOpacity=0.2 bdColor="rgba(9,9,9,0.81)" size="medium" color="#fff" type="ball-pulse-sync"
+[fullScreen]= "true">
+<p style="color: #fff">Please Wait... </p> 
+</ngx-spinner>

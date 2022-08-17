@@ -1,0 +1,26 @@
+.country_code_flag {
+  display: flex;
+  align-items: center;
+
+  span {
+    margin-left: 10px;
+  }
+}
+
+.drop_down_flag {
+  display: flex;
+  align-items: center;
+
+  span.countryname {
+    margin-left: 8px;
+    margin-top: 5px;
+  }
+}
+
+// .country_dropdown_flag{
+//     /deep/ .mat-form-field .mat-form-field-infix{
+//       padding: 8px 0px !important;
+//     }
+// }
+
+

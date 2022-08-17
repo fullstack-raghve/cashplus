@@ -1,0 +1,9 @@
+<ion-list text-center> 
+  <ion-item>
+    <ion-label >Select Sort Orders</ion-label>
+  </ion-item>
+  <ion-item *ngFor = "let item of filteritem; let i = index"  (click) = "editProduct(item,i)" no-border>
+<ion-label [ngClass] = "{'blue': this.currentindex==i}">{{item.name}}</ion-label>
+  </ion-item>
+
+</ion-list>

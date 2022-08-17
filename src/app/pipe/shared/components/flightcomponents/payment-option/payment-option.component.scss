@@ -1,0 +1,87 @@
+.bg{
+    background:white;
+   }
+   .no-shadow{
+    box-shadow: none;
+    border: 1px solid #d8d8d8;
+    border-radius: 8px;
+   }
+   /deep/ .ion-card-header {
+    background: #ffffff;
+}
+/deep/.ion-card{
+    box-shadow: none;
+    border: 1px solid #d8d8d8;
+    border-radius: 8px;
+}
+.button-native2{
+    box-shadow: none!important;
+    font-family: "latomedium" !important
+  }
+
+  /deep/ion-card-title{
+    font-family: "latomedium";
+    font-size: 16px;
+    color: black;
+  }
+  p{
+    font-family: "latoregular";
+  }
+
+  
+
+.footer {
+  position: absolute;
+      bottom: 11px;
+   }
+   .button {
+     --background :#F4B50B !important;
+    --color: #000000;
+    --vertical-align: middle;
+    --padding-start: 10px;
+    --padding-end: 10px;
+     margin:10px;
+    --padding-right:10px;
+    margin-bottom: 8px;
+    --background-activated:#ebb134;
+    height: 50px;
+    
+  }
+  .dummytxt{
+    font-family: "latosemibold";
+    font-size: 14px;
+    color: #7E7C7C;
+    padding: 0px 14px;
+    padding-top: 10px;
+  }
+  .no-shadows{
+    box-shadow: none;
+    border-radius: 10px;
+    border: 1px solid #E3E3E3;
+  }
+  .trash{
+    width: 12px;
+    display: inline-block;
+
+  }
+  .right{
+    float: right;
+
+  }
+  .logoo{
+    display: inline;
+    width: 30px;
+    vertical-align: middle;
+    margin-left: -5px;
+    margin-right: 10px;
+  }
+  .cardtext{
+    font-family: 'latoregular';
+    color: #7C7C7C;
+    font-size: 12px;
+  }
+  .txtcls{
+    font-size: 16px;
+    text-transform: uppercase;
+     font-family: 'latomedium' !important;
+  }

@@ -1,0 +1,142 @@
+
+<ion-header class="profile-header">
+  <!-- <ion-toolbar color="custom-color-red">
+    <ion-title text-center class="title">Preferances</ion-title>
+    <ion-icon name="arrow-back" slot="start" class="icon-font" (click)= "backTo()"></ion-icon>
+  </ion-toolbar> -->
+  <ion-toolbar color="custom-color-red">
+    <ion-buttons slot="start" class="aro-bck">
+      <img
+        class="bckarrw"
+        src="assets/icon/backarrowtop2.svg"
+        (click)="backTo()"
+      />
+    </ion-buttons>
+    <ion-title class="title">Preferences</ion-title>
+  </ion-toolbar>
+</ion-header>
+<p
+  text-center
+  *ngIf="finalresponse"
+  style="
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  "
+>
+  <ion-spinner name="lines"></ion-spinner>Loading ...
+</p>
+
+<ion-content>
+  <ion-card>
+    <form [formGroup]="form">
+      <ion-card-header>
+        <ion-label>
+          <ion-icon
+            src="assets/icons/flights/flight-icon.svg"
+            class="flight-header"
+          ></ion-icon>
+
+          <p class="flight-header-text">Flight</p>
+        </ion-label>
+      </ion-card-header>
+      <ion-grid class="profile">
+        <ion-row padding-top>
+          <ion-col size="2">
+            <img src="assets/icons/flights/food_icon.svg" class="food-img" />
+          </ion-col>
+          <ion-col size="10">
+            <p class="item-preference preference-text">Food Preference</p>
+          </ion-col>
+        </ion-row>
+        <section class="food">
+          <mat-radio-group formControlName="foodField">
+            <mat-radio-button
+              class="example-radio-button food-margin"
+              *ngFor="let food of foods"
+              [value]="food.value"
+            >
+              {{ food.name }}
+            </mat-radio-button>
+            <div
+              *ngIf="isSubmitted && form.get('foodField').hasError('required')"
+              class="myerror"
+            >
+              Food Preference is required!
+            </div>
+          </mat-radio-group>
+        </section>
+
+        <ion-row padding-top style="margin-top: -25px;">
+          <ion-col size="2">
+            <img
+              src="assets/icons/flights/seatpreferance_icon.svg"
+              class="food-img"
+            />
+          </ion-col>
+          <ion-col size="10">
+            <p class="preference-text">Seat Preference</p>
+          </ion-col>
+        </ion-row>
+
+        <section class="food" padding-left>
+          <mat-radio-group formControlName="seatField">
+            <mat-radio-button
+              class="example-radio-button food-margin"
+              *ngFor="let seat of seats"
+              [value]="seat.value"
+            >
+              {{ seat.name }}
+            </mat-radio-button>
+            <div
+              *ngIf="isSubmitted && form.get('seatField').hasError('required')"
+              class="myerror"
+            >
+              Seat Preference is required!
+            </div>
+          </mat-radio-group>
+        </section>
+
+        <ion-row>
+          <ion-col size-sm="6" offset-sm="3">
+            <div class="form-group no-crt nationality_field" (click)="openAirportListModal()">
+              <mat-form-field appearance="outline" class="food_prefrence">
+                <mat-label>Home Airport</mat-label>
+                <mat-select mode="md" formControlName="airport">
+                  <mat-option
+                    *ngFor = "let airpo of airport"
+                    [value] = "airpo"
+                  >
+                    {{ airpo.airportName }}</mat-option
+                  >
+                </mat-select>
+              </mat-form-field>
+              
+              <div
+                *ngIf= "isSubmitted && form.get('airport').hasError('required')"
+                class="myerror2"
+              >
+                Airport Preference is required!
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <!-- <p-dropdown [options]= "airport" [virtualScroll]= "true" itemSize="30"  [filter]  ="true">{{airport?.airportName}}</p-dropdown> -->
+        </ion-row>
+      </ion-grid>
+    </form>
+  </ion-card>
+  <div class="footernew">
+    <button
+      matRipple
+      type="submit"
+      class="yello-btn-all3"
+      expand="block"
+      (click)="submit()"
+    >
+      SAVE
+    </button>
+  </div>
+</ion-content>

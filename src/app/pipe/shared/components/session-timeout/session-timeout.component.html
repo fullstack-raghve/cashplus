@@ -1,0 +1,22 @@
+
+<section style="margin-bottom: 20px;">
+  <div class="session_header">
+    <h3>Time Out!</h3>
+  </div>
+  <div class="session_des">
+    <img src="assets/icon/clock.svg" alt="clock">
+    <p>
+      Session Expired
+    </p>
+  </div>
+  <div class="session_footer" *ngIf = "isAffBooking">
+    <button  matRipple style="margin-right: 12px;padding: 11px 26px;" (click)="backToHome();">Back To Home</button>
+    <button matRipple  (click)="getFareConfirmRequestBody()">Check Latest Fares</button>
+  </div>
+  <div class="session_footer" *ngIf = "!isAffBooking">
+    <button matRipple style="margin-right: 12px;" (click)="backToSearchresult();">Back To Search Results</button>
+    <button matRipple  (click)="getFareConfirmRequestBody()">Check Latest Fares</button>
+  </div>
+</section>
+
+

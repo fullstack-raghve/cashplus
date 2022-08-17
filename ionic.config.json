@@ -1,0 +1,7 @@
+{
+  "name": "Travelwings",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

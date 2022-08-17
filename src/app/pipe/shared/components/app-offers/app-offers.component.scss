@@ -1,0 +1,108 @@
+
+ion-slide{
+    margin-bottom: 20px;
+    .text-over-image{
+    .display-text{
+        h5{
+            font-size: 24px;
+            font-family: 'latoregular';
+            left: 12%;
+            position: absolute !important;
+            bottom: 45px;
+            color: #ffffff;
+            opacity: 1;
+            z-index: 9;
+        }
+        p{
+            font-size: 14px;
+            font-family: 'latoregular';
+            left: 12%;
+            position: absolute !important;
+            bottom: 22px;
+            color: #ffffff;
+            opacity: 1;
+            z-index: 9;
+        
+        }
+        h6{
+            font-family: 'latosemibold';
+            font-size: 16px;
+            left: 12%;
+            position: absolute !important;
+            bottom: 1px;
+            color: #ffffff;
+            opacity: 1;
+            z-index: 9;
+        .unit{
+            font-size: 14px;
+            font-family: 'latoregular';
+            margin-right: 6px;
+        }
+        }
+    } 
+}
+}
+.alph-down::before{
+    
+    z-index: 2;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+     content: '';
+    display: block;
+    height: 100px;
+    background: transparent;
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, transparent), color-stop(70%, rgba(0, 0, 0, 0.6)), color-stop(100%, rgba(0, 0, 0, 0.7)));
+    background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.6) 70%, rgba(0, 0, 0, 0.79) 100%);    /* padding-left: 57px; */
+    width: 100%;
+    /* left: 3.5%; */
+    border-radius: 10px;
+    bottom: 4px;
+    margin-left: 10px;
+}
+.img-boxxx{
+    width: 234px;
+    height: 234px;
+    border-radius: 12px;
+    background-color: #949494;
+    overflow: hidden;
+    border-radius: 10px;
+    border: 1px solid white;
+    margin-left: 10px;
+
+}
+
+
+ion-slide img{
+    margin-left: 10px;
+    // padding-right: 2px;
+     width: 100%;
+   // height: 100%;
+   border-radius: 10px;
+}
+    .offers{
+        font-family: 'latobold';
+        display: flex;
+        justify-content: space-between;
+        padding: 6px 13px;
+        font-size: 16px;
+        margin-top: -12px;
+        margin-bottom: -7px;
+         h3{
+            color: #000000;
+            font-size: 16px;
+            font-family: 'latomedium';
+            padding-top: 4px;           
+         }
+       small {
+        // color:rgb(55, 119, 238);
+        // font-size: 12px;
+        color: #4F95E8;
+        font-size: 13px;
+        font-family: 'latoregular';
+        }
+    }
+
+    
+ 

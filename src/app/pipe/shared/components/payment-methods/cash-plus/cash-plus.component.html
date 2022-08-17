@@ -1,0 +1,236 @@
+<form [formGroup]= "QTForm" style="margin-bottom: 45px;">
+  
+  <div class="form-group" style = "margin-top: 20px;">
+    <ion-row>
+      <ion-col size='12'>
+        <mat-form-field appearance="outline" >
+          <mat-label>Customer Name</mat-label>
+          <!-- [errorStateMatcher] = "matcher" -->
+          <input type="text" trimdirective   #qt (blur)= "checkfullname(qt.value)"  (keyup)= "onKey($event)" matInput placeholder="Customer Name" autocomplete="off"
+            formControlName="cardname"   required>
+          <mat-error 
+            *ngIf= "QTForm.controls.cardname?.errors && (QTForm.controls.cardname?.dirty || QTForm.controls.cardname.touched) ">
+            {{QTForm.controls.cardname?.errors.alpha?.message}}
+            {{QTForm.controls.cardname?.errors.numeric?.message}}
+            <!-- {{paymentformcheckout.controls.cardname?.errors?.maxlength?.message}} -->
+            {{QTForm.controls.cardname?.errors?.maxLength ?  'Maximum' + cardname_max_length_40 : ''  }}
+
+          </mat-error>
+          
+          <mat-error
+          *ngIf= "QTForm.controls.cardname.hasError('required') && ( QTForm.controls.cardname.dirty || QTForm.controls.cardname.touched)">
+          Customer Name is required.
+        </mat-error>
+      
+        <span *ngIf = "fullname == true && QTForm.controls.cardname.hasError('incorrect') && !QTForm.controls.cardname.hasError('alpha') && (QTForm.controls.cardname.dirty || QTForm.controls.cardname.touched)" class="fullname">
+          Enter First and Last Name with a space in between.
+        </span> 
+
+        </mat-form-field>
+      </ion-col>
+    </ion-row>          
+  </div>
+
+
+  <div class="form-group">
+    <ion-row class="pay-ion-row">
+      <ion-col size="6">
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input
+              type="email"
+              formControlName="email"
+              matInput
+              placeholder="Email"
+              required
+            />
+          
+            <mat-error
+            *ngIf="
+            QTForm.controls.email?.errors &&
+              (QTForm.controls.email?.dirty ||
+              QTForm.controls.email.touched)
+            "
+          >
+            <!-- {{ QTForm.controls.email?.errors?.required?.message }} -->
+            {{ QTForm.controls.email?.errors.pattern?.message }}
+            {{QTForm.controls.email?.errors?.maxLength ? 'Maximum 45 characters are allowed.' : ''}}
+          </mat-error>
+          <mat-error
+          *ngIf= "QTForm.controls.email.hasError('required') && ( QTForm.controls.email.dirty || QTForm.controls.email.touched)">
+          Email id is required.
+        </mat-error>
+          </mat-form-field>
+        </div>
+      </ion-col>
+
+      <ion-col size="6">
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Phone</mat-label>
+            <input
+              type="tel"
+              formControlName="phone"
+              matInput
+              placeholder="Phone"
+              required
+            />
+         
+            <mat-error
+            *ngIf="
+            QTForm.controls.phone?.errors &&
+              (QTForm.controls.phone?.dirty ||
+              QTForm.controls.phone.touched)
+            "
+          >
+            <!-- {{
+              QTForm.controls.phone?.errors?.required?.message
+            }} -->
+            {{ QTForm.controls.phone?.errors.numeric?.message }}
+            {{QTForm.controls.phone?.errors?.minLength ? 'Minimum 6 digits are required.' : ''}}
+            {{QTForm.controls.phone?.errors?.maxLength ? 'Maximum 12 digits are allowed.' : ''}}
+          
+          </mat-error>
+          <mat-error
+          *ngIf= "QTForm.controls.phone.hasError('required') && ( QTForm.controls.phone.dirty || QTForm.controls.phone.touched)">
+          Phone no. is required.
+        </mat-error>
+          </mat-form-field>
+        </div>
+      </ion-col>
+    </ion-row>
+  </div>
+
+
+  <div class="form-group" style="margin-top: 30px;">
+
+        <ion-col size="12">
+          <div class="quick-text">
+            <div class="text-check">
+              <mat-checkbox
+                class="mat-text-color terms_condition"
+                formControlName="checkeboxx"
+                required
+              >
+              
+              <span class="trustTextColor fontt ion-text-wrap" style="font-family: 'latomedium';"
+              >I understand and agree with rules and restrictions of
+              this fare 
+              and the 
+              <!-- <u style="text-underline-position: under; text-decoration-color: #0089C6;"> -->
+                <a class="bank-deposite-terms-underline" (click)= "openTC()" style="text-decoration: underline;text-underline-position: under;">Terms of Use</a>
+              <!-- </u> -->
+             
+            </span>
+              </mat-checkbox>
+
+              <mat-error *ngIf= "termconditions_interswitch" class="invalidError">
+                Please accept terms and conditions.
+              </mat-error>
+              <p class="ccc">&nbsp;</p>
+
+            </div>
+          </div>
+      
+        </ion-col>
+     
+  </div>
+  <div style='height:10px;'></div>
+</form>
+
+<footer *ngIf="tripType == 'oneway'">
+  <div class="main-container">
+    <div class="left-container" *ngIf="!setButtonClose" (click)="fareDetails()">
+      <div>
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          <span class="aed-text">{{ selectedflight2.flightFare.currency }} </span>
+          <span class="amount">{{ displayfareoneway  | roundUpPrice }}</span>
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="left-container" *ngIf="setButtonClose" (click)="closePopup()">
+      <div>
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          <span class="aed-text">{{ selectedflight2.flightFare.currency }} </span>
+          <span class="amount">{{ displayfareoneway  | roundUpPrice }}</span>
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="right-container">
+      <button class="rqst-button" [disabled]= 'isdisabled' [ngClass]="{'rqst-button-disable' : isdisabled}"  (click)="requestBooking()" matRipple>REQUEST BOOKING</button>
+    </div>
+  </div>
+</footer>
+
+<footer *ngIf="tripType == 'returnway'">
+  <div class="main-container">
+    <div class="left-container" *ngIf="!setButtonClose" (click)="fareDetails()">
+      <div (click)="fareDetails()">
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          <span class="aed-text">{{ returnwaycurreny }} </span>
+          <span class="amount">{{  cprice  | roundUpPrice }}</span>
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="left-container" *ngIf="setButtonClose" (click)="closePopup()">
+      <div >
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          <span class="aed-text">{{ returnwaycurreny }} </span>
+          <span class="amount">{{  cprice  | roundUpPrice }}</span>
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="right-container">
+      <button class="rqst-button" [disabled]= 'isdisabled' [ngClass]="{'rqst-button-disable' : isdisabled}"  (click)="requestBooking()" matRipple>REQUEST BOOKING</button>
+    </div>
+  </div>
+</footer>
+
+<footer  *ngIf="tripType == 'multicity'">
+  <div class="main-container">
+    <div class="left-container" *ngIf="!setButtonClose" (click)="fareDetails()">
+      <div >
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          <span class="aed-text">{{ multiCityCurrency }} </span>
+          <span class="amount">{{   multiflightFare  | roundUpPrice }}</span>
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="left-container" *ngIf="setButtonClose" (click)="closePopup()">
+      <div (click)="fareDetails()">
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          <span class="aed-text">{{ multiCityCurrency }} </span>
+          <span class="amount">{{   multiflightFare  | roundUpPrice }}</span>
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="right-container">
+      <button class="rqst-button" [disabled]= 'isdisabled' [ngClass]="{'rqst-button-disable' : isdisabled}" (click)="requestBooking()" matRipple>REQUEST BOOKING</button>
+    </div>
+  </div>
+</footer>

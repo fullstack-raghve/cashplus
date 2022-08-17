@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+   
+         <title>Travelwings</title>
+
+       <base href="/" />
+       <meta charset="utf-8" />
+       <meta version="1.0.0">
+       <meta
+       name="viewport"
+       content="viewport-fit=cover, width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+     />
+     <meta name="apple-mobile-web-app-capable" content="yes">
+     <meta name="format-detection" content="telephone=no" />
+     <meta name="msapplication-tap-highlight" content="no" />
+     <meta name="theme-color" content="#b30003" />
+     <meta name="apple-mobile-web-app-status-bar-style" content="#d81114" />
+     <!-- <meta name="google-signin-client_id" content="397784686886-oc8ant51otfnnusr5lqhdkcitcp6qpig.apps.googleusercontent.com"> -->
+ 
+     
+     <link rel="icon" type="image/png" href="assets/icons/favicon 16.png" />
+     
+     <!--build -- SIT Build - 27may -pg cash plus -->
+     
+     <!-- add to homescreen for ios  -->
+ 
+        <link
+       rel="mask-icon"
+       href="assets/images/icons/safari-pinned-tab.svg"
+       color="#5bbad5"
+     />
+ 
+     
+     <link rel="manifest" href="manifest.json" />
+ 
+ 
+     <link rel="apple-touch-icon" sizes="72x72" href="assets/icons/icon-72x72.png">
+ <link rel="apple-touch-icon" sizes="96x96" href="assets/icons/icon-96x96.png">
+ <link rel="apple-touch-icon" sizes="128x128" href="assets/icons/icon-128x128.png">
+ <link rel="apple-touch-icon" sizes="144x144" href="assets/icons/icon-144x144.png">
+ <link rel="apple-touch-icon" sizes="152x152" href="assets/icons/icon-152x152.png">
+ <link rel="apple-touch-icon" sizes="192x192" href="assets/icons/icon-192x192.png">
+ <link rel="apple-touch-icon" sizes="384x384" href="assets/icons/icon-384x384.png">
+ <link rel="apple-touch-icon" sizes="512x512" href="assets/icons/icon-512x512.png">
+ 
+ 
+     <link
+       href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
+       rel="stylesheet"
+     />
+     <link
+       href="https://fonts.googleapis.com/icon?family=Material+Icons"
+       rel="stylesheet"
+     />
+
+    <!-- Landscape and Portrait code -->
+     <!-- <style>
+       .whileLandscape {
+         width: 100%;
+         height: 100%;
+         background-color: #DCDDDD;
+       }
+       .landscape-message {
+         width: 100%;
+         height: 100%;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         font-size: 30px;
+         color: #dc0d15;
+       }
+       @media only screen and (orientation: landscape) {
+        #root {display: none;}
+        .whileLandscape { display: block; }
+       }
+       @media only screen and (orientation: portrait) {
+        #root {display: block;}
+        .whileLandscape { display: none; }
+       }
+     </style> -->
+     <!-- End of Landscape and Portrait code -->
+
+    <!-- <script src="https://apis.google.com/js/api.js"></script> -->
+    <script async  src="https://apis.google.com/js/platform.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-60319074-20"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+    </script>
+    <!-- webengageScript -->
+    <script id='_webengage_script_tag' type='text/javascript' src="./assets/js/webEngage.js"></script>
+    
+
+
+  </head>
+
+  <body>
+    <app-root id="root"></app-root>
+    <!-- Landscape and Portrait code -->
+    <!-- <app-root id="root"></app-root>
+    <div class="whileLandscape">
+      <span class="landscape-message">This app is compatible for Portrait mode only.</span>
+    </div> -->
+    <!-- End of Landscape and Portrait code -->
+
+    <noscript
+      >Please enable JavaScript to continue using this application.</noscript
+    >
+  </body>
+
+  
+  <script>
+    if (window.navigator && navigator.serviceWorker) {
+      navigator.serviceWorker.getRegistrations().then(function (registrations) {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+   
+  </script>
+</html>

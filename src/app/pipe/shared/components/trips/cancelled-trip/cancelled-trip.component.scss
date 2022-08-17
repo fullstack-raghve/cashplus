@@ -1,0 +1,45 @@
+.booked-section{
+    // text-align: end;
+     padding-left: 2rem;
+     display: inline-block;
+ }
+ .swap-icon {
+     background-color: black;
+     border-radius: 50%;
+     display: flex;
+     align-items: center;
+     padding: 1rem;
+ }
+ .swap-col {
+     display: flex;
+     align-items: center;
+ }
+
+ ion-item{
+    --background:white;
+}
+.card-header{
+    background:white;
+    // height: 6vh;
+   }
+   .no-shadow{
+    box-shadow: none!important;
+    border: 1px solid #eceaea!important;
+   }
+   .no-result-header{
+    background:white;
+   }
+  
+   .no-result{
+    margin: 0;
+    // bottom: 12px;
+    position: relative;
+   }
+   ion-card{
+    margin: 6px;
+    box-shadow: none;
+    border: 1px solid #E3E2E2;
+   }
+   .inner-border{
+    --inner-border-width: 0px;
+   }

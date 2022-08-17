@@ -1,0 +1,212 @@
+<ngx-spinner
+  bdOpacity="0.2"
+  bdColor="rgba(9,9,9,0.81)"
+  size="medium"
+  color="#fff"
+  type="ball-spin-clockwise-fade"
+  [fullScreen]="true"
+>
+  <p style="color: white;">Confirming Flight Please Wait...</p>
+</ngx-spinner>
+<div class="card-payment">
+  <ion-slides [options]="sliderOpts">
+    <!-- <ion-slide class="bank-card" *ngFor ="let bankdetails of bankdetails">
+            <div class="img-card">
+              <img src= "{{bankdetails.logoPath}}" alt ="bank-logo">
+            
+            </div>
+          
+    </ion-slide> -->
+    <ion-slide
+      class="bank-card"
+      [ngClass]="{
+        redborder: index == clickedindex || (index == 0 && flags == true)
+      }"
+      *ngFor="let bankdetails of bankdetails; let index = index"
+      (click)="selectedbank(bankdetails, index)"
+    >
+      <div class="img-card">
+        <img src="{{ bankdetails.logoPath }}" alt="bank-logo" />
+      </div>
+    </ion-slide>
+  </ion-slides>
+  <ion-grid class="not-white">
+    <ion-row>
+      <ion-col size="12">
+        <div class="main-text" text-center>
+          Your payment details are secured
+        </div>
+        <p>
+          Please note the booking stands unconfirmed until payment received. In
+          order to make the payment, Kindly visit the bank, provide your booking
+          reference number along with the amount to be paid.
+        </p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div *ngIf="banktoshow">
+    <ion-card class="cardcontent card-padding">
+      <ion-card-header>
+        <ion-card-subtitle> Exchange Locator</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content class="cardcontent icc">
+        <p>Exchange House Name</p>
+        <h6 class="blue">
+          {{ banktoshow.exchangeHouseName | titlecase }}
+        </h6>
+        <p>Exchange House Branch</p>
+        <h6 class="blue">
+          {{ banktoshow.exchangeHouseBranch | titlecase }}
+        </h6>
+        <p>Email</p>
+        <h6 class="blue">
+          <u>
+            {{ banktoshow.emailId }}
+          </u>
+        </h6>
+        <p>Phone</p>
+        <h6 class="blue">{{ banktoshow.phoneNumber }}</h6>
+        <p>Address</p>
+        <h6 class="blue">{{ banktoshow.address | titlecase }}</h6>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- <div *ngIf = 'banktoshow'>
+    <ion-card class="cardcontent" >
+      <ion-card-header>
+        <ion-card-subtitle>How Does it works?</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content class="video">
+        <iframe [src]= "safeSrc" width="360" height="315" frameborder="0" webkitallowfullscreen mozallowfullscreen
+        allowfullscreen></iframe>
+      </ion-card-content>
+    </ion-card>
+  </div> -->
+
+  <ion-item class="trustticon">
+    <span class="trust-text">Trusted By</span>
+    <!-- <img class="trust-img" src="assets/icons/flights/payment/trust_icon.png" /> -->
+    <img
+      class="trust-img"
+      src="assets/cod/Image 85@3x.png"
+      style="width: 80px;
+      "
+    />
+  </ion-item>
+  <ion-item class="box-border pb-50">
+  <form [formGroup]='termsExchangeForm'>
+    <mat-checkbox class="mat-checkbox-bottom terms_condition" formControlName="terms">
+      <span class="text-check ion-text-wrap" style="font-family: 'latomedium';"
+      >I understand and agree with rules and restrictions of this fare
+      and the
+      <!-- <u style="text-underline-position: under; text-decoration-color: #0089C6;"> -->
+        <a class="exchange-house-terms-underline" (click) = 'openTC()'>Terms of Use</a>
+      <!-- </u> -->
+      </span>
+    </mat-checkbox>
+
+    <mat-error class="invalidError" *ngIf= "isExchangeCheck && termsExchangeForm.touched">
+        Please accept terms and conditions.
+    </mat-error>
+  </form>
+  </ion-item>
+</div>
+
+
+
+<footer *ngIf="tripType == 'oneway'">
+  <div class="main-container">
+    <div class="left-container"  *ngIf="!setButtonClose" (click)="fareDetails()">
+      <div >
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          <span class="aed-text">{{ selectedflight2.flightFare.currency }} </span>
+          <span class="amount">{{  displayfareoneway | roundUpPrice }}</span>
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="left-container" *ngIf="setButtonClose" (click)="closePopup()">
+      <div >
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          <span class="aed-text">{{ selectedflight2.flightFare.currency }} </span>
+          <span class="amount">{{  displayfareoneway | roundUpPrice }}</span>
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="right-container">
+      <button class="rqst-button"  [ngClass]="{'rqst-button-disable' : exchngeboolean}" [disabled]= 'exchngeboolean' (click)="requestBooking()">REQUEST BOOKING</button>
+    </div>
+  </div>
+</footer>
+
+<footer *ngIf="tripType == 'returnway'">
+  <div class="main-container">
+    <div class="left-container" *ngIf="!setButtonClose" (click)="fareDetails()">
+      <div >
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          <span class="aed-text">{{ returnwaycurreny }} </span>
+          <span class="amount">{{ cprice | roundUpPrice }}</span>
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="left-container" *ngIf="setButtonClose" (click)="closePopup()">
+      <div >
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          <span class="aed-text">{{ returnwaycurreny }} </span>
+          <span class="amount">{{ cprice | roundUpPrice }}</span>
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="right-container">
+      <button class="rqst-button"  [ngClass]="{'rqst-button-disable' : exchngeboolean}" [disabled]= 'exchngeboolean' (click)="requestBooking()">REQUEST BOOKING</button>
+    </div>
+  </div>
+</footer>
+
+<footer  *ngIf="tripType == 'multicity'">
+  <div class="main-container">
+    <div class="left-container" *ngIf="!setButtonClose" (click)="fareDetails()">
+      <div (click)="fareDetails()">
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          <span class="aed-text">{{ multiCityCurrency }} </span>
+          <span class="amount">{{ multiflightFare | roundUpPrice }}</span>
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="left-container" *ngIf="setButtonClose" (click)="closePopup()">
+      <div >
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          <span class="aed-text">{{ multiCityCurrency }} </span>
+          <span class="amount">{{ multiflightFare | roundUpPrice }}</span>
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="right-container">
+      <button class="rqst-button"  [ngClass]="{'rqst-button-disable' : exchngeboolean}" [disabled]= 'exchngeboolean' (click)="requestBooking()">REQUEST BOOKING</button>
+    </div>
+  </div>
+</footer>

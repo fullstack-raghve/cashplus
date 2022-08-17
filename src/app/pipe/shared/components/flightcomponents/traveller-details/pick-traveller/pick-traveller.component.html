@@ -1,0 +1,204 @@
+<div class="modalHieght custom-card setting-module" style="height: 195px;">
+  <div id="myModal" class="modal fade">
+    <ion-card-header class="pick">Pick a Traveller</ion-card-header>
+    <ion-row style="padding-left: 10px;">
+      <ion-col size="3">
+        <div class="travel add-icon-border" (click)="addTravellerDetails()">
+          <img
+            matRipple
+            [matRippleCentered]="true"
+            [matRippleRadius]="60"
+            [matRippleUnbounded]="true"
+            class="addicon"
+            src="assets/icons/flights/add_traveller_icon.png"
+            alt="traveller"
+          />
+          <p>Add-Traveller</p>
+        </div>
+      </ion-col>
+      <ion-col size="9">
+        <p *ngIf="loading" style="margin-top: 2.4rem;">
+          <ion-spinner name="lines"></ion-spinner>
+        </p>
+        <ion-slides [options]="sliderOpts" *ngIf="allTravellerData != 0">
+          <ion-slide *ngFor="let traveller of allTravellerData">
+            <div
+            matRipple
+            [matRippleCentered]="true"
+            [matRippleRadius]="50"
+            [matRippleUnbounded]="true"
+              (click)="getselectedtravlleradult(traveller)"
+              class="traveler"
+              [ngClass]="{
+                selectedAnotherTraveller: traveller?.alreadySelected,
+                selectedCurrentTraveller:
+                  traveller?.currentlySelected && traveller?.alreadySelected
+              }"
+            >
+              <!-- <span
+                *ngIf="
+                  traveller.title == '0' ||
+                  traveller.title == '4' ||
+                  traveller.title == '' ||
+                  traveller.title == null
+                "
+              >
+                <img
+                  class="img-boxxx"
+                  [src]="
+                    traveller?.profileImagePath == null ||
+                    traveller?.profileImagePath == ''
+                      ? dummMaleImage
+                      : traveller.profileImagePath
+                  "
+                />
+              </span>
+              <span
+                *ngIf="
+                  traveller.title == '1' ||
+                  traveller.title == '2' ||
+                  traveller.title == '3'
+                "
+              >
+                <img
+                  class="img-boxxx"
+                  [src]="
+                    traveller?.profileImagePath == null ||
+                    traveller?.profileImagePath == ''
+                      ? dummyFemaleImage
+                      : traveller.profileImagePath
+                  "
+                />
+              </span> -->
+
+              <span
+               
+                class="user_image_box"
+                *ngIf="
+                  traveller.title == '0' ||
+                  traveller.title == '4'
+                "
+              >
+                <img
+                  class="img-boxxx"
+                  *ngIf="traveller?.travellerType == 'Adult'"
+                  [src]="
+                    traveller.profileImagePath == null ||
+                    traveller.profileImagePath == ''
+                      ? adult_male_icon_dummy
+                      : traveller.profileImagePath
+                  "
+                  alt="image"
+                />
+                <img
+                  class="img-boxxx"
+                  *ngIf="traveller?.travellerType == 'child'"
+                   
+                  [src]="
+                    traveller.profileImagePath == null ||
+                    traveller.profileImagePath == ''
+                      ? child_male_icon_dummy
+                      : traveller.profileImagePath
+                  "
+                  alt="image"
+                />
+                <img
+                  class="img-boxxx"
+                  *ngIf="traveller?.travellerType == 'Infant'"
+                   
+                  [src]="
+                    traveller.profileImagePath == null ||
+                    traveller.profileImagePath == ''
+                      ? infant_male_icon_dummy
+                      : traveller.profileImagePath
+                  "
+                  alt="image"
+                />
+              </span>
+
+              <span
+              
+                class="user_image_box"
+                *ngIf="
+                  traveller.title == 1 ||
+                  traveller.title == 2 ||
+                  traveller.title == 3
+                "
+              >
+                <img
+                  class="img-boxxx"
+                   
+                  *ngIf="traveller?.travellerType == 'Adult'"
+                  [src]="
+                    traveller.profileImagePath == null ||
+                    traveller.profileImagePath == ''
+                      ? adult_female_icon_dummy
+                      : traveller.profileImagePath
+                  "
+                  alt="adult_female"
+                />
+                <img
+                  class="img-boxxx"
+                  *ngIf="traveller?.travellerType == 'child'"
+                  [src]="
+                    traveller.profileImagePath == null ||
+                    traveller.profileImagePath == ''
+                      ? child_female_icon_dummy
+                      : traveller.profileImagePath
+                  "
+                  alt="adult_female"
+                />
+                <img
+                  class="img-boxxx"
+                   
+                  *ngIf="traveller?.travellerType == 'Infant'"
+                  [src]="
+                    traveller.profileImagePath == null ||
+                    traveller.profileImagePath == ''
+                      ? infant_female_icon_dummy
+                      : traveller.profileImagePath
+                  "
+                  alt="adult_female"
+                />
+              </span>
+
+              <span
+             
+              class="user_image_box"
+              *ngIf="(traveller.title ==  null || traveller.title ==  '') && (traveller.travellerType == null || traveller.travellerType == '') && traveller?.isPrimaryTraveller == 1">
+              <img  [ngStyle]="{'padding': traveller?.profileImagePath == null || traveller?.profileImagePath == '' ? '4px': '0px'}"
+                class="img-boxxx"
+                [src]=" traveller.profileImagePath == null ||
+                traveller.profileImagePath == ''
+                  ? defaultIcon : traveller.profileImagePath"
+                alt="traveller_no_title"
+                style="
+                object-fit: unset;height: 83px;"
+              />
+            </span>
+
+              <div style="display: flex; justify-content: center;">
+                <p>
+                  {{ traveller.firstName | titlecase }}
+                  <!-- {{ traveller.lastName | titlecase }} -->
+                </p>
+              </div>
+              <!-- <span>
+                curr ==> {{traveller?.currentlySelected}}
+                <br>
+                Allready Sel ==>{{traveller?.alreadySelected}}
+              </span> -->
+            </div>
+          </ion-slide>
+        </ion-slides>
+        <p class="no_pick_traveller_found" *ngIf="allTravellerData?.length == 0">No Traveller</p>
+      </ion-col>
+    </ion-row>
+  </div>
+</div>
+
+<!-- profileImagePath -->
+<!-- for error image -->
+<!-- #img
+(error)="img.src = 'assets/icons/flights/no-image.png'"
+alt="image" -->

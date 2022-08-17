@@ -1,0 +1,235 @@
+<ion-content>
+  <!-- <ngx-spinner bdOpacity=0.2 bdColor="rgba(9,9,9,0.81)" size="medium" color="#fff" type="ball-spin-clockwise-fade"
+    [fullScreen]= "true">
+    <p style="color: white"> Please Wait... </p>
+  </ngx-spinner> -->
+  <ion-header>
+    <ion-toolbar color="custom-color-red">
+      <ion-buttons slot="start" style="position: absolute;">
+        <img
+          class="backArrow"
+          src="assets/icon/backarrowtop2.svg"
+          (click)="goBack()"
+          alt="Back"
+        />
+      </ion-buttons>
+      <ion-title text-center class="tw-title"
+        >Welcome to Travelwings!</ion-title
+      >
+    </ion-toolbar>
+  </ion-header>
+  <ion-card class="custom-card">
+    <ion-card-header>
+    <ion-card-subtitle text-center>Login</ion-card-subtitle>
+    </ion-card-header>
+    <!--form start here-->
+    <ion-grid class="profile register_user">
+      <form [formGroup]="loginForm" (submit)="login()">
+        <ion-row>
+          <ion-col size-sm="6" offset-sm="3">
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>Email ID </mat-label>
+                <input trimdirective
+                  matInput
+                  formControlName="userAlias"
+                  name="email"
+                  placeholder="Email ID" 
+                  autocomplete="off"
+                  type="email"
+                />
+
+                <mat-error
+                  *ngIf="loginForm.controls.userAlias?.errors &&
+                  (loginForm.controls.userAlias?.dirty ||
+                    loginForm.controls.userAlias.touched)"
+                  class="invalidError"
+                >
+                {{ loginForm.controls.userAlias?.errors?.required ? 'Email id is required.':'' }}
+                {{ !loginForm.controls.userAlias?.errors?.maxlength ? loginForm.controls.userAlias?.errors.pattern ? 'Not a valid Email ID': '' : '' }}
+                {{ loginForm.controls.userAlias?.errors?.maxlength ? 'Email id should have maximum 45 characters.' : ''}}
+                  <!-- {{ getErrorEmail() }} -->
+                </mat-error>
+               
+
+                <!-- end -->
+              </mat-form-field>
+              <!-- <pre>
+                {{loginForm.controls.userAlias?.errors | json}}
+              </pre> -->
+            </div>
+            <div class="form-group">
+              <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input 
+                  type="password"
+                  matInput
+                  formControlName="password"
+                  placeholder="Password"
+                  required
+                  maxlength="30"
+                />
+                <!-- changed 20/10 -->
+                <mat-error
+                *ngIf="loginForm.controls.password?.errors &&
+                (loginForm.controls.password?.dirty ||
+                  loginForm.controls.password.touched)"
+                  class="invalidError"
+                >
+                {{ loginForm.controls.password?.errors?.required ? 'Password is required.':'' }}
+                {{ loginForm.controls.password?.errors?.maxlength ? 'Password should have maximum 30 characters.':'' }}
+                  
+                  
+                  <!-- <span *ngIf="f.password.errors.minlength">Password should be between 5 and 15 character.</span> -->
+                </mat-error>
+                <!-- end -->
+              </mat-form-field>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <p class="invalidError">{{ errorm }}</p>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size-sm="6" offset-sm="3" text-center>
+            <!-- <ion-button type="submit"  expand="block" class="login-btn">Login</ion-button> -->
+            <button
+              matRipple
+              type="submit"
+              class="yello-btn-all"
+              expand="block"
+              no-margin
+            >
+              LOGIN
+            </button>
+          </ion-col>
+        </ion-row>
+      </form>
+      <!--form end here-->
+      <ion-row text-center padding-bottom>
+        <ion-col size="12">
+          <span class="light-blue" (click)="forgotpassword()">
+            Forgot Password ?
+          </span>
+        </ion-col>
+      </ion-row>
+      <ion-row text-center>
+        <ion-col size-sm="6" offset-sm="3">
+          <!-- <ion-text>
+            <h4 class="light-blue" no-padding no-margin (click)= "forgotpassword()">Forgot Password?</h4>
+          </ion-text> -->
+          <div class="container">
+            <div class="line">
+              <mat-divider></mat-divider>
+            </div>
+            <div class="text mat-typography">
+              <p class="login-with">Or login with</p>
+            </div>
+            <div class="line">
+              <mat-divider></mat-divider>
+            </div>
+          </div>
+          <!-- <div class="jumbotron bg-transparent text-center">
+            <div *ngIf="!user" class="card text-center">
+              <div class="card-block">
+                <button class="btn btn-social-icon btn-google" (click)="signInWithGoogle()"><span class="fa fa-google">Google</span></button>
+                <button class="btn btn-social-icon btn-facebook" (click)="signInWithFB()"><span class="fa fa-facebook">Facebook</span></button>
+              </div>
+            </div>
+            <div *ngIf="user" class="card text-center">
+              <h6 class="card-header">
+                Social Login Demo
+              </h6>
+              <div class="card-block"></div>
+              <img class="card-img-top img-responsive photo" src="{{ user.photoUrl }}">
+              <div class="card-block">
+                <h4 class="card-title">{{ user.name }}</h4>
+                <p class="card-text">{{ user.email }}</p>
+              </div>
+              <div class="card-block">
+                <button class="btn btn-danger" (click)="signOut()">Sign out</button>
+              </div>
+            </div>
+          </div> -->
+          <!-- <ion-text>
+            <div class="socio-icons-block">
+              <div class="facebook-icon">
+                <img src="assets/homePageIcons/fbIcon.png" />
+              
+              </div>
+              <mat-card-subtitle>
+                <button type="button" (click)="signInWithFB()" *ngIf="loggedIn===false" mat-flat-button color="primary">Sign In With Facebook</button>
+                <button type="button" (click)="signOut()" *ngIf="loggedIn===true" mat-flat-button color="primary">Sign Out From Facebook</button>
+              </mat-card-subtitle>
+              <div class="google-plus-icon">
+                <img src="assets/homePageIcons/googleIcon.png" />
+              </div>
+            </div>
+          </ion-text> -->
+          <ion-text class="card text-center">
+            <div class="socio-icons-block">
+              <!-- {{loggedIn}} -->
+              <div class="facebook-icon" matRipple *ngIf="loggedIn == 'false'">
+                <img
+                  (click)="signInWithFB()"
+                  src="assets/homePageIcons/fb.png"
+                />
+              </div>
+              <div
+                class="google-plus-icon"
+                matRipple
+                *ngIf="loggedIn == 'false'"
+              >
+                <img
+                  (click)="signInWithGoogle()"
+                  src="assets/homePageIcons/google.png"
+                />
+              </div>
+
+
+              
+
+            <!-- <div class="socio-icons-block3"  *ngIf="loggedIn == 'false'">
+              <div matRipple class="twitter-icon" (click) ="twlogin()">
+              <img src="assets/homePageIcons/twitter_icon.svg" />
+              </div>
+              </div> -->
+              
+            </div>
+          </ion-text>
+          <ion-text class="Login" *ngIf="loggedIn == 'false'">
+            <p>
+              <span class="account-no">Don't have an account? </span>
+              <a (click)="signUp()" class="font-blue"> SIGN UP</a>
+            </p>
+          </ion-text>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <!-- <button type="button" class="btn" (click)="submitLogin()">Login with facebook</button> -->
+  </ion-card>
+
+  <!-- <div class="example-container mat-elevation-z8">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title><h2>Welcome <span *ngIf="loggedIn===true">{{user.firstName}} {{user.lastName}}, </span></h2></mat-card-title>
+     
+      </mat-card-header>
+    </mat-card>
+    <mat-card class="example-card" *ngIf="loggedIn===true">
+      <mat-card-header>
+        <mat-card-title><h2>Your Facebook Profile:</h2></mat-card-title>
+        <mat-card-subtitle>Full Name: {{user.firstName}} {{user.lastName}}</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image [src]="user.photoUrl" alt="My Facebook Photo">
+
+    </mat-card>
+  </div> -->
+</ion-content>
+<!-- <ngx-spinner bdOpacity=0.2 bdColor="rgba(9,9,9,0.81)" size="medium" color="#fff" type="ball-pulse-sync"
+[fullScreen]= "true">
+<p style="color: #fff">Please Wait... </p> 
+</ngx-spinner> -->

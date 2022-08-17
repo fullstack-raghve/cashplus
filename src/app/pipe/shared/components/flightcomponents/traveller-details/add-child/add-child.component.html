@@ -1,0 +1,237 @@
+<ion-grid class="custom-card profile register_user">
+  <!-- <div *ngIf="islogin">
+      <ion-badge color="danger" *ngIf="Property"  (click)="opensheet()">Select From Travellers </ion-badge>
+    </div> -->
+  <div class="form-sart">
+    <form [formGroup]="childform" class="passengerDetails">
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <div class="traveller_title_details">
+            <span class="title">Title</span>
+            <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+              <mat-button-toggle value="mr"
+                [ngClass]="{'mat-button-toggle-checked': childform.controls.tittle?.value == '3'}"
+                (click)= "getTittle($event,3)">Miss</mat-button-toggle>
+
+              <mat-button-toggle value="ms"
+                [ngClass]="{'mat-button-toggle-checked': childform.controls.tittle?.value == '4'}"
+                (click)= "getTittle($event, 4)">Master</mat-button-toggle>
+
+              <!-- <mat-button-toggle value="mrs" [ngClass]="{'mat-button-toggle-checked': childform.controls.tittle?.value == 'mrs'}"
+                 (click)="getTittle($event, 'mrs')">Mrs.</mat-button-toggle> -->
+            </mat-button-toggle-group>
+          </div>
+
+          <input type="text" required style="display:none" formControlName="tittle">
+          <div class="warning_alert" *ngIf="childform.controls.tittle?.errors">
+            {{childform.controls.tittle?.errors.required?.message}}
+          </div>
+
+          <input type="text" style="display:none" name="type" formControlName="type">
+          <input type="text" style="display:none" name="userImage" formControlName="userImage">
+          <input type="text" style="display:none" name="travllerid" formControlName="travellerid">
+          <input type="text" style="display:none" name="getIsTravellerSelected" formControlName="getIsTravellerSelected">
+          <input type="text" style="display:none" name="travellerDataNew" formControlName="travellerDataNew">
+        
+         
+
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>First Name</mat-label>
+              <input trimdirective type="text" [errorStateMatcher]="matcher" matInput placeholder="First Name" autocomplete="off"
+                formControlName="firstName">
+                <mat-error
+                *ngIf="
+                  childform.controls.firstName?.errors &&
+                  (childform.controls.firstName?.dirty ||
+                    childform.controls.firstName.touched)">
+                {{ childform.controls.firstName?.errors?.required?.message }}
+                {{ childform.controls.firstName?.errors.alpha?.message }}
+                <!-- {{!childform.controls.firstName?.errors.alpha?.message ? childform.controls.firstName?.errors.minlength ? 'First name should have minimum 3 characters.'  : '' : '' }} -->
+               <!-- {{!childform.controls.firstName?.errors.alpha?.message ? childform.controls.firstName?.errors.minlength ? 'First name' + char_limit_3_20 : '' : '' }}
+               {{childform.controls.firstName?.errors?.maxLength ?  'First name' + Char_max_length_20 : ''  }} -->
+              </mat-error>
+
+            </mat-form-field>
+            <span class="err"
+            *ngIf="childform.controls.firstName?.valid && (childform.controls.firstName?.value.length + childform.controls.lastName?.value.length + (childform.controls.tittle?.value == 3 ? 4 : 6) > dataFlight)">         
+             Combination of Title, First Name and Last Name should not be more than {{dataFlight}} characters.
+            </span>
+          </div>
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Last Name</mat-label>
+              <input trimdirective type="text" [errorStateMatcher]="matcher" matInput placeholder="Last Name"
+                formControlName="lastName">
+                <mat-error
+                *ngIf="childform.controls.lastName?.errors &&
+                  (childform.controls.lastName?.dirty ||
+                    childform.controls.lastName.touched)">
+                {{ childform.controls.lastName?.errors?.required?.message }}
+                {{ childform.controls.lastName?.errors.alpha?.message }}
+                <!-- {{!childform.controls.lastName?.errors.alpha?.message ? childform.controls.lastName?.errors.minlength ? 'Last name should have minimum 3 characters.' : '' : ''  }} -->
+                <!-- {{!childform.controls.lastName?.errors.alpha?.message ? childform.controls.lastName?.errors.minlength ? 'Last name' + char_limit_3_20 : '' : ''  }}
+                {{ childform.controls.lastName?.errors?.maxLength ?  'Last name' + Char_max_length_20 : ''  }} -->
+              </mat-error>
+
+            </mat-form-field>
+            <!-- <span class="err"
+            *ngIf="childform.controls.firstName?.valid && (childform.controls.firstName?.value.length + childform.controls.lastName?.value.length + (childform.controls.tittle?.value == 3 ? 4 : 6) >= dataFlight)">
+              Combination of Title, First Name and Last Name should not be more than {{dataFlight}} characters.
+            </span> -->
+          </div>
+          <div class="form-group">
+          
+            <mat-form-field appearance="outline">
+              <mat-label>Date Of Birth ( dd/mm/yyyy ) </mat-label>
+              <input type="tel" autocomplete="off" 
+              matInput formControlName="dob"
+              placeholder="Date of Birth ( dd/mm/yyyy )" 
+              [textMask]="dateMaskOptions" 
+              />
+              <mat-error *ngIf= "childform.controls.dob?.errors && (childform.controls.dob?.dirty || childform.controls.dob.touched) ">
+                {{childform.controls.dob?.errors.required?.message}}
+                {{childform.controls.dob?.errors.maxDate?.message}}
+                {{childform.controls.dob?.errors.minDate?.message}}
+                {{!childform.controls.dob?.errors.required?.message ? childform.controls.dob?.errors?.pattern?.message : ''}}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <!-- <div class="form-group">
+            <ion-row>
+              <ion-col size="4" class="isd-code">
+              
+                <div class="travellet_details no-crt  travellerFiedCoutry nationality_field" (click)="openCountryList('isdCode',childform.controls.isdCode?.value)">
+                  <mat-form-field appearance="outline">
+                    <mat-label>ISD Code</mat-label>
+                    <input type="text" readonly [errorStateMatcher]="matcher" matInput placeholder="ISD Code"
+                      formControlName="isdCode">
+                    <mat-error class="ml-9"
+                      *ngIf="childform.controls.isdCode?.errors && (childform.controls.isdCode.dirty || childform.controls.isdCode.touched) ">
+                      {{childform.controls.isdCode?.errors.required?.message}}
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </ion-col>
+
+              <ion-col size="8" class="mob-section">
+                <mat-form-field appearance="outline">
+                  <mat-label>Mobile Number</mat-label>
+                  <input trimdirective type="tel" minlength="7"  [errorStateMatcher]="matcher" matInput placeholder="Mobile Number" 
+                    formControlName="mobileNo">
+                    <mat-error
+                    *ngIf="
+                      childform.controls.mobileNo?.errors &&
+                      (childform.controls.mobileNo?.dirty ||
+                        childform.controls.mobileNo.touched)
+                    "
+                  >
+                    {{
+                      childform.controls.mobileNo?.errors?.required?.message
+                    }}
+                    {{ childform.controls.mobileNo?.errors.numeric?.message }}
+                    {{childform.controls.mobileNo?.errors.maxLength ? 'Mobile no should have maximum 11 digits.' : '' }}
+                    <span class="phone_number_validation">
+                      {{!childform.controls.mobileNo?.errors.numeric?.message ? childform.controls.mobileNo?.errors.minlength ? 'Mobile number ' + phn_limit_7_11 : '' : ''  }}
+                    </span>
+                  </mat-error>
+                </mat-form-field>
+              </ion-col>
+            </ion-row>
+          </div> -->
+          <div class="form-group" *ngIf="valChild['passportValidation'] == true">
+            <mat-form-field appearance="outline">
+              <mat-label>Passport Number</mat-label>
+              <input trimdirective matInput  [errorStateMatcher]="matcher" placeholder="Passport Number" formControlName="passportNo" />
+              <mat-error class="ml-9  "
+              *ngIf="childform.controls.passportNo?.errors && (childform.controls.passportNo.dirty || childform.controls.passportNo.touched) ">
+              {{childform.controls.passportNo?.errors.required?.message}}
+              {{
+                childform.controls.passportNo?.errors
+                  ?.alphaNumeric?.message
+              }}
+              {{childform.controls.passportNo?.errors.maxLength ? 'Passport no should have maximum 9 characters.' : '' }}
+            </mat-error>
+            </mat-form-field>
+          </div>
+          <!-- [showMaskTyped]="true" -->
+          <div class="form-group" *ngIf="valChild['passportValidation'] == true">
+            <mat-form-field appearance="outline">
+              <mat-label>Expiry Date ( dd/mm/yyyy ) </mat-label>
+              <input type="tel"  autocomplete="off" 
+              matInput formControlName="passportExpiryDate"
+              placeholder="Expiry Date ( dd/mm/yyyy )"  
+              [textMask]="dateMaskOptions" 
+              />
+              <mat-error 
+                *ngIf="childform.controls.passportExpiryDate?.errors && (childform.controls.passportExpiryDate.dirty || childform.controls.passportExpiryDate.touched) ">
+                {{childform.controls.passportExpiryDate?.errors.required?.message}}
+                {{childform.controls.passportExpiryDate?.errors.minDate?.message}}
+                {{childform.controls.passportExpiryDate?.errors?.pattern?.message}}
+              </mat-error>
+              <div class="passport_warning" *ngIf="childform.controls.passportExpiryDate?.valid && iswarning" >
+                <div tooltip="Your Passport will expire very soon!!" tooltip-class="customClassTooltip" placement="top" show-delay="100">
+                  <img src="assets/info_red.png" alt="info">
+                </div>
+              </div>
+              <div class="passport_warning" 
+              *ngIf="childform.controls.passportExpiryDate?.errors?.minDate?.message && childform.controls.passportExpiryDate?.value?.length == 10">
+                <div tooltip="Your Passport is expired!!" tooltip-class="customClassTooltip" placement="top"
+                  show-delay="100">
+                  <img src="assets/info_red.png" alt="info">
+                </div>
+              </div>
+            </mat-form-field>
+
+          </div>
+        
+          <!-- <ion-item class="nationality caretIcon" (click)="openCountryList('nationality', childform.controls.nationality?.value )">
+            <ionic-selectable  class="pointer_none"  placeholder="Nationality" item-content formControlName="nationality" itemTextField="countryName" [items]="newCountryList"
+              [canSearch]="true" (onChange)="portChange($event)">
+              <ng-template ionicSelectableSearchFailTemplate>
+                  <div padding>
+                    No Country found.
+                  </div>
+                </ng-template>
+            </ionic-selectable>
+          </ion-item> -->
+
+          <div class="form-group no-crt nationality_field travelleretails_nationality" 
+          (click)="openCountryList('nationality', childform.controls.nationality?.value )" *ngIf="valChild['nationalityValidation'] == true">
+          <mat-form-field appearance="outline" class="fontcls">
+            <mat-label>Nationality</mat-label>
+            <mat-select formControlName="nationality">
+              <mat-option *ngFor="let country of newCountryList" [value]="country?.countryId">
+                {{ country?.countryName }}
+              </mat-option>
+            </mat-select>
+            <mat-error class="ml-9"
+              *ngIf="childform.controls.nationality?.errors && (childform.controls.nationality.dirty || childform.controls.nationality.touched) ">
+              {{childform.controls.nationality?.errors.required?.message}}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+
+          <div class="form-group  remember-trvlr" *ngIf="loggedTrue == 'true' && !childform.controls.getIsTravellerSelected.value ">
+            <ion-toggle class="travellerRemember" [disabled]="!childform.valid || (childform.controls.firstName?.value.length + childform.controls.lastName?.value.length + (childform.controls.tittle?.value == 3 ? 4 : 6) > dataFlight)" [checked]="checkedToggle"
+              (ionChange)="rememberTraveller($event, childform)"></ion-toggle>
+            <label for="remeberTraveller">
+              Remember a Traveller
+            </label>
+          </div>
+          <!-- <div *ngIf="formFilled">
+            <p>Please fill all field.</p>
+          </div> -->
+        </ion-col>
+
+      </ion-row>
+    </form>
+  </div>
+</ion-grid>
+<!-- index ==>{{indexchild}} -->
+<!-- {{childform?.valid}}
+  {{childform?.value | json}}
+  {{childform?.dirty}}
+  {{childform?.touched}} 
+  {{childform.controls.nationality.dirty}} -->

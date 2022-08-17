@@ -1,0 +1,439 @@
+<ion-header *ngIf="getReponse">
+  <ion-toolbar color="custom-color-red">
+    <ion-buttons slot="start" class="aro-bck">
+      <img
+        class="backArrow"
+        src="assets/icon/backarrowtop2.svg"
+        (click)= "backTo()"
+      />
+    </ion-buttons>
+    <ion-title text-center class="title">Baggage Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="getReponse">
+  <!-- oneway -->
+  <ion-card *ngIf="selectedflight" class="no-shadow">
+    <ion-card-header class="hdr">
+      <div class="width_50" style="display: flex;align-items: center;">
+        <ion-label>{{ selectedflightobj.origin }} </ion-label>
+      <ion-icon style="padding: 0px 10px;" src="assets/icons/flights/gray_circle_icon.svg"></ion-icon>
+      <ion-label> {{ selectedflightobj.destination }}</ion-label>
+      <!-- <ion-label> -->
+      </div>
+        <p class="width_50" text-right
+          *ngFor="
+            let flight of selectedflightobj.flightlegs;
+            let first = first;
+            let last = last
+          " [ngStyle]="{'display': !first ? 'none':''}"
+        >
+          <span *ngIf="first" class="date" >{{
+            flight.depDate | date: "d MMM y"
+          }}</span>
+        </p>
+    </ion-card-header>
+    <ion-grid class="baggageDetails">
+      <div *ngFor="let flight of selectedflightobj.flightlegs; let i = index">
+        <ion-row>
+          <ion-col>
+            <ion-label class="bag-details"
+              >{{ flight.origin }} </ion-label
+            >
+            <ion-icon
+              class="forwardaro"
+              src="assets/icons/flights/forward.svg"
+            ></ion-icon>
+            <ion-label class="bag-details">
+              {{ flight.destination }}
+            </ion-label>
+          </ion-col>
+          <ion-col> </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf = "selectedflightobj.adultHandBaggage">
+          <ion-col size="6">
+            <span class="cabin-baggage">Cabin baggage</span>
+          </ion-col>
+          <ion-col size="6" text-right>
+            <span class="cabin-baggage">{{
+              selectedflightobj.adultHandBaggage
+            }}</span>
+          </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf ="!selectedflightobj.adultHandBaggage && (selectedflightobj.serviceVendor == 'Amadeus' || selectedflightobj.serviceVendor == 'Galileo' || selectedflightobj.serviceVendor == 'Sabre')">
+          <ion-col size="6">
+            <span class="cabin-baggage">Cabin baggage</span>
+          </ion-col>
+          <ion-col size="6" text-right>
+            <span class="cabin-baggage">{{cabin_baggage
+            }}</span>
+          </ion-col>
+        </ion-row>
+
+        <!-- *ngIf="selectedflightobjreturn.onwardFlightOption.adultHandBaggage == '' && (selectedflightobjreturn.onwardFlightOption.serviceVendor == 'Amadeus' || selectedflightobjreturn.onwardFlightOption.serviceVendor == 'Galileo')" -->
+
+        <ion-row *ngIf= "selectedflightobj.adultCheckinBaggage">
+          <ion-col size="6">
+            <span class="cabin-baggage">Checked baggage</span>
+          </ion-col>
+          <ion-col size="6" text-right>
+            <span class="cabin-baggage">{{
+              selectedflightobj.adultCheckinBaggage
+            }}</span>
+          </ion-col>
+        </ion-row>
+
+        <div class="line" *ngIf="i < selectedflightobj.flightlegs.length - 1">
+          <mat-divider></mat-divider>
+        </div>
+      </div>
+    </ion-grid>
+  </ion-card>
+  <!-- <ion-card *ngIf = "selectedflightreturn"> -->
+  <div *ngIf="selectedflightreturn">
+    <!--card for onward option in returnway start-->
+    <ion-card class="no-shadow">
+      <ion-card-header>
+        <!--CARD HEADER-->
+        <!-- <ion-label
+          >{{ selectedflightobjreturn.onwardFlightOption.origin }}&nbsp;
+        </ion-label> -->
+       <div class="width_50" style="display: flex;">
+        <ion-label   *ngFor="
+        let ff of selectedflightobjreturn.onwardFlightOption.flightlegs;
+        let first = first;
+        let last = last"  [ngStyle]="{'display': !first ? 'none':''}">
+        <span class="set_width" *ngIf = "first">
+{{ff.origin}}
+        </span>
+        </ion-label>
+      <ion-icon src="assets/icons/flights/gray_circle_icon.svg"></ion-icon>
+      <ion-label   *ngFor="
+        let ff of selectedflightobjreturn.onwardFlightOption.flightlegs;
+        let first = first;
+        let last = last"  [ngStyle]="{'display': !last ? 'none':''}">
+        <span class="set_width" *ngIf = "last">
+{{ff.destination}}
+        </span>
+        </ion-label>
+       </div>
+        
+        <ion-label class="width_50" text-right
+          float-right
+          *ngFor="
+            let ff of selectedflightobjreturn.onwardFlightOption.flightlegs;
+            let first = first;
+            let last = last
+          " [ngStyle]="{'display': !first ? 'none':''}"
+        >
+          <span class="date"  *ngIf="first">{{
+            ff.depDate | date: "d MMM y"
+          }}</span>
+        </ion-label>
+        <!--CARD HEADER END-->
+      </ion-card-header>
+      <ion-grid class="baggageDetails">
+        <!--card body row start-->
+        <div
+          class="div1"
+          *ngFor="
+            let flightdata of selectedflightobjreturn.onwardFlightOption
+              .flightlegs;
+            let i = index
+          "
+        >
+          <ion-row>
+            <ion-col>
+              <ion-label class="bag-details" style="color: black;"
+                >{{ flightdata.origin }} </ion-label
+              >
+              <ion-icon
+                class="forwardaro"
+                src="assets/icons/flights/forward.svg"
+              ></ion-icon>
+              <ion-label class="bag-details" style="color: black;">
+                {{ flightdata.destination }}</ion-label
+              >
+            </ion-col>
+            <ion-col> </ion-col>
+          </ion-row>
+          <!--card body row end-->
+          <!-- serviceVendor -->
+          <ion-row *ngIf = "selectedflightobjreturn.onwardFlightOption.adultHandBaggage">
+            <ion-col size="8">
+              <span class="cabin-baggage">Cabin baggage</span>
+            </ion-col>
+            <ion-col text-right size="4">
+              <span class="cabin-baggage">{{
+          selectedflightobjreturn.onwardFlightOption.adultHandBaggage
+              }}
+            </span>
+            </ion-col>
+          </ion-row>
+
+          <ion-row *ngIf = "!selectedflightobjreturn.onwardFlightOption.adultHandBaggage && (selectedflightobjreturn.onwardFlightOption.serviceVendor == 'Amadeus' || selectedflightobjreturn.onwardFlightOption.serviceVendor == 'Galileo' || selectedflightobjreturn.onwardFlightOption.serviceVendor == 'Sabre')">
+            <ion-col size="8">
+              <span class="cabin-baggage">Cabin baggage</span>
+            </ion-col>
+            <ion-col text-right size="4">
+              <span class="cabin-baggage">{{cabin_baggage
+              }}
+            </span>
+            </ion-col>
+          </ion-row>
+          
+          <ion-row
+            *ngIf="selectedflightobjreturn.onwardFlightOption.adultCheckinBaggage">
+            <ion-col size="6">
+              <span class="cabin-baggage">Checked baggage</span>
+            </ion-col>
+            <ion-col text-right size="6">
+              <span class="cabin-baggage">{{
+                selectedflightobjreturn.onwardFlightOption.adultCheckinBaggage
+              }}</span>
+            </ion-col>
+          </ion-row>
+
+          <div
+            class="line"
+            *ngIf="
+              i <
+              selectedflightobjreturn.onwardFlightOption.flightlegs.length - 1
+            "
+          >
+            <mat-divider></mat-divider>
+          </div>
+        </div>
+        <!--card body row start-->
+
+        <!--card body row end-->
+      </ion-grid>
+    </ion-card>
+    <ion-card class="no-shadow">
+      <ion-card-header>
+        <!--CARD HEADER-->
+        <div class="width_50" style="display: flex;">
+          <ion-label   *ngFor="
+          let ff of selectedflightobjreturn.returnFlightOption.flightlegs;
+          let first = first;
+          let last = last"  [ngStyle]="{'display': !first ? 'none':''}">
+          <span class="set_width" *ngIf = "first">
+{{ff.origin}}
+          </span>
+          </ion-label>
+        <ion-icon src="assets/icons/flights/gray_circle_icon.svg"></ion-icon>
+        
+        <ion-label   *ngFor="
+        let ff of selectedflightobjreturn.returnFlightOption.flightlegs;
+        let first = first;
+        let last = last"  [ngStyle]="{'display': !last ? 'none':''}">
+        <span class="set_width" *ngIf = "last">
+{{ff.destination}}
+        </span>
+        </ion-label>
+        </div>
+
+        <ion-label  class="width_50"  text-right
+          *ngFor="
+            let ff of selectedflightobjreturn.returnFlightOption.flightlegs;
+            let first = first;
+            let last = last
+          "  [ngStyle]="{'display': !first ? 'none':''}"
+        >
+          <span  class="date"  *ngIf="first">{{
+            ff.depDate | date: "d MMM y"
+          }}</span>
+        </ion-label>
+        <!--CARD HEADER END-->
+      </ion-card-header>
+      <ion-grid class="baggageDetails">
+        <!--card body row start-->
+        <div
+          class="div1"
+          *ngFor="
+            let flightdata of selectedflightobjreturn.returnFlightOption
+              .flightlegs;
+            let i = index
+          "
+        >
+          <ion-row>
+            <ion-col>
+              <ion-label class="bag-details" style="color: black;"
+                >{{ flightdata.origin }} </ion-label
+              >
+              <ion-icon
+                class="forwardaro"
+                src="assets/icons/flights/forward.svg"
+              ></ion-icon>
+              <ion-label class="bag-details" style="color: black;">
+                {{ flightdata.destination }}</ion-label
+              >
+            </ion-col>
+            <ion-col> </ion-col>
+          </ion-row>
+          <!--card body row end-->
+
+          <ion-row
+            *ngIf = "selectedflightobjreturn.returnFlightOption.adultHandBaggage">
+            <ion-col size="6">
+              <span class="cabin-baggage">Cabin baggage</span>
+            </ion-col>
+            <ion-col text-right size="6">
+              <span class="cabin-baggage">{{
+                selectedflightobjreturn.returnFlightOption.adultHandBaggage
+              }}</span>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf = "!selectedflightobjreturn.returnFlightOption.adultHandBaggage && (selectedflightobjreturn.returnFlightOption.serviceVendor == 'Amadeus' || selectedflightobjreturn.returnFlightOption.serviceVendor == 'Galileo' || selectedflightobjreturn.returnFlightOption.serviceVendor == 'Sabre')">
+            <ion-col size="6">
+              <span class="cabin-baggage">Cabin baggage</span>
+            </ion-col>
+            <ion-col text-right size="6">
+              <span class="cabin-baggage">{{cabin_baggage
+              }}</span>
+            </ion-col>
+          </ion-row>
+          <ion-row
+            *ngIf="selectedflightobjreturn.returnFlightOption.adultCheckinBaggage">
+            <ion-col size="6">
+              <span class="cabin-baggage">Checked baggage</span>
+            </ion-col>
+            <ion-col text-right size="6">
+              <span class="cabin-baggage">{{
+                selectedflightobjreturn.returnFlightOption.adultCheckinBaggage
+              }}</span>
+            </ion-col>
+          </ion-row>
+          <div
+            class="line"
+            *ngIf="
+              i <
+              selectedflightobjreturn.returnFlightOption.flightlegs.length - 1
+            "
+          >
+            <mat-divider></mat-divider>
+          </div>
+        </div>
+        <!--card body row start-->
+
+        <!--card body row end-->
+      </ion-grid>
+    </ion-card>
+    <!--card for returnoption option in returnway end-->
+  </div>
+
+  <!--baggae details for multi dtart-->
+  <ion-card *ngIf="multiflight" class="no-shadow">
+    <ion-card-header>
+    <div class="width_50" style="display: flex; align-items: center;">
+      <ion-label>{{ multiflight.origin }} &nbsp;</ion-label>
+      <ion-icon style="    padding: 0px 10px;" src="assets/icons/flights/gray_circle_icon.svg"></ion-icon>
+      <ion-label> &nbsp;{{ multiflight.destination }}</ion-label>
+    </div>
+
+      
+        <div class="width_50" text-right
+          *ngFor="
+            let flight1 of multiflight.optionSegmentBean;
+            let first = first;
+            let last = last
+          "  [ngStyle]="{'display': !first ? 'none':''}"
+        >
+          <div *ngIf="first">
+            <p
+              *ngFor="
+                let flight of flight1.flightlegs;
+                let first = first;
+                let last = last
+              "  [ngStyle]="{'display': !first ? 'none':''}"
+            >
+              <span class="date" *ngIf="first">{{
+                flight.depDate | date: "d MMM y"
+              }}</span>
+            </p>
+          </div>
+        </div>
+    
+    </ion-card-header>
+
+    <div>
+      <ion-grid
+        class="baggageDetails p-baggage"
+        *ngFor= "let flight1 of multiflight.optionSegmentBean;let first = first;
+        let last = last" [ngStyle]="{'padding-top': first ? '12px': '' ,  
+        'padding-bottom': last ? '12px' : '' }"
+      >
+        <ion-row>
+          <ion-col>
+            <ion-label class="bag-details"
+              >{{ flight1.origin }} </ion-label
+            >
+            <ion-icon
+              class="forwardaro"
+              src="assets/icons/flights/forward.svg"
+            ></ion-icon>
+            <ion-label class="bag-details">
+              {{ flight1.destination }}
+            </ion-label>
+          </ion-col>
+          <ion-col> </ion-col>
+        </ion-row>
+        <ion-row *ngIf= "flight1.adultHandBaggage">
+          <ion-col>
+            <span>Cabin baggage </span>
+          </ion-col>
+          <ion-col text-right>
+            <span>{{ flight1.adultHandBaggage }}</span>
+          </ion-col>
+        </ion-row>
+
+        <!--cabin baggae if not coming in api-->
+        <ion-row *ngIf= "!flight1.adultHandBaggage && (multiflight.serviceVendor == 'Amadeus' || multiflight.serviceVendor == 'Galileo' ||  multiflight.serviceVendor == 'Sabre')">
+          <ion-col size="4">
+            <span class="cabin-baggage">Cabin baggage</span>
+          </ion-col>
+          <ion-col text-right size="8">
+            <span class="cabin-baggage">{{cabin_baggage
+            }}
+          </span>
+          </ion-col>
+        </ion-row>
+
+        <!--end cabin baggae-->
+
+        <ion-row *ngIf="flight1.adultCheckinBaggage"> 
+          <ion-col size="5">
+            <span>Checked baggage </span>
+          </ion-col>
+          <ion-col size="7" text-right>
+            <span>{{ flight1.adultCheckinBaggage }}</span>
+          </ion-col>
+        </ion-row>
+
+     
+
+
+      
+
+        <div class="line" *ngIf="!last">
+          <mat-divider></mat-divider>
+        </div>
+      </ion-grid>
+    </div>
+  </ion-card>
+</ion-content>
+
+<div *ngIf="!getReponse">
+  <p
+    style="
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    "
+  >
+    <ion-spinner name="lines"></ion-spinner>Loading ...
+  </p>
+</div>

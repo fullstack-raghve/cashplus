@@ -1,0 +1,126 @@
+ion-grid {
+  background: #f2f3f2;
+}
+
+ion-button {
+  --background: #ebb134;
+  color: #000000;
+  //  padding-left: 30px;
+  padding-bottom: 10px;
+  --background-activated: #ebb134;
+  --color-activated: #0000;
+  float: right;
+}
+p {
+  span {
+    color: #ffffff;
+  }
+}
+.footer-content {
+  background: #000000;
+  position: fixed;
+  top: 92%;
+
+  p {
+    color: #ffff;
+    margin-top: 0px;
+  }
+  .crncy {
+    font-size: 12px;
+    color: #ffffff;
+    font-family: latosemibold;
+  }
+  .price {
+    font-size: 18px;
+    color: white;
+    font-family: latoregular;
+  }
+  .total {
+    color: #898888;
+    font-size: 11px;
+    font-family: latosemibold;
+  }
+  .arrow {
+    margin-top: 0.4rem;
+  }
+}
+
+/deep/.footer-content .button-footer .proceed-btn {
+  background: #f4b50b !important;
+  color: #000000;
+  padding: 13px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: "latoregular";
+}
+/deep/.footer-content {
+  background: #2d2e30 !important;
+  max-height: 60px !important;
+}
+/deep/.footer-content .button-footer .proceed-btn {
+  background: #f4b50b !important;
+  color: #000000;
+  padding: 13px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: "latoregular";
+}
+/deep/.footer-content {
+  background: #2d2e30 !important;
+  max-height: 60px !important;
+}
+/deep/.footer-content {
+  ion-grid {
+    background: #2d2e30 !important;
+  }
+}
+/deep/.footer-content {
+  ion-grid {
+    background: #2d2e30 !important;
+  }
+}
+.fareDetailss {
+  display: flex;
+}
+.footer-content {
+  .total {
+    color: #898888;
+    font-size: 11px;
+    font-family: "latoregular";
+  }
+}
+.footer-content {
+  // .price {
+  //   font-size: 20px;
+  //   color: white;
+  //   font-family: latomedium;
+  // }
+}
+.footer-content {
+  .crncy {
+    font-size: 14px;
+    color: #ffffff;
+    font-family: latosemibold;
+  }
+}
+.footer-content {
+  .payment-bttn {
+    background: #f4b50b;
+    color: #000000;
+    padding: 16px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    margin: 0px 0px 0px 0px;
+  }
+}
+
+.footer-content {
+  background: #000000;
+  position: fixed;
+  top: 90%;
+}
+
+.footer-content {
+  background: #2d2e30 !important;
+  max-height: 75px !important;
+}

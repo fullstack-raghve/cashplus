@@ -1,0 +1,147 @@
+<div class="modalHieght">
+  <div class="modal fade">
+    <ion-card-header class="custom-hdr" style="background: #ffffff;">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="3" text-left>
+            <ion-label ></ion-label>
+          </ion-col>
+          <ion-col size="6" text-center>
+            <ion-label class="filter"> Add Card </ion-label>
+          </ion-col>
+          <ion-col size="3" text-right>
+            <ion-label class="text-blue" (click)= "done()">
+              Done
+            </ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+ 
+    </ion-card-header>
+    </div>
+    </div>
+
+    <ngx-spinner bdOpacity=0.2 bdColor="rgba(9,9,9,0.1)" size="medium" color="#000000" type="ball-pulse-sync"
+    [fullScreen]= "true">
+    <p style="color: black">Processing... </p>
+  </ngx-spinner>
+
+  
+  <ion-grid class="addcardform">
+    <!-- <ion-row> -->
+      <!-- <ion-col size = "12"> -->
+        <form [formGroup]= "addcard">
+          <ion-row> 
+            <ion-col size-sm="6" offset-sm="3">
+              <div class="form-group">
+                <ion-row>
+                  <ion-col size='10'>
+                    <mat-form-field appearance="outline" class="mb-12">
+                      <mat-label>Card Number</mat-label>
+                      <input type="tel" matInput formControlName="cardnumber" placeholder="Card Number"  #cardno (blur)= "validatecard(cardno.value)"  (keypress)= "numberOnly($event)" 
+                     required 
+                      pattern="[0-9]*"
+                      minlength="13"
+                      maxlength="16">
+      
+                   
+                      <mat-error
+                      *ngIf= "addcard.controls.cardnumber.hasError('required') && ( addcard.controls.cardnumber.dirty || addcard.controls.cardnumber.touched)">
+                      Card number is required!
+                    </mat-error>
+                
+                  <mat-error
+                  *ngIf= "addcard.controls.cardnumber.hasError('numeric') && ( addcard.controls.cardnumber.dirty || addcard.controls.cardnumber.touched)">
+                  Only numbers are allowed!
+                </mat-error>
+                    <mat-error
+                    *ngIf= "addcard.controls.cardnumber.hasError('minlength') && !addcard.controls.cardnumber.hasError('numeric') && ( addcard.controls.cardnumber.dirty || addcard.controls.cardnumber.touched)">
+                    Card number should to be min 13 digit!
+                  </mat-error>
+    
+                  <span *ngIf= "customCheck == true &&  !addcard.controls.cardnumber.hasError('numeric') && addcard.controls.cardnumber.hasError('incorrect') && (addcard.controls.name.dirty || addcard.controls.name.touched)" class="fullname">
+                  Please enter a valid card number!
+                  </span> 
+               
+                      <!-- end -->
+                    </mat-form-field>
+                  </ion-col>
+                  <ion-col size='2' class="card-img">
+                    <div>
+                      <img src="assets/icons/flights/crdd.svg" class="paymenticon" />
+                    </div>
+                  </ion-col>
+                </ion-row>
+              </div>
+
+              <div class="form-group">
+                <ion-row>
+                  <ion-col size='12'>
+                    <mat-form-field appearance="outline" class="mb-12">
+                      <mat-label>Name on the Card</mat-label>
+                      <input type="text" trimdirective [errorStateMatcher] = "matcher" #box (blur)= "checkfullnameval(box.value)" class="input-pos"   matInput placeholder="Name on the Card" autocomplete="off"
+                        formControlName="name"  required>
+                      <mat-error class="ml-9"
+                        *ngIf="addcard.controls.name?.errors && (addcard.controls.name?.dirty || addcard.controls.name.touched) ">
+                        {{addcard.controls.name?.errors.alpha?.message}}
+                        {{addcard.controls.name?.errors.numeric?.message}}
+                        {{addcard.controls.name?.errors?.maxLength ?  'Maximum' + cardname_max_length_40 : ''  }}
+
+                      </mat-error>
+                      
+                      <mat-error
+                      *ngIf= "addcard.controls.name.hasError('required') && ( addcard.controls.name.dirty || addcard.controls.name.touched)">
+                     Name on the card is required!
+                    </mat-error>
+                    <!-- <mat-error
+                    *ngIf= "addcard.controls.name.hasError('maxlength') && ( addcard.controls.name.dirty || addcard.controls.name.touched)">
+                   Maximum 40 characters  are allowed!
+                  </mat-error> -->
+                  <span *ngIf= "fullnamecheckout == true && addcard.controls.name.hasError('incorrect') && !addcard.controls.name.hasError('alpha') && (addcard.controls.name.dirty || addcard.controls.name.touched)" class="fullname">
+                    Enter First and Last Name with a space in between
+                    </span> 
+    
+                    </mat-form-field>
+                  </ion-col>
+                </ion-row>
+                
+              </div>
+              
+
+              <div class="form-group">
+                <ion-row>
+                  <ion-col size='12'>
+                    <mat-form-field appearance="outline" class="mb-12">
+                      <mat-label>Expiry Date ( mm/yy )</mat-label>
+                      <input type="tel" 
+                      formControlName="mydate"
+                       [textMask]= "{mask: cardExpiryDateMask, guide: false, pipe: autoCorrectedDatePipe}"  
+                        (blur)= "dateValidate()" 
+                         matInput  
+                         placeholder="Expiry Date ( mm/yy )" required>
+                      
+
+                    <mat-error
+                    *ngIf= "addcard.controls.mydate.hasError('required') && ( addcard.controls.mydate.dirty || addcard.controls.mydate.touched)">
+                  Expiry date is required!
+                  </mat-error>
+                 
+                  <span *ngIf= "isCardExpired == true && addcard.controls.mydate.hasError('incorrect') && ( addcard.controls.mydate.dirty || addcard.controls.mydate.touched)" class="fullname">
+                    Please enter valid expiry date!
+                    </span> 
+                    <span *ngIf= "invaliddateformat == true && isCardExpired != true && addcard.controls.mydate.hasError('incorrect') && ( addcard.controls.mydate.dirty || addcard.controls.mydate.touched)" class="fullname">
+                      Please enter valid expiry date!
+
+                    </span> 
+                    </mat-form-field>
+                  </ion-col>
+                </ion-row>
+              </div>
+             
+            </ion-col>
+          </ion-row>
+        
+        </form>
+      <!-- </ion-col> -->
+    <!-- </ion-row> -->
+  </ion-grid>

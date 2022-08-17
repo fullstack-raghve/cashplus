@@ -1,0 +1,21 @@
+<div *ngIf="!show_reset_password_res">
+  <h4 class="heading_yes_no">Are you sure you want to delete this card ?</h4>
+  <div style="display: flex;">
+    <button matRipple class="yello-btn-all button_yes_no mr-right" type="submit" expand="block"
+      (click)="deleCard()">  Yes</button>
+    <Button matRipple style="    background-color: #ccc;
+    " class="yello-btn-all button_yes_no" type="submit" expand="block"
+      (click)="cancelCard()">Cancel</Button>
+  </div>
+  
+</div>
+
+<div *ngIf="show_reset_password_res">
+  <h4 class="heading_yes_no" style="text-align: center;font-family: 'latomedium';">
+    {{response_resetpasword?.statusMessage == 'Verification Link is expire' ? verificationExpireLinkmsg : response_resetpasword?.statusMessage}}
+  </h4>
+  <div style="display: flex;">
+    <button matRipple class="yello-btn-all button_yes_no " style="margin: auto;width: 50%;" type="submit" expand="block"
+      (click)="closeDialogue(true)">  OK</button>
+  </div>
+</div>

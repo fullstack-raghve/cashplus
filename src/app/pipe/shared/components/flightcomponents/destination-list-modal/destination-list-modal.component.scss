@@ -1,0 +1,92 @@
+.searchbar-input.sc-ion-searchbar-md{
+    border-radius: 25px;
+}
+ion-searchbar{
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+.pop-city {
+    div{
+        background: #f4f4f4;
+        font-family: 'latomedium';
+        padding: 6px 37px;
+        height: 30px;
+        line-height: 21px;
+        color: #000000;
+    }
+}
+.searchbar-input{
+    .sc-ion-searchbar-md{
+        height: 52px!important;
+    }
+}
+.mat-bottom-sheet-container{
+    height: 86vh!important;
+}
+.airpot-list{
+    height: 75vh;
+    overflow-y: scroll;
+}
+.fligth-icon{
+    max-width: 15px;
+    margin-right: 7px;
+}
+.form-control2{
+    width: 80%;
+    border:none;
+    padding: 14px 10px;
+    font-family: 'latosemibold';
+}
+::placeholder{
+    font-family: 'latolight';
+    color: #000000;
+    font-weight: 300;
+    font-size: 18px;
+}
+.input-group{
+    padding-top: 10px;
+}
+.btn-secondary2{
+    width: 10%;
+    background: #ffffff;
+}
+.bg-white{
+    background: #ffffff;
+
+}
+.srch-icon{
+    width: 10%;
+    background: #ffffff;
+}
+.airport-left{
+    .location{
+       
+        font-family: 'latosemibold';
+        font-size: 14px;
+        margin-bottom: 0px;
+    }
+    .aname{
+        color: #666;
+        font-family: 'latosemibold';
+        font-size: 12px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+}
+.no-top-bottom-padd{
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+.acc{
+    p{
+        font-size: 16px!important;
+    }
+}
+.notfound{
+    background: #f4f4f4;
+    padding: 10px;
+    color: #E31F26;
+}
+

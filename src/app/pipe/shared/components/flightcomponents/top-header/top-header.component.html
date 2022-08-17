@@ -1,0 +1,130 @@
+<div *ngIf= "triptype == 'oneway'">
+
+    <div class="flight-detail">
+        <div class="forloop">
+          <div>
+            <span>{{finalorigin}} </span>
+            <span><img class="oneway-icon" src="assets/icon/backarrowtop.svg"></span>&nbsp;
+            
+            <span>{{finaldest}}</span>
+
+            <div class="header-font" >
+              <p ><span *ngIf= "departDate">{{departDate | date : 'd MMM'}}  </span>
+                <!-- <span *ngIf="adultdefault == 1"> | {{adultdefault}} Adult</span>  -->
+                <span *ngIf= "adult && adult>1"> | {{adult}} Adults </span>
+                <span *ngIf= "adult && adult<2"> | {{adult}} Adult </span>
+                
+                 <span *ngIf= "children && children<2">| {{children}} Child </span> 
+                 <span *ngIf= "children && children>1">| {{children}} Children </span> 
+
+                 <span *ngIf= "infants && infants<2"> | {{infants}} Infant </span>
+                 <span *ngIf= "infants && infants>1"> | {{infants}} Infants </span>
+                 <!-- <span *ngIf= "myeconomyonward != myeconomyreturn">| {{myeconomyreturn | titlecase}}</span> -->
+                 <span>| {{myeconomyonward | titlecase}}</span> 
+
+                <span></span>
+                </p>
+            </div> 
+          </div>
+        </div>
+      </div>
+</div>
+<div *ngIf = "triptype == 'returnway'">
+    <div class="flight-detail">
+        <div class="forloop">
+          <div>
+            <span>{{finalorigin}} </span>
+            <span><img src="assets/icons/flights/return_swipe_icon.svg"></span>&nbsp;
+            <span>{{finaldest}}</span>
+
+            <div class="header-font" >
+                <!-- <p ><span *ngIf="departDate">{{departDate | date : 'd MMM' }} - </span> -->
+<!-- <p>{{returnDate}}</p> -->
+              <p ><span *ngIf="departDate">{{departDate | date : 'd MMM'}} - </span>
+                <span *ngIf="returnDate">{{returnDate | date : 'd MMM' }}</span>
+                <!-- <span *ngIf="adultdefault == 1"> | {{adultdefault}} Adult</span>  -->
+                <span *ngIf="adult && adult>1"> | {{adult}} Adults </span>
+                <span *ngIf="adult && adult<2"> | {{adult}} Adult </span>
+                 <span *ngIf="children && children<2">| {{children}} Child</span> 
+                 <span *ngIf="children && children>1">| {{children}} Children</span> 
+
+                 <span *ngIf="infants && infants<2"> | {{infants}} Infant</span>
+                 <span *ngIf="infants && infants>1"> | {{infants}} Infants</span>
+                 <span> | {{myeconomyonward | titlecase}}</span>
+
+                 <span *ngIf="myeconomyonward != myeconomyreturn && myeconomyreturn != null"> | {{myeconomyreturn | titlecase}}</span>
+                
+                
+                 <span></span>
+                </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+</div>
+
+<div *ngIf = "triptype == 'multicity'">
+  
+
+        <div class="flight-detail">
+            <div class="forloop">
+              <div>
+                <div class="loop" >
+                  <div >
+                    <span *ngFor = "let flighdata of multiheaderdata;let index =index;let first = first;let last = last">
+                      <span *ngIf="first">{{flighdata.origin}} </span> 
+                      <span  *ngIf="first"><img src="assets/icons/flights/return_swipe_icon.svg"></span>
+
+                    </span>
+
+                    <span *ngFor = "let flighdata of multiheaderdata;let index =index;let first = first;let last = last">
+                      <span *ngIf= "last"> {{flighdata.destination}} With Multicity </span> 
+
+                    </span>
+                  <!-- <span>{{flighdata.onwardJourneyDate}}</span> -->
+                  </div>
+                  <div class="header-font" >
+                    <div >
+                      <span>
+                        <span >{{multicityOnwardatee | date : 'd MMM'}} </span> 
+                      </span>
+                      <span *ngIf="adult && adult>1"> | {{adult}} Adults </span>
+                      <span *ngIf ="adult && adult<2"> | {{adult}} Adult </span>
+                       <span *ngIf="children && children<2">| {{children}} Child</span> 
+                       <span *ngIf="children && children>1">| {{children}} Children</span> 
+      
+                       <span *ngIf="infants && infants<2"> | {{infants}} Infant</span>
+                       <span *ngIf="infants && infants>1"> | {{infants}} Infants</span>
+                       <span *ngFor="let flighdata of multiheaderdata;let index =index;let first = first;let last = last">
+                        <span *ngIf="first">
+                          <span *ngIf="flighdata.cabinClass == 1">
+                            | Economy
+                          </span>
+                          <span *ngIf="flighdata.cabinClass == 2">
+                            |Premium Economy
+                          </span>
+                          <span *ngIf="flighdata.cabinClass == 3">
+                            | Business
+                          </span>
+                          <span *ngIf="flighdata.cabinClass == 4">
+                            | First Class
+                          </span>
+                        </span> 
+                       </span>
+                      
+
+                  </div>
+
+                  </div>
+                 
+                  </div>
+                </div>
+                </div>
+           
+
+               
+              </div>
+            </div>
+

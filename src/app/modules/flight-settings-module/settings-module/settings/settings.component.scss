@@ -1,0 +1,77 @@
+.footer {
+  position: absolute;
+  bottom: 11px;
+}
+
+.button {
+  --background: #f4b50b !important;
+  --color: #000000;
+  --vertical-align: middle;
+  --padding-start: 10px;
+  --padding-end: 10px;
+  margin: 10px;
+  --padding-right: 10px;
+  margin-bottom: 2px;
+  --background-activated: #ebb134;
+  height: 50px;
+}
+
+/deep/ .ios button button-block button-solid ion-activatable ion-focusable {
+  --background: #f4b50b !important;
+}
+ion-grid {
+  background: white;
+}
+
+.backArrow {
+  // margin-left: 10px;
+  padding: 10px;
+}
+.content {
+  height: 236px;
+}
+.title {
+  margin-right: 30px;
+  font-family: "latomedium" !important;
+}
+ion-card-subtitle {
+  color: #000000;
+  font-family: "latomedium" !important;
+  text-transform: none;
+}
+.setting_form {
+  margin-top: 10px;
+  margin-bottom: -12px;
+}
+/deep/ .footer-md:before {
+  background-image: none !important;
+}
+/deep/ .mat-form-field-infix {
+  // padding: 0.6em 0 0.9em 0 !important;
+  line-height: normal;
+  color: #898888;
+}
+/deep/ .mat-form-field-wrapper {
+  // margin: 0.1em 0 !important;
+}
+.mat-input-element {
+  font-family: latomedium;
+}
+mat-select-value-text {
+  color: #898888;
+  font-family: latomedium;
+}
+/deep/ .mat-select-value {
+  color: #898888;
+  font-family: latomedium;
+}
+
+.no-crt .mat-form-field::before {
+  right: 2px !important;
+  top: 35% !important;
+}
+.header_card_s{
+  height: 42px;
+    display: flex;
+    align-items: center;
+}

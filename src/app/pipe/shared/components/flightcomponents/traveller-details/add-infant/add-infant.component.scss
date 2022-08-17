@@ -1,0 +1,86 @@
+.mat-expansion-panel-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 30px 20px 30px 0px!important;
+    border-radius: inherit;
+}
+.mat-expansion-panel{
+    border: 1px solid #e3e3e3;
+    box-shadow: none!important;
+}
+.circle-grey{
+    background: #ebebeb;
+    width: 45px;
+    height: 45px;
+    text-align: center;
+    border-radius: 50%;
+    line-height: 3.7;
+    border: 1px solid #d0cfcf;
+}
+--ion-badge{
+    font-family: 'latoregular';
+}
+.border-active{
+    border: 1px solid #7bafee;
+}
+
+.ml-9{
+    margin-left: -9px;
+}
+.warning_alert{
+    color:#f44336
+}
+.all_error_show{
+    position: absolute;
+    bottom: -16px;
+    left: -7px;
+    color: #f44336;
+    font-size: 11px;
+}
+.country_code{
+    position: absolute;
+    bottom: -1px;
+    left: 16px;
+    color: #f44336;
+    font-size: 11px;
+}
+.nationality {
+    width: 94% !important;
+    margin: 5px 0 16px 10px !important;
+}
+.pad0{padding:0px !important;}
+.warningmessage {
+    position: absolute;
+    right: 0;
+    bottom: 17px;
+    color: #856404;
+}
+.isd-code{
+    padding: 3px 0 0 0;
+}
+.mob-section{
+    padding: 3px 0 0px 5px;
+}
+.remember-trvlr{
+    padding: 0px 0 0px 12px;
+    display: flex;
+    align-items: center;
+        label{
+        padding-left: 12px;
+        color: #898888;
+        font-size: 13px;
+        font-family: latomedium;
+        vertical-align: super;
+        margin-top: -3px;
+    }
+}
+.err {
+    color: #f44336 !important;
+    margin-top: -10px;
+    display: -webkit-box;
+    display: flex;
+    margin-left: 5px;
+    font-size: 9px;
+    font-family: "Latomedium" !important;
+}

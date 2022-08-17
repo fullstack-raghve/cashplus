@@ -1,0 +1,7 @@
+{  
+    "/api/*": {  
+       "target": "http://203.122.41.147:8080/pwa/oauth/token",  
+       "secure": false,  
+       "logLevel": "debug"  
+    }  
+ }

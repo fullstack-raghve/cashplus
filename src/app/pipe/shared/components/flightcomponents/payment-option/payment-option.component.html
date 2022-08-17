@@ -1,0 +1,62 @@
+<p  *ngIf = "cardLoding else cardListData" style="height: 100vh;display: flex;align-items: center;justify-content: center;">
+  <ion-spinner name="lines"></ion-spinner>Loading ...
+</p>
+<ngx-spinner bdOpacity=0.2 bdColor="rgba(9,9,9,0.81)" size="medium" color="#fff" type="ball-spin-clockwise-fade"
+    [fullScreen]="true">
+    <p style="color: white">Deleting Please Wait... </p>
+  </ngx-spinner>
+
+  <ng-template #cardListData>
+<ion-header>
+  <ion-toolbar color="custom-color-red">
+    <ion-buttons slot="start">
+      <img class="backArrow bckicon" src="assets/icon/backarrowtop2.svg" (click)= "back()" />
+    </ion-buttons>
+    <ion-title text-center class="title ml">My&nbsp;&nbsp;Cards</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content >
+  <div *ngIf="!cardLoding && cardlist?.length != 0">
+  <ion-grid>
+    <ion-row>
+      <ion-col size = "12">
+      <p class="dummytxt">
+        You don’t have to keep your payment information on file but it will help you save time and check out faster.
+      </p>
+    </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-card class="no-shadows" *ngFor = "let card of cardlist;trackBy:trackByFn" (click) = "carddetails(card)">
+    <ion-card-header class="bg" >
+      <ion-card-subtitle>
+    
+       <ion-col size = "8">
+         <span>
+          <img src="assets/icons/card-icon/{{card.cardType}}.png" alt="cardicon" class="logoo"> 
+
+         </span>
+        <span class='cardtext'>{{card.maskedNumber | slice:8}}</span>
+
+       </ion-col>
+       <ion-col size = "4" text-right>
+        <span (click)= "delete(card)" class="right">
+        <img src="assets/icons/card-icon/delete.svg" alt="deleteicon" class="trash"> 
+         </span>
+
+      </ion-col>
+      </ion-card-subtitle>
+      <ion-card-title>{{card.nameOnCard | titlecase}}</ion-card-title>
+      <p>Expiry : {{card.expireDate | date : "MM/yyyy"}}</p>
+    </ion-card-header>
+  
+    
+  </ion-card>
+</div>
+
+<p class="no_data_found" *ngIf="cardlist?.length == 0 && cardLoding == false">You don’t have to keep your payment information on file but it will help you save time and check out faster. </p>
+</ion-content>
+
+<ion-footer style="background: #f2f2f2;" >    
+    <ion-button matRipple type="submit" class="buttons button-native2 txtcls" expand="block" (click) = "addcard()" > Add Card</ion-button>
+</ion-footer>
+</ng-template>

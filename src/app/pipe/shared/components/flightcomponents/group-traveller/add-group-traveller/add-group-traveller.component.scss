@@ -1,0 +1,340 @@
+.custom-card{
+    box-shadow: none;
+    border-radius: 5px;
+    background: #ffffff;
+    margin-top: 10px;
+}
+
+.button {
+    --background :#F4B50B;
+    --color: #000000;
+    --vertical-align: middle;
+    --padding-left:10px;
+    --padding-right:10px;
+      // margin:10px;
+ }
+ .button.remove_traveller{
+   font-family: 'Latomedium';
+   text-transform: capitalize;
+   --background: #E3E3E3 !important;
+   width: 80px!important;
+   height: 28px !important;
+   border: 1.2px solid #fff !important;
+   margin-left: 13px;
+  //  margin-top: 20px;
+   --box-shadow: none;
+   --padding-start: 3px;
+   --padding-end: 5px;
+   font-size: 13px;
+
+   --ripple-color: transparent;
+   @media (min-width: 320px) {
+    margin-left: -17px;
+}
+@media (min-width: 375px) {
+  margin-left: 1px;
+}
+ }
+
+//  Sagar's Code
+.remove_traveller-recreated {
+  // font-family: 'Latomedium';
+  // text-transform: capitalize;
+  background: #E3E3E3 !important;
+  border: 1.2px solid #FFFFFF !important;
+  border-radius: 5px;
+}
+// End of Sagar's Code
+
+.centerImg{
+    display:block;
+    margin: auto;
+    width: 30%;
+    border-radius: 50px;
+    margin-top: 10px;
+   text-align: center;
+   a{
+      font-size: 12px;
+      color: #4F95E8;
+   }
+   }
+
+   .travel{
+    // padding-bottom: 10px;
+    // padding-left: 10px;
+    p{
+        font-size: 10px;
+    }
+    .addicon{
+      height: 55px;
+      width: 55px;
+      border-radius: 50px;
+      background: #fff;
+      margin: auto;
+      margin: 5px 0 0 5px;
+      border: 1px solid #4f95e8bd;
+      padding: 1px;
+    }
+    .bordercls{
+      border: 1px solid #DDD6D6!important;
+    }
+  }
+
+  .addbutton{
+    margin-right: 10px;
+  }
+  .traveller-text{
+ margin: auto;
+ label{
+   color: #000000!important;
+    font-family: 'latoregular'!important;
+ }
+  }
+ .mat-form-field-appearance-outline:not(.mat-form-field-disabled) .mat-form-field-flex:hover .mat-form-field-outline{
+    background-color:#fff!important;
+   // border: 0.5px solid #7a7676;
+  }
+   .mat-form-field-outline-start,
+   .mat-form-field-outline-gap,
+ .mat-form-field-outline-end{
+    background-color:#fff!important;
+   
+  }
+
+  .circleimg{
+    width: 100px;
+    // height: 100px; 
+    border-radius: 50%;
+  }
+  .default-img{
+    // border: 1px solid #ccc;
+    // border-radius: 50%;
+    // width: 86px;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: #F2EFEF;
+    border: 2px solid #fff;
+  }
+  .selected-img{
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    width: 86px;
+    padding: 2px;
+    min-height: 80px;
+  }
+  .select-photo{
+    border: 1px solid #333;
+    width: 124px;
+    opacity: 0;
+    cursor: pointer;
+    height: 23px;
+    position: absolute;
+    margin-top: 0px;
+    right: 144px;
+  }
+  /deep/ .mat-form-field-appearance-outline:not(.mat-form-field-disabled) .mat-form-field-flex:hover .mat-form-field-outline{
+    background-color:#fff!important;
+   // border: 0.5px solid #7a7676;
+  }
+  /deep/ .mat-form-field-outline-start,
+  /deep/ .mat-form-field-outline-gap,
+  /deep/ .mat-form-field-outline-end{
+    background-color:#fff!important;
+   
+  }
+  .trvlrs-size{
+    font-size:14px;
+    font-family:latosemibold;
+  }
+  .add-trvlr-btn{
+    background: #F4B50B;
+    color: #000000;
+    vertical-align: middle;
+    margin: 15px 0 0 19px;
+    padding: 6px;
+    border-radius: 5px;
+  }
+  .select-photo{
+    border: 1px solid #333;
+    width: 124px;
+    opacity: 0;
+    cursor: pointer;
+    height: 23px;
+    position: absolute;
+    margin-top: 0px;
+    right: 144px;
+  }
+  .centerImg{
+    display:block;
+    margin: auto;
+    width: 25%;
+    border-radius: 50px;
+    margin-top: 10px;
+   text-align: center;
+   }
+   .btnColor{
+     background-color: #E3E3E3 !important;
+   }
+   .ImageValidation{
+    font-size: 75%;
+    color: #f44336;
+    margin-top: 2px;
+    font-family: 'Lato', sans-serif;
+    width: 101px;
+    margin-left: 37%;
+  }
+  .icc{
+
+    font-size: 14px;
+    padding-right: 4px;
+    padding-top: 2px;
+   
+  }
+  .custom-close-icon{
+    font-size: 13px;
+    margin-right: 2px;
+    // padding-right: 0px;
+    // padding-top: 0px;
+  }
+  .custom-add-icon{
+  
+      font-size: 16px!important;
+      padding-right: 2px;
+      padding-top: 0px;
+     
+  }
+  .button {
+    --background :#F4B50B !important;
+   --color: #000000;
+   --vertical-align: middle;
+   --padding-start: 10px;
+   --padding-end: 10px;
+    // margin:10px;
+   --padding-right:10px;
+  //  margin-bottom: 2px;
+   --background-activated:#ebb134;
+   height: 50px;
+   --border-radius: 5px;
+   font-size: 13px;
+   font-family: "latomedium";
+   
+ }
+ .buttonnew {
+  --background: #F4B50B !important;
+  --color: #000000;
+  --vertical-align: middle;
+  --padding-start: 7px;
+  --padding-end: 8px; 
+  // margin: 10px;
+  --padding-right: 10px;
+  // margin-bottom: 2px;
+  margin-bottom: 4px;
+  --background-activated: #ebb134;
+  height: 26pt;
+  margin-left: 39px;
+  // margin-top: 20px;
+  text-transform: capitalize;
+  --box-shadow: none;
+  /* border-radius: 21px; */
+
+  --ripple-color: transparent;
+ 
+  .button-native {
+    border-radius: 8px !important;
+    box-shadow: none !important;
+    -webkit-box-shadow: none!important;
+    -webkit-appearance: none!important;
+    padding: 6px;
+  }
+  @media (min-width: 320px) {
+    margin-left: 8px;
+}
+@media (min-width: 375px) {
+  margin-left: 15px;
+}
+}
+
+// Sagar's code
+.buttonnew-recreated {
+  height: 26px;
+  margin-right: 5px;
+  background: #F4B50B;
+  // color: #000000;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  padding: 5px 7px;
+}
+// End of Sagar's code
+
+.textclass
+{
+  color: #000000!important;
+  font-family: 'latomedium'!important;
+  font-size: 16px;
+
+}
+.button-native{
+ background-color:  #F4B50B!important;
+ box-shadow: none !important;
+ -webkit-box-shadow: none!important;
+ -webkit-appearance: none!important;
+}
+.bgclass{
+  --background: #ffffff !important;
+  // border: 1px solid #e32427 !important;
+  border: 1px solid #D81D24 !important;     // According to XD
+  border-radius: 5px;
+}
+
+// Sagar's Code
+.bgclass-recreated {
+  background: #FFFFFF;
+  border: 1px solid #D81D24;
+  border-radius: 5px;
+}
+// End of Sagar's Code
+
+.cntr-img-new{
+  // width: 7em;
+  // height: 7em;
+  // border-radius: 50%;
+  // background-color: #F2EFEF;
+  // border: 4px solid #F2EFEF;
+  // box-shadow: inset 0 0 0 3px white;
+  border: 1.3px solid #DCDCDC;
+    border-radius: 50%;
+    margin-bottom: 6px;
+    width: 89px;
+    height: 89px;
+}
+.add-group-photo-text{
+  text-align: center;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  margin-top: 0px;
+}
+.trvlr-txt{
+  font-size: 14px;
+  font-family: latosemibold;
+  padding-left: 13px;
+}
+.text-underline{
+  text-decoration: underline #f2f3f2;
+  border-bottom: 1px solid #4F95E8;
+  font-family: latomedium;
+}
+.button-native {
+  padding:6px;
+}
+.pad-left0{
+  padding-left:0px;
+}
+.fontstylecls{
+  font-family: 'latomedium' !important;
+  font-size: 13px !important;
+  color: #898888;
+}
+.bdr-bttm{border-bottom: 1px solid rgb(216, 209, 209);}

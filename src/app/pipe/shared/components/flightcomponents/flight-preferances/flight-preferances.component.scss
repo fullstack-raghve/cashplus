@@ -1,0 +1,176 @@
+ion-grid {
+  background: #ffff;
+}
+
+p {
+  font-size: 15px;
+  color: black;
+  position: relative;
+  right: 10px;
+  top: 1px;
+}
+
+.food {
+  // display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+  padding-left: 38px;
+}
+.food-margin {
+  margin: 0 10px;
+}
+
+ion-card-header {
+  color: black;
+  font-size: 16px;
+  padding: 8px;
+  border-bottom: 1px solid #e3e3e3;
+}
+.flight-header-text {
+  font-size: 16px;
+  color: black;
+  position: absolute;
+  bottom: 126px;
+  left: 49px;
+  top: 11px;
+}
+.button {
+  --background: #f4b50b;
+  --color: #000000;
+  --vertical-align: middle;
+  --padding-left: 10px;
+  --padding-right: 10px;
+  margin: 10px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+}
+ion-card {
+  box-shadow: none;
+  border: 1px solid #e3e3e3;
+}
+
+:host ::ng-deep .mat-radio-outer-circle {
+  box-sizing: border-box;
+  height: 16px;
+  left: 0;
+  position: absolute;
+  top: 3px;
+  transition: border-color ease 280ms;
+  width: 16px;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 50%;
+  border-color: #b9b9b9;
+}
+:host ::ng-deep .mat-radio-label-content {
+  font-family: latomedium;
+  padding: 0;
+  font-size: 13px;
+  padding-left: 4px;
+}
+:host
+  ::ng-deep
+  .mat-radio-button.mat-accent.mat-radio-checked
+  .mat-radio-outer-circle {
+  border-color: #b9b9b9 !important;
+}
+:host ::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+  background-color: #b9b9b9 !important;
+}
+:host ::ng-deep .mat-radio-checked .mat-radio-inner-circle {
+  border-radius: 50%;
+  box-sizing: border-box;
+  height: 20px;
+  left: -2px;
+  position: absolute;
+  top: 1px;
+  transition: transform ease 280ms, background-color ease 280ms;
+  width: 20px;
+  transform: scale(0.5);
+}
+
+:host ::ng-deep .mat-select-value-text{
+  span{
+    text-overflow: ellipsis;
+    display: block;
+    overflow: hidden
+  }
+}
+.food-img {
+  margin-top: 17px;
+  width: 24px;
+  margin-left: 14px;
+}
+.flight-header {
+  width: 34px;
+  height: 19px;
+  padding-top: 3px;
+}
+
+.myerror {
+  color: #e32427;
+  font-size: 12px;
+  font-family: "latoregular";
+  position: relative;
+  left: 15px;
+  top: 10px;
+}
+.myerror2 {
+  color: #e32427;
+  font-size: 12px;
+  font-family: "latoregular";
+  position: relative;
+  left: 15px;
+  top: -13px;
+}
+.yello-btn-all3 {
+  background-color: #f4b50b;
+  width: 94%;
+  padding: 18px 15px;
+  border-radius: 5px;
+  color: #000000;
+  font-family: "latomedium" !important;
+  font-size: 14px;
+  margin-bottom: 5px;
+  margin-left: 3%;
+  margin-bottom: 10px;
+  padding-bottom: 20px;
+}
+.footernew {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  height: 50px;
+}
+/deep/.bckarrw {
+  padding: 12px;
+}
+/deep/.bckarrw:active {
+  background: #c10011;
+}
+// .backArrow{
+//   padding: 12px;
+// }
+// .backArrow:active{
+//   background: #c10011;
+//   border-radius: 50%;
+
+// }
+
+// change by anusha
+.no-crt .mat-form-field::before {
+  right: 3px;
+  top: 35%;
+}
+.aro-bck {
+  position: absolute;
+}
+
+.preference-text {
+  top: 4px;
+}

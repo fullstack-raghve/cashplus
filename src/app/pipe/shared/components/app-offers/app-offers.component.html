@@ -1,0 +1,25 @@
+<div class="container">
+ 
+    <div class="offers">
+      <h3>Offers</h3>
+      <p><small class="view">View All</small></p>
+    </div>
+  
+    <ion-slides [options] = "sliderOpts">
+        <ion-slide *ngFor = "let img of imgsList" class="alph-down" #slides>
+          <div class="img-box">
+             <img [src] = "img.imgurl">
+          </div>
+             <div class="text-over-image">
+                <div class="display-text">
+                  <h5> {{ img.name }} </h5>
+                    <p>starting from</p>
+                    <h6><span class="unit">AED</span> <span>{{img.price}}</span></h6>
+                   </div>
+                 </div>
+        </ion-slide>  
+      </ion-slides> 
+
+</div>
+
+

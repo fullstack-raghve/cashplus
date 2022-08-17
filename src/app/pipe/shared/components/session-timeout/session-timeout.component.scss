@@ -1,0 +1,47 @@
+.session_header {
+    background: #dc0d15;
+    padding: 12px;
+
+    h3 {
+        margin: 0;
+        font-size: 23px;
+        color: #ffffff;
+        text-align: center;
+    }
+}
+
+.session_des {
+    margin: 13px 0px;
+    padding: 0px 12px;
+    text-align: center;
+
+    img {
+        width: 12%;
+        height: 30px;
+    }
+
+    p {
+        margin: 0px;
+        font-size: 13px;
+        line-height: 15px;
+        margin-top: 11px;
+        margin-bottom: 15px;
+    }
+}
+
+.session_footer {
+    display: flex;
+    margin: 0px 10px;
+    margin-bottom: 15px;
+
+    button {
+        outline: none;
+        padding: 11px 15px;
+        text-align: center;
+        background-color: #f4b50b;
+        border-radius: 5px !important;
+        color: #000000;
+        font-family: latomedium !important;
+        font-size: 12px;
+    }
+}

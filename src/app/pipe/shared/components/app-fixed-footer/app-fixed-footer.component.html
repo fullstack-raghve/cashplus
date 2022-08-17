@@ -1,0 +1,120 @@
+<!-- 
+ <ion-tabs>
+  <ion-tab-bar slot="bottom" class="footer-menu">
+      <ion-tab-button matRipple (click)="home()"  routerLinkActive="active" class="active" >
+        <ion-icon src="assets/icon/homeicon.svg" *ngIf="router.url != '/' || setButtonClose"></ion-icon>
+        <ion-icon src="assets/icon/activated_icons/Home_activated_icon.svg" *ngIf="router.url == '/' && !setButtonClose"></ion-icon>
+
+        <ion-label class="footer-label" *ngIf="router.url != '/' || setButtonClose">Home</ion-label>
+        <ion-label class="footer-label more-clr" *ngIf="router.url == '/' && !setButtonClose">Home</ion-label>
+      </ion-tab-button>
+      <ion-tab-button (click)="login()" routerLinkActive='active'> 
+          <ion-icon src="assets/icon/myAccounticon.svg" *ngIf="router.url != '/myaccount/user-profile-form/myprofile' || setButtonClose"></ion-icon>
+          <ion-icon src="assets/icon/activated_icons/myaccount_activated_icon.svg" *ngIf="router.url == '/myaccount/user-profile-form/myprofile' && !setButtonClose"></ion-icon>
+
+        <ion-label class="footer-label" *ngIf="router.url != '/myaccount/user-profile-form/myprofile' || setButtonClose">My Account</ion-label>
+        <ion-label class="footer-label more-clr" *ngIf="router.url == '/myaccount/user-profile-form/myprofile' && !setButtonClose">My Account</ion-label>
+
+      </ion-tab-button>
+      <ion-tab-button matRipple (click)= "tripsModule()" routerLinkActive='active'>
+          <ion-icon src="assets/icon/tripicon.svg"  *ngIf="router.url != '/myaccount/user-profile-form/myprofile/trips' || setButtonClose"></ion-icon>
+          <ion-icon src="assets/icon/activated_icons/trip_activated_icon.svg" *ngIf="router.url == '/myaccount/user-profile-form/myprofile/trips' && !setButtonClose"></ion-icon>
+
+        <ion-label class="footer-label" *ngIf="router.url != '/myaccount/user-profile-form/myprofile/trips' || setButtonClose">Trips</ion-label>
+        <ion-label class="footer-label more-clr" *ngIf="router.url == '/myaccount/user-profile-form/myprofile/trips'&& !setButtonClose">Trips</ion-label>
+      </ion-tab-button>    
+      
+      <ion-tab-button matRipple (click)="supportModule()" routerLinkActive='active'>
+        <ion-icon src="assets/icon/supporticon.svg" *ngIf="router.url != '/support-module' || setButtonClose"></ion-icon>
+        <ion-icon src="assets/icon/activated_icons/support_icon_active.svg" *ngIf="router.url == '/support-module' && !setButtonClose"></ion-icon>
+
+      <ion-label matRipple class="footer-label" *ngIf="router.url != '/support-module' || setButtonClose">Support</ion-label>
+      <ion-label matRipple class="footer-label more-clr" *ngIf="router.url == '/support-module' && !setButtonClose">Support</ion-label> 
+    </ion-tab-button>
+
+      <ion-tab-button matRipple  (click)="openSettings()" routerLinkActive='active'  *ngIf="isLoggedIn == 'true' && !setButtonClose">
+        <ion-icon src="assets/icon/moreOption_icon.svg"></ion-icon>
+        <ion-label class="footer-label">More</ion-label>
+      </ion-tab-button>     
+      
+      <ion-tab-button matRipple (click)="openSettingsNologin()" routerLinkActive='active'  *ngIf="isLoggedIn != 'true'  && !setButtonClose">
+        <ion-icon src="assets/icon/moreOption_icon.svg"></ion-icon>
+        <ion-label class="footer-label">More</ion-label>
+      </ion-tab-button> 
+
+      
+      <ion-tab-button matRipple *ngIf="setButtonClose" (click)="closePopup()"  routerLinkActive='active'>
+        <ion-icon class="more-option-img" src="assets/icon/more_icon_active.svg"></ion-icon>
+        <ion-label class="footer-label more-clr more-pad" no-padding>More</ion-label>
+      </ion-tab-button>  
+    </ion-tab-bar>     
+
+
+</ion-tabs> -->
+
+<section class="fixed_footer ios_footer">
+  <div>
+    <div matRipple (click)="home()"  class="footer_item">
+      <ion-icon src="assets/icon/homeicon.svg" *ngIf="!active_home || setButtonClose"></ion-icon>
+      <ion-icon src="assets/icon/activated_icons/Home_activated_icon.svg" *ngIf="active_home && !setButtonClose"></ion-icon>
+   
+      <ion-label class="footer-label" *ngIf="!active_home || setButtonClose">Home</ion-label>
+      <ion-label class="footer-label more-clr" *ngIf="active_home && !setButtonClose">Home</ion-label>
+    </div>
+  </div>
+
+  <div>
+    <div matRipple (click)="login()" class="footer_item">
+      <ion-icon src="assets/icon/myAccounticon.svg" *ngIf="router.url != '/myaccount/user-profile-form/myprofile' || setButtonClose"></ion-icon>
+      <ion-icon src="assets/icon/activated_icons/myaccount_activated_icon.svg" *ngIf="router.url == '/myaccount/user-profile-form/myprofile' && !setButtonClose"></ion-icon>
+
+    <ion-label class="footer-label" *ngIf="router.url != '/myaccount/user-profile-form/myprofile' || setButtonClose">My Account</ion-label>
+    <ion-label class="footer-label more-clr" *ngIf="router.url == '/myaccount/user-profile-form/myprofile' && !setButtonClose">My Account</ion-label>
+    </div>
+  </div>
+
+  <div>
+    <div matRipple (click)= "tripsModule()" class="footer_item">
+      <ion-icon src="assets/icon/tripicon.svg"  *ngIf="router.url != '/myaccount/user-profile-form/myprofile/trips' || setButtonClose"></ion-icon>
+      <ion-icon src="assets/icon/activated_icons/trip_activated_icon.svg" *ngIf="router.url == '/myaccount/user-profile-form/myprofile/trips' && !setButtonClose"></ion-icon>
+
+    <ion-label class="footer-label" *ngIf="router.url != '/myaccount/user-profile-form/myprofile/trips' || setButtonClose">Trips</ion-label>
+    <ion-label class="footer-label more-clr" *ngIf="router.url == '/myaccount/user-profile-form/myprofile/trips'&& !setButtonClose">Trips</ion-label>
+    </div>
+  </div>
+
+  <div>
+    <div matRipple (click)="supportModule()" class="footer_item">
+      <ion-icon src="assets/icon/supporticon.svg" *ngIf="router.url != '/support-module' || setButtonClose"></ion-icon>
+        <ion-icon src="assets/icon/activated_icons/support_icon_active.svg" *ngIf="router.url == '/support-module' && !setButtonClose"></ion-icon>
+
+      <ion-label matRipple class="footer-label" *ngIf="router.url != '/support-module' || setButtonClose">Support</ion-label>
+      <ion-label matRipple class="footer-label more-clr" *ngIf="router.url == '/support-module' && !setButtonClose">Support</ion-label>
+    </div>
+  </div>
+
+  <div *ngIf="isLoggedIn == 'true' && !setButtonClose">
+    <div matRipple  (click)="openSettings()"  class="footer_item" >
+        <ion-icon src="assets/icon/moreOption_icon.svg"></ion-icon>
+        <ion-label class="footer-label">More</ion-label>
+    </div>
+  </div>
+
+  <div   *ngIf="isLoggedIn != 'true'  && !setButtonClose">
+    <div matRipple  (click)="openSettingsNologin()"  class="footer_item">
+      <ion-icon src="assets/icon/moreOption_icon.svg"></ion-icon>
+      <ion-label class="footer-label">More</ion-label>
+    </div>
+  </div>
+
+  <div *ngIf="setButtonClose">
+    <div matRipple  (click)="closePopup()"  class="footer_item">
+      <ion-icon style="width: 25px;
+      height: 25px;" class="more-option-img" src="assets/icon/more_icon_active.svg"></ion-icon>
+      <ion-label class="footer-label more-clr more-pad" no-padding>More</ion-label>
+    </div>  
+  </div>
+</section>
+
+
+     

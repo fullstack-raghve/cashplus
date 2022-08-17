@@ -1,0 +1,156 @@
+
+
+  
+<div class="page-wrapper">
+
+  
+    <ngx-spinner bdOpacity=0.2 bdColor="rgba(9,9,9,0.81)" size="medium" color="#fff"  type="ball-spin-clockwise-fade"
+    [fullScreen]= "true">
+    <p style="color: #fff">Loading... </p> 
+    </ngx-spinner>
+ 
+  <section>
+    <div class="home-banner-img custom-set">
+      
+        <span *ngIf = "bnneronhtml?.URL">
+          <img src="{{bnneronhtml?.URL}}" [alt]="bnneronhtml?.AltText">  
+
+        </span>
+        <span *ngIf="bnneronhtml == undefined">
+          <img  src="assets/images/bg.jpg" alt="banner"> 
+
+        </span>
+    
+
+      <div class="header-block">
+       
+
+        <!-- <app-header [contactNonew] = "contactNonew"></app-header> -->
+        <app-header [contactNox] = "contactNo" [cnfinal] = "contactNonew"></app-header>
+
+      </div>
+      <div class="widget-block">
+        <app-widget [productMap] = "finalproductdetails"></app-widget>
+      </div>
+    </div>
+  </section>
+
+ <section class="iframe-container" *ngIf="offerLeftBanner">
+    <iframe [src]="offerLeftBanner" width="100%" frameborder="0"  class="responsive-iframe"></iframe>
+  </section>
+<section style="width: 100%; height: 20px;" *ngIf="!offerLeftBanner"></section>
+  
+
+  <!-- <section class="offers-block">
+    <app-app-offers></app-app-offers>
+  </section> -->
+  <!-- <div class="slides-container slides-mb">
+    <ion-slides #slides>
+
+      <ion-slide class="slide-image-blk" *ngFor= "let imgdetail of Images">
+        <img [src]="imgdetail.imgUrl" />
+        <div class="slides-title">
+          {{imgdetail.title}}
+        </div>
+
+        <div class="text-over-image">
+          <p class="display-text"> {{imgdetail.slider_text}}</p>
+        </div>
+        <div class="button-over-image">
+          <button matRipple class="go-button" ng-click="upload()">LET'S GO</button>
+        </div>
+      </ion-slide>
+
+     
+    </ion-slides>
+    <div class="nav-icon">
+      <div><img class="left-icon" src="assets/icon/nav-arrow.svg" (click)= "prev()" /> </div>
+      <div><img class="right-icon" src="assets/icon/nav-arrow.svg" (click)= "nextSlide()" /></div>
+    </div>
+  </div>
+   -->
+  <ion-grid *ngIf ="socialMediaList?.length != 0">
+    <ion-row>
+      <ion-col size="12">
+        <div class="socio-text-block">
+         <h3>We are social</h3>
+          <p class="socio-small-text">Join in the fun and share your experiences</p>
+        </div>
+      </ion-col>
+</ion-row>
+  </ion-grid >
+     <!-- <pre>
+       {{socialMediaList | json}}
+     </pre> -->
+      <ion-grid class="social-container" *ngIf="isSocialIcon" >
+        <div class="container" > 
+        <ion-slides [options] = "sliderOpts">
+
+          <ng-container *ngFor="let social of socialMediaList">
+
+        <ion-slide #slides class="" *ngIf = "social?.socialMediaType == 1"> 
+        <div class="socio-icons-block">
+        <div matRipple class="facebook-icon" (click) = "opensocial(1)" >
+        <img src="assets/homePageIcons/fbIcon.svg" />
+        </div>
+        </div>
+        </ion-slide> 
+        <ion-slide class="alph-down" #slides *ngIf = "social?.socialMediaType == 2">
+        <div class="socio-icons-block">
+        <div matRipple class="twitter-icon" (click) ="opensocial(2)">
+        <img src="assets/homePageIcons/twitter_icon.svg" />
+        </div>
+        </div>
+        </ion-slide> 
+        <ion-slide class="alph-down" #slides *ngIf = "social?.socialMediaType == 3"> 
+        <div class="socio-icons-block">
+        <div matRipple class="google-plus-icon" (click) = "opensocial(3)">
+        <img src="assets/homePageIcons/googleIcon.svg" />
+        </div>
+        </div>
+        </ion-slide> 
+        <ion-slide class="alph-down" #slides *ngIf = "social?.socialMediaType == 4"> 
+        <div class="socio-icons-block">
+        <div matRipple class="pinterest-icon" (click) = "opensocial(4)">
+        <img src="assets/homePageIcons/pintrest_icon.svg" />
+        </div>
+        </div>
+        </ion-slide> 
+        <ion-slide class="alph-down" #slides *ngIf = "social?.socialMediaType == 5"> 
+        <div class="socio-icons-block">
+        <div matRipple class="youtube-icon" (click) = "opensocial(5)">
+        <img src="assets/homePageIcons/youtube.svg" />
+        </div>
+        </div>
+        </ion-slide> 
+        <ion-slide class="alph-down" #slides *ngIf = "social?.socialMediaType == 6"> 
+        <div class="socio-icons-block">
+        <div matRipple class="instra-icon" (click) = "opensocial(6)">
+        <img src="assets/homePageIcons/instagram.svg" />
+        </div>
+        </div>
+        </ion-slide> 
+        <ion-slide class="alph-down" #slides *ngIf = "social?.socialMediaType == 7"> 
+        <div class="socio-icons-block">
+        <div matRipple class="linkdin-icon" (click) = "opensocial(7)">
+        <img src="assets/homePageIcons/linkedin.svg" />
+        </div>
+        </div>
+        </ion-slide> 
+
+      </ng-container>
+
+        </ion-slides> 
+        </div>
+        </ion-grid>
+     
+
+   
+   
+  <app-footer></app-footer>
+</div>
+
+
+<app-fixed-footer ></app-fixed-footer >
+
+

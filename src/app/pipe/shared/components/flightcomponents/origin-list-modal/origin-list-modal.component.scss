@@ -1,0 +1,196 @@
+// .modal.bottom-sheet {
+//     bottom: 0;  
+//     min-height: initial;
+//     top: initial;
+//     height: 150%;
+//     border-width: 1px;
+//     border-style: solid;
+//   }
+
+// .backdrop-showing {
+//     opacity: 1;
+//     background: black;
+// }
+
+.cdk-overlay-backdrop cdk-overlay-dark-backdrop cdk-overlay-backdrop-showing{
+ background: black
+}
+.mat-bottom-sheet-container {
+    padding: 8px 16px;
+    min-width: 100vw;
+    box-sizing: border-box;
+    display: block;
+    outline: 0;
+    max-height: 80vh;
+    overflow: auto;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+ion-searchbar{
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+.pop-city {
+    div{
+        background: #f4f4f4;
+        font-family: 'latomedium';
+        padding: 6px 37px;
+        height: 30px;
+        line-height: 21px;
+        color: #000000;
+      
+       
+    }
+}
+.searchbar-input{
+    .sc-ion-searchbar-md{
+        height: 52px!important;
+    }
+}
+.btn-secondary2{
+    width: 10%;
+    background: #ffffff;
+}
+.bg-white{
+    background: #ffffff;
+
+}
+.srch-icon{
+    width: 10%;
+    background: #ffffff;
+}
+.mat-bottom-sheet-container{
+    height: 86vh!important;
+}
+.airpot-list{
+    height: 75vh;
+    overflow-y: scroll;
+}
+.fligth-icon{
+    max-width: 15px;
+    margin-right: 7px;
+    margin-top: 6px;
+
+}
+.has-search .form-control {
+    padding-left: 2.375rem;
+}
+.input-group {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    width: 100%;
+}
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 100%;
+    height: 35px;;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}
+.form-control2{
+    width: 80%;
+    border:none;
+    padding: 14px 10px;
+    font-family: 'latosemibold';
+}
+::placeholder{
+    font-family: 'latolight';
+    color: #000000;
+    font-weight: 300;
+    font-size: 18px;
+}
+.input-group{
+    padding-top: 10px;
+}
+
+.airpot-items li{
+    
+        display: block;
+    //font: menu;
+    font-size: 12px;
+    line-height: 16px;
+    overflow: hidden;
+    padding: 15px 12px 15px 8px;
+    cursor: pointer;
+    letter-spacing: 1px;
+   // font-family: Rubik;
+    }
+    .country{
+        float: left;
+        width: 80%;
+        display: flex;
+    .city-name{
+        margin: 0;
+    font-size: 14px;
+    position: relative;
+    padding: 0 0 2px;
+    }
+    .airport-name{
+        margin: 0;
+        font-size: 12px;
+        color: #666;
+    }
+    }
+    .airport{
+        float: right;
+        font-size: 13px;
+        max-width: 28%;
+        text-align: right;
+        line-height: 1.2;
+        padding-right: 20px;
+        justify-content: flex-end;
+        p{
+            justify-content: flex-end;
+        }
+    }
+.airport-left{
+    .location{
+       
+        font-family: 'latosemibold';
+        font-size: 14px;
+        margin-bottom: 0px;
+    }
+    .aname{
+        color: #666;
+        font-family: 'latosemibold';
+        font-size: 12px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+}
+.no-top-bottom-padd{
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+.example-viewport {
+    height: 100%;
+    width: 200px;
+    border: 1px solid black;
+  }
+  
+  .example-item {
+    height: 50px;
+  }
+.acc{
+    p{
+        font-size: 16px!important;
+    }
+}
+.notfound{
+    background: #f4f4f4;
+    padding: 10px;
+    color: #E31F26;
+}
+
+ 

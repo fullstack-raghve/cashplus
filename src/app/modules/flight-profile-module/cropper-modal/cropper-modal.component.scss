@@ -1,0 +1,66 @@
+.close_icon{
+    position: absolute;
+    right: 16px;
+    top: 16px;
+}
+.header {
+        overflow: hidden;
+        background-color: #f1f1f1;
+ }
+.fontcls{
+    font-size: 16px;
+    text-align: center;
+}
+input[type="file"] {
+    display: none;
+}
+.divcls{
+    text-align: center;
+    margin: 6px;
+}
+.cls{
+    overflow: auto;
+    width: 97%;
+    height: 400px;
+}
+.custom-file-upload {
+    display: inline-block;
+    padding: 13px;
+    background: #ebb134;
+    border-radius: 5%;
+    margin:0 2%;
+    color:#000000;
+    height: 40px;
+}
+.mat-slider-horizontal {
+    min-width: 240px !important;
+    margin-left: 8%;
+    margin-right: 8%;
+}
+.height_fixed{
+    overflow: scroll;height: 80vh;
+    padding-top: 15px;
+}
+.scroll_height{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 14px;
+    padding-top: 15px;
+}
+.Rotataeleftbtn
+{
+    padding: 5px;
+    // width: 12%;
+    margin-right: 25px;
+    background: white;
+    border-radius: 50%;
+}
+.Rotataerightbtn
+{
+    // width: 11%;
+    padding: 5px;
+    background: white;
+    border-radius: 50%;
+}
+

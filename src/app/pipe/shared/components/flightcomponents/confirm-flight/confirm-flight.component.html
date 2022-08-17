@@ -1,0 +1,1379 @@
+
+
+<ion-content >
+
+  <div *ngIf="!getReponse && !IfConfirmResponseNull">
+    <p
+      style="
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <ion-spinner name="lines"></ion-spinner>Loading ...
+    </p>
+  </div>
+
+  <ion-header  >
+    <ion-toolbar color="custom-color-red">
+      <ion-grid>
+        <ion-row style="display: flex; align-items: center;">
+          <ion-col size="2" size-sm (click)="backTo()">
+            <img
+              class="backArrow"
+              src="assets/icon/backarrowtop2.svg"
+              alt="Back"
+              style="width: 17px;"
+            />
+          </ion-col>
+          <!--for oneway header-->
+          <ion-col size="8" size-sm>
+            <app-top-header></app-top-header>
+          </ion-col>
+        
+        </ion-row>
+      </ion-grid>
+    </ion-toolbar>
+    <!--header END-->
+  </ion-header>
+  <ion-grid  no-padding class="bg-white">
+    <ion-row no-padding>
+      <ion-col size="12" no-padding>
+        <div class="wrapper-progressBar">
+          <ul class="progressBar">
+            <li class="active"></li>
+            <li></li>
+            <li></li>
+          </ul>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid   no-padding>
+    <ion-row no-padding>
+      <ion-col size="12" no-padding class="heading-font">
+        <p text-center >Your Itinerary</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!--mat-accordian start for --oneway-->
+  <div class="selectedflight flight_confirm_matbody" *ngIf="triptype == 'oneway' && selectedflight && getReponse && !IfConfirmResponseNull">
+    <mat-accordion>
+      <ion-grid>
+        <mat-expansion-panel
+          class="panel-padd"
+          (opened)="panelOpenState = true"
+          (closed)="panelOpenState = false"
+        >
+          <mat-expansion-panel-header class="panelHeight">
+            <div>
+              <ion-row no-padding>
+                <ion-col class="details">
+                  <!-- <ion-label class="Origin-text">{{selectedflight2.origin}}, 09:20static</ion-label><br /> -->
+                  <ion-label class="Origin-text"
+                    >{{ selectedflight2.origin }}
+                    <span
+                      *ngFor="
+                        let flighdata of selectedflight2.flightlegs;
+                        let first = first;
+                        let last = last
+                      " [ngStyle]="{'display': !first ? 'none':''}"
+                    >
+                      <span *ngIf="first">{{
+                        flighdata.depTime | slice: 0:5
+                      }}</span>
+                    </span> </ion-label
+                  ><br />
+
+                  <span
+                    *ngFor="
+                      let flighdata of selectedflight2.flightlegs;
+                      let first = first;
+                      let last = last
+                    " [ngStyle]="{'display': !first ? 'none':''}"
+                  >
+                    <ion-label class="city-text" *ngIf="first">{{
+                      flighdata.originCityName
+                    }}</ion-label
+                    ><br />
+                    <span class="date font-small2" *ngIf="first"
+                      >{{ flighdata.depDate | date: "d" }}
+                      {{ flighdata.depDate | date: " MMM yyyy" }}</span
+                    >
+                    <!-- <span class="date font-small2" *ngIf="first">{{flighdata.originCityName | titlecase</span> -->
+                  </span>
+                </ion-col>
+                <ion-col style="margin-bottom: 20px;" class="way-col">
+                  <span
+                    ><img
+                      src="assets/icons/flights/gray_circle_icon.svg"
+                      style="width: 24px;" /></span
+                  ><br />
+                  <span></span><br />
+
+                  <span
+                    [ngClass]="{
+                      stop_no: selectedflight2.flightlegs.length == 1
+                    }"
+                    class="flight_legs"
+                  >
+                    <span
+                      class="stop font-small2 num-stop"
+                      *ngIf="selectedflight2.flightlegs.length - 1 != 0"
+                      >{{ selectedflight2.flightlegs.length - 1 }} Stop
+                    </span>
+                    <span
+                      class="font-small2 num-stop non_stop"
+                      *ngIf="selectedflight2.flightlegs.length - 1 == 0"
+                      >Non Stop
+                    </span>
+
+                    <div
+                      class="stopage_show"
+                      *ngIf="
+                        selectedflight2.flightlegs.length == 2 ||
+                        selectedflight2.flightlegs.length == 3
+                      "
+                    >
+                      (&nbsp;
+                      <div class="white_space">
+                        <span
+                          class="font-small2"
+                          *ngIf="selectedflight2.flightlegs.length == 2"
+                        >
+                          {{
+                            selectedflight2.flightlegs[0]?.destinationCityName
+                          }}
+                        </span>
+                        <span
+                          class="font-small2"
+                          *ngIf="selectedflight2.flightlegs.length == 3"
+                        >
+                          {{
+                            selectedflight2.flightlegs[0]?.destinationCityName
+                          }},
+                          {{
+                            selectedflight2.flightlegs[1]?.destinationCityName
+                          }}
+                        </span>
+                      </div>
+                      &nbsp;)
+                    </div>
+                  </span>
+
+                  <!-- <span *ngFor="let flighdata of selectedflight2.flightlegs;let first = first; let last = last;let i=index">
+                  <span class="stop font-small2 num-stop" *ngIf = "!last">
+                    <span class="stop font-small2 num-stop" *ngIf = "first">( </span>
+                    {{flighdata.destinationCityName}}
+                    <span class="stop font-small2 num-stop" *ngIf = "i < selectedflight2.flightlegs.length-2">,</span>
+                    <span class="stop font-small2 num-stop" *ngIf = "i == selectedflight2.flightlegs.length-2"> )</span>
+                  </span> -->
+                </ion-col>
+                <ion-col class="details">
+                  <!-- <ion-label class="Origin-text">static20:55 {{selectedflight2.destination}} </ion-label><br />{{selectedflight2.flightlegs[1].originCityName}} -->
+                  <ion-label class="Origin-text"
+                    >{{ selectedflight2.destination }}
+                    <span
+                      *ngFor="
+                        let flighdata of selectedflight2.flightlegs;
+                        let first = first;
+                        let last = last
+                      " [ngStyle]="{'display': !last ? 'none':''}"
+                    >
+                      <span *ngIf="last">{{
+                        flighdata.arrTime | slice: 0:5
+                      }}</span>
+                    </span> </ion-label
+                  ><br />
+
+                  <span
+                    *ngFor="
+                      let flighdata of selectedflight2.flightlegs;
+                      let first = first;
+                      let last = last
+                    " [ngStyle]="{'display': !last ? 'none':''}"
+                  >
+                    <ion-label class="city-text" *ngIf="last">{{
+                      flighdata.destinationCityName
+                    }}</ion-label
+                    ><br />
+                    <span class="date font-small2" *ngIf="last"
+                      >{{ flighdata.arrDate | date: "d" }}
+                      {{ flighdata.arrDate | date: " MMM yyyy" }}</span
+                    >
+                  </span>
+                </ion-col>
+              </ion-row>
+
+              <div
+                class="equipment-row"
+                *ngFor="
+                  let flighdata of selectedflight2.flightlegs;
+                  let first = first;
+                  let last = last;
+                  let index = index
+                "
+              >
+                <ion-row class="gulf-air" *ngIf="index < 1">
+                  <span>
+                    <img
+                      src="assets/airline/images/{{ flighdata.carrier }}.jpg"
+                      alt="{{ flighdata.carrier }}"
+                      class="confirm-logo {{flighdata?.carrier == 'U2' ? 'confirm-logo-easyjet' :flighdata?.carrier == 'VY' ?'confirm-logo-vue':''}}"                      
+                    />
+                  </span>
+                  <span>{{ flighdata.carrierName }}</span>
+                  <span>|</span>
+                  <span class="fno"
+                    >{{ flighdata?.carrier }}-{{ flighdata.flightNumber }}</span
+                  >
+                  <span>|</span>
+                  <span
+                    >{{ selectedflight2.flightFare.cabinClass | uppercase }}
+                  </span>
+                  <span>|</span>
+                  <span class="equipment">{{ flighdata.equipment }} </span>
+                </ion-row>
+              </div>
+            </div>
+          </mat-expansion-panel-header>
+          <!--openpanle code start-->
+
+          <ion-grid
+            class="panel_data_below"
+            *ngFor="let flighdata of selectedflight2?.flightlegs; let i = index"
+          >
+            <ion-row>
+              <!--layover oneway -->
+              <div
+                class="container"
+                *ngIf="flighdata.flightSwitchingWaitingTime != ''"
+                style="margin-bottom: 24px;"
+              >
+                <div class="line">
+                  <mat-divider></mat-divider>
+                </div>
+                <div class="text mat-typography">
+                  <p class="time-with">
+                    Layover : {{ flighdata.flightSwitchingWaitingTime }}
+                  </p>
+                </div>
+                <div class="line">
+                  <mat-divider></mat-divider>
+                </div>
+              </div>
+              <!--layover oneway end-->
+
+              <ion-col
+                class="gulf-air gulf-air-new"
+                size="12"
+                no-padding
+                *ngIf="i > 0"
+              >
+                <span>
+                  <img
+                    src="assets/airline/images/{{ flighdata.carrier }}.jpg"
+                    alt="{{ flighdata.platingCarrier }}"
+                    class="confirm-logo {{flighdata?.carrier == 'U2' ? 'confirm-logo-easyjet' :flighdata?.carrier == 'VY' ?'confirm-logo-vue':''}}"
+                  />
+                </span>
+                <span>{{ flighdata.carrierName }}</span>
+                <span>|</span>
+                <span class="fno"
+                  >{{ flighdata?.carrier }}-{{ flighdata.flightNumber }}</span
+                >
+                <span>|</span>
+                <span
+                  >{{ selectedflight2.flightFare.cabinClass | uppercase }}
+                </span>
+                <span>|</span>
+                <span class="equipment">{{ flighdata.equipment }} </span>
+              </ion-col>
+
+              <ion-col class="details">
+                <ion-label class="Origin-text"
+                  >{{ flighdata.origin }}
+                  {{ flighdata.depTime | slice: 0:5 }}</ion-label
+                ><br />
+                <span class="date"
+                  >{{ flighdata.depDate | date: "d"
+                  }}{{ flighdata.depDate | date: " MMM yyyy" }} </span
+                ><br />
+                <ion-label class="city-text">{{
+                  flighdata.originName
+                }}</ion-label>
+              </ion-col>
+              <ion-col class="way-col time-position">
+                <span></span><br />
+                <span
+                  ><img
+                    src="assets/cod/time_icon@2x.png"
+                    style="width: 21px; height: 21px;" /></span
+                ><br />
+                <span class="stop">{{ flighdata.journeyDuration | addspace}}</span>
+              </ion-col>
+              <ion-col class="details pad-left">
+                <ion-label class="Origin-text">
+                  {{ flighdata.arrTime | slice: 0:5 }}  {{ flighdata.destination }}
+                </ion-label>
+                <br />
+                <span class="date"
+                  >{{ flighdata.arrDate | date: "d"
+                  }}{{ flighdata.arrDate | date: " MMM yyyy" }} </span
+                ><br />
+                <ion-label class="city-text">{{
+                  flighdata.destinationName
+                }}</ion-label>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </mat-expansion-panel>
+      </ion-grid>
+    </mat-accordion>
+  </div>
+  <!--mat-accordian end for --oneway-->
+
+  <!--mat accordian onwardoption in returnway-->
+  <div class="selectedflightreturnway flight_confirm_matbody" *ngIf="triptype == 'returnway' && selectedflightreturnway && getReponse && !IfConfirmResponseNull">
+    <mat-accordion>
+      <ion-grid class="no-pad-bot">
+        <mat-expansion-panel
+          class="panel-padd"
+          (opened)="panelOpenState = true"
+          (closed)="panelOpenState = false"
+        >
+          <mat-expansion-panel-header class="panelHeight">
+            <div>
+              <ion-row>
+                <ion-col class="details">
+                  <div
+                    *ngFor="
+                      let flight of selectedflightreturnway.onwardFlightOption
+                        .flightlegs;
+                      let first = first;
+                      let last = last
+                    "
+                  >
+                    <div *ngIf="first">
+                      <ion-label class="Origin-text"
+                        >{{ flight.origin }}
+                        {{ flight.depTime | slice: 0:5 }} </ion-label
+                      ><br />
+                      <ion-label class="city-text">{{
+                        flight.originCityName
+                      }}</ion-label
+                      ><br />
+                      <span class="date"
+                        >{{ flight.depDate | date: "d"
+                        }}{{ flight.depDate | date: " MMM yyyy" }}</span
+                      >
+                    </div>
+                  </div>
+                </ion-col>
+
+                <ion-col style="margin-bottom: 20px;" class="way-col">
+                  <span
+                    ><img
+                      src="assets/icons/flights/gray_circle_icon.svg"
+                      style="width: 24px;" /></span
+                  ><br />
+                  <span></span><br />
+                  <span
+                    [ngClass]="{
+                      stop_no:
+                        selectedflightreturnway.onwardFlightOption.flightlegs
+                          .length == 1
+                    }"
+                    class="flight_legs"
+                  >
+                    <span
+                      class="stop font-small2 num-stop"
+                      *ngIf="
+                        selectedflightreturnway.onwardFlightOption.flightlegs
+                          .length -
+                          1 !=
+                        0
+                      "
+                      >{{
+                        selectedflightreturnway.onwardFlightOption.flightlegs
+                          .length - 1
+                      }}
+                      Stop</span
+                    >
+                    <span
+                      class="font-small2 num-stop non_stop"
+                      *ngIf="
+                        selectedflightreturnway.onwardFlightOption.flightlegs
+                          .length -
+                          1 ==
+                        0
+                      "
+                      >Non Stop
+                    </span>
+
+                    <div
+                      class="stopage_show"
+                      *ngIf="
+                        selectedflightreturnway.onwardFlightOption.flightlegs
+                          .length == 2 ||
+                        selectedflightreturnway.onwardFlightOption.flightlegs
+                          .length == 3
+                      "
+                    >
+                      (&nbsp;
+                      <div class="white_space">
+                        <span
+                          class="font-small2"
+                          *ngIf="
+                            selectedflightreturnway.onwardFlightOption
+                              .flightlegs.length == 2
+                          "
+                        >
+                          {{
+                            selectedflightreturnway.onwardFlightOption
+                              .flightlegs[0]?.destinationCityName
+                          }}
+                        </span>
+                        <span
+                          class="font-small2"
+                          *ngIf="
+                            selectedflightreturnway.onwardFlightOption
+                              .flightlegs.length == 3
+                          "
+                        >
+                          {{
+                            selectedflightreturnway.onwardFlightOption
+                              .flightlegs[0]?.destinationCityName
+                          }},
+                          {{
+                            selectedflightreturnway.onwardFlightOption
+                              .flightlegs[1]?.destinationCityName
+                          }}
+                        </span>
+                      </div>
+                      &nbsp;)
+                    </div>
+
+                  
+                  </span>
+                </ion-col>
+
+                <ion-col class="details">
+                  <div
+                    *ngFor="
+                      let flight of selectedflightreturnway.onwardFlightOption
+                        .flightlegs;
+                      let first = first;
+                      let last = last
+                    "  [ngStyle]="{'display': !last ? 'none':''}"
+                  >
+                    <div *ngIf="last">
+                      <ion-label class="Origin-text"
+                        >{{ flight.arrTime | slice: 0:5 }}
+                        {{ flight.destination }}
+                      </ion-label>
+                      <br />
+                      <ion-label class="city-text">{{
+                        flight.destinationCityName
+                      }}</ion-label
+                      ><br />
+                      <span class="date">
+                        <span class="date"
+                          >{{ flight.arrDate | date: "d"
+                          }}{{ flight.arrDate | date: " MMM yyyy" }}</span
+                        >
+                      </span>
+                    </div>
+                  </div>
+                </ion-col>
+              </ion-row>
+              <div
+                class="equipment-row"
+                *ngFor="
+                  let flight of selectedflightreturnway.onwardFlightOption
+                    .flightlegs;
+                  let first = first;
+                  let last = last;
+                  let index = index
+                "
+              >
+                <ion-row class="gulf-air" *ngIf="index < 1">
+                  <span>
+                    <img
+                      src="assets/airline/images/{{ flight.carrier }}.jpg"
+                      alt="{{ flight.platingCarrier }}"
+                      class="confirm-logo {{flight?.carrier == 'U2' ? 'confirm-logo-easyjet' :flight?.carrier == 'VY' ?'confirm-logo-vue':''}}"                      
+                    />
+                  </span>
+
+                  <span>{{ flight.carrierName }}</span>
+                  <span>|</span>
+                  <span>{{ flight?.carrier }}-{{ flight.flightNumber }}</span>
+                  <span>|</span>
+                  <span
+                    >{{
+                      selectedflightreturnway.onwardFlightOption.flightFare
+                        .cabinClass | uppercase
+                    }}
+                  </span>
+                  <span>|</span>
+                  <span>{{ flight.equipment }} </span>
+                </ion-row>
+              </div>
+            </div>
+          </mat-expansion-panel-header>
+
+          <div
+            class="panel_data_below"
+            *ngFor="
+              let flight of selectedflightreturnway.onwardFlightOption
+                .flightlegs;
+              let index = index
+            "
+          >
+            <ion-row>
+              <!--layover div returway onward-->
+              <div
+                class="container"
+                *ngIf="flight.flightSwitchingWaitingTime != ''"
+                style="margin-bottom: 24px;"
+              >
+                <div class="line">
+                  <mat-divider></mat-divider>
+                </div>
+                <div class="text mat-typography">
+                  <p class="time-with">
+                    Layover : {{ flight.flightSwitchingWaitingTime }}
+                  </p>
+                </div>
+                <div class="line">
+                  <mat-divider></mat-divider>
+                </div>
+              </div>
+              <!--layover div returway onward end-->
+
+              <ion-col
+                class="gulf-air gulf-air-new"
+                size="12"
+                no-padding
+                *ngIf="index > 0"
+              >
+                <span>
+                  <img
+                    src="assets/airline/images/{{ flight.carrier }}.jpg"
+                    alt="{{ flight.platingCarrier }}"
+                    class="confirm-logo {{flight?.carrier == 'U2' ? 'confirm-logo-easyjet' :flight?.carrier == 'VY' ?'confirm-logo-vue':''}}"                      
+                  />
+                </span>
+                <span>{{ flight.carrierName }}</span>
+                <span>|</span>
+                <span class="fno"
+                  >{{ flight?.carrier }}-{{ flight.flightNumber }}</span
+                >
+                <span>|</span>
+                <span
+                  >{{
+                    selectedflightreturnway.onwardFlightOption.flightFare
+                      .cabinClass | uppercase
+                  }}
+                </span>
+                <span>|</span>
+                <span class="equipment">{{ flight.equipment }} </span>
+              </ion-col>
+
+              <ion-col class="details">
+                <ion-label class="Origin-text"
+                  >{{ flight.origin }}
+                  {{ flight.depTime | slice: 0:5 }}</ion-label
+                ><br />
+                <span class="date"
+                  >{{ flight.depDate | date: "d" }}
+                  {{ flight.depDate | date: " MMM yyyy" }}</span
+                ><br />
+                <ion-label class="city-text">{{ flight.originName }}</ion-label>
+              </ion-col>
+              <ion-col class="way-col time-position">
+                <span></span><br />
+                <span
+                  ><img
+                    src="assets/cod/time_icon@2x.png"
+                    style="width: 21px; height: 21px;" /></span
+                ><br />
+                <span class="stop">{{ flight.journeyDuration | addspace}}</span>
+              </ion-col>
+              <ion-col class="details pad-left">
+                <ion-label class="Origin-text">
+                  {{ flight.arrTime | slice: 0:5 }}
+                  {{ flight.destination }}</ion-label
+                ><br />
+                <span class="date"
+                  >{{ flight.arrDate | date: "d"
+                  }}{{ flight.arrDate | date: " MMM yyyy" }}</span
+                ><br />
+                <ion-label class="city-text">{{
+                  flight.destinationName
+                }}</ion-label>
+              </ion-col>
+            </ion-row>
+          </div>
+        </mat-expansion-panel>
+      </ion-grid>
+    </mat-accordion>
+    <!--mat accordian onwardoption in returnway end-->
+
+    <!--mat accordian returnoption in returnway-->
+    <mat-accordion>
+      <ion-grid class="no-pad-top">
+        <mat-expansion-panel
+          class="panel-padd"
+          (opened)="panelOpenState = true"
+          (closed)="panelOpenState = false"
+        >
+          <mat-expansion-panel-header class="panelHeight">
+            <div>
+              <ion-row>
+                <ion-col class="details">
+                  <div
+                    *ngFor="
+                      let flight of selectedflightreturnway.returnFlightOption
+                        .flightlegs;
+                      let first = first;
+                      let last = last
+                    "
+                  >
+                    <div *ngIf="first">
+                      <ion-label class="Origin-text"
+                        >{{ flight.origin }}
+                        {{ flight.depTime | slice: 0:5 }}</ion-label
+                      ><br />
+                      <ion-label class="city-text">{{
+                        flight.originCityName
+                      }}</ion-label
+                      ><br />
+                      <span class="date font-small2"
+                        >{{ flight.depDate | date: "d"
+                        }}{{ flight.depDate | date: " MMM yyyy" }}</span
+                      >
+                    </div>
+                  </div>
+                </ion-col>
+
+                <!-- <ion-col class="way-col">
+                  <span><img src="assets/icons/flights/gray_circle_icon.svg" style="width: 20px;"></span><br />
+                  <span></span><br>
+                  <span class="stop font-small2" *ngFor = "let flight of selectedflightreturnway.returnFlightOption;">
+                    {{flight.flightlegs.length-1}} stop</span>
+                   </ion-col> -->
+
+                <ion-col
+                  [ngStyle]="{ 'margin-bottom': '20px' }"
+                  class="way-col pad-left"
+                >
+                  <span
+                    ><img
+                      src="assets/icons/flights/gray_circle_icon.svg"
+                      style="width: 24px;" /></span
+                  ><br />
+                  <span></span><br />
+                  <span
+                    class="flight_legs"
+                    [ngClass]="{
+                      stop_no:
+                        selectedflightreturnway.returnFlightOption.flightlegs
+                          .length == 1
+                    }"
+                  >
+                    <span
+                      class="stop font-small2 num-stop"
+                      *ngIf="
+                        selectedflightreturnway.returnFlightOption.flightlegs
+                          .length -
+                          1 !=
+                        0
+                      "
+                      >{{
+                        selectedflightreturnway.returnFlightOption.flightlegs
+                          .length - 1
+                      }}
+                      Stop</span
+                    >
+                    <span
+                      class="font-small2 num-stop non_stop"
+                      *ngIf="
+                        selectedflightreturnway.returnFlightOption.flightlegs
+                          .length -
+                          1 ==
+                        0
+                      "
+                      >Non Stop
+                    </span>
+                    <!-- <span *ngFor="let flight of selectedflightreturnway.returnFlightOption.flightlegs;let first = first; let last = last;let i=index"> -->
+                    <!-- <span class="stop font-small2 num-stop" *ngIf = "!last"> -->
+                    <!-- <span class="stop font-small2" *ngIf = "first">(</span> -->
+                    <!-- ( {{flight.destinationCityName | textlimit:11}} ) -->
+                    <!-- <span class="stop font-small2 num-stop" *ngIf = "i < selectedflightreturnway.returnFlightOption.flightlegs.length-2">,</span> -->
+                    <!-- <span class="stop font-small2 num-stop" *ngIf = "i == selectedflightreturnway.returnFlightOption.flightlegs.length-2">)</span> -->
+                    <!-- </span> -->
+                    <!-- </span> -->
+                    <!-- <span class="font-small2" *ngIf = " selectedflightreturnway.returnFlightOption.flightlegs.length == 2">
+                        ( {{selectedflightreturnway.returnFlightOption.flightlegs[0]?.destinationCityName | textlimit:11}} ) 
+                      </span>
+                      <span class="font-small2"  *ngIf = "selectedflightreturnway.returnFlightOption.flightlegs.length == 3">
+                        ( {{ selectedflightreturnway.returnFlightOption.flightlegs[0]?.destinationCityName }}, 
+                           {{selectedflightreturnway.returnFlightOption.flightlegs[1]?.destinationCityName | textlimit:7}}  )
+                      </span> -->
+
+                    <div
+                      class="stopage_show"
+                      *ngIf="
+                        selectedflightreturnway.returnFlightOption.flightlegs
+                          .length == 2 ||
+                        selectedflightreturnway.returnFlightOption.flightlegs
+                          .length == 3
+                      "
+                    >
+                      (&nbsp;
+                      <div class="white_space">
+                        <span
+                          class="font-small2"
+                          *ngIf="
+                            selectedflightreturnway.returnFlightOption
+                              .flightlegs.length == 2
+                          "
+                        >
+                          {{
+                            selectedflightreturnway.returnFlightOption
+                              .flightlegs[0]?.destinationCityName
+                          }}
+                        </span>
+                        <span
+                          class="font-small2"
+                          *ngIf="
+                            selectedflightreturnway.returnFlightOption
+                              .flightlegs.length == 3
+                          "
+                        >
+                          {{
+                            selectedflightreturnway.returnFlightOption
+                              .flightlegs[0]?.destinationCityName
+                          }},
+                          {{
+                            selectedflightreturnway.returnFlightOption
+                              .flightlegs[1]?.destinationCityName
+                          }}
+                        </span>
+                      </div>
+                      &nbsp;)
+                    </div>
+                  </span>
+                </ion-col>
+
+                <ion-col class="details pad-left">
+                  <div
+                    *ngFor="
+                      let flight of selectedflightreturnway.returnFlightOption
+                        .flightlegs;
+                      let first = first;
+                      let last = last
+                    "
+                  >
+                    <div *ngIf="last">
+                      <ion-label class="Origin-text"
+                        >{{ flight.arrTime | slice: 0:5 }}
+                        {{ flight.destination }}
+                      </ion-label>
+                      <br />
+                      <ion-label class="city-text">{{
+                        flight.destinationCityName
+                      }}</ion-label
+                      ><br />
+                      <span class="date font-small2"
+                        >{{ flight.arrDate | date: "d" }}
+                        {{ flight.arrDate | date: " MMM yyyy" }}</span
+                      >
+                    </div>
+                  </div>
+                </ion-col>
+              </ion-row>
+
+              <div
+                class="equipment-row"
+                *ngFor="
+                  let flight of selectedflightreturnway.returnFlightOption
+                    .flightlegs;
+                  let first = first;
+                  let last = last;
+                  let index = index
+                "
+              >
+                <ion-row class="gulf-air" *ngIf="index < 1">
+                  <span>
+                    <img
+                      src="assets/airline/images/{{ flight.carrier }}.jpg"
+                      alt="{{ flight.platingCarrier }}"
+                      class="confirm-logo {{flight?.carrier == 'U2' ? 'confirm-logo-easyjet' :flight?.carrier == 'VY' ?'confirm-logo-vue':''}}"                      
+                    />
+                  </span>
+                  <span>{{ flight.carrierName }}</span>
+                  <span>|</span>
+                  <span class="fno"
+                    >{{ flight?.carrier }}-{{ flight.flightNumber }}</span
+                  >
+                  <span>|</span>
+                  <span
+                    >{{
+                      selectedflightreturnway.returnFlightOption.flightFare
+                        .cabinClass | uppercase
+                    }}
+                  </span>
+                  <span>|</span>
+                  <span class="equipment">{{ flight.equipment }}</span>
+                </ion-row>
+              </div>
+            </div>
+          </mat-expansion-panel-header>
+
+          <div
+            class="panel_data_below"
+            *ngFor="
+              let flight of selectedflightreturnway.returnFlightOption
+                .flightlegs;
+              let index = index
+            "
+          >
+            <ion-row>
+              <!--layover div returnway --return-->
+              <div
+                class="container"
+                *ngIf="flight.flightSwitchingWaitingTime != ''"
+                style="margin-bottom: 24px;"
+              >
+                <div class="line">
+                  <mat-divider></mat-divider>
+                </div>
+                <div class="text mat-typography">
+                  <p class="time-with">
+                    Layover : {{ flight.flightSwitchingWaitingTime }}
+                  </p>
+                </div>
+                <div class="line">
+                  <mat-divider></mat-divider>
+                </div>
+              </div>
+              <!--layover div returnway --return end-->
+
+              <ion-col
+                class="gulf-air gulf-air-new"
+                size="12"
+                no-padding
+                *ngIf="index > 0"
+              >
+                <span>
+                  <img
+                    src="assets/airline/images/{{ flight.carrier }}.jpg"
+                    alt="{{ flight.platingCarrier }}"
+                    class="confirm-logo {{flight?.carrier == 'U2' ? 'confirm-logo-easyjet' :flight?.carrier == 'VY' ?'confirm-logo-vue':''}}"                      
+                  />
+                </span>
+
+                <span>{{ flight.carrierName }}</span>
+                <span>|</span>
+                <span class="fno"
+                  >{{ flight?.carrier }}-{{ flight.flightNumber }}</span
+                >
+                <span>|</span>
+                <span
+                  >{{
+                    selectedflightreturnway.returnFlightOption.flightFare
+                      .cabinClass | uppercase
+                  }}
+                </span>
+                <span>|</span>
+                <span class="equipment">{{ flight.equipment }} </span>
+              </ion-col>
+
+              <ion-col class="details">
+                <ion-label class="Origin-text"
+                  >{{ flight.origin }}
+                  {{ flight.depTime | slice: 0:5 }}</ion-label
+                ><br />
+                <span class="date"
+                  >{{ flight.depDate | date: "d"
+                  }}{{ flight.depDate | date: " MMM yyyy" }}</span
+                ><br />
+                <ion-label class="city-text">{{ flight.originName }}</ion-label>
+              </ion-col>
+              <ion-col class="way-col time-position">
+                <span></span><br />
+                <span
+                  ><img
+                    src="assets/cod/time_icon@2x.png"
+                    style="width: 21px; height: 21px;" /></span
+                ><br />
+                <span class="stop">{{ flight.journeyDuration | addspace}}</span>
+              </ion-col>
+              <ion-col class="details pad-left">
+                <ion-label class="Origin-text">
+                  {{ flight.arrTime | slice: 0:5 }}
+                  {{ flight.destination }}</ion-label
+                ><br />
+                <span class="date"
+                  >{{ flight.arrDate | date: "d" }}
+                  {{ flight.arrDate | date: " MMM yyyy" }}</span
+                ><br />
+                <ion-label class="city-text">{{
+                  flight.destinationName
+                }}</ion-label>
+              </ion-col>
+            </ion-row>
+          </div>
+        </mat-expansion-panel>
+      </ion-grid>
+    </mat-accordion>
+  </div>
+  <!--mat accordian returnoption in returnway end-->
+
+  <!--multi start-->
+
+  <div class="flight_confirm_matbody" *ngIf="triptype == 'multicity'&& multiflight && getReponse && !IfConfirmResponseNull">
+    <mat-accordion *ngFor="let flight1 of multiflight.optionSegmentBean">
+      <ion-grid class="no-pad-bot card-top-margin">
+        <mat-expansion-panel
+          class="panel-padd"
+          (opened)="panelOpenState = true"
+          (closed)="panelOpenState = false"
+        >
+          <mat-expansion-panel-header class="panelHeightMulti panelHeight">
+            <!-------header like body  -->
+            <div>
+              <ion-row>
+                <ion-col class="details">
+                  <span
+                    *ngFor="
+                      let flight of flight1.flightlegs;
+                      let first = first;
+                      let last = last
+                    " [ngStyle]="{'display': !first ? 'none':''}"
+                  >
+                    <span *ngIf="first">
+                      <span><br /></span>
+                      <ion-label class="Origin-text"
+                        >{{ flight.origin }}
+                        {{ flight.depTime | slice: 0:5 }}</ion-label
+                      ><br />
+                      <ion-label class="city-text">{{
+                        flight.originCityName
+                      }}</ion-label
+                      ><br />
+                      <span class="date"
+                        >{{ flight.depDate | date: "d"
+                        }}{{ flight.depDate | date: " MMM yyyy" }}</span
+                      >
+                    </span>
+                  </span>
+                </ion-col>
+
+                <ion-col style="margin-bottom: 20px;" class="way-colss">
+                  <span
+                    ><img
+                      src="assets/icons/flights/gray_circle_icon.svg"
+                      style="width: 24px;" />
+                      </span
+                  ><br />
+                  <span></span><br />
+                  <span
+                  [ngClass]="{
+                    stop_no:
+                    flight1.flightlegs
+                        .length == 1
+                  }"
+                  class="flight_legs" style="bottom: -2px;"
+                >
+                  <span
+                    class="stop font-small2 num-stop"
+                    *ngIf="
+                    flight1.flightlegs
+                        .length -
+                        1 !=
+                      0
+                    "
+                    >{{
+                      flight1.flightlegs
+                        .length - 1
+                    }}
+                    Stop</span
+                  >
+                  <span
+                    class="font-small2 num-stop non_stop"
+                    *ngIf="
+                    flight1.flightlegs
+                        .length -
+                        1 ==
+                      0
+                    "
+                    >Non Stop
+                  </span>
+
+                  <div
+                    class="stopage_show"
+                    *ngIf="
+                    flight1.flightlegs
+                        .length == 2 ||
+                        flight1.flightlegs
+                        .length == 3
+                    "
+                  >
+                    (&nbsp;
+                    <div class="white_space">
+                      <span
+                        class="font-small2"
+                        *ngIf="
+                        flight1.flightlegs.length == 2
+                        "
+                      >
+                        {{
+                          flight1
+                            .flightlegs[0]?.originCityName
+                        }}
+                      </span>
+                      <span
+                        class="font-small2"
+                        *ngIf="
+                        flight1
+                            .flightlegs.length == 3
+                        "
+                      >
+                        {{
+                          flight1
+                            .flightlegs[0]?.originCityName
+                        }},
+                        {{
+                          flight1
+                            .flightlegs[1]?.originCityName
+                        }}
+                      </span>
+                    </div>
+                    &nbsp;)
+                  </div>
+
+                
+                </span>
+                  <!-- <span>
+                  <span class="stop  font-small2 num-stop multicity_stopage" *ngIf="flight1.flightlegs.length > 1">
+                    {{ flight1.flightlegs.length - 1 }} Stop</span>
+                    <span class="stop font-small2 num-stop" *ngIf="flight1.flightlegs.length == 1">
+                      Non Stop</span>
+
+                      <div class="stopage_show" *ngIf="flight1.flightlegs.length > 1">
+                      (&nbsp;
+                      <div class="white_space">
+                        <span *ngFor="let item of flight1.flightlegs | slice:0: flight1.flightlegs?.length -1;
+                        let first = first;
+                        let last = last;
+                        let index = index">
+                            {{item?.originCityName}}
+                        </span>
+                      </div>
+                      &nbsp;)
+                    </div>
+                  </span> -->
+                </ion-col>
+
+                <ion-col class="details">
+                  <span
+                    *ngFor="
+                      let flight of flight1.flightlegs;
+                      let first = first;
+                      let last = last
+                    " [ngStyle]="{'display': !last ? 'none':''}"
+                  >
+                    <span *ngIf="last">
+                      <span><br /></span>
+
+                      <ion-label class="Origin-text"
+                        >{{ flight.arrTime | slice: 0:5 }}
+                        {{ flight.destination }}
+                      </ion-label>
+                      <br />
+                      <ion-label class="city-text">{{
+                        flight.destinationCityName
+                      }}</ion-label
+                      ><br />
+                      <span class="date"
+                        >{{ flight.arrDate | date: "d"
+                        }}{{ flight.arrDate | date: " MMM yyyy" }}</span
+                      ><br />
+                    </span>
+                  </span>
+                </ion-col>
+              </ion-row>
+
+         
+
+              <div
+                class="equipment-row"
+                *ngFor="
+                  let flight of flight1.flightlegs;
+                  let first = first;
+                  let last = last;
+                  let index = index
+                "
+              >
+                <ion-row class="gulf-air" *ngIf="index < 1">
+                  <span>
+                    <img
+                      src="assets/airline/images/{{ flight.carrier }}.jpg"
+                      alt="{{ flight.platingCarrier }}"
+                      class="confirm-logo {{flight?.carrier == 'U2' ? 'confirm-logo-easyjet' :flight?.carrier == 'VY' ?'confirm-logo-vue':''}}"                      
+                    />
+                  </span>
+                  <span>{{ flight.carrierName }}</span>
+                  <span>|</span>
+                  <span class="fno"
+                    >{{ flight?.carrier }}-{{ flight.flightNumber }}</span
+                  >
+                  <span>|</span>
+                  <!-- <span>{{ flight?.cabinClass | uppercase }} </span> -->
+                  <span *ngIf = "flight1.displayOnlycabinClass != null || flight1.displayOnlycabinClass != ''">{{  flight1?.displayOnlycabinClass | uppercase }} </span>
+                  <span *ngIf = "flight1.displayOnlycabinClass == null || flight1.displayOnlycabinClass == ''">{{flight1?.cabinClass | uppercase}}</span>
+                  <span>|</span>
+                  <span class="equipment">{{ flight.equipment }} </span>
+                </ion-row>
+              </div>
+            </div>
+
+            <!-------header like body end -->
+          </mat-expansion-panel-header>
+          <!--openpanle code start-->
+          <!----------------------------------body of pannel---------------->
+          <div
+            class="panel_data_below"
+            *ngFor="let flight of flight1.flightlegs; let index = index"
+          >
+            <ion-row>
+              <ion-col
+                class="gulf-air gulf-air-new"
+                size="12"
+                no-padding
+                *ngIf="index > 0"
+              >
+                <span>
+                  <img
+                    src="assets/airline/images/{{ flight.carrier }}.jpg"
+                    alt="{{ flight.carrier }}"
+                    class="{{flight?.carrier == 'U2' ? 'confirm-logo-easyjet' :flight?.carrier == 'VY' ?'confirm-logo-vue':'confirm-logonew'}}"
+                  />
+                </span>
+                <span>{{ flight.carrierName }}</span>
+                <span>|</span>
+                <span class="fno"
+                  >{{ flight?.carrier }}-{{ flight.flightNumber }}</span
+                >
+                <span>|</span>
+                <span *ngIf = "flight1.displayOnlycabinClass != null || flight1.displayOnlycabinClass != ''">{{  flight1?.displayOnlycabinClass | uppercase }} </span>
+                <span *ngIf = "flight1.displayOnlycabinClass == null || flight1.displayOnlycabinClass == ''">{{flight1?.cabinClass | uppercase}}</span>
+
+                <!-- <span>{{ flight?.cabinClass | uppercase }} </span> -->
+                <span>|</span>
+                <span class="equipment">{{ flight.equipment }} </span>
+              </ion-col>
+
+              <ion-col class="details">
+                <ion-label class="Origin-text"
+                  >{{ flight.origin }}
+                  {{ flight.depTime | slice: 0:5 }}</ion-label
+                ><br />
+                <span class="date"
+                  >{{ flight.depDate | date: "d"
+                  }}{{ flight.depDate | date: " MMM yyyy" }}</span
+                ><br />
+                <ion-label class="city-text">{{ flight.originName }}</ion-label>
+              </ion-col>
+              <ion-col class="way-col">
+                <span></span><br />
+                <span
+                  ><img
+                    src="assets/cod/time_icon@2x.png"
+                    style="width: 21px; height: 21px;" /></span
+                ><br />
+                <span class="stop">{{ flight.journeyDuration | addspace}}</span>
+              </ion-col>
+              <ion-col class="details">
+                <ion-label class="Origin-text"
+                  >{{ flight.destination }}
+                  {{ flight.arrTime | slice: 0:5 }}</ion-label
+                ><br />
+                <span class="date"
+                  >{{ flight.arrDate | date: "d"
+                  }}{{ flight.arrDate | date: " MMM yyyy" }}</span
+                ><br />
+                <ion-label class="city-text">{{
+                  flight.destinationName
+                }}</ion-label>
+              </ion-col>
+            </ion-row>
+          </div>
+        </mat-expansion-panel>
+      </ion-grid>
+    </mat-accordion>
+  </div>
+
+  <!--multi end-->
+
+  <!--accordian for returnway  end -->
+  <ion-grid class="padding_bottom_footer" *ngIf="getReponse && !IfConfirmResponseNull">
+    <ion-item
+      no-padding
+      class="baggage-detail-align"
+      matRipple
+      (click)="baggageDetails()"
+    >
+      <ion-col class="leftMrgn" size="1">
+        <ion-icon src="assets/icons/flights/baggage-icon.svg"></ion-icon>
+      </ion-col>
+      <ion-col class="details-page">
+        <span>
+          Baggage Details
+        </span>
+      </ion-col>
+      <img class="rightMrgn" src="assets/icons/flights/side_arrow.svg" />
+    </ion-item>
+    <ion-item
+      no-padding
+      class="fare-rule-align"
+      matRipple
+      (click)="fareRules()"
+    >
+      <ion-col class="leftMrgn fare-pad" size="1">
+        <img
+          src="assets/icons/flights/fare-rule-icon.png"
+          class="fare-icon"
+          alt="fare"
+        />
+      </ion-col>
+      <ion-col class="details-page">
+        <span>
+          Fare Rules
+        </span>
+      </ion-col>
+      <img class="rightMrgn" src="assets/icons/flights/side_arrow.svg" />
+    </ion-item>
+  </ion-grid>
+  
+</ion-content>
+
+
+<footer *ngIf="triptype == 'oneway' && getReponse && !IfConfirmResponseNull">
+  <div class="main-container">
+    <div class="left-container" *ngIf="!setButtonClose" (click)="fareDetails()">
+      <div>
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          <span class="aed-text">{{ selectedflight2?.flightFare?.currency}} </span>
+          <span class="amount">{{ displayfareoneway | roundUpPrice }}</span>
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="left-container" *ngIf="setButtonClose" (click)="closePopup()">
+      <div>
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          <span class="aed-text">{{ selectedflight2?.flightFare?.currency}} </span>
+          <span class="amount">{{ displayfareoneway | roundUpPrice }}</span>
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="right-container">
+      <button class="rqst-button rqst-button-padding"  matRipple (click)="countinue()">PROCEED</button>
+    </div>
+  </div>
+</footer>
+
+<footer *ngIf="triptype == 'returnway' && getReponse && !IfConfirmResponseNull">
+  <div class="main-container">
+    <div class="left-container" *ngIf="!setButtonClose" (click)="fareDetails()">
+      <div (click)="fareDetails()">
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          <span class="aed-text">{{ selectedflightreturnway.onwardFlightOption.flightFare.currency}}  </span>
+          <span class="amount"> {{ cprice | roundUpPrice }}</span>
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="left-container" *ngIf="setButtonClose" (click)="closePopup()">
+      <div >
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          <span class="aed-text">{{ selectedflightreturnway.onwardFlightOption.flightFare.currency}}  </span>
+          <span class="amount"> {{ cprice | roundUpPrice }}</span>
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="right-container">
+      <button class="rqst-button rqst-button-padding"  matRipple  (click)="countinue()">PROCEED</button>
+    </div>
+  </div>
+</footer>
+
+<footer *ngIf="triptype == 'multicity' && getReponse && !IfConfirmResponseNull">
+  <div class="main-container">
+    <div class="left-container" *ngIf="!setButtonClose" (click)="fareDetails()">
+      <div (click)="fareDetails()">
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          <span class="aed-text"> {{ multiCityCurrency}} </span>
+          <span class="amount"> {{ multiflightFare | roundUpPrice }}</span>
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="left-container" *ngIf="setButtonClose" (click)="closePopup()">
+      <div >
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          <span class="aed-text"> {{ multiCityCurrency}} </span>
+          <span class="amount"> {{ multiflightFare | roundUpPrice }}</span>
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="right-container">
+      <button class="rqst-button rqst-button-padding"  matRipple (click)="countinue()">PROCEED</button>
+    </div>
+  </div>
+</footer>
+
+<div class="null_confirm_response" *ngIf="IfConfirmResponseNull">
+  <!-- <p>Oops! Request for document failed</p>
+  <button (click)="backToSearch()" class="back_to_search">Back To Search</button> -->
+  <div>
+    <p
+      style="
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <ion-spinner style="margin-right: 8px;" name="lines"></ion-spinner>Loading ...
+    </p>
+  </div>
+</div>
+

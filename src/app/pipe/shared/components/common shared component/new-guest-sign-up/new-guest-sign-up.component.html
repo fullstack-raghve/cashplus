@@ -1,0 +1,238 @@
+<div #guestSignUp>
+  <ion-header>
+    <ion-toolbar color="custom-color-red">
+      <ion-buttons slot="start">
+        <img class="backArrow" src="assets/icon/backarrowtop.svg" (click)="dismiss()" />
+      </ion-buttons>
+      <ion-title class="title">{{ title }}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-card class="custom-card">
+    <ion-card-header class="header">
+      <ion-card-subtitle>Sign Up Into Your Account</ion-card-subtitle>
+    </ion-card-header>
+
+
+    <ion-grid no-padding class="profile register_user ">
+      <form [formGroup]="regForm" class="mt-1" (submit)="registerUser()">
+        <ion-row>
+          <ion-col size-sm="6" offset-sm="3">
+            
+            <div class="form-group">
+
+              <mat-form-field class="checkbox-font" appearance="outline">
+                <mat-label>First Name</mat-label>
+                <input type="text" trimdirective matInput formControlName="firstName" placeholder="First Name" required>
+
+                <mat-error
+                  *ngIf="!regForm.controls['firstName'].valid && regForm.controls['firstName'].touched || submitted"
+                   class="errorFontSize">
+                  <!-- First Name required, must be between 3 and 20 characters. -->
+                  <span *ngIf="regForm.controls['firstName']?.errors?.required"> This field is required.</span>
+                  <span *ngIf="regForm.controls['firstName']?.errors?.pattern">  Only alphabets are allowed. </span>
+                  <span *ngIf="!regForm.controls['firstName']?.errors?.pattern && regForm.controls['firstName']?.errors?.minlength">First Name should have minimum 3 and maximum 20 characters.</span>
+                  <span *ngIf="!regForm.controls['firstName']?.errors?.pattern && regForm.controls['firstName']?.errors?.maxlength">First Name should have minimum 3 and maximum 20 characters.</span>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="form-group">
+              <mat-form-field class="checkbox-font" appearance="outline">
+                <mat-label>Last Name</mat-label>
+                <input type="text" trimdirective matInput formControlName="lastName" placeholder="Last Name" required>
+
+                <mat-error
+                  *ngIf="!regForm.controls['lastName'].valid && regForm.controls['lastName'].touched || submitted"
+                   class="errorFontSize">
+                  <!-- Last Name required, must be between 3 and 20 characters. -->
+                  <span *ngIf="regForm.controls['lastName']?.errors?.required">  This field is required.</span>
+                  <span *ngIf="regForm.controls['lastName']?.errors?.pattern">  Only alphabets are allowed. </span>
+                  <span *ngIf="!regForm.controls['lastName']?.errors?.pattern && regForm.controls['lastName']?.errors?.minlength">  Last Name should have minimum 3 and maximum 20 characters.</span>
+                  <span *ngIf="!regForm.controls['lastName']?.errors?.pattern && regForm.controls['lastName']?.errors?.maxlength">  Last Name should have minimum 3 and maximum 20 characters.</span>
+                </mat-error>
+               </mat-form-field>
+            </div>
+            <div class="form-group">
+              <mat-form-field class="checkbox-font" appearance="outline">
+                <mat-label>Email ID</mat-label>
+                <input type="email" trimdirective matInput formControlName="userAlias" placeholder="Email ID" required>
+
+                 <mat-error *ngIf="submitted && registration.userAlias.errors || ( registration.userAlias?.dirty || registration.userAlias.touched)"  class="errorFontSize">
+                  <span *ngIf="registration?.userAlias?.errors?.required && !registration.userAlias.errors?.maxlength">This field is required.</span>
+                  <span *ngIf="registration.userAlias?.errors?.pattern">Please enter valid email.</span>
+                  <span *ngIf="registration.userAlias?.errors?.maxlength">Email ID should have maximum 45 characters.</span>
+                </mat-error> 
+              </mat-form-field>
+            </div>
+            <div class="form-group">
+              <mat-form-field class="checkbox-font" appearance="outline">
+                <mat-label>Password</mat-label>
+                <input matInput type="password" formControlName="password" placeholder="Password" required>
+
+                <mat-error
+                  *ngIf="!regForm.controls['password'].valid && regForm.controls['password'].touched || submitted"
+                   class="errorFontSize">
+                  <span>Password should be between 5 and 15 character & combination of one uppercase letter, one number!</span>
+                </mat-error>
+
+              </mat-form-field>
+            </div>
+            <div class="form-group">
+              <mat-form-field class="check checkbox-font" appearance="outline" style="margin-top: 5px;">
+                <mat-label>Verify Password</mat-label>
+                <input matInput type="password" formControlName="verifyPassword" placeholder="Verify Password" required>
+                <mat-error *ngIf="submitted && registration.verifyPassword.errors"  class="errorFontSize">
+                  <span *ngIf="registration.verifyPassword?.errors?.mustMatch">Password and confirm password should be
+                    same!</span><br>
+
+                  <span *ngIf="!registration.verifyPassword?.errors?.mustMatch">
+                    <span
+                      *ngIf="!regForm.controls['verifyPassword'].valid && regForm.controls['verifyPassword'].touched || submitted">
+                      Password is required, must be between 5 and 15 characters.
+                    </span>
+                  </span>
+
+
+                </mat-error>
+
+
+              </mat-form-field>
+            </div>
+            <!-- <ion-item>
+
+              <div class="text-check">
+
+                <mat-checkbox formControlName="checked" required>
+                  <span>By clicking,you agree to the terms and conditions</span>
+                </mat-checkbox>
+                <p>set by Travelwings.com</p>
+                <mat-error *ngIf="termcondition"  class="errorFontSize">
+                  Please accept terms and conditions.
+                </mat-error>
+              </div>
+
+            </ion-item> -->
+            <ion-item class="ion-text-wrap">
+              <div class="text-check">
+                <mat-checkbox
+                  formControlName="checked"
+                  class="checkbox-input all-check-align airline-checkbox"
+                  required
+                >
+                  <span
+                    >By clicking, you agree to the terms and conditions</span
+                  >
+                </mat-checkbox>
+                <p>&nbsp; &nbsp;set by Travelwings.com</p>
+                <mat-error *ngIf="termcondition" class="invalidError">
+                  Please accept terms and conditions.
+                </mat-error>
+              </div>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+
+
+        <ion-row text-center>
+          <ion-col size-sm="6" offset-sm="3">
+            <button matRipple type="submit" class="signup-mrgn yello-btn-all" expand="block">
+              <span>SIGN UP</span>
+            </button>
+          </ion-col>
+        </ion-row>
+      </form>
+    </ion-grid>
+
+
+
+    <ion-grid class="social">
+      <ion-row class="s1">
+        <ion-col size-sm="6" offset-sm="3">
+          <!--  divider -->
+          <div class="container">
+            <div class="line">
+              <mat-divider></mat-divider>
+            </div>
+            <div class="text mat-typography">
+              <p class="login-with">Or login with</p>
+            </div>
+            <div class="line">
+              <mat-divider></mat-divider>
+            </div>
+          </div>
+
+          <!-- Added Icons on 22/10 -->
+
+          <ion-text class="card text-center">
+            <div class="socio-icons-block">
+              <div class="facebook-icon">
+                <img src="assets/homePageIcons/fb.png" (click)="signInWithFB()" />
+              </div>
+              <div class="google-plus-icon">
+                <img src="assets/homePageIcons/google.png" (click)="signInWithGoogle()" />
+              </div>
+            </div>
+          </ion-text>
+          <ion-text class="Login">
+            <p>
+              <span class="have-account">Already have an account? </span>
+              <a (click)="login()" class="font-blck"> LOGIN!</a>
+            </p>
+          </ion-text>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </ion-card>
+
+
+
+
+  <ion-card class="custom-card">
+    <ion-card-header class="signup">
+      <ion-card-subtitle>Sign up for exclusive features</ion-card-subtitle>
+    </ion-card-header>
+    <ion-grid class="exclusive">
+      <div class="e1">
+        <ion-row class="list-spacing">
+          <ion-col size="1" class="icons" offset-sm="3">
+            <img src="assets/icons/flights/reshedule_booking_icon.svg">
+          </ion-col>
+          <ion-col>
+            <ion-label class="text-font"> View / Cancel / Reschedule bookings</ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row class="list-spacing">
+          <ion-col size="1" class="icons" offset-sm="3">
+            <img src="assets/icons/flights/checkBook_icon.svg">
+          </ion-col>
+          <ion-col>
+            <ion-label class="text-font">Check booking history, manage cancellations & print eTickets</ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row class="list-spacing">
+          <ion-col size="1" class="icons" offset-sm="3">
+            <img src="assets/icons/flights/savedCard_icon.svg">
+          </ion-col>
+          <ion-col>
+            <ion-label class="text-font"> Book faster with Pre-Filled Forms,Saved Travellers & Saved Cards</ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row class="list-spacing">
+          <ion-col size="1" class="icons" offset-sm="3">
+            <img src="assets/icons/flights/groupPeople_icon.svg">
+          </ion-col>
+          <ion-col>
+            <ion-label class="text-font"> Quick family booking text</ion-label>
+          </ion-col>
+        </ion-row>
+      </div>
+    </ion-grid>
+
+  </ion-card>
+
+</div>
+<ngx-spinner bdOpacity=0.2 bdColor="rgba(9,9,9,0.81)" size="medium" color="#fff" type="ball-pulse-sync"
+  [fullScreen]="true">
+  <p style="color: #fff">Please Wait... </p>
+</ngx-spinner>

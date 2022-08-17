@@ -1,0 +1,167 @@
+// .booked-section{
+//    // text-align: end;
+//     padding-left: 2rem;
+//     display: inline-block;
+// }
+.swap-icon {
+    background-color: black;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    padding: auto;
+}
+.swap-col {
+    display: flex;
+    align-items: center;
+}
+
+.card-header{
+ background:white;
+ .up-pad-left{
+     padding: 0px 1px 0px 14px;
+     .trip-id{
+        font-size: 12px;
+        color: #898888;
+     }
+    
+    }
+ .up-pad-right{padding: 0px 12px 0px 0px;}
+}
+ion-item{
+    --background:white;
+}
+
+.booking{
+    text-align: end;
+}
+.border{
+    border-bottom: 1px solid #E3E2E2;
+    display: block;
+    width: 100%;
+    margin: 0px 0px 18px 0;
+ }
+ .tripid {
+     color:#898888;
+     font-size:12px;
+     text-align: left;
+     margin-bottom: 7px;
+     .tripname{
+        color: #000;
+        font-size: 13px;
+        font-family: latomedium;
+        margin-top:0px;
+     }
+ }
+ .booked-section {
+    .bookedon{
+        color: #000;
+        font-size: 13px;
+        font-family: latomedium;
+        margin-top:0px;
+    }
+}
+
+
+
+    .input-wrapper{
+    display: block none;
+    
+}
+.booked-section{
+    // text-align-last: right;
+    // padding-left: auto;
+     display: inline-block;
+    //  padding-left: 2rem;
+    padding-left: 51px;
+   // position: absolute
+
+ }
+ ion-grid{
+    background:white;
+   }
+   .flightIcon{
+    width: 20px;
+    margin-right: 10px;
+    margin-top:7px;
+   }
+   ion-card{
+    margin: 6px;
+    box-shadow: none;
+    border: 1px solid #E3E2E2;
+   }
+   .up-info{    margin-top: -6px;
+    font-size: 16px;
+    color: #303030;
+    font-family: "latomedium";
+    margin-bottom: 0;} 
+    .adult-mar{margin-top:3px;color:#898888;font-size:12px;}
+    .icons{
+        width: 25px;
+    display: inline-block;
+    margin-inline-start: 10px;
+    margin-inline-end: 10px;
+    }
+    .cityname{
+        position: relative;
+        bottom: 6px;
+    }
+    .up-commng-card{
+        // height: 21.5vh !important;
+        background: #fff;
+    }
+    .no-result-header{
+        background:white;
+        // height: 6vh;     
+      }
+    
+       .no-result{
+        margin: 0;
+        // bottom: 12px;
+        position: relative;
+       }
+    //    .adult-child{
+    //     position: relative;
+    //     bottom: 25px;
+    //     // left: 28px;
+    //     left: 23pt;
+    //     font-size: 12px;
+    //     color: #898888;
+    //     padding-top: 3px;
+    //    }
+
+       .adult-child{
+        position: relative;
+        bottom: 15px;
+        font-size: 12px;
+        color: #898888;
+        padding-top: 3px;
+       }
+       .inner-border{
+        --inner-border-width: 0px;
+       }
+
+
+@media (min-width: 320px) and (max-height: 600px) { 
+    .booked-section{
+        padding-left: 30px;
+    }  
+}
+
+    
+// @media (min-width: 360px)  { 
+//     .booked-section{
+//         padding-left: 61px;
+//     }  
+// }
+
+@media (min-width: 375px) { 
+    .booked-section{
+        padding-left: 58px;
+    }  
+}
+
+@media (min-width: 400px) and (max-width: 500px) { 
+    .booked-section{
+        padding-left: 76px;
+    }  
+}

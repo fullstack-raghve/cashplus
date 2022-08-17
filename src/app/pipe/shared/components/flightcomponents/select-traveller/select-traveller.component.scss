@@ -1,0 +1,130 @@
+.modal-content {
+  font-family: "latomedium";
+  font-size: 16px;
+  text-align: center;
+  border-bottom: 1.3px solid #e3e3e3;
+  p {
+    margin: 14px 0px 0px;
+  }
+}
+.select-traveller-details {
+  .traveller-block {
+    padding: 1.2rem 2rem;
+    display: flex;
+    flex-direction: row;
+    // border-bottom: 1.3px solid #E3E3E3;
+    justify-content: space-between;
+    ion-img {
+      width: 18px;
+      height: 26px;
+    }
+    ion-icon {
+      font-size: 1.5rem;
+    }
+  }
+  .traveller-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    font-size: 17px;
+    font-family: "latomedium";
+    p {
+      margin: 0.5rem 0 0 0;
+      padding: 0rem 1rem;
+    }
+    .traveller-mar {
+      margin: 0px;
+    }
+  }
+  .traveller-btn {
+    @extend .traveller-info;
+    ion-button {
+      background-color: #4f95e8;
+      opacity: 100%;
+      /*font-family: 'latoheavy';*/
+      font-size: 20px;
+      color: white;
+      border-radius: 3px;
+      height: 2rem;
+    }
+    .subtract-btn {
+      background-color: #4f95e8;
+      font-family: "latoheavy";
+      font-size: 21px;
+      color: white;
+      border-radius: 5px;
+      height: 35px;
+      width: 35px;
+      line-height: 32px;
+      text-align: center;
+      padding: 0px !important;
+    }
+    .add-btn {
+      background-color: #4f95e8;
+      font-family: "latoheavy";
+      font-size: 18px;
+      color: white;
+      border-radius: 5px;
+      height: 35px;
+      width: 35px;
+      line-height: 24px;
+      text-align: center;
+      padding: 0px !important;
+    }
+  }
+  .age-criteria p {
+    font-size: 14px;
+    font-family: "latomedium";
+    color: #898888;
+    margin-top: -2.2rem;
+    margin-left: 4.1rem;
+    border-bottom: 1.3px solid #e3e3e3;
+    padding: 3px 0px 20px 0;
+  }
+  .infant-btmMrgn {
+    margin-bottom: 0px;
+  }
+}
+.selected-traveller {
+  background-color: #f4b50b;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  color: black;
+  font-size: 16px;
+  font-family: "latomedium";
+  // p{
+  //     margin-left: 6em;
+  //     margin-top: 20px;    }
+  // cursor: all-scroll;
+  // ion-img{
+  //     float: right;
+  //     margin-left: 4em;
+  //     height: 58px;
+  //     width: 23px;
+  // }
+  .number-selected {
+    text-align: right;
+    padding-right: 26px;
+  }
+  .next-arrow {
+    text-align: right;
+    padding: 23px 15px 0 0;
+  }
+}
+
+.ion-card {
+  width: 25%;
+  height: 70% !important;
+}
+.topblack {
+  max-width: 100%;
+  pointer-events: auto;
+  position: static;
+  margin-bottom: 0px;
+  width: 411px;
+  height: 700px;
+}
+.disabledcls {
+  background-color: #bdbdbf !important;
+}

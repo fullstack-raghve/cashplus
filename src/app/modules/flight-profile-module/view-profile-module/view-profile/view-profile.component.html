@@ -1,0 +1,405 @@
+<div *ngIf="loading">
+  <p
+    style="
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    "
+  >
+    <ion-spinner name="lines"></ion-spinner>Loading ...
+  </p>
+</div>
+
+<ion-header>
+  <ion-toolbar color="custom-color-red">
+    <ion-buttons slot="start"  class="aro-bck">
+      <img
+        class="backArrow"
+        src="assets/icon/backarrowtop2.svg"
+        (click)="goBack()"
+      />
+    </ion-buttons>
+    <ion-title class="title">Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <mat-card style="padding-bottom: 23px;" class="mat-card">
+    <div class="centerImg2">
+      <div class="traveler centercls">
+        <span
+        *ngIf="
+        filtereduser?.title == '0' ||
+          filtereduser?.title == '4'
+        "
+      >
+        <img
+        class="img-boxyy"
+          *ngIf="filtereduser?.travellerType == 'Adult'"
+          [src]="
+            filtereduser.profileImagePath == null ||
+            filtereduser.profileImagePath == ''
+              ? adult_male_icon_dummy
+              : filtereduser.profileImagePath
+          "
+          alt="image"
+        />
+        <img
+        class="img-boxyy"
+          *ngIf="filtereduser?.travellerType == 'child'"
+          [src]="
+            filtereduser.profileImagePath == null ||
+            filtereduser.profileImagePath == ''
+              ? child_male_icon_dummy
+              : filtereduser.profileImagePath
+          "
+          alt="image"
+        />
+        <img
+        class="img-boxyy"
+          *ngIf="filtereduser?.travellerType == 'Infant'"
+          [src]="
+            filtereduser.profileImagePath == null ||
+            filtereduser.profileImagePath == ''
+              ? infant_male_icon_dummy
+              : filtereduser.profileImagePath
+          "
+          alt="image"
+        />
+      </span>
+
+      <span
+        *ngIf="
+          filtereduser?.title == '1' ||
+          filtereduser?.title == '2' ||
+          filtereduser?.title == '3'
+        "
+      >
+        <img
+        class="img-boxyy"
+          *ngIf="filtereduser?.travellerType == 'Adult'"
+          [src]="
+            filtereduser.profileImagePath == null ||
+            filtereduser.profileImagePath == ''
+              ? adult_female_icon_dummy
+              : filtereduser.profileImagePath
+          "
+          alt="adult_female"
+        />
+        <img
+        class="img-boxyy"
+          *ngIf="filtereduser?.travellerType == 'child'"
+          [src]="
+            filtereduser.profileImagePath == null ||
+            filtereduser.profileImagePath == ''
+              ? child_female_icon_dummy
+              : filtereduser.profileImagePath
+          "
+          alt="adult_female"
+        />
+        <img
+        class="img-boxyy"
+          *ngIf="filtereduser?.travellerType == 'Infant'"
+          [src]="
+            filtereduser.profileImagePath == null ||
+            filtereduser.profileImagePath == ''
+              ? infant_female_icon_dummy
+              : filtereduser.profileImagePath
+          "
+          alt="adult_female"
+        />
+      </span>
+
+      <span
+      *ngIf="(filtereduser?.title ==  null || filtereduser?.title ==  '') && (filtereduser?.travellerType == null|| filtereduser?.travellerType == '') && filtereduser?.isPrimaryTraveller == 1">
+      <img
+      class="img-boxyy"
+      [ngStyle]="{'padding': filtereduser?.profileImagePath != null ||
+      filtereduser?.profileImagePath != '' ? '2px': '0px'}"
+        [src]=" filtereduser?.profileImagePath == null ||
+        filtereduser?.profileImagePath == ''
+          ? defaultIcon : filtereduser?.profileImagePath"
+        alt="traveller"
+        style="
+        object-fit: unset;
+        background: #F2EFEF;"
+      />
+      </span>
+      </div>
+      <button matRipple class="edit-icon" (click)="editProfile()">
+        <img src="assets/icons/flights/edit_icon.svg" />
+      </button>
+    </div>
+
+    <mat-card-title style="margin-top: 30px;">
+      {{ filtereduser?.firstName | titlecase }}
+      {{ filtereduser?.lastName | titlecase }}
+    </mat-card-title>
+    <mat-card-subtitle  [ngStyle]="{'display': (filtereduser?.mobileNumber == null  || filtereduser?.mobileNumber == '') ? 'none':''  }"  style="margin-top: 18px;margin-bottom: 4px;">{{
+      filtereduser?.mobileNumber
+    }}</mat-card-subtitle>
+    <mat-card-content [ngStyle]="{'margin': (filtereduser?.address == null || filtereduser?.address == '') ? '0px': '' }" style="margin-top: -8px;"
+      ><a class="acls" style="border-bottom: 1px solid;">{{
+        filtereduser?.email
+      }}</a></mat-card-content
+    >
+    <mat-card-content style="margin-top: 24px;"  [ngStyle]="{'display': (filtereduser?.address == null  || filtereduser?.address == '') ? 'none':''  }" 
+      ><span
+        >{{ filtereduser?.address | titlecase
+        }}<span *ngIf="filtereduser?.address">,</span
+        >{{ filtereduser?.city }}</span
+      >
+    </mat-card-content>
+  </mat-card>
+
+  <ion-card class="custom-card">
+    <ion-item class="ion-no-padding no-shadow bttm-border">
+      <ion-label class="black-font list-font">Group & Travellers</ion-label>
+      <ion-label class="text-a blue-font list-font"
+        ><a class="acls" (click)="addTravellerGroup()">Add Group</a>
+      </ion-label>
+    </ion-item>
+    <ion-row class="slider-top-pad">
+      <!-- {{userdetail?.userTraveller | json}} -->
+      <ion-col size="3">
+        <div class="travel add-icon-border" (click)="addTraveller()">
+          <img
+            matRipple
+            [matRippleCentered]="true"
+            [matRippleRadius]="60"
+            [matRippleUnbounded]="true"
+            class="addicon"
+            src="assets/icons/flights/add_traveller_icon.png"
+            alt="traveller"
+          />
+          <p>Add Traveller</p>
+        </div>
+      </ion-col>
+      <ion-col size="9" class="profile-slider-pad">
+        <ion-slides [options]="sliderOpts">
+          <ion-slide *ngFor="let traveller of userdetail?.userTraveller">
+            <div class="traveler">
+              <span
+                matRipple
+                [matRippleCentered]="true"
+                [matRippleRadius]="50"
+                [matRippleUnbounded]="true"
+                class="user_image_box"
+                *ngIf="traveller.title == '0' ||traveller.title == '4'" >
+                <img
+                  class="imagecls"
+                  *ngIf="traveller?.travellerType == 'Adult'"
+                  (click)="getselectedtravller(traveller)"
+                  [src]="
+                    traveller.profileImagePath == null ||
+                    traveller.profileImagePath == ''
+                      ? adult_male_icon_dummy
+                      : traveller.profileImagePath
+                  "
+                  alt="image"
+                />
+                <img
+                  class="imagecls"
+                  *ngIf="traveller?.travellerType == 'child'"
+                  (click)="getselectedtravller(traveller)"
+                  [src]="
+                    traveller.profileImagePath == null ||
+                    traveller.profileImagePath == ''
+                      ? child_male_icon_dummy
+                      : traveller.profileImagePath
+                  "
+                  alt="image"
+                />
+                <img
+                  class="imagecls"
+                  *ngIf="traveller?.travellerType == 'Infant'"
+                  (click)="getselectedtravller(traveller)"
+                  [src]="
+                    traveller.profileImagePath == null ||
+                    traveller.profileImagePath == ''
+                      ? infant_male_icon_dummy
+                      : traveller.profileImagePath
+                  "
+                  alt="image"
+                />
+                <img
+                class="imagecls"
+                *ngIf="traveller?.travellerType == null"
+                (click)="getselectedtravller(traveller)"
+                [src]="
+                  traveller.profileImagePath == null ||
+                  traveller.profileImagePath == ''
+                    ?  defaultIcon
+                    : traveller.profileImagePath
+                "
+                alt="image"
+              />
+              </span>
+
+              <span
+                matRipple
+                [matRippleCentered]="true"
+                [matRippleRadius]="50"
+                [matRippleUnbounded]="true"
+                class="user_image_box"
+                *ngIf="
+                  traveller.title == 1 ||
+                  traveller.title == 2 ||
+                  traveller.title == 3
+                "
+              >
+                <img
+                  class="imagecls"
+                  (click)="getselectedtravller(traveller)"
+                  *ngIf="traveller?.travellerType == 'Adult'"
+                  [src]="
+                    traveller.profileImagePath == null ||
+                    traveller.profileImagePath == ''
+                      ? adult_female_icon_dummy
+                      : traveller.profileImagePath
+                  "
+                  alt="adult_female"
+                />
+                <img
+                  class="imagecls"
+                  (click)="getselectedtravller(traveller)"
+                  *ngIf="traveller?.travellerType == 'child'"
+                  [src]="
+                    traveller.profileImagePath == null ||
+                    traveller.profileImagePath == ''
+                      ? child_female_icon_dummy
+                      : traveller.profileImagePath
+                  "
+                  alt="adult_female"
+                />
+                <img
+                  class="imagecls"
+                  (click)="getselectedtravller(traveller)"
+                  *ngIf="traveller?.travellerType == 'Infant'"
+                  [src]="
+                    traveller.profileImagePath == null ||
+                    traveller.profileImagePath == ''
+                      ? infant_female_icon_dummy
+                      : traveller.profileImagePath
+                  "
+                  alt="adult_female"
+                />
+                <img
+                class="imagecls"
+                *ngIf="traveller?.travellerType == null"
+                (click)="getselectedtravller(traveller)"
+                [src]="
+                  traveller.profileImagePath == null ||
+                  traveller.profileImagePath == ''
+                    ? defaultIcon
+                    : traveller.profileImagePath
+                "
+                alt="image"
+              />
+              </span>
+
+              <span
+              matRipple
+              [matRippleCentered]="true"
+              [matRippleRadius]="50"
+              [matRippleUnbounded]="true"
+              class="user_image_box"
+              *ngIf="(traveller.title ==  null || traveller.title ==  '') && (traveller.travellerType == null || traveller.travellerType == null) && traveller?.isPrimaryTraveller == 1">
+              <img
+              [ngStyle]="{'padding': traveller?.profileImagePath == null || traveller?.profileImagePath == '' ? '2px': '0px'}"
+                class="imagecls"
+                (click)="getselectedtravller(traveller)"
+                [src]=" traveller.profileImagePath == null ||
+                traveller.profileImagePath == ''
+                  ? defaultIcon : traveller.profileImagePath"
+                alt="traveller"
+                style="
+                object-fit: unset;
+                background: #F2EFEF;"
+              />
+            </span>
+
+              
+
+              <p>{{ traveller.firstName | titlecase }}</p>
+              <!-- <button (click)="deleteTraveller(traveller)">Delete</button> -->
+            </div>
+          </ion-slide>
+
+          <!--slide for group-->
+          <ion-slide *ngFor="let group of userdetail?.travlerGroup">
+            <div class="traveler">
+              <span
+                matRipple
+                [matRippleCentered]="true"
+                [matRippleRadius]="50"
+                [matRippleUnbounded]="true"
+                class="user_image_box"
+              >
+                <img
+                  class="imagecls"
+                  (click)="getGroup(group)"
+
+                  [src]="
+                    group?.groupeImagePath == null ||
+                    group?.groupeImagePath == ''
+                      ? groupimg
+                      : group?.groupeImagePath
+                  "
+                  alt="no-img"
+                />
+              </span>
+
+              <p>{{ group.groupName | titlecase }}</p>
+            </div>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+
+  <ion-card class="cardboundry">
+    <ion-item matRipple class="ion-no-padding" (click)="trips()">
+      <ion-icon
+        class="custom-icon ion-no-padding"
+        src="assets/icons/flights/trip_icon.svg"
+      >
+      </ion-icon>
+      <ion-label class="fontcls">
+        Trips
+      </ion-label>
+      <img class="sideArrow" src="assets/icons/flights/side_arrow.svg" />
+    </ion-item>
+    <ion-item matRipple class="ion-no-padding" (click)="preferances()">
+      <ion-icon
+        class="custom-icon"
+        src="assets/icons/flights/preferance_icon.svg"
+      >
+      </ion-icon>
+      <ion-label class="fontcls">
+        Preferences
+      </ion-label>
+      <img class="sideArrow" src="assets/icons/flights/side_arrow.svg" />
+    </ion-item>
+    <ion-item matRipple class="ion-no-padding" (click)="payment()">
+      <ion-icon
+        class="custom-icon ion-no-padding"
+        src="assets/icons/flights/payment_icon.svg"
+      >
+      </ion-icon>
+      <ion-label class="fontcls">
+        My Cards
+      </ion-label>
+      <img class="sideArrow" src="assets/icons/flights/side_arrow.svg" />
+    </ion-item>
+  </ion-card>
+</ion-content>
+<!-- <pre>
+  {{filtereduser | json}}
+</pre>
+{{filtereduser?.title}}
+{{filtereduser?.travellerType}} -->
+<!-- <section class="footer-block"> -->
+  <app-fixed-footer></app-fixed-footer>
+<!-- </section> -->

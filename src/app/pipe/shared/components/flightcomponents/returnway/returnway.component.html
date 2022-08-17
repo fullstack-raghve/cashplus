@@ -1,0 +1,291 @@
+<ion-grid>
+  <form [formGroup]= "flightForm" (ngSubmit)= "returnwayFlight()" class="fromTo-card">
+    <div class="card-inner pd-top-0">
+      <div class="form-block-row" style="min-height: 8pc;">
+        <ion-row no-padding>
+          <ion-col size="5" matRipple class="max_height">
+            <ion-label class="icon-block">
+              <img src="assets/icons/flights/origin_icon.svg" alt="Origin" />
+              <p>Origin</p>
+            </ion-label>
+            <ion-card-content
+              (click)="openOriginList($event)"
+              class="left-mrgin"
+            >
+              <input
+                type="text"
+                formControlName="returnwayOrigin"
+                class="origin custom-hide"
+              />
+              <p
+                class="text-align-cust"
+                *ngIf="flagOrigin == 1"
+                [ngClass]="{ bgColorForText: flagOrigin == 1 }"
+              >
+                From
+              </p>
+              <p class="air-name" *ngIf="flagOrigin == 1">Select Origin</p>
+              <p class="text-align-cust" *ngIf="flagOrigin == 2">
+                {{ originName?.airportCode }}
+              </p>
+              <div class="airport_dest_origin" *ngIf="flagOrigin == 2">
+                <p class="air-name">
+                  {{ originName?.airportName | textlimit: 25 }}
+                </p>
+              </div>
+            </ion-card-content>
+          </ion-col>
+          <ion-col size="2" class="swap-col">
+            <div class="swap-icon">
+              <img
+                src="assets/icons/flights/swap_icon.svg"
+                alt="Origin"
+                (click)="swipe()"
+              />
+            </div>
+          </ion-col>
+          <ion-col size="5" matRipple class="max_height">
+            <ion-label class="icon-block destination">
+              <p class="right-txt dest">Destination</p>
+              <img
+                src="assets/icons/flights/destination_icon.svg"
+                alt="Destination"
+              />
+            </ion-label>
+            <ion-card-content
+              (click)="openDestinationList($event)"
+              class="left-mrgin"
+            >
+              <input
+                type="date"
+                formControlName="returnwaydestination"
+                class="origin custom-hide"
+              />
+              <p
+                class="code"
+                *ngIf="flagDestination == 1"
+                [ngClass]="{ bgColorForText: flagDestination == 1 }"
+              >
+                To
+              </p>
+              <p class="right-txt air-name" *ngIf="flagDestination == 1">
+                Select Destination
+              </p>
+              <p class="code" *ngIf="flagDestination == 2">
+                {{ destinationName?.airportCode }}
+              </p>
+              <div class="airport_dest_origin" *ngIf="flagDestination == 2">
+                <p class="right-txt air-name">
+                  {{ destinationName?.airportName | textlimit: 25 }}
+                </p>
+              </div>
+            </ion-card-content>
+          </ion-col>
+        </ion-row>
+        <div></div>
+      </div>
+      <ion-row class="selection-row">
+        <ion-col
+          size="6"
+          matRipple
+          [ngClass]="{
+            'selected-date-formate': departDate,
+            'selection-col': !departDate
+          }"
+          (click)="openCl()"
+        >
+          <div>
+            <div class="selection sel-depart">
+              <br />
+              <img
+                src="assets/icons/flights/departing_icon.svg"
+                alt="Departing"
+              />
+              <p *ngIf="!departDate">Departing</p>
+              <p *ngIf="departDate" class="add-departing">Departing</p>
+            </div>
+            <input
+              type="date"
+              formControlName="returnwaydepartDate"
+              class="dd-div custom-hide"
+            />
+            <div class="dd-div">
+              <!-- added 23-10  -->
+              <span class="date-d">{{ departDate | date: "d" }}</span>
+              <span class="departing-mmyy">{{
+                departDate | date: " MMM,yy"
+              }}</span>
+              <!-- end -->
+              <p class="departing-day">{{ departDate | date: "EEEE" }}</p>
+            </div>
+          </div>
+        </ion-col>
+
+        <ion-col
+          size="6"
+          matRipple
+          class="no-border-right extra-pad"
+          [ngClass]="{
+            'selected-date-formate slcted-date-pad': returnDate,
+            'selection-col selection-returning': !returnDate
+          }"
+          (click)="openCl()"
+        >
+          <div>
+            <div class="selection sel-depart">
+              <img
+                src="assets/icons/flights/add_returning_icon.svg"
+                alt="AddRetuning"
+              />
+              <p *ngIf="!returnDate">Add Returning</p>
+              <p *ngIf="returnDate" class="add-departing">Add Returning</p>
+            </div>
+            <input
+              type="text"
+              formControlName="returnwayreturnDate"
+              class="dd-div custom-hide"
+            />
+            <div class="dd-div">
+              <!-- added 23-10  -->
+              <span class="date-d">{{ returnDate | date: "d" }}</span
+              ><span class="departing-mmyy">{{
+                returnDate | date: " MMM,yy"
+              }}</span>
+              <!-- end -->
+              <p class="departing-day">{{ returnDate | date: "EEEE" }}</p>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="selection-row">
+        <ion-col
+          size="6"
+          matRipple
+          class="selection-col-economy backdrop"
+          no-padding
+        >
+          <div class="selection no-crt">
+            <img src="assets/icons/flights/economy_icon.svg" alt="Economy" />
+
+            <ion-select  mode = "md" class="economy-select" interface="action-sheet" [value]="economy"
+              formControlName="myeconomyonward" name="economy" placeholder="Economy" appNoArrow>
+              <ion-select-option *ngFor="let economy of economies">
+                <span>{{ economy.economyType }}</span>
+              </ion-select-option>
+            </ion-select>
+          </div>
+        </ion-col>
+        <ion-col
+          size="6"
+          matRipple
+          class="selection-col-economy economy-pad no-border-right"
+          no-padding
+        >
+          <div class="selection no-crt">
+            <img src="assets/icons/flights/economy_icon.svg" alt="Economy">
+            <ion-select mode = "md" class="economy-select" interface="action-sheet" name="myeconomy" placeholder="Economy" formControlName="myeconomyreturn" #mySelect appNoArrow>
+               <ion-select-option *ngFor="let myeconomy of economies">
+                <h3 style="text-align: center">{{myeconomy.economyType}}</h3>
+              </ion-select-option>
+            </ion-select>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="selection-row">
+        <ion-col
+          matRipple
+          class="selection-col-traveller"
+          no-padding
+          (click)="openTraveler()"
+        >
+          <div class="selection">
+            <input
+              type="text"
+              formControlName="travellerfield"
+              class="custom-hide"
+            />
+            <div class="traveller">
+              <div *ngIf="total_traveller == 1" class="travel-icon">
+                <span>
+                  <img
+                    class="traveller-img"
+                    src="assets/icons/flights/traveller_icon.svg"
+                    alt=""
+                  />
+                </span>
+                <span class="num-travel"><b>1</b> </span>
+              </div>
+              <div *ngIf="total_traveller > 1" class="travel-icon">
+                <span>
+                  <img
+                    class="travellers-img"
+                    src="assets/icons/flights/group_user.svg"
+                    alt=""
+                  />
+                </span>
+                <span class="num-travel">
+                  <b> {{ total_traveller }}</b></span
+                >
+              </div>
+              <span class="traveller-text" *ngIf="total_traveller == 1"
+                >Traveller</span
+              >
+
+              <span class="traveller-text" *ngIf="total_traveller > 1"
+                >Travellers</span
+              >
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-col size="12">
+        <div class="bttn-block">
+          <button
+            matRipple
+            type="submit"
+            class="block-btnn"
+            routerDirection="root"
+          >
+            <img
+              src="assets/icons/flights/letsfly_ico.svg"
+              alt="Letsfly_icon"
+            />
+            LET’S FLY
+          </button>
+        </div>
+      </ion-col>
+    </div>
+  </form>
+</ion-grid>
+<ion-grid>
+  <ion-row>
+    <ion-col size="12" class="recent-card">
+      <app-recent-search
+        (sendSearchDataAll)="
+          getSearchData($event); flagDestination = 2; flagOrigin = 2
+        "
+      ></app-recent-search>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+<ion-row *ngIf="!widgetBannerReturn">
+  <ion-col size="12" no-padding>
+    <img class="roundcorner ion-margin-bottom" src="assets/icon/c700x420.jpg" />
+  </ion-col>
+</ion-row>
+
+<section class="iframe-container-returnway" *ngIf="widgetBannerReturn">
+  <iframe [src]="widgetBannerReturn" width="100%" frameborder="0" class="responsive-iframe-returnway"></iframe>
+</section>
+
+<ion-footer class="footer_common_layer footer-color">
+  <ion-toolbar text-center class="footer-color">
+    <ion-title
+      >&copy; Copyright {{ footerYear }} Travelwings. All Rights
+      Reserved</ion-title
+    >
+  </ion-toolbar>
+</ion-footer>

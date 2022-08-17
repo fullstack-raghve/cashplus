@@ -1,0 +1,36 @@
+.settings-block{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    .icon-block{
+        background-color: #dbdbdb;
+        padding: 0.25rem;
+        border-radius: 50%;
+        font-size: 1.2rem;
+        display: flex;
+        align-items: center;
+        &:first-child{
+            margin-right: 10px;
+        }
+    }
+    .phone{
+        background-color: #d22124 !important;
+        padding: 0px;
+        /* border-radius: 4px; */
+        box-shadow: none;
+        outline: 1px solid #e3e3e3;
+        p{
+            color:#ffffff!important;
+            font-family: 'latoregular'!important;
+            margin: 6px;
+            box-shadow: none;
+            border: none;
+        }
+    }
+    ion-badge{
+        font-family: 'latoregular'!important;
+   background-color: #d22124 !important;
+   color:#ffffff!important;
+    }
+
+}

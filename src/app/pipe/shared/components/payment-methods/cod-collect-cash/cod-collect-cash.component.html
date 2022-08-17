@@ -1,0 +1,581 @@
+<ion-header>
+  <ion-toolbar color="custom-color-red">
+    <ion-grid>
+      <ion-row style="display: flex;align-items: center; ">
+        <ion-col size="2" size-sm class="backArrow" >
+          <div (click)= "backTo()">
+            <img src="assets/icon/backarrowtop2.svg" alt="Back" style="width: 20px;">
+          </div>
+        </ion-col>
+        <ion-col size="8" size-sm>
+            <app-top-header></app-top-header>
+        </ion-col>
+        <ion-col class="right-img" size="2" size-sm>
+          <span> <img src="assets/icon/white_edit_icon.svg" alt="Back" class="edit-img" (click) = "editflight()">
+          </span>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+<ngx-spinner
+  bdOpacity="0.2"
+  bdColor="rgba(9,9,9,0.81)"
+  size="medium"
+  color="#fff"
+  type="ball-spin-clockwise-fade"
+  [fullScreen]="true"
+>
+  <p style="color: white;">Please wait...</p>
+</ngx-spinner>
+<ion-content>
+<form [formGroup] ="codCollectCashForm" (ngSubmit)="onSubmit()">
+<ion-row class="form-info">
+  <ion-col size="12">
+  <div class="form-group">
+    <ion-row>
+      <ion-col size='12' style="margin-top: 10px;">
+        <mat-form-field appearance="outline" class="shifttop">
+          <mat-label> Name</mat-label>        
+          <input type="text" formControlName = "enterName" matInput class="form-control" placeholder="Enter Name" trimdirective>
+          <mat-error
+            *ngIf= "codCollectCashForm.controls.enterName.errors && ( codCollectCashForm.controls.enterName.dirty || codCollectCashForm.controls.enterName.touched)">
+            {{codCollectCashForm.controls.enterName?.errors.required?.message}}
+            {{codCollectCashForm.controls.enterName?.errors?.alpha?.message}}
+            {{codCollectCashForm.controls.enterName?.errors?.minLength?.message}}
+            {{codCollectCashForm.controls.enterName?.errors?.maxLength?.message}}
+          </mat-error>       
+      </mat-form-field>   
+      </ion-col>
+    </ion-row>
+  </div>
+
+<div class="form-group">
+  <ion-row>
+    <ion-col class="pad-left" size="4">
+      <div class="form-group no-crt nationality_field fontcls"
+      (click)= "onchangeOfIsdCode('isdCode', codCollectCashForm.controls.dialcode?.value)">
+       <mat-form-field appearance="outline" class="shifttop">
+         <mat-label>ISD Code</mat-label>
+         <mat-select formControlName="dialcode">
+           <mat-option 
+           *ngFor="let country of newCountryList" [value]="country?.phoneCode">
+             {{country?.phoneCode}}
+           </mat-option>
+         </mat-select>
+         <mat-error *ngIf="codCollectCashForm.controls.dialcode?.errors && (codCollectCashForm.controls.dialcode?.dirty || codCollectCashForm.controls.dialcode.touched) ">
+           {{codCollectCashForm.controls.dialcode?.errors?.required?.message}}
+         </mat-error>
+       </mat-form-field>
+      
+     </div>
+    </ion-col>
+    <ion-col class="pad-right" size="8">
+      <div class="form-group">
+        <mat-form-field appearance="outline" class="shifttop">
+          <mat-label>Mobile Number</mat-label>
+          <input  class="change_placholder fontcls" name="mbNo" type="tel" matInput formControlName="mbNo" placeholder="Mobile Number" maxlength="10" trimdirective>
+          <mat-error *ngIf="codCollectCashForm.controls.mbNo?.errors && (codCollectCashForm.controls.mbNo?.dirty || codCollectCashForm.controls.mbNo.touched) ">
+            {{codCollectCashForm.controls.mbNo?.errors?.required?.message}}
+            {{codCollectCashForm.controls.mbNo?.errors?.numeric?.message}}
+            {{codCollectCashForm.controls.mbNo?.errors?.minLength?.message}}
+            {{codCollectCashForm.controls.mbNo?.errors?.maxLength?.message}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </ion-col>
+  </ion-row>
+</div>
+
+<div class="form-group">
+  <ion-row>
+    <ion-col size='12'>
+      <mat-form-field appearance="outline" class="shifttop">
+        <mat-label>Address</mat-label>
+      <input type="text" formControlName = "address" matInput class="form-control" placeholder="Address" trimdirective>
+        <mat-error
+        *ngIf= "codCollectCashForm.controls.address.errors && ( codCollectCashForm.controls.address.dirty || codCollectCashForm.controls.address.touched)">
+        {{codCollectCashForm.controls.address?.errors.required?.message}}
+        {{codCollectCashForm.controls.address?.errors?.alpha?.message}}
+        {{codCollectCashForm.controls.address?.errors?.maxLength?.message}}
+      </mat-error>
+       </mat-form-field>
+    </ion-col>
+  </ion-row>
+</div>
+
+<div class="form-group">
+  <ion-row>
+    <ion-col size='12'>
+      <mat-form-field appearance="outline" class="shifttop">
+        <mat-label>Building name/no, apartment no.</mat-label>
+      <input type="text" formControlName = "buildingname" matInput class="form-control" placeholder="Building name/no, apartment no." trimdirective>
+        <mat-error
+        *ngIf= "codCollectCashForm.controls.buildingname.errors && ( codCollectCashForm.controls.buildingname.dirty || codCollectCashForm.controls.buildingname.touched)">
+        {{codCollectCashForm.controls.buildingname?.errors.required?.message}}
+        {{codCollectCashForm.controls.buildingname?.errors?.alpha?.message}}
+        {{codCollectCashForm.controls.buildingname?.errors?.maxLength?.message}}
+      </mat-error>
+      </mat-form-field>
+    </ion-col>
+  </ion-row>
+</div>
+
+<div class="form-group">
+  <ion-row>
+    <ion-col size='12'>
+      <mat-form-field appearance="outline" class="shifttop">
+        <mat-label>Area</mat-label>
+      <input type="text" formControlName = "areaname" matInput class="form-control" placeholder="Building Name/No., Apartment No." trimdirective>
+        <mat-error
+        *ngIf= "codCollectCashForm.controls.areaname.errors && ( codCollectCashForm.controls.areaname.dirty || codCollectCashForm.controls.areaname.touched)">
+        {{codCollectCashForm.controls.areaname?.errors.required?.message}}
+        {{codCollectCashForm.controls.areaname?.errors?.alpha?.message}}
+        {{codCollectCashForm.controls.areaname?.errors?.maxLength?.message}}
+      </mat-error>
+      </mat-form-field>
+    </ion-col>
+  </ion-row>
+</div>
+
+<div class="form-group">
+  <ion-row>
+    <ion-col size='12'>
+      <mat-form-field appearance="outline" class="shifttop">
+        <mat-label>City</mat-label>
+        <input type="text" formControlName = "cityname" matInput class="form-control" placeholder="City" trimdirective>
+          <mat-error
+          *ngIf= "codCollectCashForm.controls.cityname.errors && ( codCollectCashForm.controls.cityname.dirty || codCollectCashForm.controls.cityname.touched)">
+          {{codCollectCashForm.controls.cityname?.errors.required?.message}}
+          {{codCollectCashForm.controls.cityname?.errors?.alpha?.message}}
+          {{codCollectCashForm.controls.cityname?.errors?.maxLength?.message}}
+        </mat-error>
+      </mat-form-field>      
+    </ion-col>
+  </ion-row>
+</div>
+
+
+<div class="form-group">
+  <ion-row>
+    <ion-col size='12'>
+      <mat-form-field appearance="outline" class="shifttop">
+        <mat-label>Zip Code</mat-label>
+        <input type="text" formControlName = "zipCode"  matInput class="form-control" placeholder="Zip Code" minlength="6" maxlength="10" trimdirective>
+          <mat-error
+          *ngIf= "codCollectCashForm.controls.zipCode.errors && ( codCollectCashForm.controls.zipCode.dirty || codCollectCashForm.controls.zipCode.touched)">
+          {{codCollectCashForm.controls.zipCode?.errors.required?.message}}
+          {{codCollectCashForm.controls.zipCode?.errors?.alpha?.message}}
+          {{codCollectCashForm.controls.zipCode?.errors?.numeric?.message}}
+          {{codCollectCashForm.controls.zipCode?.errors?.maxLength?.message}}
+        </mat-error>
+      </mat-form-field>
+    </ion-col>
+  </ion-row>
+</div>
+<div class="form-group">
+  <ion-row>
+    <ion-col size='12'>
+      <mat-form-field appearance="outline" class="shifttop">
+        <mat-label>Country</mat-label>
+        <input type="text" formControlName = "country"  matInput class="form-control" >
+          
+      </mat-form-field>
+    </ion-col>
+  </ion-row>
+</div>
+
+<!-- <div class="form-group no-crt nationality_field"
+(click)= "onSelectCountry('country', codCollectCashForm.controls.country?.value)">
+  <ion-row>
+    <ion-col size='12'>
+      <mat-form-field appearance="outline" class="fontcls">
+        <mat-label>Country</mat-label>
+        <mat-select formControlName="country" >
+          <mat-option 
+          *ngFor="let country of newCountryList" [value]="country?.countryId">
+            {{country?.countryName}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="codCollectCashForm.controls.country?.errors && (codCollectCashForm.controls.country?.dirty || codCollectCashForm.controls.country.touched) ">
+          {{codCollectCashForm.controls.country?.errors?.required?.message}}
+        </mat-error>
+      </mat-form-field>
+    </ion-col>
+  </ion-row>
+</div> -->
+
+
+<div class="form-group no-crt">
+  <ion-row>
+    <ion-col size='12'>
+      <mat-form-field appearance="outline" class="shifttop">
+        <mat-label>Preffered Time</mat-label>
+        <mat-select formControlName="time" >
+          <mat-option *ngFor = "let preftime of preferedtime;"  [value]= "preftime"> 
+            {{ preftime }}
+          </mat-option>
+        </mat-select>   
+        <mat-error
+        *ngIf= "codCollectCashForm.controls.time.errors && ( codCollectCashForm.controls.time.dirty || codCollectCashForm.controls.time.touched)">
+        {{codCollectCashForm.controls.time?.errors.required?.message}}
+      </mat-error>   
+      </mat-form-field>
+    </ion-col>
+  </ion-row>
+</div>
+
+
+<div class="form-group no-crt">
+  <ion-row>
+    <ion-col size='12'>
+      <div class="address-title">Additional Address Details</div>
+    </ion-col>
+    <ion-col size='12'>
+      <mat-form-field appearance="outline" class="shifttop">
+        <mat-label>Select Address Type</mat-label>    
+        <mat-select formControlName="addtype">
+          <mat-option *ngFor = "let addtype of addresstype;"  [value]= "addtype"> 
+            {{ addtype }}
+          </mat-option>
+        </mat-select>   
+        <mat-error
+        *ngIf= "codCollectCashForm.controls.addtype.errors && ( codCollectCashForm.controls.addtype.dirty || codCollectCashForm.controls.addtype.touched)">
+        {{codCollectCashForm.controls.addtype?.errors.required?.message}}
+      </mat-error>     
+      </mat-form-field>
+    </ion-col>
+  </ion-row>
+</div>
+
+<div class="form-group">
+  <ion-row>
+    <ion-col size='12'>
+      <mat-form-field appearance="outline" class="shifttop">
+        <mat-label>Nearest Landmark</mat-label> 
+        <input type="text" formControlName = "nearlandmark" matInput class="form-control" placeholder="Nearest Landmark" trimdirective>
+          <mat-error
+          *ngIf= "codCollectCashForm.controls.nearlandmark.errors && ( codCollectCashForm.controls.nearlandmark.dirty || codCollectCashForm.controls.nearlandmark.touched)">
+          {{codCollectCashForm.controls.nearlandmark?.errors.required?.message}}
+        </mat-error>
+      </mat-form-field>
+    </ion-col>
+  </ion-row>
+</div>
+
+<div [ngClass]= "flag ? 'hide-footer' : ''"> 
+
+<div class="form-group"  *ngIf = "islogin == 'true'">
+  <ion-row>   
+    <ion-col size='12' style="margin-bottom: 10px;">
+      <mat-checkbox class="mat-checkbox-bottom"  formControlName="saveaddCheckbox">
+        <span class="text-check ion-text-wrap" style="line-height: 28px;"
+        >Save this address</span>
+      </mat-checkbox>
+    </ion-col>
+  </ion-row>
+</div>
+
+<div class="form-group" style="margin-bottom: 10px;">
+  <ion-row>
+   
+    <ion-col size='12' style="margin-bottom: 50px;">
+      <!-- <ion-item class="box-border pb-50">
+        <form> -->
+          <mat-checkbox class="mat-checkbox-bottom terms_condition" formControlName="tncCheckbox" required>
+            <span class="text-check ion-text-wrap">
+              I understand and agree with rules and restrictions of this fare 
+              and the
+           <a class="cash-terms-underline" (click) = 'openTC()'>Terms of Use</a>
+            </span>
+          </mat-checkbox>
+          <!-- <mat-error
+          *ngIf= "codCollectCashForm.controls.tncCheckbox.errors && ( codCollectCashForm.controls.tncCheckbox)">
+          Please accept terms and conditions.
+         </mat-error>  -->
+         <mat-error
+          *ngIf="termsNCheck == true">
+          Please accept terms and conditions.
+         </mat-error> 
+        <!-- </form>
+  
+      </ion-item> -->
+    </ion-col>
+   
+  </ion-row>
+</div>
+</div>
+
+
+</ion-col>
+</ion-row>
+</form>
+<ion-grid [ngClass]= "flag ? 'hide-footer1' : 'hide-update'">
+  <ion-row>
+<ion-col>
+  <div text-center padding-top>
+    <button
+      matRipple
+      class="yello-btn-all fullwidth"
+      type="submit"
+      expand="block"
+      (click) = "editAddress()"
+    >
+      UPDATE
+    </button>
+  </div>
+</ion-col>
+  </ion-row>
+</ion-grid>
+
+</ion-content>
+<!-- {{ codCollectCashForm.value | json }} -->
+<div [ngClass]= "flag ? 'hide-footer' : ''">
+
+
+<!-- FOOTER -->
+ <!-- <ion-footer class="footer-content" *ngIf="tripType == 'oneway'">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6">
+        <div class="fareDetailss" *ngIf="!setButtonClose" (click)="fareDetails()">
+          <ion-col size="3" class="arrow">
+            <span>
+              <img src="assets/icons/flights/arrowUp_icon.svg" alt="flight"
+            /></span>
+          </ion-col>
+
+          <ion-col size="9">
+            <div>
+              <p>
+                <span class="crncy">{{ selectedflight2.flightFare.currency }}</span>
+                <span class="price">{{
+                  displayfareoneway | roundUpPrice
+                }}</span
+                ><br />
+                <span class="total">Grand Total</span>
+              </p>
+            </div>
+          </ion-col>
+        </div>
+        <div class="fareDetailss" *ngIf="setButtonClose" (click)="closePopup()" >
+          <ion-col size="3" class="arrow">
+            <span>
+              <img src="assets/icons/flights/arrowUp_icon.svg" alt="flight"
+            /></span>
+          </ion-col>
+
+          <ion-col size="9">
+            <div>
+              <p>
+                <span class="crncy">{{ selectedflight2.flightFare.currency }}</span>
+                <span class="price">{{
+                  displayfareoneway | roundUpPrice
+                }}</span
+                ><br />
+                <span class="total">Grand Total</span>
+              </p>
+            </div>
+          </ion-col>
+        </div>
+      </ion-col>
+      
+      <ion-col size="6" class="button-footer">
+        <button type="submit" class="payment-bttn" (click)="codAddAddress()">
+         DELIVER TO THIS ADDRESS
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>  -->
+<footer *ngIf="tripType == 'oneway'">
+  <div class="main-container">
+    <div class="left-container" *ngIf="!setButtonClose" (click)="fareDetails()">
+      <div >
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          <span class="aed-text">{{ selectedflight2.flightFare.currency }}</span>
+          <span class="amount">{{ displayfareoneway | roundUpPrice }}</span><br/>
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="left-container" *ngIf="setButtonClose" (click)="closePopup()">
+      <div >
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          <span class="aed-text">{{ selectedflight2.flightFare.currency }}</span>
+          <span class="amount">{{displayfareoneway | roundUpPrice}}</span>
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="right-container">
+      <button class="rqst-button" [disabled]= 'isDisabled' [ngClass]="{'rqst-button2' : isDisabled}" (click)="codAddAddress()">DELIVER TO THIS ADDRESS</button>
+    </div>
+  </div>
+</footer>
+<!-- <ion-footer class="footer-content" *ngIf="tripType == 'returnway'">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6">
+        <div class="fareDetailss" *ngIf="!setButtonClose"  (click)="fareDetails()">
+          <ion-col size="3" class="arrow">
+            <span>
+              <img src="assets/icons/flights/arrowUp_icon.svg" alt="flight"
+            /></span>
+          </ion-col>
+
+          <ion-col size="9">
+            <div>
+              <p>
+                <span class="crncy">{{ returnwaycurreny }} </span>
+                <span class="price">{{ cprice | roundUpPrice }}</span
+                ><br />
+                <span class="total">Grand Total</span>
+              </p>
+            </div>
+          </ion-col>
+        </div>
+        <div class="fareDetailss"  *ngIf="setButtonClose"  (click)="closePopup()">
+          <ion-col size="3" class="arrow">
+            <span>
+              <img src="assets/icons/flights/arrowUp_icon.svg" alt="flight"
+            /></span>
+          </ion-col>
+
+          <ion-col size="9">
+            <div>
+              <p>
+                <span class="crncy">{{ returnwaycurreny }} </span>
+                <span class="price">{{ cprice | roundUpPrice }}</span
+                ><br />
+                <span class="total">Grand Total</span>
+              </p>
+            </div>
+          </ion-col>
+        </div>
+      </ion-col>
+      <ion-col size="6" class="button-footer">
+        <button type="submit" class="payment-bttn" (click)="codAddAddress()">
+         DELIVER TO THIS ADDRESS
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer> -->
+<footer *ngIf="tripType == 'returnway'">
+  <div class="main-container">
+    <div class="left-container" *ngIf="!setButtonClose"  (click)="fareDetails()">
+      <div >
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          <span class="aed-text">{{ returnwaycurreny }}</span>
+          <span class="amount">{{ cprice | roundUpPrice }}</span>
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="left-container"  *ngIf="setButtonClose"  (click)="closePopup()">
+      <div (click)="fareDetails()">
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          <span class="aed-text">{{ returnwaycurreny }}</span>
+          <span class="amount">{{ cprice | roundUpPrice }}</span>
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="right-container">
+      <button class="rqst-button" [disabled]= 'isDisabled' [ngClass]="{'rqst-button2' : isDisabled}" (click)="codAddAddress()">DELIVER TO THIS ADDRESS</button>
+    </div>
+  </div>
+</footer>
+<!-- <ion-footer class="footer-content" *ngIf="tripType == 'multicity'">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6">
+        <div class="fareDetailss" *ngIf="!setButtonClose" (click)="fareDetails()">
+          <ion-col size="3" class="arrow">
+            <span>
+              <img src="assets/icons/flights/arrowUp_icon.svg" alt="flight"
+            /></span>
+          </ion-col>
+
+          <ion-col size="9">
+            <div>
+              <p>
+                <span class="crncy">{{ multiCityCurrency }}</span>
+                <span class="price">{{multiflightFare | roundUpPrice}}</span><br />
+                <span class="total">Grand Total</span>
+              </p>
+            </div>
+          </ion-col>
+        </div>
+        <div class="fareDetailss" *ngIf="setButtonClose" (click)="closePopup()">
+          <ion-col size="3" class="arrow">
+            <span>
+              <img src="assets/icons/flights/arrowUp_icon.svg" alt="flight"
+            /></span>
+          </ion-col>
+
+          <ion-col size="9">
+            <div>
+              <p>
+                <span class="crncy">{{ multiCityCurrency }}</span>
+                <span class="price">{{ multiflightFare | roundUpPrice}}</span><br />
+                <span class="total">Grand Total</span>
+              </p>
+            </div>
+          </ion-col>
+        </div>
+      </ion-col>
+      <ion-col size="6" class="button-footer">
+        <button type="submit" class="payment-bttn" (click)="codAddAddress()">
+         DELIVER TO THIS ADDRESS
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer> -->
+<footer *ngIf="tripType == 'multicity'">
+  <div class="main-container">
+    <div class="left-container" *ngIf="!setButtonClose" (click)="fareDetails()">
+      <div >
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          <span class="aed-text">{{ multiCityCurrency }}</span>
+          <span class="amount">{{multiflightFare | roundUpPrice}}</span>
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="left-container" *ngIf="setButtonClose" (click)="closePopup()">
+      <div (click)="fareDetails()">
+        <img src="assets/icons/flights/arrowUp_icon.svg" alt="">
+      </div>
+      <div class="footer-item">
+        <div>
+          <span class="aed-text">{{ multiCityCurrency }}</span>
+          <span class="amount">{{ multiflightFare | roundUpPrice}}</span>
+        </div>
+        <div class="g-total">Grand Total</div>
+      </div>
+    </div>
+    <div class="right-container">
+      <button class="rqst-button" [disabled]= 'isDisabled' [ngClass]="{'rqst-button2' : isDisabled}" (click)="codAddAddress()">DELIVER TO THIS ADDRESS</button>
+    </div>
+  </div>
+</footer>
+</div>
+
